@@ -1,0 +1,1798 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-bs-theme="light">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="الملف الشخصي للعميل في منصة PalPrints"
+  >
+
+  <title>الملف الشخصي | PalPrints</title>
+
+  <!-- Bootstrap Icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+  >
+
+  <!-- Cairo Font -->
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
+  >
+
+  <!-- الأساس المشترك لصفحات الملف الشخصي -->
+  <link
+    rel="stylesheet"
+    href="assets/css/pages/profile-core.css?v=4"
+  >
+
+  <!-- CSS الخاص بصفحة ملف العميل -->
+  <link
+    rel="stylesheet"
+    href="assets/css/pages/custProfile.css?v=41"
+  >
+
+  <!-- حركات الأزرار وظهور العناصر — تُحمّل أخيراً -->
+  <link
+    rel="stylesheet"
+    href="assets/css/interactions.css?v=1"
+  >
+
+</head>
+
+<body class="profile-page customer-profile-page">
+
+  <!-- تخطي إلى المحتوى -->
+
+  <a
+    href="#profileMain"
+    class="profile-skip-link"
+    data-i18n="skipToContent"
+  >
+    تخطي إلى المحتوى
+  </a>
+
+  <!-- ==================================================
+       خلفية باستيل متحركة
+       ================================================== -->
+
+  <div
+    class="pastel-space-background"
+    aria-hidden="true"
+  >
+
+    <span class="pastel-blob blob-top-start"></span>
+    <span class="pastel-blob blob-top-end"></span>
+    <span class="pastel-blob blob-bottom-start"></span>
+    <span class="pastel-blob blob-bottom-end"></span>
+    <span class="pastel-blob blob-middle-end"></span>
+
+    <span class="pastel-bubble bubble-one"></span>
+    <span class="pastel-bubble bubble-two"></span>
+    <span class="pastel-bubble bubble-three"></span>
+    <span class="pastel-bubble bubble-four"></span>
+
+    <svg
+      class="pastel-orbit orbit-top"
+      viewBox="0 0 700 240"
+      preserveAspectRatio="none"
+    >
+      <path d="M20 175 C190 230, 250 30, 680 80"></path>
+    </svg>
+
+    <svg
+      class="pastel-orbit orbit-bottom"
+      viewBox="0 0 900 260"
+      preserveAspectRatio="none"
+    >
+      <path d="M20 80 C280 230, 620 230, 880 40"></path>
+    </svg>
+
+    <span class="pastel-star star-one"></span>
+    <span class="pastel-star star-two"></span>
+    <span class="pastel-star star-three"></span>
+    <span class="pastel-star star-four"></span>
+    <span class="pastel-star star-five"></span>
+    <span class="pastel-star star-six"></span>
+    <span class="pastel-star star-seven"></span>
+
+    <span class="pastel-dots dots-one"></span>
+    <span class="pastel-dots dots-two"></span>
+    <span class="pastel-dots dots-three"></span>
+
+  </div>
+
+  <div class="profile-app">
+
+    <!-- ==================================================
+         القائمة الجانبية
+         ================================================== -->
+
+    <aside
+      class="profile-sidebar"
+      id="profileSidebar"
+      aria-label="القائمة الجانبية للعميل"
+      data-i18n-aria="sidebarLabel"
+    >
+
+      <!-- رأس القائمة -->
+
+      <div class="profile-sidebar-header">
+
+        <a
+          href="index.html"
+          class="profile-brand"
+          aria-label="الانتقال إلى الصفحة الرئيسية"
+          data-i18n-aria="goHome"
+        >
+          <img
+            src="assets/images/lalprints-logo.png"
+            class="profile-brand-image"
+            alt="PalPrints"
+          >
+        </a>
+
+        <button
+          type="button"
+          class="profile-sidebar-close"
+          id="sidebarCloseButton"
+          aria-label="إغلاق القائمة الجانبية"
+          data-i18n-aria="closeSidebar"
+        >
+          <i
+            class="bi bi-x-lg"
+            aria-hidden="true"
+          ></i>
+        </button>
+
+      </div>
+
+      <!-- روابط القائمة -->
+
+      <nav
+        class="profile-sidebar-nav"
+        aria-label="روابط حساب العميل"
+        data-i18n-aria="customerNavLabel"
+      >
+
+        <a
+          href="index.html"
+          class="profile-sidebar-link"
+        >
+          <i
+            class="bi bi-house"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="home">الرئيسية</span>
+        </a>
+
+        <!-- العنصر النشط: الملف الشخصي -->
+
+        <a
+          href="custProfile.html"
+          class="profile-sidebar-link active"
+          aria-current="page"
+        >
+          <i
+            class="bi bi-person"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="profileTitle">الملف الشخصي</span>
+        </a>
+
+        <a
+          href="orders.html"
+          class="profile-sidebar-link"
+        >
+          <i
+            class="bi bi-bag"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="myOrders">طلباتي</span>
+        </a>
+
+        <a
+          href="favorites.html"
+          class="profile-sidebar-link"
+        >
+          <i
+            class="bi bi-heart"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="favorites">المفضلة</span>
+        </a>
+
+        <!-- بديل «تصاميمي» غير المناسبة لدور العميل -->
+
+        <a
+          href="savedCustomizations.html"
+          class="profile-sidebar-link"
+        >
+          <i
+            class="bi bi-bookmark"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="savedCustomizations">تخصيصاتي المحفوظة</span>
+        </a>
+
+        <a
+          href="addresses.html"
+          class="profile-sidebar-link"
+        >
+          <i
+            class="bi bi-geo-alt"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="shippingAddresses">عناوين الشحن</span>
+        </a>
+
+        <div
+          class="profile-sidebar-divider"
+          aria-hidden="true"
+        ></div>
+
+        <a
+          href="notifications.html"
+          class="profile-sidebar-link"
+        >
+          <i
+            class="bi bi-bell"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="notifications">الإشعارات</span>
+        </a>
+
+        <a
+          href="settings.html"
+          class="profile-sidebar-link"
+        >
+          <i
+            class="bi bi-gear"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="settingsSecurity">الإعدادات والأمان</span>
+        </a>
+
+        <a
+          href="support.html"
+          class="profile-sidebar-link"
+        >
+          <i
+            class="bi bi-headset"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="support">التواصل مع الدعم الفني</span>
+        </a>
+
+      </nav>
+
+      <!-- تسجيل الخروج في نهاية القائمة -->
+
+      <button
+        type="button"
+        class="profile-sidebar-logout"
+        id="profileLogoutButton"
+        data-href="login.html"
+      >
+        <i
+          class="bi bi-box-arrow-left"
+          aria-hidden="true"
+        ></i>
+
+        <span data-i18n="logout">تسجيل الخروج</span>
+      </button>
+
+    </aside>
+
+    <!-- خلفية القائمة على الهاتف -->
+
+    <button
+      type="button"
+      class="profile-sidebar-backdrop"
+      id="sidebarBackdrop"
+      aria-label="إغلاق القائمة الجانبية"
+      data-i18n-aria="closeSidebar"
+    ></button>
+
+    <!-- ==================================================
+         مساحة الصفحة
+         ================================================== -->
+
+    <div class="profile-shell">
+
+      <!-- ==================================================
+           الشريط العلوي
+           ================================================== -->
+
+      <header class="profile-topbar">
+
+        <div class="profile-topbar-start">
+
+          <!-- السهم نفسه يفتح ويغلق القائمة الجانبية
+               ويتغيّر اتجاهه حسب الحالة واتجاه الصفحة -->
+
+          <button
+            type="button"
+            class="profile-sidebar-toggle"
+            id="sidebarToggleButton"
+            aria-controls="profileSidebar"
+            aria-expanded="true"
+            aria-label="إغلاق القائمة الجانبية"
+            data-i18n-aria="closeSidebar"
+          >
+            <i
+              class="bi bi-arrow-left"
+              id="sidebarToggleIcon"
+              aria-hidden="true"
+            ></i>
+          </button>
+
+        </div>
+        <div class="profile-topbar-actions">
+
+          <button
+            type="button"
+            class="profile-action-button"
+            id="themeToggleButton"
+            aria-label="تغيير المظهر"
+            data-i18n-aria="changeTheme"
+          >
+            <i
+              class="bi bi-moon-stars"
+              id="themeToggleIcon"
+              aria-hidden="true"
+            ></i>
+          </button>
+
+          <button
+            type="button"
+            class="profile-action-button"
+            id="languageToggleButton"
+            aria-label="تغيير اللغة"
+            data-i18n-aria="changeLanguage"
+          >
+            <i
+              class="bi bi-globe2"
+              aria-hidden="true"
+            ></i>
+          </button>
+
+          <a
+            href="cart.html"
+            class="profile-action-button"
+            aria-label="سلة المشتريات"
+            data-i18n-aria="shoppingCart"
+          >
+            <i
+              class="bi bi-cart3"
+              aria-hidden="true"
+            ></i>
+
+            <span class="profile-action-badge">2</span>
+          </a>
+
+          <a
+            href="notifications.html"
+            class="profile-action-button"
+            aria-label="الإشعارات"
+            data-i18n-aria="notifications"
+          >
+            <i
+              class="bi bi-bell"
+              aria-hidden="true"
+            ></i>
+
+            <span
+              class="profile-action-dot"
+              aria-hidden="true"
+            ></span>
+          </a>
+
+        </div>
+
+      </header>
+
+      <!-- ==================================================
+           المحتوى
+           ================================================== -->
+
+      <main
+        class="profile-main"
+        id="profileMain"
+      >
+
+        <!-- عنوان الصفحة -->
+
+        <div class="profile-page-heading">
+
+          <h1 data-i18n="profileTitle">الملف الشخصي</h1>
+
+          <ol
+            class="profile-breadcrumb"
+            aria-label="مسار التنقل"
+            data-i18n-aria="breadcrumbLabel"
+          >
+            <li>
+              <a
+                href="index.html"
+                data-i18n="home"
+              >الرئيسية</a>
+            </li>
+
+            <li aria-current="page">
+              <span data-i18n="profileTitle">الملف الشخصي</span>
+            </li>
+          </ol>
+
+        </div>
+
+        <!-- ==================================================
+             بطاقة الهيرو
+             ================================================== -->
+
+        <section
+          class="profile-card profile-hero"
+          id="profileHero"
+          aria-labelledby="customerName"
+          data-state="loading"
+        >
+
+          <div
+            class="profile-hero-cover"
+            aria-hidden="true"
+          ></div>
+
+          <!-- حالة التحميل -->
+
+          <div
+            class="profile-hero-skeleton"
+            data-state-loading
+          >
+            <span class="profile-skeleton is-avatar"></span>
+
+            <div class="profile-hero-skeleton-lines">
+              <span class="profile-skeleton is-title"></span>
+              <span class="profile-skeleton is-short"></span>
+              <span class="profile-skeleton is-line"></span>
+            </div>
+          </div>
+
+          <!-- حالة الخطأ -->
+
+          <div data-state-error>
+            <div class="profile-state is-error">
+
+              <span
+                class="profile-state-icon"
+                aria-hidden="true"
+              >
+                <i class="bi bi-wifi-off"></i>
+              </span>
+
+              <h3 data-i18n="errorTitle">تعذر تحميل البيانات</h3>
+
+              <p data-i18n="errorHeroText">
+                حدث خطأ أثناء جلب بيانات حسابك، تحقق من الاتصال ثم أعد المحاولة.
+              </p>
+
+              <button
+                type="button"
+                class="profile-button is-outline is-small"
+                data-retry-for="profileHero"
+              >
+                <i
+                  class="bi bi-arrow-clockwise"
+                  aria-hidden="true"
+                ></i>
+
+                <span data-i18n="retry">إعادة المحاولة</span>
+              </button>
+
+            </div>
+          </div>
+
+          <!-- المحتوى -->
+
+          <div
+            class="profile-hero-content is-flex"
+            data-state-content
+          >
+
+            <div class="profile-avatar-area">
+
+              <div class="profile-avatar">
+
+                <img
+                  id="profileAvatarImage"
+                  alt="صورة العميل"
+                  data-i18n-alt="customerPhoto"
+                  hidden
+                >
+
+                <i
+                  class="bi bi-person"
+                  id="profileAvatarIcon"
+                  aria-hidden="true"
+                ></i>
+
+              </div>
+
+              <label
+                class="profile-avatar-upload"
+                for="profileAvatarInput"
+                aria-label="تغيير الصورة الشخصية"
+                data-i18n-aria="changePhoto"
+              >
+                <i
+                  class="bi bi-camera"
+                  aria-hidden="true"
+                ></i>
+              </label>
+
+              <input
+                type="file"
+                id="profileAvatarInput"
+                accept="image/png,image/jpeg,image/webp"
+                hidden
+              >
+
+            </div>
+
+            <div class="profile-identity">
+
+              <p
+                class="profile-eyebrow"
+                data-i18n="welcomeBack"
+              >مرحباً بعودتك</p>
+
+              <h2
+                id="customerName"
+                data-i18n="demoCustomerName"
+              >أحمد محمد</h2>
+
+              <p
+                class="profile-role"
+                data-i18n="customerRole"
+              >عميل PalPrints</p>
+
+              <div class="profile-contact-list">
+
+                <a
+                  href="mailto:ahmedm@gmail.com"
+                  class="profile-contact-item"
+                >
+                  <i
+                    class="bi bi-envelope"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span
+                    dir="ltr"
+                    id="customerEmail"
+                  >ahmedm@gmail.com</span>
+                </a>
+
+                <a
+                  href="tel:+970591234567"
+                  class="profile-contact-item"
+                >
+                  <i
+                    class="bi bi-telephone"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span
+                    dir="ltr"
+                    id="customerPhone"
+                  >059 123 4567</span>
+                </a>
+
+                <span class="profile-contact-item">
+                  <i
+                    class="bi bi-geo-alt"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span
+                    id="customerLocation"
+                    data-i18n="location"
+                  >غزة، فلسطين</span>
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="profile-hero-actions">
+
+              <button
+                type="button"
+                class="profile-button is-outline"
+                data-dialog-open="customerEditDialog"
+              >
+                <i
+                  class="bi bi-person-gear"
+                  aria-hidden="true"
+                ></i>
+
+                <span data-i18n="editProfile">تعديل الملف الشخصي</span>
+              </button>
+
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- ==================================================
+             الطلب الحالي + ملخص النشاط
+             ================================================== -->
+
+        <div class="profile-row profile-row-2">
+
+          <!-- الطلب الحالي -->
+
+          <section
+            class="profile-card customer-current-order"
+            id="currentOrderSection"
+            aria-labelledby="currentOrderTitle"
+            data-state="loading"
+          >
+
+            <div class="profile-card-heading">
+
+              <div class="profile-card-title">
+                <span
+                  class="profile-card-icon icon-blue"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-box-seam"></i>
+                </span>
+
+                <h2
+                  id="currentOrderTitle"
+                  data-i18n="currentOrder"
+                >طلبك الحالي</h2>
+              </div>
+
+              <span
+                class="profile-badge is-approved"
+                id="currentOrderStatus"
+                role="status"
+                aria-live="polite"
+              >
+                <i
+                  class="bi bi-truck"
+                  aria-hidden="true"
+                ></i>
+
+                <span data-i18n="statusOutForDelivery">قيد التوصيل</span>
+              </span>
+
+            </div>
+
+            <!-- تحميل -->
+
+            <div data-state-loading>
+              <span class="profile-skeleton is-short"></span>
+              <span class="profile-skeleton is-block"></span>
+              <span class="profile-skeleton is-line"></span>
+            </div>
+
+            <!-- لا يوجد طلب نشط -->
+
+            <div data-state-empty>
+              <div class="profile-state">
+
+                <span
+                  class="profile-state-icon"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-bag"></i>
+                </span>
+
+                <h3 data-i18n="emptyOrderTitle">لا يوجد طلب نشط حالياً</h3>
+
+                <p data-i18n="emptyOrderText">
+                  عند إنشاء طلب جديد ستظهر هنا مراحل تنفيذه وحالة الشحن.
+                </p>
+
+                <a
+                  href="products.html"
+                  class="profile-button is-primary is-small"
+                >
+                  <i
+                    class="bi bi-plus-lg"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span data-i18n="startNewOrder">ابدأ طلباً جديداً</span>
+                </a>
+
+              </div>
+            </div>
+
+            <!-- خطأ -->
+
+            <div data-state-error>
+              <div class="profile-state is-error">
+
+                <span
+                  class="profile-state-icon"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-exclamation-triangle"></i>
+                </span>
+
+                <h3 data-i18n="errorTitle">تعذر تحميل البيانات</h3>
+
+                <p data-i18n="errorOrderText">
+                  لم نتمكن من جلب حالة طلبك الحالي، أعد المحاولة بعد قليل.
+                </p>
+
+                <button
+                  type="button"
+                  class="profile-button is-outline is-small"
+                  data-retry-for="currentOrderSection"
+                >
+                  <i
+                    class="bi bi-arrow-clockwise"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span data-i18n="retry">إعادة المحاولة</span>
+                </button>
+
+              </div>
+            </div>
+
+            <!-- المحتوى -->
+
+            <div
+              class="is-flex customer-order-body"
+              data-state-content
+            >
+
+              <p class="customer-order-number">
+                <span data-i18n="orderNumber">رقم الطلب</span>:
+                <strong
+                  dir="ltr"
+                  id="currentOrderNumber"
+                >#PP-2048</strong>
+              </p>
+
+              <!-- مراحل التتبع -->
+
+              <ol
+                class="customer-tracker"
+                id="orderTracker"
+                aria-live="polite"
+                aria-label="مراحل تنفيذ الطلب"
+                data-i18n-aria="trackerLabel"
+              >
+
+                <li class="customer-tracker-step is-done">
+                  <span
+                    class="customer-tracker-dot"
+                    aria-hidden="true"
+                  >
+                    <i class="bi bi-check-lg"></i>
+                  </span>
+
+                  <span
+                    class="customer-tracker-label"
+                    data-i18n="stepConfirmed"
+                  >تم التأكيد</span>
+                </li>
+
+                <li class="customer-tracker-step is-done">
+                  <span
+                    class="customer-tracker-dot"
+                    aria-hidden="true"
+                  >
+                    <i class="bi bi-check-lg"></i>
+                  </span>
+
+                  <span
+                    class="customer-tracker-label"
+                    data-i18n="stepPrinting"
+                  >قيد الطباعة</span>
+                </li>
+
+                <li class="customer-tracker-step is-done">
+                  <span
+                    class="customer-tracker-dot"
+                    aria-hidden="true"
+                  >
+                    <i class="bi bi-check-lg"></i>
+                  </span>
+
+                  <span
+                    class="customer-tracker-label"
+                    data-i18n="stepShipped"
+                  >تم الشحن</span>
+                </li>
+
+                <li
+                  class="customer-tracker-step is-current"
+                  aria-current="step"
+                >
+                  <span
+                    class="customer-tracker-dot"
+                    aria-hidden="true"
+                  >
+                    <i class="bi bi-truck"></i>
+                  </span>
+
+                  <span
+                    class="customer-tracker-label"
+                    data-i18n="stepOutForDelivery"
+                  >قيد التوصيل</span>
+                </li>
+
+              </ol>
+
+              <a
+                href="orderTracking.html?order=PP-2048"
+                class="profile-button is-primary"
+                id="trackOrderButton"
+              >
+                <i
+                  class="bi bi-geo-alt"
+                  aria-hidden="true"
+                ></i>
+
+                <span data-i18n="trackOrder">تتبع الطلب</span>
+              </a>
+
+            </div>
+
+          </section>
+
+          <!-- ملخص النشاط -->
+
+          <section
+            class="profile-card customer-activity"
+            id="activitySection"
+            aria-labelledby="activityTitle"
+            data-state="loading"
+          >
+
+            <div class="profile-card-heading">
+              <div class="profile-card-title">
+                <span
+                  class="profile-card-icon"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-graph-up-arrow"></i>
+                </span>
+
+                <h2
+                  id="activityTitle"
+                  data-i18n="activitySummary"
+                >ملخص نشاطك</h2>
+              </div>
+            </div>
+
+            <div data-state-loading>
+              <div class="profile-skeleton-grid">
+                <span class="profile-skeleton is-block"></span>
+                <span class="profile-skeleton is-block"></span>
+                <span class="profile-skeleton is-block"></span>
+                <span class="profile-skeleton is-block"></span>
+              </div>
+            </div>
+
+            <div data-state-error>
+              <div class="profile-state is-error">
+
+                <span
+                  class="profile-state-icon"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-exclamation-triangle"></i>
+                </span>
+
+                <h3 data-i18n="errorTitle">تعذر تحميل البيانات</h3>
+
+                <button
+                  type="button"
+                  class="profile-button is-outline is-small"
+                  data-retry-for="activitySection"
+                >
+                  <i
+                    class="bi bi-arrow-clockwise"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span data-i18n="retry">إعادة المحاولة</span>
+                </button>
+
+              </div>
+            </div>
+
+            <div data-state-content>
+
+              <div class="profile-stat-grid is-two">
+
+                <article class="profile-stat">
+                  <span
+                    class="profile-stat-icon"
+                    aria-hidden="true"
+                  >
+                    <i class="bi bi-bag"></i>
+                  </span>
+
+                  <div class="profile-stat-body">
+                    <strong data-counter="1">1</strong>
+
+                    <span data-i18n="activeOrders">طلب نشط</span>
+                  </div>
+                </article>
+
+                <article class="profile-stat">
+                  <span
+                    class="profile-stat-icon"
+                    aria-hidden="true"
+                  >
+                    <i class="bi bi-truck"></i>
+                  </span>
+
+                  <div class="profile-stat-body">
+                    <strong data-counter="2">2</strong>
+
+                    <span data-i18n="outForDelivery">قيد التوصيل</span>
+                  </div>
+                </article>
+
+                <article class="profile-stat">
+                  <span
+                    class="profile-stat-icon"
+                    aria-hidden="true"
+                  >
+                    <i class="bi bi-check2-circle"></i>
+                  </span>
+
+                  <div class="profile-stat-body">
+                    <strong data-counter="8">8</strong>
+
+                    <span data-i18n="completedOrders">طلبات مكتملة</span>
+                  </div>
+                </article>
+
+                <article class="profile-stat">
+                  <span
+                    class="profile-stat-icon"
+                    aria-hidden="true"
+                  >
+                    <i class="bi bi-heart"></i>
+                  </span>
+
+                  <div class="profile-stat-body">
+                    <strong data-counter="12">12</strong>
+
+                    <span data-i18n="inFavorites">في المفضلة</span>
+                  </div>
+                </article>
+
+              </div>
+
+            </div>
+
+          </section>
+
+        </div>
+
+        <!-- ==================================================
+             الفرق بين المفضلة والتخصيصات المحفوظة
+             ================================================== -->
+
+        <section
+          class="profile-card customer-library"
+          aria-labelledby="libraryTitle"
+        >
+
+          <div class="profile-card-heading">
+            <div class="profile-card-title">
+              <span
+                class="profile-card-icon"
+                aria-hidden="true"
+              >
+                <i class="bi bi-collection"></i>
+              </span>
+
+              <div>
+                <h2
+                  id="libraryTitle"
+                  data-i18n="myLibrary"
+                >مكتبتي</h2>
+
+                <p data-i18n="myLibraryDescription">
+                  فرقٌ بسيط بين ما أعجبك وما بدأت بتخصيصه.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="customer-library-grid">
+
+            <a
+              href="favorites.html"
+              class="customer-library-item"
+            >
+              <span
+                class="customer-library-icon is-pink"
+                aria-hidden="true"
+              >
+                <i class="bi bi-heart"></i>
+              </span>
+
+              <div>
+                <h3 data-i18n="favorites">المفضلة</h3>
+
+                <p data-i18n="favoritesDescription">
+                  التصاميم والمنتجات التي أعجبتك واحتفظت بها للرجوع إليها.
+                </p>
+              </div>
+
+              <span class="customer-library-count">12</span>
+            </a>
+
+            <a
+              href="savedCustomizations.html"
+              class="customer-library-item"
+            >
+              <span
+                class="customer-library-icon is-purple"
+                aria-hidden="true"
+              >
+                <i class="bi bi-bookmark"></i>
+              </span>
+
+              <div>
+                <h3 data-i18n="savedCustomizations">تخصيصاتي المحفوظة</h3>
+
+                <p data-i18n="savedCustomizationsDescription">
+                  منتجات خصّصتها بتصميمك ولم تُكمل طلبها بعد، يمكنك متابعتها لاحقاً.
+                </p>
+              </div>
+
+              <span class="customer-library-count">3</span>
+            </a>
+
+          </div>
+
+        </section>
+
+        <!-- ==================================================
+             عناوين الشحن + تفضيلات الإشعارات
+             ================================================== -->
+
+        <div class="profile-row profile-row-2">
+
+          <!-- عناوين الشحن -->
+
+          <section
+            class="profile-card customer-addresses"
+            id="addressesSection"
+            aria-labelledby="addressesTitle"
+            data-state="loading"
+          >
+
+            <div class="profile-card-heading">
+
+              <div class="profile-card-title">
+                <span
+                  class="profile-card-icon icon-blue"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-geo-alt"></i>
+                </span>
+
+                <h2
+                  id="addressesTitle"
+                  data-i18n="shippingAddresses"
+                >عناوين الشحن</h2>
+              </div>
+
+              <button
+                type="button"
+                class="profile-button is-outline is-small"
+                id="addAddressButton"
+              >
+                <i
+                  class="bi bi-plus-lg"
+                  aria-hidden="true"
+                ></i>
+
+                <span data-i18n="addAddress">إضافة عنوان</span>
+              </button>
+
+            </div>
+
+            <div data-state-loading>
+              <span class="profile-skeleton is-block"></span>
+              <span class="profile-skeleton is-block"></span>
+            </div>
+
+            <div data-state-empty>
+              <div class="profile-state">
+
+                <span
+                  class="profile-state-icon"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-geo"></i>
+                </span>
+
+                <h3 data-i18n="emptyAddressTitle">لا توجد عناوين محفوظة</h3>
+
+                <p data-i18n="emptyAddressText">
+                  أضف عنوان الشحن الأول ليصل طلبك بسرعة إلى المكان الصحيح.
+                </p>
+
+                <button
+                  type="button"
+                  class="profile-button is-primary is-small"
+                  data-add-address
+                >
+                  <i
+                    class="bi bi-plus-lg"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span data-i18n="addAddress">إضافة عنوان</span>
+                </button>
+
+              </div>
+            </div>
+
+            <div data-state-error>
+              <div class="profile-state is-error">
+
+                <span
+                  class="profile-state-icon"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-exclamation-triangle"></i>
+                </span>
+
+                <h3 data-i18n="errorTitle">تعذر تحميل البيانات</h3>
+
+                <p data-i18n="errorAddressText">
+                  لم نتمكن من جلب عناوين الشحن الخاصة بك.
+                </p>
+
+                <button
+                  type="button"
+                  class="profile-button is-outline is-small"
+                  data-retry-for="addressesSection"
+                >
+                  <i
+                    class="bi bi-arrow-clockwise"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span data-i18n="retry">إعادة المحاولة</span>
+                </button>
+
+              </div>
+            </div>
+
+            <div data-state-content>
+              <ul
+                class="customer-address-list"
+                id="addressList"
+              ></ul>
+            </div>
+
+          </section>
+
+          <!-- تفضيلات الإشعارات -->
+
+          <section
+            class="profile-card customer-preferences"
+            aria-labelledby="preferencesTitle"
+          >
+
+            <div class="profile-card-heading">
+              <div class="profile-card-title">
+                <span
+                  class="profile-card-icon"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-bell"></i>
+                </span>
+
+                <h2
+                  id="preferencesTitle"
+                  data-i18n="notificationPreferences"
+                >تفضيلات الإشعارات</h2>
+              </div>
+            </div>
+
+            <div class="profile-preference-list is-single">
+
+              <div class="profile-preference">
+
+                <span class="profile-preference-text">
+                  <i
+                    class="bi bi-envelope"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span
+                    id="preferenceOffersLabel"
+                    data-i18n="preferenceOffers"
+                  >العروض والتحديثات عبر البريد الإلكتروني</span>
+                </span>
+
+                <label class="profile-switch">
+                  <input
+                    type="checkbox"
+                    data-preference="customer-offers"
+                    data-preference-label="العروض والتحديثات عبر البريد الإلكتروني"
+                    aria-labelledby="preferenceOffersLabel"
+                    checked
+                  >
+
+                  <span
+                    class="profile-switch-track"
+                    aria-hidden="true"
+                  ></span>
+                </label>
+
+              </div>
+
+              <div class="profile-preference">
+
+                <span class="profile-preference-text">
+                  <i
+                    class="bi bi-box-seam"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span
+                    id="preferenceOrderLabel"
+                    data-i18n="preferenceOrderUpdates"
+                  >تحديثات حالة الطلب</span>
+                </span>
+
+                <label class="profile-switch">
+                  <input
+                    type="checkbox"
+                    data-preference="customer-order-updates"
+                    data-preference-label="تحديثات حالة الطلب"
+                    aria-labelledby="preferenceOrderLabel"
+                    checked
+                  >
+
+                  <span
+                    class="profile-switch-track"
+                    aria-hidden="true"
+                  ></span>
+                </label>
+
+              </div>
+
+            </div>
+
+            <p class="profile-card-note">
+              <i
+                class="bi bi-shield-lock"
+                aria-hidden="true"
+              ></i>
+
+              <span data-i18n="securityNote">
+                لتغيير كلمة المرور وإعدادات الأمان انتقل إلى «الإعدادات والأمان».
+              </span>
+            </p>
+
+            <a
+              href="settings.html"
+              class="profile-button is-ghost is-small"
+            >
+              <i
+                class="bi bi-gear"
+                aria-hidden="true"
+              ></i>
+
+              <span data-i18n="settingsSecurity">الإعدادات والأمان</span>
+            </a>
+
+          </section>
+
+        </div>
+
+      </main>
+
+    </div>
+
+  </div>
+
+  <!-- ==================================================
+       نافذة تعديل الملف الشخصي
+       ملاحظة: لا تحتوي على كلمة المرور إطلاقاً
+       ================================================== -->
+
+  <dialog
+    class="profile-dialog"
+    id="customerEditDialog"
+    aria-labelledby="customerEditTitle"
+  >
+
+    <form
+      method="dialog"
+      id="customerEditForm"
+      novalidate
+    >
+
+      <header class="profile-dialog-header">
+
+        <div>
+          <h2
+            id="customerEditTitle"
+            data-i18n="editProfile"
+          >تعديل الملف الشخصي</h2>
+
+          <p data-i18n="editProfileDescription">
+            حدّث بياناتك الأساسية ثم احفظ التغييرات.
+          </p>
+        </div>
+
+        <button
+          type="button"
+          class="profile-dialog-close"
+          data-dialog-close
+          aria-label="إغلاق"
+          data-i18n-aria="close"
+        >
+          <i
+            class="bi bi-x-lg"
+            aria-hidden="true"
+          ></i>
+        </button>
+
+      </header>
+
+      <div class="profile-dialog-body">
+
+        <div class="profile-field-grid">
+
+          <div class="profile-field">
+            <label for="editFullName" data-i18n="fullName">الاسم الكامل</label>
+
+            <div class="profile-input-shell">
+              <i
+                class="bi bi-person"
+                aria-hidden="true"
+              ></i>
+
+              <input
+                type="text"
+                id="editFullName"
+                name="fullName"
+                autocomplete="name"
+                required
+              >
+            </div>
+
+            <small
+              class="profile-field-error"
+              data-i18n="requiredField"
+            >هذا الحقل مطلوب.</small>
+          </div>
+
+          <div class="profile-field">
+            <label for="editEmail" data-i18n="email">البريد الإلكتروني</label>
+
+            <div class="profile-input-shell">
+              <i
+                class="bi bi-envelope"
+                aria-hidden="true"
+              ></i>
+
+              <input
+                type="email"
+                id="editEmail"
+                name="email"
+                autocomplete="email"
+                dir="ltr"
+                required
+              >
+            </div>
+
+            <small
+              class="profile-field-error"
+              data-i18n="invalidEmail"
+            >أدخل بريداً إلكترونياً صحيحاً.</small>
+          </div>
+
+          <div class="profile-field">
+            <label for="editPhone" data-i18n="phone">رقم الهاتف</label>
+
+            <div class="profile-input-shell">
+              <i
+                class="bi bi-telephone"
+                aria-hidden="true"
+              ></i>
+
+              <input
+                type="tel"
+                id="editPhone"
+                name="phone"
+                autocomplete="tel"
+                dir="ltr"
+                required
+              >
+            </div>
+
+            <small
+              class="profile-field-error"
+              data-i18n="requiredField"
+            >هذا الحقل مطلوب.</small>
+          </div>
+
+          <div class="profile-field">
+            <label for="editCity" data-i18n="city">المدينة</label>
+
+            <div class="profile-input-shell">
+              <i
+                class="bi bi-geo-alt"
+                aria-hidden="true"
+              ></i>
+
+              <input
+                type="text"
+                id="editCity"
+                name="city"
+                required
+              >
+            </div>
+
+            <small
+              class="profile-field-error"
+              data-i18n="requiredField"
+            >هذا الحقل مطلوب.</small>
+          </div>
+
+        </div>
+
+        <p class="profile-card-note">
+          <i
+            class="bi bi-shield-lock"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="passwordMovedNote">
+            تغيير كلمة المرور أصبح ضمن «الإعدادات والأمان» لحماية حسابك.
+          </span>
+        </p>
+
+      </div>
+
+      <footer class="profile-dialog-footer">
+
+        <button
+          type="button"
+          class="profile-button is-ghost"
+          data-dialog-close
+          data-i18n="cancel"
+        >إلغاء</button>
+
+        <button
+          type="submit"
+          class="profile-button is-primary"
+          id="customerEditSave"
+        >
+          <i
+            class="bi bi-check2"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="saveChanges">حفظ التغييرات</span>
+        </button>
+
+      </footer>
+
+    </form>
+
+  </dialog>
+
+  <!-- ==================================================
+       نافذة إضافة أو تعديل عنوان
+       ================================================== -->
+
+  <dialog
+    class="profile-dialog"
+    id="addressDialog"
+    aria-labelledby="addressDialogTitle"
+  >
+
+    <form
+      method="dialog"
+      id="addressForm"
+      novalidate
+    >
+
+      <header class="profile-dialog-header">
+
+        <div>
+          <h2
+            id="addressDialogTitle"
+            data-i18n="addAddress"
+          >إضافة عنوان</h2>
+
+          <p data-i18n="addressDialogDescription">
+            أدخل تفاصيل العنوان بدقة ليصل الطلب في الوقت المحدد.
+          </p>
+        </div>
+
+        <button
+          type="button"
+          class="profile-dialog-close"
+          data-dialog-close
+          aria-label="إغلاق"
+          data-i18n-aria="close"
+        >
+          <i
+            class="bi bi-x-lg"
+            aria-hidden="true"
+          ></i>
+        </button>
+
+      </header>
+
+      <div class="profile-dialog-body">
+
+        <input
+          type="hidden"
+          id="addressId"
+        >
+
+        <div class="profile-field-grid">
+
+          <div class="profile-field">
+            <label for="addressTitle" data-i18n="addressLabel">اسم العنوان</label>
+
+            <div class="profile-input-shell">
+              <i
+                class="bi bi-tag"
+                aria-hidden="true"
+              ></i>
+
+              <input
+                type="text"
+                id="addressTitle"
+                data-i18n-placeholder="addressLabelHint"
+                placeholder="المنزل، العمل…"
+                required
+              >
+            </div>
+
+            <small
+              class="profile-field-error"
+              data-i18n="requiredField"
+            >هذا الحقل مطلوب.</small>
+          </div>
+
+          <div class="profile-field">
+            <label for="addressCity" data-i18n="city">المدينة</label>
+
+            <div class="profile-input-shell">
+              <i
+                class="bi bi-buildings"
+                aria-hidden="true"
+              ></i>
+
+              <input
+                type="text"
+                id="addressCity"
+                required
+              >
+            </div>
+
+            <small
+              class="profile-field-error"
+              data-i18n="requiredField"
+            >هذا الحقل مطلوب.</small>
+          </div>
+
+          <div class="profile-field is-wide">
+            <label for="addressDetails" data-i18n="addressDetails">تفاصيل العنوان</label>
+
+            <div class="profile-input-shell">
+              <i
+                class="bi bi-signpost"
+                aria-hidden="true"
+              ></i>
+
+              <input
+                type="text"
+                id="addressDetails"
+                data-i18n-placeholder="addressDetailsHint"
+                placeholder="الحي، الشارع، أقرب معلم"
+                required
+              >
+            </div>
+
+            <small
+              class="profile-field-error"
+              data-i18n="requiredField"
+            >هذا الحقل مطلوب.</small>
+          </div>
+
+          <div class="profile-field">
+            <label for="addressPhone" data-i18n="phone">رقم الهاتف</label>
+
+            <div class="profile-input-shell">
+              <i
+                class="bi bi-telephone"
+                aria-hidden="true"
+              ></i>
+
+              <input
+                type="tel"
+                id="addressPhone"
+                dir="ltr"
+                required
+              >
+            </div>
+
+            <small
+              class="profile-field-error"
+              data-i18n="requiredField"
+            >هذا الحقل مطلوب.</small>
+          </div>
+
+          <div class="profile-field">
+            <span data-i18n="defaultAddress">العنوان الافتراضي</span>
+
+            <label class="customer-default-toggle">
+              <input
+                type="checkbox"
+                id="addressDefault"
+              >
+
+              <span data-i18n="setAsDefault">تعيين كعنوان افتراضي</span>
+            </label>
+          </div>
+
+        </div>
+
+      </div>
+
+      <footer class="profile-dialog-footer">
+
+        <button
+          type="button"
+          class="profile-button is-ghost"
+          data-dialog-close
+          data-i18n="cancel"
+        >إلغاء</button>
+
+        <button
+          type="submit"
+          class="profile-button is-primary"
+        >
+          <i
+            class="bi bi-check2"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="saveAddress">حفظ العنوان</span>
+        </button>
+
+      </footer>
+
+    </form>
+
+  </dialog>
+
+  <!-- ==================================================
+       رسالة النجاح والخطأ
+       ================================================== -->
+
+  <dialog
+    class="profile-dialog"
+    id="addressDeleteDialog"
+    aria-labelledby="addressDeleteTitle"
+    aria-describedby="addressDeleteDescription"
+  >
+    <div>
+      <header class="profile-dialog-header">
+        <div>
+          <h2 id="addressDeleteTitle" data-i18n="addressDeleteTitle">حذف عنوان الشحن</h2>
+          <p id="addressDeleteDescription" data-i18n="addressDeleteDescription">
+            سيتم حذف العنوان التالي من حسابك. لن يتم تغيير أي طلب قائم.
+          </p>
+        </div>
+
+        <button
+          type="button"
+          class="profile-dialog-close"
+          data-dialog-close
+          aria-label="إغلاق"
+          data-i18n-aria="close"
+        >
+          <i class="bi bi-x-lg" aria-hidden="true"></i>
+        </button>
+      </header>
+
+      <div class="profile-dialog-body">
+        <div class="customer-delete-summary">
+          <i class="bi bi-exclamation-triangle" aria-hidden="true"></i>
+          <div>
+            <span data-i18n="addressDeleteConfirm">هل تريد حذف هذا العنوان؟</span>
+            <strong class="customer-delete-address-name" id="addressDeleteName"></strong>
+          </div>
+        </div>
+      </div>
+
+      <footer class="profile-dialog-footer">
+        <button
+          type="button"
+          class="profile-button is-ghost"
+          id="addressDeleteCancel"
+          data-dialog-close
+          data-i18n="cancel"
+        >إلغاء</button>
+
+        <button
+          type="button"
+          class="profile-button customer-delete-confirm"
+          id="addressDeleteConfirmButton"
+        >
+          <i class="bi bi-trash3" aria-hidden="true"></i>
+          <span data-i18n="confirmDeleteAddress">حذف العنوان</span>
+        </button>
+      </footer>
+    </div>
+  </dialog>
+
+  <div
+    class="profile-toast"
+    id="profileToast"
+    role="status"
+    aria-live="polite"
+    aria-atomic="true"
+  >
+
+    <span
+      class="profile-toast-icon"
+      aria-hidden="true"
+    >
+      <i class="bi bi-check2"></i>
+    </span>
+
+    <span id="profileToastMessage"></span>
+
+  </div>
+
+  <!-- JavaScript -->
+
+  <script src="assets/js/pages/profile-core.js?v=1"></script>
+  <script src="assets/js/pages/custProfile.js?v=41"></script>
+  <script src="assets/js/interactions.js?v=1"></script>
+
+</body>
+
+</html>

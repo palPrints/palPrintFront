@@ -1,0 +1,40 @@
+[data-bs-theme="dark"] {
+  --body-bg: #080b1a;
+  --surface-bg: #101529;
+  --surface-soft: #151b33;
+  --surface-blue: #101b32;
+  --surface-purple: #1b1431;
+  --text-primary: #f4f6ff;
+  --text-secondary: #b3bad1;
+  --text-muted: #818aa6;
+  --border-color: #2b324b;
+  --border-light: #212841;
+  --shadow-xs: 0 2px 8px rgb(0 0 0 / 15%);
+  --shadow-sm: 0 8px 24px rgb(0 0 0 / 22%);
+  --shadow-md: 0 15px 40px rgb(0 0 0 / 30%);
+  --shadow-lg: 0 25px 70px rgb(0 0 0 / 38%);
+  --bs-body-bg: var(--body-bg);
+  --bs-body-color: var(--text-primary);
+  --bs-border-color: var(--border-color);
+}
+
+[data-bs-theme="dark"] .main-header,
+[data-bs-theme="dark"] .auth-header { background: rgb(16 21 41 / 90%); }
+
+[data-bs-theme="dark"] .app-card,
+[data-bs-theme="dark"] .auth-card,
+[data-bs-theme="dark"] .modal-content,
+[data-bs-theme="dark"] .dropdown-menu {
+  color: var(--text-primary);
+  background-color: var(--surface-bg);
+  border-color: var(--border-color);
+}
+
+[data-bs-theme="dark"] .form-control,
+[data-bs-theme="dark"] .form-select {
+  color: var(--text-primary);
+  background-color: var(--surface-soft);
+  border-color: var(--border-color);
+}
+
+[data-bs-theme="dark"] .form-control::placeholder { color: var(--text-muted); }

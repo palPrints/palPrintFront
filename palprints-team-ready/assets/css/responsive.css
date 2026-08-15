@@ -1,0 +1,24 @@
+@media (max-width: 991.98px) {
+  .main-header .navbar-collapse {
+    padding: 18px;
+    background: var(--surface-bg);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+  }
+  .main-header .nav-link { padding: 10px 8px !important; }
+  .main-header .nav-link::after { display: none; }
+  .header-actions { margin-top: 16px; flex-wrap: wrap; }
+}
+
+@media (max-width: 767.98px) {
+  .section-space { padding-block: 48px; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+  .auth-header { margin: 10px; padding: 10px 14px; }
+  .auth-header .main-logo { width: 110px; }
+}
+
+@media (max-width: 575.98px) {
+  .container-palprints { width: min(100% - 22px, 1320px); }
+  .btn-brand, .btn-brand-outline { width: 100%; }
+}

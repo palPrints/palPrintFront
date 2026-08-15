@@ -1,0 +1,518 @@
+/* =========================================================
+   PalPrints — Printing House Profile
+   الأنماط الخاصة بصفحة الملف الشخصي للمطبعة
+
+   File: assets/css/pages/printingProfile.css
+   يعتمد على: assets/css/pages/profile-core.css
+
+   الترتيب:
+   01. الهيكل العظمي للهيرو
+   02. تنبيه حالة الاعتماد
+   03. شريحة واتساب
+   04. طلبات تحتاج إجراء
+   05. خدمات ومنتجات الطباعة
+   06. وثائق الاعتماد
+   07. بيانات التحويل
+   08. تفضيلات الإشعارات
+   09. التجاوب
+   ========================================================= */
+
+
+/* =========================================================
+   00. عرض مساحة المحتوى
+   =========================================================
+   نفس محاذاة صفحتي العميل والمصمم: الهيدر والبطاقات بعرض
+   مرئي موحّد، من دون تغيير أبعاد أو موضع الشريط الجانبي. */
+
+.printing-profile-page {
+  --printing-content-max: 1060px;
+}
+
+.printing-profile-page .profile-topbar {
+  max-width: var(--printing-content-max);
+}
+
+.printing-profile-page .profile-main {
+  max-width: calc(var(--printing-content-max) + 44px);
+}
+
+
+/* =========================================================
+   01. الهيكل العظمي للهيرو
+   ========================================================= */
+
+.profile-hero-skeleton {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  padding: 22px 24px 24px;
+}
+
+[data-state="loading"] > .profile-hero-skeleton {
+  display: flex;
+}
+
+.profile-skeleton.is-avatar {
+  width: 116px;
+  height: 116px;
+
+  flex: 0 0 116px;
+
+  border-radius: 50%;
+}
+
+.profile-hero-skeleton-lines {
+  flex: 1;
+  min-width: 0;
+}
+
+.profile-hero [data-state-error] {
+  padding: 20px 24px 24px;
+}
+
+/* شعار المطبعة داخل إطار دائري */
+
+.printing-profile-page .profile-avatar {
+  color: var(--profile-blue);
+  font-size: 46px;
+}
+
+.printing-profile-page .profile-identity .profile-badge {
+  align-self: flex-start;
+
+  margin-bottom: 2px;
+}
+
+/* أزرار الهيرو في صف أفقي أسفل بيانات التواصل
+   مطابق للتصميم المرجعي — تبدأ من جهة اليمين في RTL */
+
+.printer-hero-actions {
+  width: 100%;
+  min-width: 0;
+
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+
+  margin-top: 8px;
+}
+
+.printer-hero-actions .profile-button {
+  flex: 0 0 auto;
+}
+
+
+/* =========================================================
+   02. تنبيه حالة الاعتماد
+   ========================================================= */
+
+.printer-approval-alert {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+
+  padding: 15px 18px;
+
+  background: var(--profile-warning-soft);
+
+  border: 1px solid rgb(224 138 18 / 30%);
+  border-radius: var(--profile-radius);
+}
+
+.printer-approval-alert[hidden] {
+  display: none;
+}
+
+.printer-approval-alert.is-rejected {
+  background: var(--profile-danger-soft);
+  border-color: rgb(229 56 79 / 30%);
+}
+
+.printer-approval-alert.is-incomplete {
+  background: var(--profile-info-soft);
+  border-color: rgb(21 143 221 / 30%);
+}
+
+.printer-approval-alert-icon {
+  width: 40px;
+  height: 40px;
+
+  flex: 0 0 40px;
+
+  display: grid;
+  place-items: center;
+
+  color: var(--profile-warning);
+  background: var(--profile-surface);
+
+  border-radius: 12px;
+
+  font-size: 19px;
+}
+
+.printer-approval-alert.is-rejected .printer-approval-alert-icon {
+  color: var(--profile-danger);
+}
+
+.printer-approval-alert.is-incomplete .printer-approval-alert-icon {
+  color: var(--profile-info);
+}
+
+.printer-approval-alert > div {
+  flex: 1;
+  min-width: 200px;
+}
+
+.printer-approval-alert h2 {
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.printer-approval-alert p {
+  margin-top: 3px;
+
+  color: var(--profile-secondary);
+
+  font-size: 13px;
+  font-weight: 500;
+}
+
+
+/* =========================================================
+   03. شريحة واتساب
+   ========================================================= */
+
+.profile-contact-item.is-whatsapp {
+  gap: 10px;
+
+  padding-inline-end: 6px;
+}
+
+.profile-contact-item.is-whatsapp > i {
+  color: var(--profile-whatsapp);
+}
+
+.profile-contact-item.is-whatsapp .profile-badge {
+  min-height: 26px;
+
+  padding: 0 9px;
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   04. طلبات تحتاج إجراء
+   ========================================================= */
+
+.printer-orders-button {
+  margin-top: 14px;
+}
+
+.printer-action-orders .profile-stat.is-stacked strong {
+  font-size: 24px;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (min-width: 992px) {
+  .printing-profile-page .profile-row-2:has(> .printer-action-orders) {
+    grid-template-columns: minmax(0, 1.16fr) minmax(320px, 0.84fr);
+  }
+
+  .printing-profile-page .profile-row-2:has(> .printer-services) {
+    grid-template-columns: minmax(0, 1.16fr) minmax(320px, 0.84fr);
+  }
+
+}
+
+@media (min-width: 1280px) {
+  .printing-profile-page .profile-row-3:has(> .printer-documents) {
+    grid-template-columns: minmax(300px, 1.08fr) minmax(280px, 0.96fr) minmax(280px, 0.96fr);
+  }
+}
+
+
+/* =========================================================
+   05. خدمات ومنتجات الطباعة
+   ========================================================= */
+
+.printer-service-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+
+  margin-bottom: 12px;
+}
+
+.printer-service {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+
+  min-height: 84px;
+  padding: 14px 10px;
+
+  color: var(--profile-secondary);
+  background: var(--profile-soft);
+
+  border: 1px solid var(--profile-border);
+  border-radius: 14px;
+
+  font-size: 12.5px;
+  font-weight: 700;
+  text-align: center;
+
+  transition: opacity var(--profile-transition);
+}
+
+.printer-service i {
+  color: var(--profile-primary);
+  font-size: 22px;
+}
+
+.printer-service.is-off {
+  opacity: 0.55;
+}
+
+/* ما يمكن إدارته — سطر واحد هادئ مطابق للتصميم */
+
+.printer-service-managed {
+  margin-bottom: 14px;
+
+  color: var(--profile-muted);
+
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+}
+
+
+/* =========================================================
+   06. وثائق الاعتماد
+   ========================================================= */
+
+.printer-document-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.printer-document {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+
+  min-height: 46px;
+
+  padding: 11px 13px;
+
+  background: var(--profile-soft);
+
+  border: 1px solid var(--profile-border);
+  border-radius: 12px;
+}
+
+.printer-document-name {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  color: var(--profile-text);
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.printer-document-name i {
+  color: var(--profile-success);
+  font-size: 16px;
+}
+
+.printer-document.is-pending .printer-document-name i {
+  color: var(--profile-warning);
+}
+
+.printer-document.is-missing .printer-document-name i,
+.printer-document.is-rejected .printer-document-name i {
+  color: var(--profile-danger);
+}
+
+
+/* =========================================================
+   07. بيانات التحويل
+   ========================================================= */
+
+.printer-bank .profile-card-icon {
+  color: var(--profile-secondary);
+  background: var(--profile-neutral-soft);
+}
+
+.printer-bank .profile-masked-value {
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.printer-bank .profile-card-note,
+.printer-documents .profile-card-note {
+  margin-bottom: 12px;
+}
+
+
+/* =========================================================
+   07-ب. محاذاة أزرار البطاقات
+   =========================================================
+   الأزرار السفلية في البطاقات الثلاث تُثبَّت في أسفل
+   البطاقة لتظهر على خط واحد كما في التصميم المرجعي.
+   ========================================================= */
+
+/* حاوية المحتوى تمتد لكامل ارتفاع البطاقة */
+
+.printer-services[data-state="ready"] > [data-state-content],
+.printer-wallet[data-state="ready"] > [data-state-content],
+.printer-documents[data-state="ready"] > [data-state-content],
+.printer-bank[data-state="ready"] > [data-state-content] {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+/* الزر يُدفع إلى الأسفل */
+
+.printer-card-action,
+.printer-services [data-state-content] > .profile-button,
+.printer-wallet [data-state-content] > .profile-button {
+  margin-top: auto;
+}
+
+/* الملاحظة تبقى ملاصقة للزر لا للمحتوى */
+
+.printer-wallet [data-state-content] > .profile-card-note {
+  margin-top: 10px;
+}
+
+
+/* =========================================================
+   07-ج. صفوف المعلومات في سطر واحد
+   ========================================================= */
+
+.printing-profile-page .profile-info-row {
+  gap: 10px;
+}
+
+.printing-profile-page .profile-info-label {
+  white-space: nowrap;
+}
+
+/* صف رقم واتساب:
+   الرقم وشارة التوثيق يبقيان ملتصقين ككتلة واحدة،
+   وعند ضيق المساحة تنزل الكتلة كاملة إلى سطر ثانٍ
+   داخل البطاقة بدل أن تفيض خارجها. */
+
+/* الرقم وشارة «موثق» يتجاوران ما دام في العمود متسع،
+   وإلا نزلت الشارة سطراً تحته بدل أن تخرج من البطاقة.
+   منع الالتفاف محلّه العنصران نفساهما لا الحاوية. */
+
+.printer-inline-row .profile-info-value {
+  flex-wrap: wrap;
+  gap: 6px 8px;
+
+  min-width: 0;
+  max-width: 100%;
+}
+
+.printer-inline-row .profile-info-value > * {
+  white-space: nowrap;
+}
+
+.printer-inline-row .profile-badge {
+  flex: 0 0 auto;
+
+  min-height: 24px;
+
+  padding: 0 9px;
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   08. تفضيلات الإشعارات
+   ========================================================= */
+
+.printer-preferences .profile-preference-text span {
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   09. التجاوب
+   ========================================================= */
+
+@media (max-width: 1279.98px) {
+  .printer-service-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1091.98px) {
+  .printer-hero-actions .profile-button {
+    flex: 1 1 190px;
+  }
+
+  .printing-profile-page .profile-info-label {
+    white-space: normal;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .printing-profile-page .profile-page-heading .profile-breadcrumb {
+    display: none;
+  }
+
+  .profile-hero-skeleton {
+    flex-direction: column;
+    align-items: center;
+
+    padding: 20px 16px;
+  }
+
+  .printing-profile-page .profile-identity .profile-badge {
+    align-self: center;
+  }
+
+  .printer-approval-alert {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .printer-approval-alert .profile-button {
+    width: 100%;
+  }
+
+  .printer-service-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .profile-contact-item.is-whatsapp {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .printer-hero-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .printer-hero-actions .profile-button {
+    width: 100%;
+  }
+
+  .printing-profile-page .profile-info-label {
+    white-space: normal;
+  }
+}

@@ -1,0 +1,1830 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-bs-theme="light">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="الملف الشخصي للمصمم في منصة PalPrints"
+  >
+
+  <title>الملف الشخصي للمصمم | PalPrints</title>
+
+  <!-- Bootstrap Icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+  >
+
+  <!-- Cairo Font -->
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
+  >
+
+  <!-- الأساس المشترك -->
+  <link
+    rel="stylesheet"
+    href="assets/css/pages/profile-core.css?v=4"
+  >
+
+  <!-- CSS الخاص بصفحة ملف المصمم -->
+  <link
+    rel="stylesheet"
+    href="assets/css/pages/designerProfile.css?v=72"
+  >
+
+  <!-- حركات الأزرار وظهور العناصر — تُحمّل أخيراً -->
+  <link
+    rel="stylesheet"
+    href="assets/css/interactions.css?v=1"
+  >
+
+</head>
+
+<body class="profile-page designer-profile-page">
+
+  <a
+    href="#profileMain"
+    class="profile-skip-link"
+    data-i18n="skipToContent"
+  >
+    تخطي إلى المحتوى
+  </a>
+
+  <!-- ==================================================
+       خلفية باستيل متحركة
+       ================================================== -->
+
+  <div
+    class="pastel-space-background"
+    aria-hidden="true"
+  >
+
+    <span class="pastel-blob blob-top-start"></span>
+    <span class="pastel-blob blob-top-end"></span>
+    <span class="pastel-blob blob-bottom-start"></span>
+    <span class="pastel-blob blob-bottom-end"></span>
+    <span class="pastel-blob blob-middle-end"></span>
+
+    <span class="pastel-bubble bubble-one"></span>
+    <span class="pastel-bubble bubble-two"></span>
+    <span class="pastel-bubble bubble-three"></span>
+    <span class="pastel-bubble bubble-four"></span>
+
+    <svg
+      class="pastel-orbit orbit-top"
+      viewBox="0 0 700 240"
+      preserveAspectRatio="none"
+    >
+      <path d="M20 175 C190 230, 250 30, 680 80"></path>
+    </svg>
+
+    <svg
+      class="pastel-orbit orbit-bottom"
+      viewBox="0 0 900 260"
+      preserveAspectRatio="none"
+    >
+      <path d="M20 80 C280 230, 620 230, 880 40"></path>
+    </svg>
+
+    <span class="pastel-star star-one"></span>
+    <span class="pastel-star star-two"></span>
+    <span class="pastel-star star-three"></span>
+    <span class="pastel-star star-four"></span>
+    <span class="pastel-star star-five"></span>
+    <span class="pastel-star star-six"></span>
+    <span class="pastel-star star-seven"></span>
+
+    <span class="pastel-dots dots-one"></span>
+    <span class="pastel-dots dots-two"></span>
+    <span class="pastel-dots dots-three"></span>
+
+  </div>
+
+  <div class="profile-app">
+
+    <!-- ==================================================
+         القائمة الجانبية
+         ================================================== -->
+
+    <aside
+      class="profile-sidebar"
+      id="profileSidebar"
+      aria-label="القائمة الجانبية للمصمم"
+      data-i18n-aria="sidebarLabel"
+    >
+
+      <div class="profile-sidebar-header">
+
+        <a
+          href="index.html"
+          class="profile-brand"
+          aria-label="الانتقال إلى الصفحة الرئيسية"
+          data-i18n-aria="goHome"
+        >
+          <img
+            src="assets/images/lalprints-logo.png"
+            class="profile-brand-image"
+            alt="PalPrints"
+          >
+        </a>
+
+        <button
+          type="button"
+          class="profile-sidebar-close"
+          id="sidebarCloseButton"
+          aria-label="إغلاق القائمة الجانبية"
+          data-i18n-aria="closeSidebar"
+        >
+          <i
+            class="bi bi-x-lg"
+            aria-hidden="true"
+          ></i>
+        </button>
+
+      </div>
+
+      <nav
+        class="profile-sidebar-nav"
+        aria-label="روابط حساب المصمم"
+        data-i18n-aria="designerNavLabel"
+      >
+
+        <a
+          href="index.html"
+          class="profile-sidebar-link"
+        >
+          <i
+            class="bi bi-house"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="home">الرئيسية</span>
+        </a>
+
+        <a
+          href="designerProfile.html"
+          class="profile-sidebar-link active"
+          aria-current="page"
+        >
+          <i
+            class="bi bi-person"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="profileTitle">الملف الشخصي</span>
+        </a>
+
+        <a
+          href="designerDesigns.html"
+          class="profile-sidebar-link"
+        >
+          <i
+            class="bi bi-images"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="myDesigns">تصاميمي</span>
+        </a>
+
+        <a
+          href="uploadDesign.html"
+          class="profile-sidebar-link"
+        >
+          <i
+            class="bi bi-cloud-arrow-up"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="uploadDesign">رفع تصميم جديد</span>
+        </a>
+
+        <div
+          class="profile-sidebar-divider"
+          aria-hidden="true"
+        ></div>
+
+        <a
+          href="designerOrders.html"
+          class="profile-sidebar-link"
+        >
+          <i
+            class="bi bi-box-seam"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="ordersAndSales">الطلبات والمبيعات</span>
+        </a>
+
+        <a
+          href="designerEarnings.html"
+          class="profile-sidebar-link"
+        >
+          <i
+            class="bi bi-wallet2"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="walletAndEarnings">الأرباح والمحفظة</span>
+        </a>
+
+        <a
+          href="withdrawals.html"
+          class="profile-sidebar-link"
+        >
+          <i
+            class="bi bi-arrow-up-right-square"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="withdrawals">طلبات السحب</span>
+        </a>
+
+        <div
+          class="profile-sidebar-divider"
+          aria-hidden="true"
+        ></div>
+
+        <a
+          href="notifications.html"
+          class="profile-sidebar-link"
+        >
+          <i
+            class="bi bi-bell"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="notifications">الإشعارات</span>
+        </a>
+
+        <a
+          href="settings.html"
+          class="profile-sidebar-link"
+        >
+          <i
+            class="bi bi-gear"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="settingsSecurity">الإعدادات والأمان</span>
+        </a>
+
+        <a
+          href="support.html"
+          class="profile-sidebar-link"
+        >
+          <i
+            class="bi bi-headset"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="support">التواصل مع الدعم الفني</span>
+        </a>
+
+      </nav>
+
+      <button
+        type="button"
+        class="profile-sidebar-logout"
+        id="profileLogoutButton"
+        data-href="login.html"
+      >
+        <i
+          class="bi bi-box-arrow-left"
+          aria-hidden="true"
+        ></i>
+
+        <span data-i18n="logout">تسجيل الخروج</span>
+      </button>
+
+    </aside>
+
+    <button
+      type="button"
+      class="profile-sidebar-backdrop"
+      id="sidebarBackdrop"
+      aria-label="إغلاق القائمة الجانبية"
+      data-i18n-aria="closeSidebar"
+    ></button>
+
+    <!-- ==================================================
+         مساحة الصفحة
+         ================================================== -->
+
+    <div class="profile-shell">
+
+      <header class="profile-topbar">
+
+        <div class="profile-topbar-start">
+
+          <!-- السهم نفسه يفتح ويغلق القائمة الجانبية
+               ويتغيّر اتجاهه حسب الحالة واتجاه الصفحة -->
+
+          <button
+            type="button"
+            class="profile-sidebar-toggle"
+            id="sidebarToggleButton"
+            aria-controls="profileSidebar"
+            aria-expanded="true"
+            aria-label="إغلاق القائمة الجانبية"
+            data-i18n-aria="closeSidebar"
+          >
+            <i
+              class="bi bi-arrow-left"
+              id="sidebarToggleIcon"
+              aria-hidden="true"
+            ></i>
+          </button>
+
+        </div>
+        <div class="profile-topbar-actions">
+
+          <button
+            type="button"
+            class="profile-action-button"
+            id="themeToggleButton"
+            aria-label="تغيير المظهر"
+            data-i18n-aria="changeTheme"
+          >
+            <i
+              class="bi bi-moon-stars"
+              id="themeToggleIcon"
+              aria-hidden="true"
+            ></i>
+          </button>
+
+          <button
+            type="button"
+            class="profile-action-button"
+            id="languageToggleButton"
+            aria-label="تغيير اللغة"
+            data-i18n-aria="changeLanguage"
+          >
+            <i
+              class="bi bi-globe2"
+              aria-hidden="true"
+            ></i>
+          </button>
+
+          <a
+            href="cart.html"
+            class="profile-action-button"
+            aria-label="سلة المشتريات"
+            data-i18n-aria="shoppingCart"
+          >
+            <i
+              class="bi bi-cart3"
+              aria-hidden="true"
+            ></i>
+
+            <span class="profile-action-badge">2</span>
+          </a>
+
+          <a
+            href="notifications.html"
+            class="profile-action-button"
+            aria-label="الإشعارات"
+            data-i18n-aria="notifications"
+          >
+            <i
+              class="bi bi-bell"
+              aria-hidden="true"
+            ></i>
+
+            <span
+              class="profile-action-dot"
+              aria-hidden="true"
+            ></span>
+          </a>
+
+        </div>
+
+      </header>
+
+      <main
+        class="profile-main"
+        id="profileMain"
+      >
+
+        <div class="profile-page-heading">
+
+          <h1 data-i18n="profileTitle">الملف الشخصي</h1>
+
+          <ol
+            class="profile-breadcrumb"
+            aria-label="مسار التنقل"
+            data-i18n-aria="breadcrumbLabel"
+          >
+            <li>
+              <a
+                href="index.html"
+                data-i18n="home"
+              >الرئيسية</a>
+            </li>
+
+            <li aria-current="page">
+              <span data-i18n="profileTitle">الملف الشخصي</span>
+            </li>
+          </ol>
+
+        </div>
+
+        <!-- ==================================================
+             تنبيه حالة الاعتماد (يظهر عند غير المعتمد)
+             ================================================== -->
+
+        <div
+          class="designer-approval-alert"
+          id="approvalAlert"
+          role="status"
+          hidden
+        >
+          <span
+            class="designer-approval-alert-icon"
+            aria-hidden="true"
+          >
+            <i class="bi bi-info-circle"></i>
+          </span>
+
+          <div>
+            <h2 id="approvalAlertTitle"></h2>
+            <p id="approvalAlertText"></p>
+          </div>
+
+          <a
+            href="designerVerification.html"
+            class="profile-button is-outline is-small"
+            id="approvalAlertAction"
+          >
+            <span data-i18n="completeVerification">استكمال بيانات الاعتماد</span>
+          </a>
+        </div>
+
+        <!-- ==================================================
+             بطاقة الهيرو
+             ================================================== -->
+
+        <section
+          class="profile-card profile-hero"
+          id="profileHero"
+          aria-labelledby="designerName"
+          data-state="loading"
+        >
+
+          <div
+            class="profile-hero-cover"
+            aria-hidden="true"
+          ></div>
+
+          <div
+            class="profile-hero-skeleton"
+            data-state-loading
+          >
+            <span class="profile-skeleton is-avatar"></span>
+
+            <div class="profile-hero-skeleton-lines">
+              <span class="profile-skeleton is-title"></span>
+              <span class="profile-skeleton is-short"></span>
+              <span class="profile-skeleton is-line"></span>
+            </div>
+          </div>
+
+          <div data-state-error>
+            <div class="profile-state is-error">
+
+              <span
+                class="profile-state-icon"
+                aria-hidden="true"
+              >
+                <i class="bi bi-wifi-off"></i>
+              </span>
+
+              <h3 data-i18n="errorTitle">تعذر تحميل البيانات</h3>
+
+              <p data-i18n="errorHeroText">
+                حدث خطأ أثناء جلب بيانات حسابك، تحقق من الاتصال ثم أعد المحاولة.
+              </p>
+
+              <button
+                type="button"
+                class="profile-button is-outline is-small"
+                data-retry-for="profileHero"
+              >
+                <i
+                  class="bi bi-arrow-clockwise"
+                  aria-hidden="true"
+                ></i>
+
+                <span data-i18n="retry">إعادة المحاولة</span>
+              </button>
+
+            </div>
+          </div>
+
+          <div
+            class="profile-hero-content is-flex"
+            data-state-content
+          >
+
+            <div class="profile-avatar-area">
+
+              <div class="profile-avatar">
+
+                <img
+                  id="profileAvatarImage"
+                  alt="صورة المصمم"
+                  data-i18n-alt="designerPhoto"
+                  hidden
+                >
+
+                <i
+                  class="bi bi-person"
+                  id="profileAvatarIcon"
+                  aria-hidden="true"
+                ></i>
+
+              </div>
+
+              <label
+                class="profile-avatar-upload"
+                for="profileAvatarInput"
+                aria-label="تغيير الصورة الشخصية"
+                data-i18n-aria="changePhoto"
+              >
+                <i
+                  class="bi bi-camera"
+                  aria-hidden="true"
+                ></i>
+              </label>
+
+              <input
+                type="file"
+                id="profileAvatarInput"
+                accept="image/png,image/jpeg,image/webp"
+                hidden
+              >
+
+            </div>
+
+            <div class="profile-identity">
+
+              <h2
+                id="designerName"
+                data-i18n="demoDesignerName"
+              >سارة أحمد</h2>
+
+              <p
+                class="profile-role"
+                id="designerRole"
+                data-i18n="demoDesignerRole"
+              >مصممة جرافيك</p>
+
+              <!-- حالة اعتماد الحساب بجانب الاسم -->
+
+              <span
+                class="profile-badge is-approved"
+                id="designerApprovalBadge"
+              >
+                <i
+                  class="bi bi-patch-check-fill"
+                  aria-hidden="true"
+                ></i>
+
+                <span id="designerApprovalText">مصممة معتمدة</span>
+              </span>
+
+              <div class="profile-contact-list">
+
+                <a
+                  href="mailto:sara.design@gmail.com"
+                  class="profile-contact-item"
+                >
+                  <i
+                    class="bi bi-envelope"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span
+                    dir="ltr"
+                    id="designerEmail"
+                  >sara.design@gmail.com</span>
+                </a>
+
+                <a
+                  href="tel:+970593216547"
+                  class="profile-contact-item"
+                >
+                  <i
+                    class="bi bi-telephone"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span
+                    dir="ltr"
+                    id="designerPhone"
+                  >059 321 6547</span>
+                </a>
+
+                <span class="profile-contact-item">
+                  <i
+                    class="bi bi-geo-alt"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span
+                    id="designerLocation"
+                    data-i18n="location"
+                  >غزة، فلسطين</span>
+                </span>
+
+              </div>
+
+            </div>
+
+            <div class="profile-hero-actions">
+
+              <a
+                href="uploadDesign.html"
+                class="profile-button is-primary"
+              >
+                <i
+                  class="bi bi-cloud-arrow-up"
+                  aria-hidden="true"
+                ></i>
+
+                <span data-i18n="uploadDesign">رفع تصميم جديد</span>
+              </a>
+
+              <a
+                href="https://behance.net/sara-design"
+                class="profile-button is-outline"
+                target="_blank"
+                rel="noopener"
+              >
+                <i
+                  class="bi bi-briefcase"
+                  aria-hidden="true"
+                ></i>
+
+                <span data-i18n="viewPortfolio">عرض معرض الأعمال</span>
+              </a>
+
+              <button
+                type="button"
+                class="profile-button is-outline"
+                data-dialog-open="designerEditDialog"
+              >
+                <i
+                  class="bi bi-person-gear"
+                  aria-hidden="true"
+                ></i>
+
+                <span data-i18n="editProfile">تعديل الملف الشخصي</span>
+              </button>
+
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- ==================================================
+             حالة التصاميم + ملخص الأداء
+             ================================================== -->
+
+        <div class="profile-row profile-row-2">
+
+          <!-- حالة تصاميمك -->
+
+          <section
+            class="profile-card designer-designs-status"
+            id="designsStatusSection"
+            aria-labelledby="designsStatusTitle"
+            data-state="loading"
+          >
+
+            <div class="profile-card-heading">
+
+              <div class="profile-card-title">
+                <span
+                  class="profile-card-icon"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-grid-1x2"></i>
+                </span>
+
+                <h2
+                  id="designsStatusTitle"
+                  data-i18n="designsStatus"
+                >حالة تصاميمك</h2>
+              </div>
+
+            </div>
+
+            <div data-state-loading>
+              <div class="profile-skeleton-grid">
+                <span class="profile-skeleton is-block"></span>
+                <span class="profile-skeleton is-block"></span>
+                <span class="profile-skeleton is-block"></span>
+                <span class="profile-skeleton is-block"></span>
+              </div>
+            </div>
+
+            <div data-state-empty>
+              <div class="profile-state">
+
+                <span
+                  class="profile-state-icon"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-images"></i>
+                </span>
+
+                <h3 data-i18n="emptyDesignsTitle">لا توجد تصاميم بعد</h3>
+
+                <p data-i18n="emptyDesignsText">
+                  ابدأ برفع أول تصميم لك ليظهر هنا مع حالته ومراحل مراجعته.
+                </p>
+
+                <a
+                  href="uploadDesign.html"
+                  class="profile-button is-primary is-small"
+                >
+                  <i
+                    class="bi bi-cloud-arrow-up"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span data-i18n="uploadDesign">رفع تصميم جديد</span>
+                </a>
+
+              </div>
+            </div>
+
+            <div data-state-error>
+              <div class="profile-state is-error">
+
+                <span
+                  class="profile-state-icon"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-exclamation-triangle"></i>
+                </span>
+
+                <h3 data-i18n="errorTitle">تعذر تحميل البيانات</h3>
+
+                <button
+                  type="button"
+                  class="profile-button is-outline is-small"
+                  data-retry-for="designsStatusSection"
+                >
+                  <i
+                    class="bi bi-arrow-clockwise"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span data-i18n="retry">إعادة المحاولة</span>
+                </button>
+
+              </div>
+            </div>
+
+            <div data-state-content>
+
+              <div class="profile-stat-grid">
+
+                <article class="profile-stat is-stacked tone-grey">
+                  <strong data-counter="2">2</strong>
+                  <span data-i18n="statusDraft">مسودة</span>
+                </article>
+
+                <article class="profile-stat is-stacked tone-green">
+                  <strong data-counter="12">12</strong>
+                  <span data-i18n="statusPublished">منشور</span>
+                </article>
+
+                <article class="profile-stat is-stacked tone-orange">
+                  <strong data-counter="3">3</strong>
+                  <span data-i18n="statusUnderReview">قيد المراجعة</span>
+                </article>
+
+                <article class="profile-stat is-stacked tone-red">
+                  <strong data-counter="1">1</strong>
+                  <span data-i18n="statusRejected">مرفوض</span>
+                </article>
+
+              </div>
+
+              <a
+                href="designerDesigns.html"
+                class="profile-card-link designer-all-designs"
+              >
+                <span data-i18n="viewAllDesigns">عرض جميع التصاميم</span>
+
+                <i
+                  class="bi bi-arrow-left"
+                  data-back-icon
+                  aria-hidden="true"
+                ></i>
+              </a>
+
+            </div>
+
+          </section>
+
+          <!-- ملخص الأداء -->
+
+          <section
+            class="profile-card"
+            id="performanceSection"
+            aria-labelledby="performanceTitle"
+            data-state="loading"
+          >
+
+            <div class="profile-card-heading">
+              <div class="profile-card-title">
+                <span
+                  class="profile-card-icon icon-blue"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-graph-up-arrow"></i>
+                </span>
+
+                <h2
+                  id="performanceTitle"
+                  data-i18n="performanceSummary"
+                >ملخص الأداء</h2>
+              </div>
+            </div>
+
+            <div data-state-loading>
+              <div class="profile-skeleton-grid">
+                <span class="profile-skeleton is-block"></span>
+                <span class="profile-skeleton is-block"></span>
+                <span class="profile-skeleton is-block"></span>
+                <span class="profile-skeleton is-block"></span>
+              </div>
+            </div>
+
+            <div data-state-error>
+              <div class="profile-state is-error">
+
+                <span
+                  class="profile-state-icon"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-exclamation-triangle"></i>
+                </span>
+
+                <h3 data-i18n="errorTitle">تعذر تحميل البيانات</h3>
+
+                <button
+                  type="button"
+                  class="profile-button is-outline is-small"
+                  data-retry-for="performanceSection"
+                >
+                  <i
+                    class="bi bi-arrow-clockwise"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span data-i18n="retry">إعادة المحاولة</span>
+                </button>
+
+              </div>
+            </div>
+
+            <div data-state-content>
+
+              <div class="profile-stat-grid">
+
+                <article class="profile-stat is-stacked">
+                  <span
+                    class="profile-stat-icon"
+                    aria-hidden="true"
+                  >
+                    <i class="bi bi-printer"></i>
+                  </span>
+
+                  <strong data-counter="12">12</strong>
+
+                  <span data-i18n="publishedDesigns">تصميماً منشوراً</span>
+                </article>
+
+                <article class="profile-stat is-stacked">
+                  <span
+                    class="profile-stat-icon"
+                    aria-hidden="true"
+                  >
+                    <i class="bi bi-hourglass-split"></i>
+                  </span>
+
+                  <strong data-counter="3">3</strong>
+
+                  <span data-i18n="underReviewDesigns">قيد المراجعة</span>
+                </article>
+
+                <article class="profile-stat is-stacked">
+                  <span
+                    class="profile-stat-icon"
+                    aria-hidden="true"
+                  >
+                    <i class="bi bi-bag-check"></i>
+                  </span>
+
+                  <strong data-counter="28">28</strong>
+
+                  <span data-i18n="salesCount">عملية بيع</span>
+                </article>
+
+                <article class="profile-stat is-stacked">
+                  <span
+                    class="profile-stat-icon"
+                    aria-hidden="true"
+                  >
+                    <i class="bi bi-star"></i>
+                  </span>
+
+                  <strong>4.8</strong>
+
+                  <span data-i18n="generalRating">التقييم العام</span>
+                </article>
+
+              </div>
+
+            </div>
+
+          </section>
+
+        </div>
+
+        <!-- ==================================================
+             معرض الأعمال + المهارات + النبذة
+             ================================================== -->
+
+        <div class="profile-row profile-row-3">
+
+          <!-- معرض الأعمال -->
+
+          <section
+            class="profile-card designer-portfolio"
+            id="portfolioSection"
+            aria-labelledby="portfolioTitle"
+            data-state="loading"
+          >
+
+            <div class="profile-card-heading">
+
+              <div class="profile-card-title">
+                <span
+                  class="profile-card-icon"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-briefcase"></i>
+                </span>
+
+                <h2
+                  id="portfolioTitle"
+                  data-i18n="portfolio"
+                >معرض الأعمال</h2>
+              </div>
+
+            </div>
+
+            <div data-state-loading>
+              <span class="profile-skeleton is-short"></span>
+              <span class="profile-skeleton is-block"></span>
+            </div>
+
+            <div data-state-empty>
+              <div class="profile-state">
+
+                <span
+                  class="profile-state-icon"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-link-45deg"></i>
+                </span>
+
+                <h3 data-i18n="emptyPortfolioTitle">لم تُضِف معرض أعمال بعد</h3>
+
+                <p data-i18n="emptyPortfolioText">
+                  أضف رابط معرض أعمالك ليطّلع عليه العملاء وتزيد فرص بيع تصاميمك.
+                </p>
+
+                <button
+                  type="button"
+                  class="profile-button is-primary is-small"
+                  data-dialog-open="designerEditDialog"
+                >
+                  <i
+                    class="bi bi-plus-lg"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span data-i18n="addPortfolio">إضافة معرض الأعمال</span>
+                </button>
+
+              </div>
+            </div>
+
+            <div data-state-error>
+              <div class="profile-state is-error">
+
+                <span
+                  class="profile-state-icon"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-exclamation-triangle"></i>
+                </span>
+
+                <h3 data-i18n="errorTitle">تعذر تحميل البيانات</h3>
+
+                <button
+                  type="button"
+                  class="profile-button is-outline is-small"
+                  data-retry-for="portfolioSection"
+                >
+                  <i
+                    class="bi bi-arrow-clockwise"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span data-i18n="retry">إعادة المحاولة</span>
+                </button>
+
+              </div>
+            </div>
+
+            <div data-state-content>
+
+              <a
+                class="designer-portfolio-link"
+                id="portfolioLink"
+                href="https://behance.net/sara-design"
+                target="_blank"
+                rel="noopener"
+                dir="ltr"
+              >
+                <span id="portfolioLinkText">behance.net/sara-design</span>
+
+                <i
+                  class="bi bi-box-arrow-up-right"
+                  aria-hidden="true"
+                ></i>
+              </a>
+
+              <ul class="designer-portfolio-grid">
+
+                <li class="designer-portfolio-item">
+                  <span
+                    class="designer-portfolio-thumb thumb-one"
+                    aria-hidden="true"
+                  >
+                    <i class="bi bi-card-heading"></i>
+                  </span>
+
+                  <span data-i18n="portfolioItemBranding">هوية بصرية</span>
+                </li>
+
+                <li class="designer-portfolio-item">
+                  <span
+                    class="designer-portfolio-thumb thumb-two"
+                    aria-hidden="true"
+                  >
+                    <i class="bi bi-bag"></i>
+                  </span>
+
+                  <span data-i18n="portfolioItemPackaging">تغليف منتجات</span>
+                </li>
+
+                <li class="designer-portfolio-item">
+                  <span
+                    class="designer-portfolio-thumb thumb-three"
+                    aria-hidden="true"
+                  >
+                    <i class="bi bi-image"></i>
+                  </span>
+
+                  <span data-i18n="portfolioItemSocial">سوشيال ميديا</span>
+                </li>
+
+              </ul>
+
+              <a
+                href="https://behance.net/sara-design"
+                class="profile-button is-outline is-small is-block"
+                target="_blank"
+                rel="noopener"
+              >
+                <i
+                  class="bi bi-eye"
+                  aria-hidden="true"
+                ></i>
+
+                <span data-i18n="showPortfolio">عرض المعرض</span>
+              </a>
+
+            </div>
+
+          </section>
+
+          <!-- المهارات -->
+
+          <section
+            class="profile-card designer-skills"
+            aria-labelledby="skillsTitle"
+          >
+
+            <div class="profile-card-heading">
+
+              <div class="profile-card-title">
+                <span
+                  class="profile-card-icon icon-orange"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-stars"></i>
+                </span>
+
+                <h2
+                  id="skillsTitle"
+                  data-i18n="mySkills"
+                >مهاراتي</h2>
+              </div>
+
+            </div>
+
+            <ul
+              class="designer-skill-list"
+              id="skillsList"
+            ></ul>
+
+          </section>
+
+          <!-- نبذة عني -->
+
+          <section
+            class="profile-card designer-about"
+            aria-labelledby="aboutTitle"
+          >
+
+            <div class="profile-card-heading">
+
+              <div class="profile-card-title">
+                <span
+                  class="profile-card-icon icon-green"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-person-lines-fill"></i>
+                </span>
+
+                <h2
+                  id="aboutTitle"
+                  data-i18n="aboutMe"
+                >نبذة عني</h2>
+              </div>
+
+            </div>
+
+            <p id="designerAbout">
+              مصممة جرافيك شغوفة بتحويل الأفكار إلى تصاميم إبداعية ومؤثرة،
+              متخصصة في الهويات البصرية والمطبوعات وتصميمات المنتجات.
+            </p>
+
+          </section>
+
+        </div>
+
+        <!-- ==================================================
+             معلومات الحساب + المحفظة والأرباح
+             ================================================== -->
+
+        <div class="profile-row profile-row-2">
+
+          <!-- معلومات الحساب — بدون كلمة المرور -->
+
+          <section
+            class="profile-card designer-account"
+            aria-labelledby="accountTitle"
+          >
+
+            <div class="profile-card-heading">
+
+              <div class="profile-card-title">
+                <span
+                  class="profile-card-icon"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-person-badge"></i>
+                </span>
+
+                <h2
+                  id="accountTitle"
+                  data-i18n="accountInformation"
+                >معلومات الحساب</h2>
+              </div>
+
+            </div>
+
+            <dl class="profile-info-list">
+
+              <div class="profile-info-row">
+                <dt
+                  class="profile-info-label"
+                  data-i18n="email"
+                >البريد الإلكتروني</dt>
+
+                <!-- dir على العنصر الداخلي لا على dd،
+                     كي يبقى الصف باتجاه الصفحة فتتحاذى القيم -->
+
+                <dd class="profile-info-value">
+                  <span
+                    dir="ltr"
+                    id="infoEmail"
+                  >sara.design@gmail.com</span>
+                </dd>
+              </div>
+
+              <div class="profile-info-row">
+                <dt
+                  class="profile-info-label"
+                  data-i18n="phone"
+                >رقم الهاتف</dt>
+
+                <dd class="profile-info-value">
+                  <span
+                    dir="ltr"
+                    id="infoPhone"
+                  >059 321 6547</span>
+                </dd>
+              </div>
+
+              <div class="profile-info-row">
+                <dt
+                  class="profile-info-label"
+                  data-i18n="specialization"
+                >التخصص</dt>
+
+                <dd
+                  class="profile-info-value"
+                  id="infoSpecialization"
+                  data-i18n="demoSpecialization"
+                >تصميم جرافيك وهويات بصرية</dd>
+              </div>
+
+              <div class="profile-info-row">
+                <dt
+                  class="profile-info-label"
+                  data-i18n="experience"
+                >الخبرة</dt>
+
+                <dd
+                  class="profile-info-value"
+                  id="infoExperience"
+                  data-i18n="demoExperience"
+                >3 سنوات</dd>
+              </div>
+
+              <div class="profile-info-row">
+                <dt
+                  class="profile-info-label"
+                  data-i18n="workLocation"
+                >موقع العمل</dt>
+
+                <dd
+                  class="profile-info-value"
+                  id="infoLocation"
+                  data-i18n="location"
+                >غزة، فلسطين</dd>
+              </div>
+
+              <div class="profile-info-row">
+                <dt
+                  class="profile-info-label"
+                  data-i18n="joinDate"
+                >تاريخ الانضمام</dt>
+
+                <dd
+                  class="profile-info-value"
+                  data-i18n="demoJoinDate"
+                >10 يناير 2024</dd>
+              </div>
+
+            </dl>
+
+            <!-- كلمة المرور غير معروضة هنا إطلاقاً -->
+
+            <p class="profile-card-note">
+              <i
+                class="bi bi-shield-lock"
+                aria-hidden="true"
+              ></i>
+
+              <span data-i18n="securityNote">
+                كلمة المرور وإعدادات الأمان تُدار من «الإعدادات والأمان».
+              </span>
+            </p>
+
+            <a
+              href="settings.html"
+              class="profile-button is-ghost is-small designer-security-link"
+            >
+              <i
+                class="bi bi-gear"
+                aria-hidden="true"
+              ></i>
+
+              <span data-i18n="manageSecurity">إدارة الأمان</span>
+            </a>
+
+          </section>
+
+          <!-- المحفظة والأرباح -->
+
+          <section
+            class="profile-card designer-wallet"
+            id="walletSection"
+            aria-labelledby="walletTitle"
+            data-state="loading"
+          >
+
+            <div class="profile-card-heading">
+              <div class="profile-card-title">
+                <span
+                  class="profile-card-icon icon-green"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-wallet2"></i>
+                </span>
+
+                <h2
+                  id="walletTitle"
+                  data-i18n="walletAndEarnings"
+                >المحفظة والأرباح</h2>
+              </div>
+            </div>
+
+            <div data-state-loading>
+              <span class="profile-skeleton is-line"></span>
+              <span class="profile-skeleton is-line"></span>
+              <span class="profile-skeleton is-short"></span>
+            </div>
+
+            <div data-state-error>
+              <div class="profile-state is-error">
+
+                <span
+                  class="profile-state-icon"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-exclamation-triangle"></i>
+                </span>
+
+                <h3 data-i18n="errorTitle">تعذر تحميل البيانات</h3>
+
+                <button
+                  type="button"
+                  class="profile-button is-outline is-small"
+                  data-retry-for="walletSection"
+                >
+                  <i
+                    class="bi bi-arrow-clockwise"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span data-i18n="retry">إعادة المحاولة</span>
+                </button>
+
+              </div>
+            </div>
+
+            <div
+              class="is-flex"
+              data-state-content
+            >
+
+              <dl class="profile-wallet-list">
+
+                <div class="profile-wallet-row is-total">
+                  <dt data-i18n="totalEarnings">إجمالي الأرباح</dt>
+
+                  <dd>
+                    <span>1,090</span>
+                    <span class="profile-currency">₪</span>
+                  </dd>
+                </div>
+
+                <div class="profile-wallet-row is-available">
+                  <dt data-i18n="availableForWithdrawal">متاح للسحب</dt>
+
+                  <dd>
+                    <span>760</span>
+                    <span class="profile-currency">₪</span>
+                  </dd>
+                </div>
+
+                <div class="profile-wallet-row is-pending">
+                  <dt data-i18n="pendingEarnings">أرباح معلقة</dt>
+
+                  <dd>
+                    <span>330</span>
+                    <span class="profile-currency">₪</span>
+                  </dd>
+                </div>
+
+              </dl>
+
+              <p class="profile-card-note">
+                <i
+                  class="bi bi-info-circle"
+                  aria-hidden="true"
+                ></i>
+
+                <span data-i18n="withdrawalNote">
+                  تُحوّل الأرباح المتاحة خلال ٣ أيام عمل بعد الموافقة على الطلب.
+                </span>
+              </p>
+
+              <!-- الزر آخر عنصر في البطاقة ويُدفع إلى أسفلها -->
+
+              <button
+                type="button"
+                class="profile-button is-primary is-block"
+                id="withdrawButton"
+              >
+                <i
+                  class="bi bi-cash-coin"
+                  aria-hidden="true"
+                ></i>
+
+                <span data-i18n="requestWithdrawal">طلب سحب</span>
+              </button>
+
+            </div>
+
+          </section>
+
+        </div>
+
+      </main>
+
+    </div>
+
+  </div>
+
+  <!-- ==================================================
+       نافذة تعديل الملف الشخصي — بدون كلمة مرور
+       ================================================== -->
+
+  <dialog
+    class="profile-dialog"
+    id="designerEditDialog"
+    aria-labelledby="designerEditTitle"
+  >
+
+    <form
+      method="dialog"
+      id="designerEditForm"
+      novalidate
+    >
+
+      <header class="profile-dialog-header">
+
+        <div>
+          <h2
+            id="designerEditTitle"
+            data-i18n="editProfile"
+          >تعديل الملف الشخصي</h2>
+
+          <p data-i18n="editProfileDescription">
+            عدّلي معلوماتك المهنية ثم احفظي التغييرات.
+          </p>
+        </div>
+
+        <button
+          type="button"
+          class="profile-dialog-close"
+          data-dialog-close
+          aria-label="إغلاق"
+          data-i18n-aria="close"
+        >
+          <i
+            class="bi bi-x-lg"
+            aria-hidden="true"
+          ></i>
+        </button>
+
+      </header>
+
+      <div class="profile-dialog-body">
+
+        <div class="profile-field-grid">
+
+          <div class="profile-field">
+            <label for="editFullName" data-i18n="fullName">الاسم الكامل</label>
+
+            <div class="profile-input-shell">
+              <i
+                class="bi bi-person"
+                aria-hidden="true"
+              ></i>
+
+              <input
+                type="text"
+                id="editFullName"
+                required
+              >
+            </div>
+
+            <small
+              class="profile-field-error"
+              data-i18n="requiredField"
+            >هذا الحقل مطلوب.</small>
+          </div>
+
+          <div class="profile-field">
+            <label for="editRole" data-i18n="professionalTitle">المسمى المهني</label>
+
+            <div class="profile-input-shell">
+              <i
+                class="bi bi-person-badge"
+                aria-hidden="true"
+              ></i>
+
+              <input
+                type="text"
+                id="editRole"
+                required
+              >
+            </div>
+
+            <small
+              class="profile-field-error"
+              data-i18n="requiredField"
+            >هذا الحقل مطلوب.</small>
+          </div>
+
+          <div class="profile-field">
+            <label for="editEmail" data-i18n="email">البريد الإلكتروني</label>
+
+            <div class="profile-input-shell">
+              <i
+                class="bi bi-envelope"
+                aria-hidden="true"
+              ></i>
+
+              <input
+                type="email"
+                id="editEmail"
+                dir="ltr"
+                required
+              >
+            </div>
+
+            <small
+              class="profile-field-error"
+              data-i18n="invalidEmail"
+            >أدخل بريداً إلكترونياً صحيحاً.</small>
+          </div>
+
+          <div class="profile-field">
+            <label for="editPhone" data-i18n="phone">رقم الهاتف</label>
+
+            <div class="profile-input-shell">
+              <i
+                class="bi bi-telephone"
+                aria-hidden="true"
+              ></i>
+
+              <input
+                type="tel"
+                id="editPhone"
+                dir="ltr"
+                required
+              >
+            </div>
+
+            <small
+              class="profile-field-error"
+              data-i18n="requiredField"
+            >هذا الحقل مطلوب.</small>
+          </div>
+
+          <div class="profile-field">
+            <label for="editSpecialization" data-i18n="specialization">التخصص</label>
+
+            <div class="profile-input-shell">
+              <i
+                class="bi bi-tag"
+                aria-hidden="true"
+              ></i>
+
+              <input
+                type="text"
+                id="editSpecialization"
+                required
+              >
+            </div>
+
+            <small
+              class="profile-field-error"
+              data-i18n="requiredField"
+            >هذا الحقل مطلوب.</small>
+          </div>
+
+          <div class="profile-field">
+            <label for="editExperience" data-i18n="experience">الخبرة</label>
+
+            <div class="profile-input-shell">
+              <i
+                class="bi bi-clock-history"
+                aria-hidden="true"
+              ></i>
+
+              <input
+                type="text"
+                id="editExperience"
+                required
+              >
+            </div>
+
+            <small
+              class="profile-field-error"
+              data-i18n="requiredField"
+            >هذا الحقل مطلوب.</small>
+          </div>
+
+          <div class="profile-field is-wide">
+            <label for="editLocation" data-i18n="workLocation">موقع العمل</label>
+
+            <div class="profile-input-shell">
+              <i
+                class="bi bi-geo-alt"
+                aria-hidden="true"
+              ></i>
+
+              <input
+                type="text"
+                id="editLocation"
+                required
+              >
+            </div>
+
+            <small
+              class="profile-field-error"
+              data-i18n="requiredField"
+            >هذا الحقل مطلوب.</small>
+          </div>
+
+          <!-- رابط معرض الأعمال -->
+
+          <div class="profile-field is-wide">
+            <label for="portfolioInput" data-i18n="portfolioLink">رابط معرض الأعمال</label>
+
+            <div class="profile-input-shell">
+              <i
+                class="bi bi-link-45deg"
+                aria-hidden="true"
+              ></i>
+
+              <input
+                type="url"
+                id="portfolioInput"
+                dir="ltr"
+                placeholder="https://behance.net/username"
+              >
+            </div>
+
+            <small
+              class="profile-field-error"
+              data-i18n="invalidLink"
+            >أدخل رابطاً صحيحاً يبدأ بـ https.</small>
+          </div>
+
+          <!-- المهارات -->
+
+          <div class="profile-field is-wide">
+            <label for="skillsInput" data-i18n="skillsField">المهارات — افصلي بينها بفاصلة</label>
+
+            <div class="profile-input-shell">
+              <i
+                class="bi bi-stars"
+                aria-hidden="true"
+              ></i>
+
+              <input
+                type="text"
+                id="skillsInput"
+                required
+              >
+            </div>
+
+            <small
+              class="profile-field-error"
+              data-i18n="requiredField"
+            >هذا الحقل مطلوب.</small>
+          </div>
+
+          <!-- نبذة عني -->
+
+          <div class="profile-field is-wide">
+            <label for="aboutInput" data-i18n="aboutMe">نبذة عني</label>
+
+            <div class="profile-input-shell is-textarea">
+              <i
+                class="bi bi-card-text"
+                aria-hidden="true"
+              ></i>
+
+              <textarea
+                id="aboutInput"
+                rows="4"
+                required
+              ></textarea>
+            </div>
+
+            <small
+              class="profile-field-error"
+              data-i18n="requiredField"
+            >هذا الحقل مطلوب.</small>
+          </div>
+
+        </div>
+
+        <p class="profile-card-note">
+          <i
+            class="bi bi-shield-lock"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="passwordMovedNote">
+            تغيير كلمة المرور أصبح ضمن «الإعدادات والأمان».
+          </span>
+        </p>
+
+      </div>
+
+      <footer class="profile-dialog-footer">
+
+        <button
+          type="button"
+          class="profile-button is-ghost"
+          data-dialog-close
+          data-i18n="cancel"
+        >إلغاء</button>
+
+        <button
+          type="submit"
+          class="profile-button is-primary"
+          id="designerEditSave"
+        >
+          <i
+            class="bi bi-check2"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="saveChanges">حفظ التغييرات</span>
+        </button>
+
+      </footer>
+
+    </form>
+
+  </dialog>
+
+  <!-- رسالة النجاح والخطأ -->
+
+  <div
+    class="profile-toast"
+    id="profileToast"
+    role="status"
+    aria-live="polite"
+    aria-atomic="true"
+  >
+
+    <span
+      class="profile-toast-icon"
+      aria-hidden="true"
+    >
+      <i class="bi bi-check2"></i>
+    </span>
+
+    <span id="profileToastMessage"></span>
+
+  </div>
+
+  <script src="assets/js/pages/profile-core.js?v=1"></script>
+  <script src="assets/js/pages/designerProfile.js?v=70"></script>
+  <script src="assets/js/interactions.js?v=1"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,90 @@
+.btn-brand,
+.btn-brand-outline {
+  min-height: 48px;
+  padding: 11px 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), filter var(--transition-fast);
+}
+
+.btn-brand {
+  color: #fff;
+  background: var(--primary-gradient);
+  box-shadow: 0 10px 25px rgb(77 69 245 / 20%);
+}
+
+.btn-brand:hover {
+  color: #fff;
+  filter: brightness(1.05);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgb(77 69 245 / 28%);
+}
+
+.btn-brand-outline {
+  color: var(--text-primary);
+  background: linear-gradient(var(--surface-bg), var(--surface-bg)) padding-box, var(--primary-gradient) border-box;
+  border: 1.5px solid transparent;
+}
+
+.btn-brand-outline:hover {
+  color: var(--primary-purple);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.app-card {
+  background: var(--surface-bg);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.app-card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+.form-label {
+  margin-bottom: 8px;
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.form-control,
+.form-select {
+  min-height: 50px;
+  color: var(--text-primary);
+  background-color: var(--surface-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: none;
+}
+
+.form-control::placeholder { color: var(--text-muted); }
+
+.form-control:focus,
+.form-select:focus {
+  color: var(--text-primary);
+  background-color: var(--surface-bg);
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 4px rgb(106 68 244 / 10%);
+}
+
+.input-icon-wrap { position: relative; }
+.input-icon-wrap .form-control { padding-inline-end: 46px; }
+.input-icon-wrap > i {
+  position: absolute;
+  inset-inline-end: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.toast-container { z-index: 2000; }

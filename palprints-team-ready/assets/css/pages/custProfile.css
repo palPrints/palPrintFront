@@ -1,0 +1,722 @@
+/* =========================================================
+   PalPrints — Customer Profile
+   الأنماط الخاصة بصفحة الملف الشخصي للعميل
+
+   File: assets/css/pages/custProfile.css
+   يعتمد على: assets/css/pages/profile-core.css
+
+   الترتيب:
+   01. الهيكل العظمي للهيرو
+   02. بطاقة الطلب الحالي ومراحل التتبع
+   03. مكتبتي — المفضلة والتخصيصات المحفوظة
+   04. عناوين الشحن
+   05. التفضيلات
+   06. التجاوب
+   ========================================================= */
+
+
+/* =========================================================
+   00. عرض مساحة المحتوى
+   =========================================================
+   يبقى الشريط الجانبي ضمن النظام المشترك بلا أي تغيير.
+   عرض الغلاف الرئيسي يزيد 44px عن العرض المرئي لتعويض
+   padding-inline: 22px، فتتطابق حافتا البطاقات مع الهيدر. */
+
+.customer-profile-page {
+  --customer-content-max: 1060px;
+}
+
+.customer-profile-page .profile-topbar {
+  max-width: var(--customer-content-max);
+}
+
+.customer-profile-page .profile-main {
+  max-width: calc(var(--customer-content-max) + 44px);
+}
+
+
+/* =========================================================
+   01. الهيكل العظمي للهيرو
+   ========================================================= */
+
+.profile-hero-skeleton {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  padding: 22px 24px 24px;
+}
+
+[data-state="loading"] > .profile-hero-skeleton {
+  display: flex;
+}
+
+.profile-skeleton.is-avatar {
+  width: 116px;
+  height: 116px;
+
+  flex: 0 0 116px;
+
+  border-radius: 50%;
+}
+
+.profile-hero-skeleton-lines {
+  flex: 1;
+  min-width: 0;
+}
+
+/* حالة الخطأ داخل الهيرو تحتاج حشوة */
+
+.profile-hero [data-state-error] {
+  padding: 20px 24px 24px;
+}
+
+
+/* =========================================================
+   02. بطاقة الطلب الحالي ومراحل التتبع
+   ========================================================= */
+
+.customer-order-body {
+  flex-direction: column;
+  gap: 16px;
+}
+
+.customer-current-order {
+  background: linear-gradient(
+    180deg,
+    var(--profile-purple-soft) 0,
+    var(--profile-surface) 92px
+  );
+}
+
+.customer-current-order + .customer-activity {
+  align-self: start;
+}
+
+.customer-order-number {
+  color: var(--profile-muted);
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.customer-order-number strong {
+  color: var(--profile-text);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+/* شريط المراحل */
+
+.customer-tracker {
+  position: relative;
+
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  margin: 4px 0 2px;
+}
+
+/* الخط الواصل بين المراحل */
+
+.customer-tracker-step {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  text-align: center;
+}
+
+.customer-tracker-step::before {
+  content: "";
+
+  position: absolute;
+
+  top: 17px;
+  inset-inline-start: 50%;
+
+  width: 100%;
+  height: 3px;
+
+  background: var(--profile-border);
+
+  border-radius: 999px;
+}
+
+html[dir="ltr"] .customer-tracker-step::before {
+  inset-inline-start: 50%;
+}
+
+/* آخر مرحلة بلا خط بعدها */
+
+.customer-tracker-step:last-child::before {
+  display: none;
+}
+
+/* الخط الملوّن للمراحل المكتملة
+   =========================================================
+   يُرسم بطبقة ::after فوق الخط الرمادي ويتمدد من الحجم صفر،
+   فيمتلئ الشريط مرحلةً بعد مرحلة بدل أن يظهر دفعة واحدة.
+   مبدأ التمدد يتبع اتجاه القراءة: يمينًا في RTL ويسارًا في LTR.
+   ولو تعطّل الجافاسكربت يبقى is-done في HTML فيظهر ممتلئًا بلا حركة. */
+
+.customer-tracker-step::after {
+  content: "";
+
+  position: absolute;
+
+  top: 17px;
+  inset-inline-start: 50%;
+
+  width: 100%;
+  height: 3px;
+
+  background: var(--profile-gradient);
+
+  border-radius: 999px;
+
+  transform: scaleX(0);
+  transform-origin: right center;
+
+  transition: transform 0.45s var(--pal-ease-out, ease);
+}
+
+html[dir="ltr"] .customer-tracker-step::after {
+  transform-origin: left center;
+}
+
+.customer-tracker-step:last-child::after {
+  display: none;
+}
+
+.customer-tracker-step.is-done::after {
+  transform: scaleX(1);
+}
+
+/* النقطة والتسمية تتلوّنان بتدرّج مع تقدّم الخط */
+
+.customer-tracker-dot,
+.customer-tracker-label {
+  transition:
+    color 0.35s ease,
+    background 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.customer-tracker-dot {
+  position: relative;
+  z-index: 2;
+
+  width: 36px;
+  height: 36px;
+
+  display: grid;
+  place-items: center;
+
+  color: var(--profile-muted);
+  background: var(--profile-surface);
+
+  border: 3px solid var(--profile-border);
+  border-radius: 50%;
+
+  font-size: 15px;
+}
+
+.customer-tracker-step.is-done .customer-tracker-dot {
+  color: #ffffff;
+  background: var(--profile-cyan);
+  border-color: var(--profile-cyan);
+}
+
+.customer-tracker-step.is-current .customer-tracker-dot {
+  color: #ffffff;
+  background: var(--profile-primary);
+  border-color: var(--profile-primary);
+
+  box-shadow: 0 8px 20px rgb(104 21 237 / 22%);
+}
+
+.customer-tracker-label {
+  color: var(--profile-muted);
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.customer-tracker-step.is-done .customer-tracker-label {
+  color: var(--profile-secondary);
+}
+
+.customer-tracker-step.is-current .customer-tracker-label {
+  color: var(--profile-primary);
+}
+
+.customer-current-order .profile-button.is-primary {
+  align-self: flex-start;
+
+  min-width: 190px;
+}
+
+
+/* =========================================================
+   03. مكتبتي — المفضلة والتخصيصات المحفوظة
+   ========================================================= */
+
+.customer-library-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.customer-library-item {
+  position: relative;
+
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
+  min-height: 104px;
+  padding: 16px 58px 16px 16px;
+
+  background: var(--profile-soft);
+
+  border: 1px solid var(--profile-border);
+  border-radius: 14px;
+
+  transition:
+    border-color var(--profile-transition),
+    box-shadow var(--profile-transition),
+    transform var(--profile-transition);
+}
+
+html[dir="ltr"] .customer-library-item {
+  padding-right: 16px;
+  padding-left: 58px;
+}
+
+.customer-library-item:hover {
+  border-color: rgb(104 21 237 / 30%);
+  box-shadow: var(--profile-shadow-small);
+  transform: translateY(-2px);
+}
+
+.customer-library-item:focus-visible {
+  border-color: var(--profile-primary);
+  box-shadow: var(--profile-shadow-small);
+  transform: translateY(-2px);
+}
+
+.customer-library-icon {
+  width: 40px;
+  height: 40px;
+
+  flex: 0 0 40px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 12px;
+
+  font-size: 18px;
+}
+
+.customer-library-icon.is-pink {
+  color: #e2447a;
+  background: rgb(226 68 122 / 12%);
+}
+
+.customer-library-icon.is-purple {
+  color: var(--profile-primary);
+  background: var(--profile-purple-soft);
+}
+
+.customer-library-item h3 {
+  font-size: 14.5px;
+  font-weight: 800;
+}
+
+.customer-library-item p {
+  margin-top: 3px;
+
+  color: var(--profile-muted);
+
+  font-size: 12.5px;
+  font-weight: 500;
+  line-height: 1.55;
+}
+
+.customer-library-count {
+  position: absolute;
+
+  top: 14px;
+  inset-inline-end: 14px;
+
+  min-width: 28px;
+  height: 24px;
+
+  display: grid;
+  place-items: center;
+
+  padding: 0 8px;
+
+  color: var(--profile-primary);
+  background: var(--profile-surface);
+
+  border: 1px solid var(--profile-border);
+  border-radius: 999px;
+
+  font-size: 12px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+
+/* =========================================================
+   04. عناوين الشحن
+   ========================================================= */
+
+.customer-address-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.customer-address {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  padding: 15px;
+
+  background: var(--profile-soft);
+
+  border: 1px solid var(--profile-border);
+  border-radius: 14px;
+
+  transition: border-color var(--profile-transition);
+}
+
+.customer-address.is-default {
+  background:
+    linear-gradient(
+      var(--profile-surface),
+      var(--profile-surface)
+    ) padding-box,
+    var(--profile-gradient) border-box;
+
+  border: 1.5px solid transparent;
+}
+
+.customer-address-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.customer-address-title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  font-size: 14.5px;
+  font-weight: 800;
+}
+
+.customer-address-title i {
+  color: var(--profile-primary);
+  font-size: 16px;
+}
+
+.customer-address-default-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  min-height: 26px;
+
+  padding: 0 10px;
+
+  color: var(--profile-warning);
+  background: var(--profile-warning-soft);
+
+  border-radius: 999px;
+
+  font-size: 11.5px;
+  font-weight: 800;
+}
+
+.customer-address-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  color: var(--profile-secondary);
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.customer-address-lines span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.customer-address-lines i {
+  color: var(--profile-muted);
+  font-size: 14px;
+}
+
+.customer-address-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  padding-top: 4px;
+
+  border-top: 1px dashed var(--profile-border);
+}
+
+.customer-address-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  min-height: 42px;
+
+  padding: 0 11px;
+
+  color: var(--profile-secondary);
+  background: transparent;
+
+  border: 1px solid var(--profile-border);
+  border-radius: 10px;
+
+  font-size: 12.5px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    color var(--profile-transition),
+    background var(--profile-transition),
+    border-color var(--profile-transition);
+}
+
+.customer-address-action:hover {
+  color: var(--profile-primary);
+  background: var(--profile-purple-soft);
+  border-color: rgb(104 21 237 / 30%);
+}
+
+.customer-address-action.is-danger:hover {
+  color: var(--profile-danger);
+  background: var(--profile-danger-soft);
+  border-color: rgb(229 56 79 / 30%);
+}
+
+.customer-address-action[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* مفتاح تعيين العنوان الافتراضي داخل النافذة */
+
+.customer-default-toggle {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  min-height: 46px;
+
+  padding: 0 13px;
+
+  background: var(--profile-soft);
+
+  border: 1px solid var(--profile-border);
+  border-radius: 12px;
+
+  font-size: 13.5px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.customer-default-toggle input {
+  width: 18px;
+  height: 18px;
+
+  accent-color: var(--profile-primary);
+
+  cursor: pointer;
+}
+
+.customer-default-toggle:has(input:focus-visible) {
+  border-color: var(--profile-primary);
+  box-shadow: 0 0 0 3px rgb(104 21 237 / 14%);
+}
+
+.customer-delete-summary {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px;
+  color: var(--profile-secondary);
+  background: var(--profile-danger-soft);
+  border-radius: 14px;
+  line-height: 1.7;
+}
+
+.customer-delete-summary > i {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  color: var(--profile-danger);
+  font-size: 20px;
+}
+
+.customer-delete-address-name {
+  display: block;
+  margin-top: 8px;
+  color: var(--profile-text);
+  font-weight: 800;
+}
+
+.customer-delete-confirm {
+  color: #ffffff;
+  background: var(--profile-danger);
+  border-color: var(--profile-danger);
+}
+
+.customer-delete-confirm:hover {
+  color: #ffffff;
+  filter: brightness(0.94);
+  transform: translateY(-1px);
+}
+
+@media (min-width: 992px) {
+  .profile-row.profile-row-2:has(> .customer-current-order) {
+    grid-template-columns: minmax(0, 1.28fr) minmax(280px, 0.72fr);
+  }
+}
+
+
+/* =========================================================
+   05. التفضيلات
+   ========================================================= */
+
+.customer-preferences {
+  justify-content: flex-start;
+}
+
+.customer-preferences .profile-button.is-ghost {
+  align-self: flex-start;
+
+  margin-top: 12px;
+}
+
+
+/* =========================================================
+   06. التجاوب
+   ========================================================= */
+
+@media (max-width: 767.98px) {
+  .profile-page-heading .profile-breadcrumb {
+    display: none;
+  }
+
+  .customer-library-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .customer-tracker {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2px;
+  }
+
+  /* على الهاتف يصبح شريط المراحل عمودياً */
+
+  .customer-tracker-step {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+
+    min-height: 48px;
+
+    text-align: start;
+  }
+
+  .customer-tracker-step::before,
+  .customer-tracker-step::after {
+    top: 36px;
+    inset-inline-start: 17px;
+
+    width: 3px;
+    height: 100%;
+  }
+
+  /* الشريط عمودي هنا، فالتعبئة تنزل من الأعلى */
+
+  .customer-tracker-step::after {
+    transform: scaleY(0);
+    transform-origin: center top;
+  }
+
+  html[dir="ltr"] .customer-tracker-step::after {
+    transform-origin: center top;
+  }
+
+  .customer-tracker-step.is-done::after {
+    transform: scaleY(1);
+  }
+
+  .customer-current-order .profile-button.is-primary {
+    width: 100%;
+  }
+
+  .customer-address-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .customer-address-action {
+    justify-content: center;
+    min-height: 44px;
+  }
+
+  .profile-hero-skeleton {
+    flex-direction: column;
+    align-items: center;
+
+    padding: 20px 16px;
+  }
+}
+
+@media (max-width: 479.98px) {
+  .customer-library-item {
+    min-height: 0;
+  }
+
+  .customer-address-actions {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+
+/* =========================================================
+   تقليل الحركة — الشريط يظهر ممتلئاً بلا تدرّج
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .customer-tracker-step::after,
+  .customer-tracker-dot,
+  .customer-tracker-label {
+    transition: none !important;
+  }
+}

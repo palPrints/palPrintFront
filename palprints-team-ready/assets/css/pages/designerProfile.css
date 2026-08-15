@@ -1,0 +1,447 @@
+/* =========================================================
+   PalPrints — Designer Profile
+   الأنماط الخاصة بصفحة الملف الشخصي للمصمم
+
+   File: assets/css/pages/designerProfile.css
+   يعتمد على: assets/css/pages/profile-core.css
+
+   الترتيب:
+   01. الهيكل العظمي للهيرو
+   02. تنبيه حالة الاعتماد
+   03. حالة التصاميم
+   04. معرض الأعمال
+   05. المهارات والنبذة
+   06. المحفظة
+   07. التجاوب
+   ========================================================= */
+
+
+/* =========================================================
+   00. عرض مساحة المحتوى
+   =========================================================
+   نفس محاذاة صفحة العميل: الهيدر والبطاقات بعرض مرئي
+   موحّد، من دون تغيير أبعاد أو موضع الشريط الجانبي. */
+
+.designer-profile-page {
+  --designer-content-max: 1060px;
+}
+
+.designer-profile-page .profile-topbar {
+  max-width: var(--designer-content-max);
+}
+
+.designer-profile-page .profile-main {
+  max-width: calc(var(--designer-content-max) + 44px);
+}
+
+
+/* =========================================================
+   01. الهيكل العظمي للهيرو
+   ========================================================= */
+
+.profile-hero-skeleton {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  padding: 22px 24px 24px;
+}
+
+[data-state="loading"] > .profile-hero-skeleton {
+  display: flex;
+}
+
+.profile-skeleton.is-avatar {
+  width: 116px;
+  height: 116px;
+
+  flex: 0 0 116px;
+
+  border-radius: 50%;
+}
+
+.profile-hero-skeleton-lines {
+  flex: 1;
+  min-width: 0;
+}
+
+.profile-hero [data-state-error] {
+  padding: 20px 24px 24px;
+}
+
+/* شارة الاعتماد أسفل المسمى المهني مباشرة */
+
+.designer-profile-page .profile-identity .profile-badge {
+  align-self: flex-start;
+}
+
+
+/* =========================================================
+   02. تنبيه حالة الاعتماد
+   ========================================================= */
+
+.designer-approval-alert {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+
+  padding: 15px 18px;
+
+  background: var(--profile-warning-soft);
+
+  border: 1px solid rgb(224 138 18 / 30%);
+  border-radius: var(--profile-radius);
+}
+
+.designer-approval-alert[hidden] {
+  display: none;
+}
+
+.designer-approval-alert.is-rejected {
+  background: var(--profile-danger-soft);
+  border-color: rgb(229 56 79 / 30%);
+}
+
+.designer-approval-alert.is-incomplete {
+  background: var(--profile-info-soft);
+  border-color: rgb(21 143 221 / 30%);
+}
+
+.designer-approval-alert-icon {
+  width: 40px;
+  height: 40px;
+
+  flex: 0 0 40px;
+
+  display: grid;
+  place-items: center;
+
+  color: var(--profile-warning);
+  background: var(--profile-surface);
+
+  border-radius: 12px;
+
+  font-size: 19px;
+}
+
+.designer-approval-alert.is-rejected .designer-approval-alert-icon {
+  color: var(--profile-danger);
+}
+
+.designer-approval-alert.is-incomplete .designer-approval-alert-icon {
+  color: var(--profile-info);
+}
+
+.designer-approval-alert > div {
+  flex: 1;
+  min-width: 200px;
+}
+
+.designer-approval-alert h2 {
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.designer-approval-alert p {
+  margin-top: 3px;
+
+  color: var(--profile-secondary);
+
+  font-size: 13px;
+  font-weight: 500;
+}
+
+
+/* =========================================================
+   03. حالة التصاميم
+   ========================================================= */
+
+.designer-all-designs {
+  margin-top: 14px;
+}
+
+.designer-designs-status .profile-stat.is-stacked strong {
+  font-size: 24px;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (min-width: 992px) {
+  .designer-profile-page .profile-row-2:has(> .designer-designs-status) {
+    grid-template-columns: minmax(0, 1.12fr) minmax(320px, 0.88fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .designer-profile-page .profile-row-3:has(> .designer-portfolio) {
+    grid-template-columns: minmax(320px, 1.18fr) minmax(220px, 0.82fr) minmax(260px, 1fr);
+  }
+}
+
+
+/* =========================================================
+   04. معرض الأعمال
+   ========================================================= */
+
+.designer-portfolio-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  margin-bottom: 12px;
+
+  color: var(--profile-blue);
+
+  font-size: 13px;
+  font-weight: 700;
+
+  word-break: break-all;
+}
+
+.designer-portfolio-link:hover {
+  text-decoration: underline;
+}
+
+.designer-portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+
+  margin-bottom: 14px;
+}
+
+.designer-portfolio-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+
+  color: var(--profile-muted);
+
+  font-size: 12.5px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.designer-portfolio-thumb {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+
+  display: grid;
+  place-items: center;
+
+  color: #ffffff;
+
+  border-radius: 12px;
+
+  font-size: 22px;
+
+}
+
+.designer-portfolio-thumb.thumb-one {
+  background: linear-gradient(140deg, #2f4d3e, #16362a);
+}
+
+.designer-portfolio-thumb.thumb-two {
+  background: linear-gradient(140deg, #f0e6d8, #d9c7ae);
+  color: #6d5a3f;
+}
+
+.designer-portfolio-thumb.thumb-three {
+  background: var(--profile-gradient);
+}
+
+
+/* =========================================================
+   05. المهارات والنبذة
+   ========================================================= */
+
+.designer-skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.designer-skill {
+  display: inline-flex;
+  align-items: center;
+
+  min-height: 36px;
+
+  padding: 0 13px;
+
+  color: var(--profile-primary);
+  background: var(--profile-purple-soft);
+
+  border-radius: var(--profile-radius-pill);
+
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.designer-about p,
+#designerAbout {
+  color: var(--profile-secondary);
+
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 1.8;
+}
+
+/* =========================================================
+   06. معلومات الحساب والمحفظة
+   =========================================================
+   البطاقتان في الصف الأخير أكثر تراصّاً من بقية البطاقات،
+   وزر كل واحدة مدفوع إلى أسفلها فيستويان على سطر واحد
+   مهما اختلف طول المحتوى.
+   ========================================================= */
+
+.designer-account,
+.designer-wallet {
+  padding: 20px;
+}
+
+.designer-account .profile-card-heading,
+.designer-wallet .profile-card-heading {
+  margin-bottom: 12px;
+}
+
+.designer-account .profile-card-icon,
+.designer-wallet .profile-card-icon {
+  width: 30px;
+  height: 30px;
+
+  flex: 0 0 30px;
+
+  border-radius: 10px;
+
+  font-size: 15px;
+}
+
+.designer-account .profile-card-title h2,
+.designer-wallet .profile-card-title h2 {
+  font-size: 15.5px;
+}
+
+/* الهامش السفلي يضمن فاصلاً عن الزر،
+   لأن margin-top: auto وحده يصبح صفراً
+   حين لا يتبقى فراغ في البطاقة */
+
+.designer-account .profile-card-note,
+.designer-wallet .profile-card-note {
+  margin-top: 10px;
+  margin-bottom: 12px;
+
+  font-size: 12.5px;
+}
+
+/* معلومات الحساب — صفوف أقصر وخط أصغر
+   (الحشوة على الخليتين، فالصف نفسه display: contents) */
+
+.designer-account .profile-info-label,
+.designer-account .profile-info-value {
+  padding: 8px 0;
+}
+
+.designer-account .profile-info-label,
+.designer-account .profile-info-value {
+  font-size: 12.5px;
+}
+
+.designer-account .profile-info-label i {
+  font-size: 15px;
+}
+
+/* المحفظة — أرقام أهدأ وصفوف أضيق */
+
+.designer-wallet .profile-wallet-list {
+  margin-bottom: 8px;
+}
+
+.designer-wallet .profile-wallet-row {
+  padding: 7px 0;
+}
+
+.designer-wallet .profile-wallet-row dt {
+  font-size: 12.5px;
+}
+
+.designer-wallet .profile-wallet-row dd {
+  font-size: 18px;
+}
+
+/* الزر آخر البطاقة
+   =========================================================
+   .profile-card عمود مرن أصلاً، فيكفي margin-top: auto
+   لدفع الزر إلى الأسفل. أما بطاقة المحفظة فمحتواها داخل
+   غلاف الحالة، لذلك يتمدد الغلاف أولاً ثم يُدفع الزر. */
+
+.designer-security-link {
+  align-self: flex-start;
+
+  margin-top: auto;
+}
+
+.designer-wallet [data-state-content].is-flex {
+  flex: 1;
+  flex-direction: column;
+}
+
+.designer-wallet #withdrawButton {
+  margin-top: auto;
+}
+
+
+/* =========================================================
+   07. التجاوب
+   ========================================================= */
+
+@media (max-width: 1279.98px) {
+  .designer-portfolio-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1091.98px) {
+  .designer-profile-page .profile-hero-actions {
+    width: 100%;
+    min-width: 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .designer-profile-page .profile-hero-actions .profile-button {
+    flex: 1 1 190px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .designer-profile-page .profile-page-heading .profile-breadcrumb {
+    display: none;
+  }
+
+  .profile-hero-skeleton {
+    flex-direction: column;
+    align-items: center;
+
+    padding: 20px 16px;
+  }
+
+  .designer-profile-page .profile-identity .profile-badge {
+    align-self: center;
+  }
+
+  .designer-approval-alert {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .designer-approval-alert .profile-button {
+    width: 100%;
+  }
+
+  .designer-account,
+  .designer-wallet {
+    padding: 16px;
+  }
+}

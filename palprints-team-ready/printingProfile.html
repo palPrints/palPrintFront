@@ -1,0 +1,2258 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-bs-theme="light">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="الملف الشخصي للمطبعة في منصة PalPrints"
+  >
+
+  <title>الملف الشخصي للمطبعة | PalPrints</title>
+
+  <!-- Bootstrap Icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+  >
+
+  <!-- Cairo Font -->
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
+  >
+
+  <!-- الأساس المشترك -->
+  <link
+    rel="stylesheet"
+    href="assets/css/pages/profile-core.css?v=4"
+  >
+
+  <!-- CSS الخاص بصفحة ملف المطبعة -->
+  <link
+    rel="stylesheet"
+    href="assets/css/pages/printingProfile.css?v=11"
+  >
+
+  <!-- حركات الأزرار وظهور العناصر — تُحمّل أخيراً -->
+  <link
+    rel="stylesheet"
+    href="assets/css/interactions.css?v=1"
+  >
+
+</head>
+
+<body class="profile-page printing-profile-page">
+
+  <a
+    href="#profileMain"
+    class="profile-skip-link"
+    data-i18n="skipToContent"
+  >
+    تخطي إلى المحتوى
+  </a>
+
+  <!-- ==================================================
+       خلفية باستيل متحركة
+       ================================================== -->
+
+  <div
+    class="pastel-space-background"
+    aria-hidden="true"
+  >
+
+    <span class="pastel-blob blob-top-start"></span>
+    <span class="pastel-blob blob-top-end"></span>
+    <span class="pastel-blob blob-bottom-start"></span>
+    <span class="pastel-blob blob-bottom-end"></span>
+    <span class="pastel-blob blob-middle-end"></span>
+
+    <span class="pastel-bubble bubble-one"></span>
+    <span class="pastel-bubble bubble-two"></span>
+    <span class="pastel-bubble bubble-three"></span>
+    <span class="pastel-bubble bubble-four"></span>
+
+    <svg
+      class="pastel-orbit orbit-top"
+      viewBox="0 0 700 240"
+      preserveAspectRatio="none"
+    >
+      <path d="M20 175 C190 230, 250 30, 680 80"></path>
+    </svg>
+
+    <svg
+      class="pastel-orbit orbit-bottom"
+      viewBox="0 0 900 260"
+      preserveAspectRatio="none"
+    >
+      <path d="M20 80 C280 230, 620 230, 880 40"></path>
+    </svg>
+
+    <span class="pastel-star star-one"></span>
+    <span class="pastel-star star-two"></span>
+    <span class="pastel-star star-three"></span>
+    <span class="pastel-star star-four"></span>
+    <span class="pastel-star star-five"></span>
+    <span class="pastel-star star-six"></span>
+    <span class="pastel-star star-seven"></span>
+
+    <span class="pastel-dots dots-one"></span>
+    <span class="pastel-dots dots-two"></span>
+    <span class="pastel-dots dots-three"></span>
+
+  </div>
+
+  <div class="profile-app">
+
+    <!-- ==================================================
+         القائمة الجانبية
+         ================================================== -->
+
+    <aside
+      class="profile-sidebar"
+      id="profileSidebar"
+      aria-label="القائمة الجانبية للمطبعة"
+      data-i18n-aria="sidebarLabel"
+    >
+
+      <div class="profile-sidebar-header">
+
+        <a
+          href="printingDashboard.html"
+          class="profile-brand"
+          aria-label="الانتقال إلى لوحة التحكم"
+          data-i18n-aria="goDashboard"
+        >
+          <img
+            src="assets/images/lalprints-logo.png"
+            class="profile-brand-image"
+            alt="PalPrints"
+          >
+        </a>
+
+        <button
+          type="button"
+          class="profile-sidebar-close"
+          id="sidebarCloseButton"
+          aria-label="إغلاق القائمة الجانبية"
+          data-i18n-aria="closeSidebar"
+        >
+          <i
+            class="bi bi-x-lg"
+            aria-hidden="true"
+          ></i>
+        </button>
+
+      </div>
+
+      <nav
+        class="profile-sidebar-nav"
+        aria-label="روابط حساب المطبعة"
+        data-i18n-aria="printerNavLabel"
+      >
+
+        <a
+          href="printingDashboard.html"
+          class="profile-sidebar-link"
+        >
+          <i
+            class="bi bi-grid-1x2"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="dashboard">لوحة التحكم</span>
+        </a>
+
+        <a
+          href="printingProfile.html"
+          class="profile-sidebar-link active"
+          aria-current="page"
+        >
+          <i
+            class="bi bi-person"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="profileTitle">الملف الشخصي</span>
+        </a>
+
+        <a
+          href="printingServices.html"
+          class="profile-sidebar-link"
+        >
+          <i
+            class="bi bi-box-seam"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="printServices">خدمات ومنتجات الطباعة</span>
+        </a>
+
+        <a
+          href="printingOrders.html"
+          class="profile-sidebar-link"
+        >
+          <i
+            class="bi bi-bag"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="printOrders">طلبات الطباعة</span>
+        </a>
+
+        <div
+          class="profile-sidebar-divider"
+          aria-hidden="true"
+        ></div>
+
+        <a
+          href="printingWallet.html"
+          class="profile-sidebar-link"
+        >
+          <i
+            class="bi bi-wallet2"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="walletAndEarnings">الأرباح والمحفظة</span>
+        </a>
+
+        <a
+          href="withdrawals.html"
+          class="profile-sidebar-link"
+        >
+          <i
+            class="bi bi-arrow-up-right-square"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="withdrawals">طلبات السحب</span>
+        </a>
+
+        <a
+          href="printingReviews.html"
+          class="profile-sidebar-link"
+        >
+          <i
+            class="bi bi-star"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="reviews">التقييمات</span>
+        </a>
+
+        <div
+          class="profile-sidebar-divider"
+          aria-hidden="true"
+        ></div>
+
+        <a
+          href="printingNotifications.html"
+          class="profile-sidebar-link"
+        >
+          <i
+            class="bi bi-bell"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="notifications">الإشعارات</span>
+        </a>
+
+        <a
+          href="settings.html"
+          class="profile-sidebar-link"
+        >
+          <i
+            class="bi bi-gear"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="settingsSecurity">الإعدادات والأمان</span>
+        </a>
+
+        <a
+          href="support.html"
+          class="profile-sidebar-link"
+        >
+          <i
+            class="bi bi-headset"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="support">التواصل مع الدعم الفني</span>
+        </a>
+
+      </nav>
+
+      <button
+        type="button"
+        class="profile-sidebar-logout"
+        id="profileLogoutButton"
+        data-href="login.html"
+      >
+        <i
+          class="bi bi-box-arrow-left"
+          aria-hidden="true"
+        ></i>
+
+        <span data-i18n="logout">تسجيل الخروج</span>
+      </button>
+
+    </aside>
+
+    <button
+      type="button"
+      class="profile-sidebar-backdrop"
+      id="sidebarBackdrop"
+      aria-label="إغلاق القائمة الجانبية"
+      data-i18n-aria="closeSidebar"
+    ></button>
+
+    <!-- ==================================================
+         مساحة الصفحة
+         ================================================== -->
+
+    <div class="profile-shell">
+
+      <header class="profile-topbar">
+
+        <div class="profile-topbar-start">
+
+          <!-- السهم نفسه يفتح ويغلق القائمة الجانبية
+               ويتغيّر اتجاهه حسب الحالة واتجاه الصفحة -->
+
+          <button
+            type="button"
+            class="profile-sidebar-toggle"
+            id="sidebarToggleButton"
+            aria-controls="profileSidebar"
+            aria-expanded="true"
+            aria-label="إغلاق القائمة الجانبية"
+            data-i18n-aria="closeSidebar"
+          >
+            <i
+              class="bi bi-arrow-left"
+              id="sidebarToggleIcon"
+              aria-hidden="true"
+            ></i>
+          </button>
+
+        </div>
+        <div class="profile-topbar-actions">
+
+          <button
+            type="button"
+            class="profile-action-button"
+            id="themeToggleButton"
+            aria-label="تغيير المظهر"
+            data-i18n-aria="changeTheme"
+          >
+            <i
+              class="bi bi-moon-stars"
+              id="themeToggleIcon"
+              aria-hidden="true"
+            ></i>
+          </button>
+
+          <button
+            type="button"
+            class="profile-action-button"
+            id="languageToggleButton"
+            aria-label="تغيير اللغة"
+            data-i18n-aria="changeLanguage"
+          >
+            <i
+              class="bi bi-globe2"
+              aria-hidden="true"
+            ></i>
+          </button>
+
+          <a
+            href="cart.html"
+            class="profile-action-button"
+            aria-label="سلة المشتريات"
+            data-i18n-aria="shoppingCart"
+          >
+            <i
+              class="bi bi-cart3"
+              aria-hidden="true"
+            ></i>
+
+            <span class="profile-action-badge">2</span>
+          </a>
+
+          <a
+            href="printingNotifications.html"
+            class="profile-action-button"
+            aria-label="الإشعارات"
+            data-i18n-aria="notifications"
+          >
+            <i
+              class="bi bi-bell"
+              aria-hidden="true"
+            ></i>
+
+            <span
+              class="profile-action-dot"
+              aria-hidden="true"
+            ></span>
+          </a>
+
+        </div>
+
+      </header>
+
+      <main
+        class="profile-main"
+        id="profileMain"
+      >
+
+        <div class="profile-page-heading">
+
+          <h1 data-i18n="printerProfileTitle">الملف الشخصي للمطبعة</h1>
+
+          <ol
+            class="profile-breadcrumb"
+            aria-label="مسار التنقل"
+            data-i18n-aria="breadcrumbLabel"
+          >
+            <li>
+              <a
+                href="printingDashboard.html"
+                data-i18n="dashboard"
+              >لوحة التحكم</a>
+            </li>
+
+            <li aria-current="page">
+              <span data-i18n="profileTitle">الملف الشخصي</span>
+            </li>
+          </ol>
+
+        </div>
+
+        <!-- ==================================================
+             تنبيه حالة الاعتماد
+             ================================================== -->
+
+        <div
+          class="printer-approval-alert"
+          id="approvalAlert"
+          role="status"
+          hidden
+        >
+          <span
+            class="printer-approval-alert-icon"
+            aria-hidden="true"
+          >
+            <i class="bi bi-info-circle"></i>
+          </span>
+
+          <div>
+            <h2 id="approvalAlertTitle"></h2>
+            <p id="approvalAlertText"></p>
+          </div>
+
+          <a
+            href="printingDocuments.html"
+            class="profile-button is-outline is-small"
+          >
+            <span data-i18n="manageDocuments">إدارة الوثائق</span>
+          </a>
+        </div>
+
+        <!-- ==================================================
+             بطاقة الهيرو
+             ================================================== -->
+
+        <section
+          class="profile-card profile-hero"
+          id="profileHero"
+          aria-labelledby="printerName"
+          data-state="loading"
+        >
+
+          <div
+            class="profile-hero-cover"
+            aria-hidden="true"
+          ></div>
+
+          <div
+            class="profile-hero-skeleton"
+            data-state-loading
+          >
+            <span class="profile-skeleton is-avatar"></span>
+
+            <div class="profile-hero-skeleton-lines">
+              <span class="profile-skeleton is-title"></span>
+              <span class="profile-skeleton is-short"></span>
+              <span class="profile-skeleton is-line"></span>
+            </div>
+          </div>
+
+          <div data-state-error>
+            <div class="profile-state is-error">
+
+              <span
+                class="profile-state-icon"
+                aria-hidden="true"
+              >
+                <i class="bi bi-wifi-off"></i>
+              </span>
+
+              <h3 data-i18n="errorTitle">تعذر تحميل البيانات</h3>
+
+              <p data-i18n="errorHeroText">
+                حدث خطأ أثناء جلب بيانات المطبعة، تحقق من الاتصال ثم أعد المحاولة.
+              </p>
+
+              <button
+                type="button"
+                class="profile-button is-outline is-small"
+                data-retry-for="profileHero"
+              >
+                <i
+                  class="bi bi-arrow-clockwise"
+                  aria-hidden="true"
+                ></i>
+
+                <span data-i18n="retry">إعادة المحاولة</span>
+              </button>
+
+            </div>
+          </div>
+
+          <div
+            class="profile-hero-content is-flex"
+            data-state-content
+          >
+
+            <div class="profile-avatar-area">
+
+              <div class="profile-avatar">
+
+                <img
+                  id="profileAvatarImage"
+                  alt="شعار المطبعة"
+                  data-i18n-alt="printerLogo"
+                  hidden
+                >
+
+                <i
+                  class="bi bi-shop"
+                  id="profileAvatarIcon"
+                  aria-hidden="true"
+                ></i>
+
+              </div>
+
+              <label
+                class="profile-avatar-upload"
+                for="profileAvatarInput"
+                aria-label="تغيير شعار المطبعة"
+                data-i18n-aria="changeLogo"
+              >
+                <i
+                  class="bi bi-camera"
+                  aria-hidden="true"
+                ></i>
+              </label>
+
+              <input
+                type="file"
+                id="profileAvatarInput"
+                accept="image/png,image/jpeg,image/webp"
+                hidden
+              >
+
+            </div>
+
+            <div class="profile-identity">
+
+              <!-- حالة اعتماد المطبعة بجانب الاسم -->
+
+              <span
+                class="profile-badge is-approved"
+                id="printerApprovalBadge"
+              >
+                <i
+                  class="bi bi-patch-check-fill"
+                  aria-hidden="true"
+                ></i>
+
+                <span id="printerApprovalText">مطبعة معتمدة</span>
+              </span>
+
+              <h2
+                id="printerName"
+                data-i18n="printerNameValue"
+              >مطبعة الألوان الحديثة</h2>
+
+              <p
+                class="profile-role"
+                data-i18n="printerServices"
+              >طباعة · تصميم · تغليف</p>
+
+              <!-- ترتيب الشرائح مطابق للتصميم:
+                   الموقع ثم واتساب ثم البريد -->
+
+              <div class="profile-contact-list">
+
+                <span class="profile-contact-item">
+                  <i
+                    class="bi bi-geo-alt"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span
+                    id="printerLocation"
+                    data-i18n="location"
+                  >غزة، فلسطين</span>
+                </span>
+
+                <!-- رقم واتساب المخصص لاستقبال الطلبات + حالة توثيقه -->
+
+                <span class="profile-contact-item is-whatsapp">
+                  <i
+                    class="bi bi-whatsapp"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span
+                    dir="ltr"
+                    id="printerWhatsapp"
+                  >059 876 5432</span>
+
+                  <span
+                    class="profile-badge is-whatsapp"
+                    id="whatsappBadge"
+                  >
+                    <i
+                      class="bi bi-patch-check"
+                      aria-hidden="true"
+                    ></i>
+
+                    <span id="whatsappBadgeText">واتساب موثق</span>
+                  </span>
+                </span>
+
+                <a
+                  href="mailto:info@alwanprint.ps"
+                  class="profile-contact-item"
+                >
+                  <i
+                    class="bi bi-envelope"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span
+                    dir="ltr"
+                    id="printerEmail"
+                  >info@alwanprint.ps</span>
+                </a>
+
+              </div>
+
+              <!-- أزرار الهيرو في صف أفقي أسفل بيانات التواصل -->
+
+              <div class="profile-hero-actions printer-hero-actions">
+
+                <a
+                  href="printingServices.html"
+                  class="profile-button is-primary"
+                >
+                  <i
+                    class="bi bi-sliders"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span data-i18n="manageServices">إدارة الخدمات والأسعار</span>
+                </a>
+
+                <a
+                  href="printingOrders.html?filter=new"
+                  class="profile-button is-outline"
+                >
+                  <i
+                    class="bi bi-list-check"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span data-i18n="viewNewOrders">عرض الطلبات الجديدة</span>
+                </a>
+
+                <button
+                  type="button"
+                  class="profile-button is-outline"
+                  data-dialog-open="printerEditDialog"
+                >
+                  <i
+                    class="bi bi-pencil-square"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span data-i18n="editPrinterProfile">تعديل ملف المطبعة</span>
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- ==================================================
+             طلبات تحتاج إجراء + ملخص الأداء
+             ================================================== -->
+
+        <div class="profile-row profile-row-2">
+
+          <!-- طلبات تحتاج إجراء -->
+
+          <section
+            class="profile-card printer-action-orders"
+            id="actionOrdersSection"
+            aria-labelledby="actionOrdersTitle"
+            data-state="loading"
+          >
+
+            <div class="profile-card-heading">
+              <div class="profile-card-title">
+                <span
+                  class="profile-card-icon icon-orange"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-bag-check"></i>
+                </span>
+
+                <h2
+                  id="actionOrdersTitle"
+                  data-i18n="ordersNeedAction"
+                >طلبات تحتاج إجراء</h2>
+              </div>
+            </div>
+
+            <div data-state-loading>
+              <div class="profile-skeleton-grid">
+                <span class="profile-skeleton is-block"></span>
+                <span class="profile-skeleton is-block"></span>
+                <span class="profile-skeleton is-block"></span>
+                <span class="profile-skeleton is-block"></span>
+              </div>
+            </div>
+
+            <div data-state-empty>
+              <div class="profile-state">
+
+                <span
+                  class="profile-state-icon"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-check2-circle"></i>
+                </span>
+
+                <h3 data-i18n="emptyActionOrdersTitle">لا توجد طلبات تحتاج إجراء</h3>
+
+                <p data-i18n="emptyActionOrdersText">
+                  أحسنت! جميع الطلبات الحالية تمت معالجتها.
+                </p>
+
+              </div>
+            </div>
+
+            <div data-state-error>
+              <div class="profile-state is-error">
+
+                <span
+                  class="profile-state-icon"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-exclamation-triangle"></i>
+                </span>
+
+                <h3 data-i18n="errorTitle">تعذر تحميل البيانات</h3>
+
+                <button
+                  type="button"
+                  class="profile-button is-outline is-small"
+                  data-retry-for="actionOrdersSection"
+                >
+                  <i
+                    class="bi bi-arrow-clockwise"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span data-i18n="retry">إعادة المحاولة</span>
+                </button>
+
+              </div>
+            </div>
+
+            <div data-state-content>
+
+              <div class="profile-stat-grid">
+
+                <article class="profile-stat is-stacked tone-purple">
+                  <span
+                    class="profile-stat-icon"
+                    aria-hidden="true"
+                  >
+                    <i class="bi bi-hourglass-split"></i>
+                  </span>
+
+                  <strong>6</strong>
+
+                  <span data-i18n="awaitingAcceptance">بانتظار القبول</span>
+                </article>
+
+                <article class="profile-stat is-stacked tone-blue">
+                  <span
+                    class="profile-stat-icon"
+                    aria-hidden="true"
+                  >
+                    <i class="bi bi-printer"></i>
+                  </span>
+
+                  <strong>14</strong>
+
+                  <span data-i18n="inPrinting">قيد الطباعة</span>
+                </article>
+
+                <article class="profile-stat is-stacked tone-green">
+                  <span
+                    class="profile-stat-icon"
+                    aria-hidden="true"
+                  >
+                    <i class="bi bi-truck"></i>
+                  </span>
+
+                  <strong>5</strong>
+
+                  <span data-i18n="readyToShip">جاهزة للشحن</span>
+                </article>
+
+                <article class="profile-stat is-stacked tone-red">
+                  <span
+                    class="profile-stat-icon"
+                    aria-hidden="true"
+                  >
+                    <i class="bi bi-clock-history"></i>
+                  </span>
+
+                  <strong>2</strong>
+
+                  <span data-i18n="lateOrders">متأخرة</span>
+                </article>
+
+              </div>
+
+              <a
+                href="printingOrders.html"
+                class="profile-button is-primary is-block printer-orders-button"
+              >
+                <i
+                  class="bi bi-box-arrow-in-left"
+                  aria-hidden="true"
+                ></i>
+
+                <span data-i18n="viewPrintOrders">عرض طلبات الطباعة</span>
+              </a>
+
+            </div>
+
+          </section>
+
+          <!-- ملخص الأداء -->
+
+          <section
+            class="profile-card"
+            id="performanceSection"
+            aria-labelledby="performanceTitle"
+            data-state="loading"
+          >
+
+            <div class="profile-card-heading">
+              <div class="profile-card-title">
+                <span
+                  class="profile-card-icon icon-blue"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-bar-chart"></i>
+                </span>
+
+                <h2
+                  id="performanceTitle"
+                  data-i18n="performanceSummary"
+                >ملخص الأداء</h2>
+              </div>
+            </div>
+
+            <div data-state-loading>
+              <div class="profile-skeleton-grid">
+                <span class="profile-skeleton is-block"></span>
+                <span class="profile-skeleton is-block"></span>
+                <span class="profile-skeleton is-block"></span>
+                <span class="profile-skeleton is-block"></span>
+              </div>
+            </div>
+
+            <div data-state-error>
+              <div class="profile-state is-error">
+
+                <span
+                  class="profile-state-icon"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-exclamation-triangle"></i>
+                </span>
+
+                <h3 data-i18n="errorTitle">تعذر تحميل البيانات</h3>
+
+                <button
+                  type="button"
+                  class="profile-button is-outline is-small"
+                  data-retry-for="performanceSection"
+                >
+                  <i
+                    class="bi bi-arrow-clockwise"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span data-i18n="retry">إعادة المحاولة</span>
+                </button>
+
+              </div>
+            </div>
+
+            <div data-state-content>
+
+              <div class="profile-stat-grid">
+
+                <article class="profile-stat is-stacked">
+                  <span
+                    class="profile-stat-icon"
+                    aria-hidden="true"
+                  >
+                    <i class="bi bi-clipboard-check"></i>
+                  </span>
+
+                  <strong>328</strong>
+
+                  <span data-i18n="completedOrdersCount">طلباً مكتملاً</span>
+                </article>
+
+                <article class="profile-stat is-stacked">
+                  <span
+                    class="profile-stat-icon"
+                    aria-hidden="true"
+                  >
+                    <i class="bi bi-check-circle"></i>
+                  </span>
+
+                  <strong>96%</strong>
+
+                  <span data-i18n="completionRate">معدل الإنجاز</span>
+                </article>
+
+                <article class="profile-stat is-stacked">
+                  <span
+                    class="profile-stat-icon"
+                    aria-hidden="true"
+                  >
+                    <i class="bi bi-star"></i>
+                  </span>
+
+                  <strong>4.8</strong>
+
+                  <span data-i18n="generalRating">التقييم العام</span>
+                </article>
+
+                <article class="profile-stat is-stacked">
+                  <span
+                    class="profile-stat-icon"
+                    aria-hidden="true"
+                  >
+                    <i class="bi bi-clock"></i>
+                  </span>
+
+                  <strong data-i18n="twoDays">يومان</strong>
+
+                  <span data-i18n="averageProduction">متوسط الإنتاج</span>
+                </article>
+
+              </div>
+
+            </div>
+
+          </section>
+
+        </div>
+
+        <!-- ==================================================
+             خدمات ومنتجات الطباعة + المحفظة
+             ================================================== -->
+
+        <div class="profile-row profile-row-2">
+
+          <!-- خدمات ومنتجات الطباعة -->
+
+          <section
+            class="profile-card printer-services"
+            id="servicesSection"
+            aria-labelledby="servicesTitle"
+            data-state="loading"
+          >
+
+            <div class="profile-card-heading">
+              <div class="profile-card-title">
+                <span
+                  class="profile-card-icon"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-boxes"></i>
+                </span>
+
+                <h2
+                  id="servicesTitle"
+                  data-i18n="printServices"
+                >خدمات ومنتجات الطباعة</h2>
+              </div>
+            </div>
+
+            <div data-state-loading>
+              <span class="profile-skeleton is-block"></span>
+              <span class="profile-skeleton is-short"></span>
+            </div>
+
+            <div data-state-empty>
+              <div class="profile-state">
+
+                <span
+                  class="profile-state-icon"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-box"></i>
+                </span>
+
+                <h3 data-i18n="emptyServicesTitle">لم تُضِف خدمات بعد</h3>
+
+                <p data-i18n="emptyServicesText">
+                  أضف منتجاتك وأسعارك ومدة الإنتاج ليتمكن العملاء من الطلب منك.
+                </p>
+
+                <a
+                  href="printingServices.html"
+                  class="profile-button is-primary is-small"
+                >
+                  <i
+                    class="bi bi-plus-lg"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span data-i18n="addService">إضافة خدمة</span>
+                </a>
+
+              </div>
+            </div>
+
+            <div data-state-error>
+              <div class="profile-state is-error">
+
+                <span
+                  class="profile-state-icon"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-exclamation-triangle"></i>
+                </span>
+
+                <h3 data-i18n="errorTitle">تعذر تحميل البيانات</h3>
+
+                <button
+                  type="button"
+                  class="profile-button is-outline is-small"
+                  data-retry-for="servicesSection"
+                >
+                  <i
+                    class="bi bi-arrow-clockwise"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span data-i18n="retry">إعادة المحاولة</span>
+                </button>
+
+              </div>
+            </div>
+
+            <div data-state-content>
+
+              <ul
+                class="printer-service-grid"
+                id="serviceGrid"
+              ></ul>
+
+              <!-- ما يمكن إدارته لكل خدمة -->
+
+              <p
+                class="printer-service-managed"
+                data-i18n="manageableItems"
+              >المنتجات · الأسعار · الألوان والمقاسات · مدة الإنتاج · توفر الخدمة — محدَّثة</p>
+
+              <a
+                href="printingServices.html"
+                class="profile-button is-primary is-block"
+              >
+                <i
+                  class="bi bi-sliders"
+                  aria-hidden="true"
+                ></i>
+
+                <span data-i18n="manageServices">إدارة الخدمات والأسعار</span>
+              </a>
+
+            </div>
+
+          </section>
+
+          <!-- المحفظة والأرباح — منفصلة عن ملخص النشاط -->
+
+          <section
+            class="profile-card printer-wallet"
+            id="walletSection"
+            aria-labelledby="walletTitle"
+            data-state="loading"
+          >
+
+            <div class="profile-card-heading">
+              <div class="profile-card-title">
+                <span
+                  class="profile-card-icon icon-green"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-wallet2"></i>
+                </span>
+
+                <h2
+                  id="walletTitle"
+                  data-i18n="walletAndEarnings"
+                >المحفظة والأرباح</h2>
+              </div>
+            </div>
+
+            <div data-state-loading>
+              <span class="profile-skeleton is-line"></span>
+              <span class="profile-skeleton is-line"></span>
+              <span class="profile-skeleton is-short"></span>
+            </div>
+
+            <div data-state-error>
+              <div class="profile-state is-error">
+
+                <span
+                  class="profile-state-icon"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-exclamation-triangle"></i>
+                </span>
+
+                <h3 data-i18n="errorTitle">تعذر تحميل البيانات</h3>
+
+                <button
+                  type="button"
+                  class="profile-button is-outline is-small"
+                  data-retry-for="walletSection"
+                >
+                  <i
+                    class="bi bi-arrow-clockwise"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span data-i18n="retry">إعادة المحاولة</span>
+                </button>
+
+              </div>
+            </div>
+
+            <div data-state-content>
+
+              <dl class="profile-wallet-list">
+
+                <div class="profile-wallet-row is-total">
+                  <dt data-i18n="totalEarnings">إجمالي الأرباح</dt>
+
+                  <dd>
+                    <span>23,370</span>
+                    <span class="profile-currency">₪</span>
+                  </dd>
+                </div>
+
+                <div class="profile-wallet-row is-available">
+                  <dt data-i18n="availableForWithdrawal">متاح للسحب</dt>
+
+                  <dd>
+                    <span>18,900</span>
+                    <span class="profile-currency">₪</span>
+                  </dd>
+                </div>
+
+                <div class="profile-wallet-row is-pending">
+                  <dt data-i18n="pendingEarnings">أرباح معلقة</dt>
+
+                  <dd>
+                    <span>4,470</span>
+                    <span class="profile-currency">₪</span>
+                  </dd>
+                </div>
+
+                <div class="profile-wallet-row is-meta">
+                  <dt data-i18n="lastTransfer">آخر تحويل</dt>
+
+                  <dd data-i18n="lastTransferValue">5 أغسطس 2026</dd>
+                </div>
+
+              </dl>
+
+              <button
+                type="button"
+                class="profile-button is-primary is-block"
+                id="withdrawButton"
+              >
+                <i
+                  class="bi bi-cash-coin"
+                  aria-hidden="true"
+                ></i>
+
+                <span data-i18n="requestWithdrawal">طلب سحب</span>
+              </button>
+
+            </div>
+
+          </section>
+
+        </div>
+
+        <!-- ==================================================
+             معلومات المطبعة + وثائق الاعتماد + بيانات التحويل
+             ================================================== -->
+
+        <div class="profile-row profile-row-3">
+
+          <!-- معلومات المطبعة -->
+
+          <section
+            class="profile-card"
+            aria-labelledby="printerInfoTitle"
+          >
+
+            <div class="profile-card-heading">
+              <div class="profile-card-title">
+                <span
+                  class="profile-card-icon"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-shop-window"></i>
+                </span>
+
+                <h2
+                  id="printerInfoTitle"
+                  data-i18n="printerInformation"
+                >معلومات المطبعة</h2>
+              </div>
+            </div>
+
+            <dl class="profile-info-list">
+
+              <div class="profile-info-row">
+                <dt class="profile-info-label">
+                  <i
+                    class="bi bi-clock"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span data-i18n="workingHours">ساعات العمل</span>
+                </dt>
+
+                <dd
+                  class="profile-info-value"
+                  id="infoWorkingHours"
+                  data-i18n="workingHoursValue"
+                >8:00 ص – 8:00 م</dd>
+              </div>
+
+              <div class="profile-info-row">
+                <dt class="profile-info-label">
+                  <i
+                    class="bi bi-geo-alt"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span data-i18n="address">العنوان</span>
+                </dt>
+
+                <dd
+                  class="profile-info-value"
+                  id="infoAddress"
+                  data-i18n="addressValue"
+                >غزة، الرمال، شارع عمر المختار</dd>
+              </div>
+
+              <div class="profile-info-row">
+                <dt class="profile-info-label">
+                  <i
+                    class="bi bi-calendar3"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span data-i18n="joinDate">تاريخ الانضمام</span>
+                </dt>
+
+                <dd
+                  class="profile-info-value"
+                  data-i18n="joinDateValue"
+                >15 مارس 2024</dd>
+              </div>
+
+              <!-- رقم واتساب المخصص لاستقبال الطلبات -->
+
+              <div class="profile-info-row printer-inline-row">
+                <dt class="profile-info-label">
+                  <i
+                    class="bi bi-whatsapp"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span data-i18n="ordersWhatsapp">رقم واتساب الطلبات</span>
+                </dt>
+
+                <dd class="profile-info-value">
+                  <span
+                    dir="ltr"
+                    id="infoWhatsapp"
+                  >059 876 5432</span>
+
+                  <span
+                    class="profile-badge is-whatsapp"
+                    id="infoWhatsappBadge"
+                  >
+                    <i
+                      class="bi bi-patch-check"
+                      aria-hidden="true"
+                    ></i>
+
+                    <span id="infoWhatsappBadgeText">موثق</span>
+                  </span>
+                </dd>
+              </div>
+
+            </dl>
+
+            <button
+              type="button"
+              class="profile-button is-outline is-small is-block printer-card-action"
+              data-dialog-open="printerEditDialog"
+            >
+              <i
+                class="bi bi-pencil-square"
+                aria-hidden="true"
+              ></i>
+
+              <span data-i18n="editInformation">تعديل المعلومات</span>
+            </button>
+
+          </section>
+
+          <!-- وثائق الاعتماد -->
+
+          <section
+            class="profile-card printer-documents"
+            id="documentsSection"
+            aria-labelledby="documentsTitle"
+            data-state="loading"
+          >
+
+            <div class="profile-card-heading">
+              <div class="profile-card-title">
+                <span
+                  class="profile-card-icon icon-green"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-shield-check"></i>
+                </span>
+
+                <h2
+                  id="documentsTitle"
+                  data-i18n="verificationDocuments"
+                >وثائق الاعتماد</h2>
+              </div>
+            </div>
+
+            <div data-state-loading>
+              <span class="profile-skeleton is-line"></span>
+              <span class="profile-skeleton is-line"></span>
+            </div>
+
+            <div data-state-empty>
+              <div class="profile-state">
+
+                <span
+                  class="profile-state-icon"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-file-earmark-text"></i>
+                </span>
+
+                <h3 data-i18n="emptyDocumentsTitle">لم تُرفع وثائق بعد</h3>
+
+                <p data-i18n="emptyDocumentsText">
+                  ارفع ترخيص المطبعة ووثيقة التحقق ليتم اعتماد حسابك.
+                </p>
+
+                <a
+                  href="printingDocuments.html"
+                  class="profile-button is-primary is-small"
+                >
+                  <i
+                    class="bi bi-upload"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span data-i18n="uploadDocuments">رفع الوثائق</span>
+                </a>
+
+              </div>
+            </div>
+
+            <div data-state-error>
+              <div class="profile-state is-error">
+
+                <span
+                  class="profile-state-icon"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-exclamation-triangle"></i>
+                </span>
+
+                <h3 data-i18n="errorTitle">تعذر تحميل البيانات</h3>
+
+                <button
+                  type="button"
+                  class="profile-button is-outline is-small"
+                  data-retry-for="documentsSection"
+                >
+                  <i
+                    class="bi bi-arrow-clockwise"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span data-i18n="retry">إعادة المحاولة</span>
+                </button>
+
+              </div>
+            </div>
+
+            <div data-state-content>
+
+              <ul
+                class="printer-document-list"
+                id="documentList"
+              ></ul>
+
+              <p class="profile-card-note">
+                <i
+                  class="bi bi-calendar-check"
+                  aria-hidden="true"
+                ></i>
+
+                <span>
+                  <span data-i18n="lastReview">آخر مراجعة</span>:
+                  <span id="documentsLastReview">2 أغسطس 2026</span>
+                </span>
+              </p>
+
+              <a
+                href="printingDocuments.html"
+                class="profile-button is-outline is-small is-block printer-card-action"
+              >
+                <i
+                  class="bi bi-folder2-open"
+                  aria-hidden="true"
+                ></i>
+
+                <span data-i18n="manageDocuments">إدارة الوثائق</span>
+              </a>
+
+            </div>
+
+          </section>
+
+          <!-- بيانات التحويل — مخفية افتراضياً -->
+
+          <section
+            class="profile-card printer-bank"
+            id="bankSection"
+            aria-labelledby="bankTitle"
+            data-state="loading"
+          >
+
+            <div class="profile-card-heading">
+              <div class="profile-card-title">
+                <span
+                  class="profile-card-icon"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-lock"></i>
+                </span>
+
+                <h2
+                  id="bankTitle"
+                  data-i18n="transferDetails"
+                >بيانات التحويل</h2>
+              </div>
+            </div>
+
+            <div data-state-loading>
+              <span class="profile-skeleton is-line"></span>
+              <span class="profile-skeleton is-line"></span>
+              <span class="profile-skeleton is-short"></span>
+            </div>
+
+            <div data-state-empty>
+              <div class="profile-state">
+
+                <span
+                  class="profile-state-icon"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-bank"></i>
+                </span>
+
+                <h3 data-i18n="emptyBankTitle">لم تُضِف بيانات تحويل</h3>
+
+                <p data-i18n="emptyBankText">
+                  أضف حساباً بنكياً لاستلام أرباحك من المنصة.
+                </p>
+
+                <button
+                  type="button"
+                  class="profile-button is-primary is-small"
+                  data-dialog-open="bankDialog"
+                >
+                  <i
+                    class="bi bi-plus-lg"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span data-i18n="addBankDetails">إضافة بيانات التحويل</span>
+                </button>
+
+              </div>
+            </div>
+
+            <div data-state-error>
+              <div class="profile-state is-error">
+
+                <span
+                  class="profile-state-icon"
+                  aria-hidden="true"
+                >
+                  <i class="bi bi-exclamation-triangle"></i>
+                </span>
+
+                <h3 data-i18n="errorTitle">تعذر تحميل البيانات</h3>
+
+                <button
+                  type="button"
+                  class="profile-button is-outline is-small"
+                  data-retry-for="bankSection"
+                >
+                  <i
+                    class="bi bi-arrow-clockwise"
+                    aria-hidden="true"
+                  ></i>
+
+                  <span data-i18n="retry">إعادة المحاولة</span>
+                </button>
+
+              </div>
+            </div>
+
+            <div data-state-content>
+
+              <dl class="profile-info-list">
+
+                <div class="profile-info-row">
+                  <dt class="profile-info-label">
+                    <i
+                      class="bi bi-bank"
+                      aria-hidden="true"
+                    ></i>
+
+                    <span data-i18n="bankName">اسم البنك</span>
+                  </dt>
+
+                  <dd
+                    class="profile-info-value"
+                    id="bankName"
+                    data-i18n="bankNameValue"
+                  >بنك فلسطين</dd>
+                </div>
+
+                <div class="profile-info-row">
+                  <dt class="profile-info-label">
+                    <i
+                      class="bi bi-credit-card-2-front"
+                      aria-hidden="true"
+                    ></i>
+
+                    <span data-i18n="accountNumber">رقم الحساب</span>
+                  </dt>
+
+                  <dd class="profile-info-value">
+                    <span
+                      class="profile-masked-value"
+                      dir="ltr"
+                      id="bankAccountMasked"
+                    >•••• 1121</span>
+                  </dd>
+                </div>
+
+                <div class="profile-info-row">
+                  <dt class="profile-info-label">
+                    <i
+                      class="bi bi-upc-scan"
+                      aria-hidden="true"
+                    ></i>
+
+                    <span>IBAN</span>
+                  </dt>
+
+                  <dd class="profile-info-value">
+                    <span
+                      class="profile-masked-value"
+                      dir="ltr"
+                      id="bankIbanMasked"
+                    >PS92 •••• •••• 1000</span>
+                  </dd>
+                </div>
+
+              </dl>
+
+              <p class="profile-card-note">
+                <i
+                  class="bi bi-shield-lock"
+                  aria-hidden="true"
+                ></i>
+
+                <span data-i18n="bankProtectedNote">
+                  بياناتك المالية محمية ولا تُعرض كاملة إلا بعد تحقق إضافي.
+                </span>
+              </p>
+
+              <button
+                type="button"
+                class="profile-button is-outline is-small is-block printer-card-action"
+                data-dialog-open="bankDialog"
+              >
+                <i
+                  class="bi bi-pencil-square"
+                  aria-hidden="true"
+                ></i>
+
+                <span data-i18n="editBankDetails">تعديل بيانات التحويل</span>
+              </button>
+
+            </div>
+
+          </section>
+
+        </div>
+
+        <!-- ==================================================
+             تفضيلات الإشعارات
+             ================================================== -->
+
+        <section
+          class="profile-card printer-preferences"
+          aria-labelledby="preferencesTitle"
+        >
+
+          <div class="profile-card-heading">
+            <div class="profile-card-title">
+              <span
+                class="profile-card-icon"
+                aria-hidden="true"
+              >
+                <i class="bi bi-bell"></i>
+              </span>
+
+              <h2
+                id="preferencesTitle"
+                data-i18n="notificationPreferences"
+              >تفضيلات الإشعارات</h2>
+            </div>
+          </div>
+
+          <div class="profile-preference-list">
+
+            <div class="profile-preference">
+
+              <span class="profile-preference-text">
+                <i
+                  class="bi bi-whatsapp"
+                  aria-hidden="true"
+                ></i>
+
+                <span
+                  id="prefNewOrdersLabel"
+                  data-i18n="prefNewOrdersWhatsapp"
+                >طلبات الطباعة الجديدة عبر واتساب</span>
+              </span>
+
+              <label class="profile-switch">
+                <input
+                  type="checkbox"
+                  data-preference="printer-new-orders"
+                  data-preference-label="طلبات الطباعة الجديدة عبر واتساب"
+                  aria-labelledby="prefNewOrdersLabel"
+                  checked
+                >
+
+                <span
+                  class="profile-switch-track"
+                  aria-hidden="true"
+                ></span>
+              </label>
+
+            </div>
+
+            <div class="profile-preference">
+
+              <span class="profile-preference-text">
+                <i
+                  class="bi bi-box-seam"
+                  aria-hidden="true"
+                ></i>
+
+                <span
+                  id="prefOrderStatusLabel"
+                  data-i18n="prefOrderStatus"
+                >تحديثات حالة الطلب</span>
+              </span>
+
+              <label class="profile-switch">
+                <input
+                  type="checkbox"
+                  data-preference="printer-order-status"
+                  data-preference-label="تحديثات حالة الطلب"
+                  aria-labelledby="prefOrderStatusLabel"
+                  checked
+                >
+
+                <span
+                  class="profile-switch-track"
+                  aria-hidden="true"
+                ></span>
+              </label>
+
+            </div>
+
+            <div class="profile-preference">
+
+              <span class="profile-preference-text">
+                <i
+                  class="bi bi-envelope"
+                  aria-hidden="true"
+                ></i>
+
+                <span
+                  id="prefWeeklyLabel"
+                  data-i18n="prefWeeklyReports"
+                >التقارير الأسبوعية عبر البريد الإلكتروني</span>
+              </span>
+
+              <label class="profile-switch">
+                <input
+                  type="checkbox"
+                  data-preference="printer-weekly-reports"
+                  data-preference-label="التقارير الأسبوعية عبر البريد الإلكتروني"
+                  aria-labelledby="prefWeeklyLabel"
+                  checked
+                >
+
+                <span
+                  class="profile-switch-track"
+                  aria-hidden="true"
+                ></span>
+              </label>
+
+            </div>
+
+            <div class="profile-preference">
+
+              <span class="profile-preference-text">
+                <i
+                  class="bi bi-cash-coin"
+                  aria-hidden="true"
+                ></i>
+
+                <span
+                  id="prefPayoutsLabel"
+                  data-i18n="prefPayouts"
+                >الأرباح والتحويلات</span>
+              </span>
+
+              <label class="profile-switch">
+                <input
+                  type="checkbox"
+                  data-preference="printer-payouts"
+                  data-preference-label="الأرباح والتحويلات"
+                  aria-labelledby="prefPayoutsLabel"
+                  checked
+                >
+
+                <span
+                  class="profile-switch-track"
+                  aria-hidden="true"
+                ></span>
+              </label>
+
+            </div>
+
+          </div>
+
+        </section>
+
+      </main>
+
+    </div>
+
+  </div>
+
+  <!-- ==================================================
+       نافذة تعديل معلومات المطبعة — بدون كلمة مرور
+       ================================================== -->
+
+  <dialog
+    class="profile-dialog"
+    id="printerEditDialog"
+    aria-labelledby="printerEditTitle"
+  >
+
+    <form
+      method="dialog"
+      id="printerEditForm"
+      novalidate
+    >
+
+      <header class="profile-dialog-header">
+
+        <div>
+          <h2
+            id="printerEditTitle"
+            data-i18n="editPrinterProfile"
+          >تعديل ملف المطبعة</h2>
+
+          <p data-i18n="editPrinterDescription">
+            حدّث بيانات المطبعة الأساسية ثم احفظ التغييرات.
+          </p>
+        </div>
+
+        <button
+          type="button"
+          class="profile-dialog-close"
+          data-dialog-close
+          aria-label="إغلاق"
+          data-i18n-aria="close"
+        >
+          <i
+            class="bi bi-x-lg"
+            aria-hidden="true"
+          ></i>
+        </button>
+
+      </header>
+
+      <div class="profile-dialog-body">
+
+        <div class="profile-field-grid">
+
+          <div class="profile-field">
+            <label for="editPrinterName" data-i18n="printerName">اسم المطبعة</label>
+
+            <div class="profile-input-shell">
+              <i
+                class="bi bi-shop"
+                aria-hidden="true"
+              ></i>
+
+              <input
+                type="text"
+                id="editPrinterName"
+                value="مطبعة الألوان الحديثة"
+                required
+              >
+            </div>
+
+            <small
+              class="profile-field-error"
+              data-i18n="requiredField"
+            >هذا الحقل مطلوب.</small>
+          </div>
+
+          <div class="profile-field">
+            <label for="editPrinterEmail" data-i18n="email">البريد الإلكتروني</label>
+
+            <div class="profile-input-shell">
+              <i
+                class="bi bi-envelope"
+                aria-hidden="true"
+              ></i>
+
+              <input
+                type="email"
+                id="editPrinterEmail"
+                value="info@alwanprint.ps"
+                dir="ltr"
+                required
+              >
+            </div>
+
+            <small
+              class="profile-field-error"
+              data-i18n="invalidEmail"
+            >أدخل بريداً إلكترونياً صحيحاً.</small>
+          </div>
+
+          <div class="profile-field">
+            <label for="editPrinterWhatsapp" data-i18n="ordersWhatsapp">رقم واتساب الطلبات</label>
+
+            <div class="profile-input-shell">
+              <i
+                class="bi bi-whatsapp"
+                aria-hidden="true"
+              ></i>
+
+              <input
+                type="tel"
+                id="editPrinterWhatsapp"
+                value="059 876 5432"
+                dir="ltr"
+                required
+              >
+            </div>
+
+            <small
+              class="profile-field-error"
+              data-i18n="requiredField"
+            >هذا الحقل مطلوب.</small>
+          </div>
+
+          <div class="profile-field">
+            <label for="editWorkingHours" data-i18n="workingHours">ساعات العمل</label>
+
+            <div class="profile-input-shell">
+              <i
+                class="bi bi-clock"
+                aria-hidden="true"
+              ></i>
+
+              <input
+                type="text"
+                id="editWorkingHours"
+                value="8:00 ص – 8:00 م"
+                required
+              >
+            </div>
+
+            <small
+              class="profile-field-error"
+              data-i18n="requiredField"
+            >هذا الحقل مطلوب.</small>
+          </div>
+
+          <div class="profile-field is-wide">
+            <label for="editPrinterAddress" data-i18n="address">العنوان</label>
+
+            <div class="profile-input-shell">
+              <i
+                class="bi bi-geo-alt"
+                aria-hidden="true"
+              ></i>
+
+              <input
+                type="text"
+                id="editPrinterAddress"
+                value="غزة، الرمال، شارع عمر المختار"
+                required
+              >
+            </div>
+
+            <small
+              class="profile-field-error"
+              data-i18n="requiredField"
+            >هذا الحقل مطلوب.</small>
+          </div>
+
+        </div>
+
+        <p class="profile-card-note">
+          <i
+            class="bi bi-shield-lock"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="passwordMovedNote">
+            تغيير كلمة المرور أصبح ضمن «الإعدادات والأمان».
+          </span>
+        </p>
+
+      </div>
+
+      <footer class="profile-dialog-footer">
+
+        <button
+          type="button"
+          class="profile-button is-ghost"
+          data-dialog-close
+          data-i18n="cancel"
+        >إلغاء</button>
+
+        <button
+          type="submit"
+          class="profile-button is-primary"
+          id="printerEditSave"
+        >
+          <i
+            class="bi bi-check2"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="saveChanges">حفظ التغييرات</span>
+        </button>
+
+      </footer>
+
+    </form>
+
+  </dialog>
+
+  <!-- ==================================================
+       نافذة تعديل بيانات التحويل
+       ملاحظة أمنية: الحقول تبدأ فارغة ولا تُعبّأ
+       بالقيم الكاملة، ويجب على الخادم عدم إرجاع
+       الرقم الكامل إلا ضمن إجراء آمن ومصرح به.
+       ================================================== -->
+
+  <dialog
+    class="profile-dialog"
+    id="bankDialog"
+    aria-labelledby="bankDialogTitle"
+  >
+
+    <form
+      method="dialog"
+      id="bankForm"
+      novalidate
+    >
+
+      <header class="profile-dialog-header">
+
+        <div>
+          <h2
+            id="bankDialogTitle"
+            data-i18n="editBankDetails"
+          >تعديل بيانات التحويل</h2>
+
+          <p data-i18n="bankDialogDescription">
+            لأسباب أمنية لا تُعرض البيانات الحالية كاملة، أدخل البيانات من جديد لتحديثها.
+          </p>
+        </div>
+
+        <button
+          type="button"
+          class="profile-dialog-close"
+          data-dialog-close
+          aria-label="إغلاق"
+          data-i18n-aria="close"
+        >
+          <i
+            class="bi bi-x-lg"
+            aria-hidden="true"
+          ></i>
+        </button>
+
+      </header>
+
+      <div class="profile-dialog-body">
+
+        <div class="profile-field-grid">
+
+          <div class="profile-field">
+            <label for="editBankName" data-i18n="bankName">اسم البنك</label>
+
+            <div class="profile-input-shell">
+              <i
+                class="bi bi-bank"
+                aria-hidden="true"
+              ></i>
+
+              <input
+                type="text"
+                id="editBankName"
+                required
+              >
+            </div>
+
+            <small
+              class="profile-field-error"
+              data-i18n="requiredField"
+            >هذا الحقل مطلوب.</small>
+          </div>
+
+          <div class="profile-field">
+            <label for="editAccountHolder" data-i18n="accountHolder">اسم صاحب الحساب</label>
+
+            <div class="profile-input-shell">
+              <i
+                class="bi bi-person-vcard"
+                aria-hidden="true"
+              ></i>
+
+              <input
+                type="text"
+                id="editAccountHolder"
+                required
+              >
+            </div>
+
+            <small
+              class="profile-field-error"
+              data-i18n="requiredField"
+            >هذا الحقل مطلوب.</small>
+          </div>
+
+          <div class="profile-field">
+            <label for="editAccountNumber" data-i18n="accountNumber">رقم الحساب</label>
+
+            <div class="profile-input-shell">
+              <i
+                class="bi bi-credit-card-2-front"
+                aria-hidden="true"
+              ></i>
+
+              <input
+                type="text"
+                id="editAccountNumber"
+                dir="ltr"
+                inputmode="numeric"
+                autocomplete="off"
+                required
+              >
+            </div>
+
+            <small
+              class="profile-field-error"
+              data-i18n="requiredField"
+            >هذا الحقل مطلوب.</small>
+          </div>
+
+          <div class="profile-field">
+            <label for="editIban">IBAN</label>
+
+            <div class="profile-input-shell">
+              <i
+                class="bi bi-upc-scan"
+                aria-hidden="true"
+              ></i>
+
+              <input
+                type="text"
+                id="editIban"
+                dir="ltr"
+                autocomplete="off"
+                required
+              >
+            </div>
+
+            <small
+              class="profile-field-error"
+              data-i18n="requiredField"
+            >هذا الحقل مطلوب.</small>
+          </div>
+
+        </div>
+
+        <p class="profile-card-note">
+          <i
+            class="bi bi-shield-lock"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="bankSecurityNote">
+            تُرسل البيانات مشفّرة، وتُعرض لاحقاً مخفية بآخر أربعة أرقام فقط.
+          </span>
+        </p>
+
+      </div>
+
+      <footer class="profile-dialog-footer">
+
+        <button
+          type="button"
+          class="profile-button is-ghost"
+          data-dialog-close
+          data-i18n="cancel"
+        >إلغاء</button>
+
+        <button
+          type="submit"
+          class="profile-button is-primary"
+        >
+          <i
+            class="bi bi-check2"
+            aria-hidden="true"
+          ></i>
+
+          <span data-i18n="saveChanges">حفظ التغييرات</span>
+        </button>
+
+      </footer>
+
+    </form>
+
+  </dialog>
+
+  <!-- رسالة النجاح والخطأ -->
+
+  <div
+    class="profile-toast"
+    id="profileToast"
+    role="status"
+    aria-live="polite"
+    aria-atomic="true"
+  >
+
+    <span
+      class="profile-toast-icon"
+      aria-hidden="true"
+    >
+      <i class="bi bi-check2"></i>
+    </span>
+
+    <span id="profileToastMessage"></span>
+
+  </div>
+
+  <script src="assets/js/pages/profile-core.js?v=1"></script>
+  <script src="assets/js/pages/printingProfile.js?v=10"></script>
+  <script src="assets/js/interactions.js?v=1"></script>
+
+</body>
+
+</html>

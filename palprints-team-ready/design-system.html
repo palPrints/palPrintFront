@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PalPrints Design System</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/dark.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+  <link rel="stylesheet" href="assets/css/interactions.css?v=1">
+</head>
+<body>
+  <main class="container-palprints section-space">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-5">
+      <div>
+        <h1 class="text-gradient fw-bold">PalPrints Design System</h1>
+        <p class="text-secondary mb-0">المرجع الموحد لجميع مطوري الواجهة.</p>
+      </div>
+      <button class="btn-brand-outline" data-theme-toggle>
+        <i class="bi bi-moon-stars"></i>
+        تغيير الوضع
+      </button>
+    </div>
+
+    <section class="app-card p-4 mb-4">
+      <h2 class="h4 fw-bold">الأزرار</h2>
+      <div class="d-flex flex-wrap gap-3 mt-3">
+        <button class="btn-brand">زر أساسي</button>
+        <button class="btn-brand-outline">زر ثانوي</button>
+      </div>
+    </section>
+
+    <section class="app-card p-4 mb-4">
+      <h2 class="h4 fw-bold">البطاقات</h2>
+      <div class="row g-3 mt-1">
+        <div class="col-md-6">
+          <article class="app-card p-4 h-100">
+            <h3 class="h5 fw-bold">بطاقة أساسية</h3>
+            <p class="text-secondary mb-0">تستخدم class باسم app-card.</p>
+          </article>
+        </div>
+        <div class="col-md-6">
+          <article class="app-card app-card-hover p-4 h-100">
+            <h3 class="h5 fw-bold">بطاقة تفاعلية</h3>
+            <p class="text-secondary mb-0">تستخدم app-card-hover لإضافة تأثير الحركة.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="app-card p-4">
+      <h2 class="h4 fw-bold">الحقول</h2>
+      <div class="row g-3 mt-1">
+        <div class="col-md-6">
+          <label class="form-label" for="demoName">الاسم</label>
+          <input class="form-control" id="demoName" type="text" placeholder="أدخل الاسم">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label" for="demoType">النوع</label>
+          <select class="form-select" id="demoType">
+            <option>اختر النوع</option>
+            <option>عميل</option>
+            <option>مصمم</option>
+          </select>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/interactions.js?v=1"></script>
+</body>
+</html>
