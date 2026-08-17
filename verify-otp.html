@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="التحقق من رمز استعادة كلمة المرور في PALPRINTS.">
+  <meta name="theme-color" content="#f8fafc">
+  <meta name="color-scheme" content="light dark">
+  <title>التحقق من الرمز | PALPRINTS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=block" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="auth-flow.js" defer></script>
+</head>
+<body class="login-page auth-flow-page verify-otp-page" data-auth-flow="verify-otp-page">
+  <a class="skip-link" href="#main-content" data-i18n="skipToContent">انتقل إلى المحتوى الرئيسي</a>
+  <div class="auth-topbar">
+    <div class="auth-topbar__container">
+      <span class="brand" role="img" aria-label="PALPRINTS">
+        <img class="brand-logo brand-logo-light" src="assets/images/palprintLogo-removebg-preview.png" alt="شعار PALPRINTS" width="140" height="55">
+        <img class="brand-logo brand-logo-dark" src="assets/images/palprintLogo-removebg-preview.png" alt="" aria-hidden="true" width="140" height="55">
+      </span>
+      <nav class="auth-topbar__actions" aria-label="خيارات الواجهة" data-i18n-aria-label="headerNavLabel">
+        <button class="header-control language-toggle" id="languageToggle" type="button" aria-label="تغيير اللغة إلى الإنجليزية" data-i18n-aria-label="languageToggleLabel">
+          <span aria-hidden="true" class="icon external-ui-icon icon-language"></span>
+          <span id="languageToggleText">English</span>
+        </button>
+        <button class="header-control theme-toggle" id="themeToggle" type="button" aria-label="تفعيل الوضع الليلي" aria-pressed="false">
+          <span aria-hidden="true" class="icon external-ui-icon icon-sun theme-icon theme-icon-light"></span>
+          <span aria-hidden="true" class="icon external-ui-icon icon-moon theme-icon theme-icon-dark"></span>
+          <span class="visually-hidden" data-i18n="themeToggleText">تبديل المظهر</span>
+        </button>
+      </nav>
+    </div>
+  </div>
+  <main class="main-content" id="main-content" tabindex="-1">
+    <div class="auth-layout">
+      <div class="auth-form-panel">
+        <section class="login-card auth-flow-card" aria-labelledby="otp-title">
+          <div class="auth-step-badge" aria-hidden="true">2</div>
+          <header class="register-heading auth-flow-heading">
+            <p class="eyebrow" data-i18n="eyebrow">التحقق الأمني</p>
+            <h1 id="otp-title" data-i18n="pageHeading">أدخل رمز التحقق</h1>
+            <p class="register-subtitle" data-i18n="pageSubtitle">أدخل الرمز المكوّن من 6 أرقام الذي أرسلناه إلى بريدك الإلكتروني.</p>
+            <p class="auth-email-target" id="otpEmailTarget" aria-live="polite"></p>
+          </header>
+          <form class="login-form" id="otpForm" novalidate>
+            <div class="otp-code-group" dir="ltr" role="group" aria-label="رمز التحقق المكون من ستة أرقام" data-i18n-aria-label="otpGroupLabel">
+              <input class="otp-digit" inputmode="numeric" autocomplete="one-time-code" maxlength="1" aria-label="الرقم الأول">
+              <input class="otp-digit" inputmode="numeric" maxlength="1" aria-label="الرقم الثاني">
+              <input class="otp-digit" inputmode="numeric" maxlength="1" aria-label="الرقم الثالث">
+              <input class="otp-digit" inputmode="numeric" maxlength="1" aria-label="الرقم الرابع">
+              <input class="otp-digit" inputmode="numeric" maxlength="1" aria-label="الرقم الخامس">
+              <input class="otp-digit" inputmode="numeric" maxlength="1" aria-label="الرقم السادس">
+            </div>
+            <p class="field-error otp-error" id="otpError" aria-live="polite"></p>
+            <div class="form-status" id="flowStatus" role="status" aria-live="polite"></div>
+            <button class="primary-button submit-button" type="submit">
+              <span data-i18n="verifyCode">تحقق من الرمز</span>
+              <span class="button-loader" aria-hidden="true"></span>
+            </button>
+            <div class="otp-resend-row">
+              <span data-i18n="didNotReceive">لم يصلك الرمز؟</span>
+              <button class="link-button" id="resendOtpButton" type="button" disabled>
+                <span data-i18n="resendCode">إعادة الإرسال</span>
+                <span id="resendTimer" aria-live="polite">(60)</span>
+              </button>
+            </div>
+          </form>
+          <p class="login-footer"><a href="forgot-password.html" data-i18n="changeEmail">تغيير البريد الإلكتروني</a></p>
+        </section>
+      </div>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <p><span>©</span> <span id="currentYear">2026</span> <strong>PALPRINTS</strong> <span data-i18n="allRightsReserved">جميع الحقوق محفوظة.</span></p>
+  </footer>
+</body>
+</html>

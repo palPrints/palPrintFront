@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+
+<html data-theme="light" dir="rtl" lang="ar">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta content="إنشاء حساب جديد في منصة PALPRINTS كعميل أو مصمم أو مطبعة." name="description" />
+  <meta content="#ffffff" name="theme-color" />
+  <meta content="light dark" name="color-scheme" />
+  <title>إنشاء حساب جديد | PALPRINTS</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <!-- تعديل -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&amp;display=block" rel="stylesheet" />
+  <link href="styles.css" rel="stylesheet" />
+  <script defer="" src="script.js"></script>
+</head>
+
+<body class="register-page role-selection-view">
+  <a class="skip-link" data-i18n="skipToContent" href="#main-content">
+    انتقل إلى المحتوى الرئيسي
+  </a>
+  <!-- SVG icon sprite: no external icon library is required. -->
+
+
+  <svg aria-hidden="true" class="svg-sprite" focusable="false" height="0" width="0">
+    <symbol id="icon-user" viewbox="0 0 24 24">
+      <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path>
+      <path d="M4 21a8 8 0 0 1 16 0"></path>
+    </symbol>
+    <symbol id="icon-palette" viewbox="0 0 24 24">
+      <path
+        d="M12 3a9 9 0 0 0 0 18h1.3a2.2 2.2 0 0 0 1.4-3.9l-.3-.3a1.7 1.7 0 0 1 1.1-3h2.2A3.3 3.3 0 0 0 21 10.5 9 9 0 0 0 12 3Z">
+      </path>
+      <circle cx="7.5" cy="10" r="1"></circle>
+      <circle cx="10" cy="6.8" r="1"></circle>
+      <circle cx="14" cy="6.7" r="1"></circle>
+      <circle cx="17" cy="9" r="1"></circle>
+    </symbol>
+    <symbol id="icon-printer" viewbox="0 0 24 24">
+      <path d="M7 8V3h10v5"></path>
+      <path d="M6 17H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+      <path d="M6 14h12v7H6z"></path>
+      <path d="M18 11h.01"></path>
+    </symbol>
+    <symbol id="icon-globe" viewbox="0 0 24 24">
+      <circle cx="12" cy="12" r="9"></circle>
+      <path d="M3 12h18"></path>
+      <path d="M12 3a15 15 0 0 1 0 18"></path>
+      <path d="M12 3a15 15 0 0 0 0 18"></path>
+    </symbol>
+    <symbol id="icon-login" viewbox="0 0 24 24">
+      <path d="M10 17l5-5-5-5"></path>
+      <path d="M15 12H3"></path>
+      <path d="M14 3h5a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-5"></path>
+    </symbol>
+    <symbol id="icon-sun" viewbox="0 0 24 24">
+      <circle cx="12" cy="12" r="4"></circle>
+      <path d="M12 2v2"></path>
+      <path d="M12 20v2"></path>
+      <path d="m4.93 4.93 1.42 1.42"></path>
+      <path d="m17.66 17.66 1.41 1.41"></path>
+      <path d="M2 12h2"></path>
+      <path d="M20 12h2"></path>
+      <path d="m6.34 17.66-1.41 1.41"></path>
+      <path d="m19.07 4.93-1.41 1.41"></path>
+    </symbol>
+    <symbol id="icon-moon" viewbox="0 0 24 24">
+      <path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"></path>
+    </symbol>
+    <symbol id="icon-eye" viewbox="0 0 24 24">
+      <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"></path>
+      <circle cx="12" cy="12" r="2.5"></circle>
+    </symbol>
+    <symbol id="icon-eye-off" viewbox="0 0 24 24">
+      <path d="m3 3 18 18"></path>
+      <path d="M10.6 6.2A10.8 10.8 0 0 1 12 6c6.5 0 10 6 10 6a17 17 0 0 1-2.1 2.8"></path>
+      <path d="M6.6 6.6C3.7 8.4 2 12 2 12s3.5 6 10 6a9.9 9.9 0 0 0 4.1-.9"></path>
+      <path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"></path>
+    </symbol>
+    <symbol id="icon-upload" viewbox="0 0 24 24">
+      <path d="M12 16V4"></path>
+      <path d="m7 9 5-5 5 5"></path>
+      <path d="M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"></path>
+    </symbol>
+    <symbol id="icon-trash" viewbox="0 0 24 24">
+      <path d="M3 6h18"></path>
+      <path d="M8 6V4h8v2"></path>
+      <path d="m19 6-1 15H6L5 6"></path>
+      <path d="M10 11v5"></path>
+      <path d="M14 11v5"></path>
+    </symbol>
+    <symbol id="icon-check" viewbox="0 0 24 24">
+      <path d="m5 12 4 4L19 6"></path>
+    </symbol>
+    <symbol id="icon-arrow-left" viewbox="0 0 24 24">
+      <path d="m15 18-6-6 6-6"></path>
+    </symbol>
+    <symbol id="icon-building" viewbox="0 0 24 24">
+      <path d="M4 21V5a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v16"></path>
+      <path d="M17 9h2a2 2 0 0 1 2 2v10"></path>
+      <path d="M8 7h2M13 7h1M8 11h2M13 11h1M8 15h2M13 15h1M3 21h19"></path>
+    </symbol>
+    <symbol id="icon-clock" viewbox="0 0 24 24">
+      <circle cx="12" cy="12" r="9"></circle>
+      <path d="M12 7v5l3 2"></path>
+    </symbol>
+    <symbol id="icon-lock" viewbox="0 0 24 24">
+      <rect height="11" rx="2" width="16" x="4" y="10"></rect>
+      <path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3"></path>
+    </symbol>
+    <symbol id="icon-files" viewbox="0 0 24 24">
+      <path d="M6 3h8l4 4v14H6z"></path>
+      <path d="M14 3v5h5M9 13h6M9 17h6"></path>
+    </symbol>
+    <symbol id="icon-grid" viewbox="0 0 24 24">
+      <rect height="7" rx="1" width="7" x="3" y="3"></rect>
+      <rect height="7" rx="1" width="7" x="14" y="3"></rect>
+      <rect height="7" rx="1" width="7" x="3" y="14"></rect>
+      <rect height="7" rx="1" width="7" x="14" y="14"></rect>
+    </symbol>
+  </svg>
+  <div class="auth-topbar">
+    <div class="auth-topbar__container">
+      <span aria-label="PALPRINTS" class="brand" role="img">
+        <img alt="شعار PALPRINTS" class="brand-logo brand-logo-light" height="55"
+          src="assets/images/palprintLogo-removebg-preview.png" width="140" />
+        <img alt="" aria-hidden="true" class="brand-logo brand-logo-dark" height="55"
+          src="assets/images/palprintLogo-removebg-preview.png" width="140" />
+      </span>
+      <nav aria-label="خيارات الحساب والواجهة" class="auth-topbar__actions" data-i18n-aria-label="headerNavLabel">
+        <button aria-label="تغيير اللغة إلى الإنجليزية" class="header-control language-toggle"
+          data-i18n-aria-label="languageToggleLabel" id="languageToggle" type="button">
+          <span aria-hidden="true" class="icon external-ui-icon icon-language"></span>
+          <span id="languageToggleText">English</span>
+        </button>
+        <button aria-label="تفعيل الوضع الليلي" aria-pressed="false" class="header-control theme-toggle"
+          data-i18n-aria-label="themeToggleLabel" id="themeToggle" type="button">
+          <span aria-hidden="true" class="icon external-ui-icon icon-sun theme-icon theme-icon-light"></span>
+          <span aria-hidden="true" class="icon external-ui-icon icon-moon theme-icon theme-icon-dark"></span>
+          <span class="visually-hidden" data-i18n="themeToggleText">تبديل المظهر</span>
+        </button>
+      </nav>
+      <button class="header-control onboarding-back-button" data-onboarding-back
+        data-i18n-aria-label="backToRegistration" aria-label="العودة إلى صفحة التسجيل الرئيسية" type="button">
+        <span class="onboarding-back-icon" aria-hidden="true">
+          <img src="assets/icons/arrow.svg" alt="" width="24" height="24" />
+        </span>
+      </button>
+    </div>
+  </div>
+  <main class="main-content" id="main-content" tabindex="-1">
+    <noscript>
+      <div class="noscript-message" role="alert">
+        تحتاج هذه الصفحة إلى تفعيل JavaScript حتى تعمل خاصية تبديل الحسابات واللغة ومعاينة الصور.
+      </div>
+    </noscript>
+
+    <div class="auth-layout">
+      <aside class="auth-visual-panel" aria-labelledby="register-visual-title">
+        <div class="auth-visual-inner">
+          <div class="auth-visual-copy">
+            <h2 id="register-visual-title" data-role-visual-title>حوّل أفكارك إلى منتجات تحمل بصمتك</h2>
+            <p class="auth-visual-description" data-role-visual-description>اختر نوع الحساب الذي يناسبك وابدأ رحلتك الإبداعية.</p>
+          </div>
+        </div>
+      </aside>
+      <div class="auth-form-panel">
+        <section aria-labelledby="register-title" class="register-card">
+          <!-- Step 1: account-role selection -->
+          <section class="onboarding-step onboarding-role-step" data-onboarding-step="role"
+            aria-labelledby="register-title">
+            <header class="register-heading onboarding-heading">
+              <p class="eyebrow" data-i18n="eyebrow">ابدأ رحلتك مع PALPRINTS</p>
+              <!-- <h1 data-i18n="onboardingWelcomeTitle" id="register-title">أهلاً بك في PALPRINTS</h1> -->
+              <p class="register-subtitle" data-i18n="onboardingWelcomeSubtitle">
+                اختر نوع الحساب الذي يناسبك للمتابعة.
+              </p>
+            </header>
+            <section aria-labelledby="account-type-title" class="account-type-section">
+              <h2 class="section-title" data-i18n="chooseAccountType" id="account-type-title">
+                اختر نوع الحساب
+              </h2>
+              <p class="role-selection-description" data-i18n="roleSelectionDescription">
+                اختر المسار الذي يناسب أهدافك لتخصيص تجربة التسجيل والخدمات المتاحة لك.
+              </p>
+              <div aria-label="أنواع الحسابات" class="account-tabs cards-container" data-i18n-aria-label="accountTypesLabel"
+                role="tablist">
+                <button aria-controls="customer-panel" aria-selected="false" class="account-tab role-card"
+                  data-role="customer" id="customer-tab" role="tab" tabindex="0" type="button">
+                  <span aria-hidden="true" class="account-tab-check">
+                    <svg class="icon">
+                      <use href="#icon-check"></use>
+                    </svg>
+                  </span>
+                  <span aria-hidden="true" class="account-tab-icon">
+                    <svg class="icon">
+                      <use href="#icon-user"></use>
+                    </svg>
+                  </span>
+                  <div class="account-tab-content card-text-group">
+                    <h3 data-i18n="customer">العميل</h3>
+                    <p data-i18n="customerDescription">اطلب تصاميم مخصصة واطبع منتجاتك الفريدة بسهولة</p>
+                  </div>
+                </button>
+                <button aria-controls="designer-panel" aria-selected="false" class="account-tab role-card" data-role="designer"
+                  id="designer-tab" role="tab" tabindex="-1" type="button">
+                  <span aria-hidden="true" class="account-tab-check">
+                    <svg class="icon">
+                      <use href="#icon-check"></use>
+                    </svg>
+                  </span>
+                  <span aria-hidden="true" class="account-tab-icon">
+                    <svg class="icon">
+                      <use href="#icon-palette"></use>
+                    </svg>
+                  </span>
+                  <div class="account-tab-content card-text-group">
+                    <h3 data-i18n="designer">المصمم</h3>
+                    <p data-i18n="designerDescription">اعرض أعمالك الإبداعية، وقم ببيع تصاميمك وحقّق أرباحاً</p>
+                  </div>
+                </button>
+                <button aria-controls="printer-panel" aria-selected="false" class="account-tab role-card" data-role="printer"
+                  id="printer-tab" role="tab" tabindex="-1" type="button">
+                  <span aria-hidden="true" class="account-tab-check">
+                    <svg class="icon">
+                      <use href="#icon-check"></use>
+                    </svg>
+                  </span>
+                  <span aria-hidden="true" class="account-tab-icon">
+                    <svg class="icon">
+                      <use href="#icon-printer"></use>
+                    </svg>
+                  </span>
+                  <div class="account-tab-content card-text-group">
+                    <h3 data-i18n="printer">المطبعة</h3>
+                    <p data-i18n="printerDescription">استقبل طلبات الطباعة ونفّذها بجودة وكفاءة عالية</p>
+                  </div>
+                </button>
+              </div>
+            </section>
+          </section>
+          <!-- Step 2: selected role's existing validated form -->
+          <section class="onboarding-step onboarding-form-step" data-onboarding-step="form"
+            aria-labelledby="onboarding-form-title" hidden>
+            <header class="onboarding-form-heading">
+              <h2 id="onboarding-form-title" data-onboarding-form-title>إنشاء حساب العميل</h2>
+            </header>
+            <!-- Customer registration panel -->
+            <section aria-labelledby="customer-tab" class="account-panel" data-role-panel="customer" id="customer-panel"
+              role="tabpanel">
+              <form action="#" class="register-form" id="customerForm" method="post" novalidate="">
+                <input name="accountType" type="hidden" value="customer" />
+                <div class="form-grid form-grid-two">
+                  <div class="field-group">
+                    <div class="floating-field">
+                      <input aria-describedby="customerFullNameError" aria-required="true" autocomplete="name"
+                        id="customerFullName" minlength="3" name="fullName" placeholder=" " required="" type="text" />
+                      <label data-i18n="fullName" for="customerFullName">الاسم الكامل</label>
+                      <span aria-hidden="true" class="required-mark">*</span>
+                    </div>
+                    <p aria-live="polite" class="field-error" id="customerFullNameError"></p>
+                  </div>
+                  <div class="field-group">
+                    <div class="floating-field">
+                      <input aria-describedby="customerEmailError" aria-required="true" autocomplete="email"
+                        id="customerEmail" name="email" placeholder=" " required="" type="email" />
+                      <label data-i18n="email" for="customerEmail">البريد الإلكتروني</label>
+                      <span aria-hidden="true" class="required-mark">*</span>
+                    </div>
+                    <p aria-live="polite" class="field-error" id="customerEmailError"></p>
+                  </div>
+                  <div class="field-group form-grid-full">
+                    <div class="floating-field">
+                      <input aria-describedby="customerPhoneHint customerPhoneError" aria-required="true"
+                        autocomplete="tel" id="customerPhone" inputmode="tel" name="phone" placeholder=" " required=""
+                        type="tel" />
+                      <label data-i18n="phoneNumber" for="customerPhone">رقم الهاتف</label>
+                      <span aria-hidden="true" class="required-mark">*</span>
+                    </div>
+                    <p class="field-hint" data-i18n="phoneHint" id="customerPhoneHint">
+                      أدخل الرقم مع مفتاح الدولة، مثال: +970 59 000 0000
+                    </p>
+                    <p aria-live="polite" class="field-error" id="customerPhoneError"></p>
+                  </div>
+                  <div class="field-group">
+                    <div class="floating-field has-action password-wrapper">
+                      <input aria-describedby="customerPasswordTooltip customerPasswordError" aria-required="true"
+                        autocomplete="new-password" class="password-input" id="customerPassword" minlength="8"
+                        name="password" placeholder=" " required="" type="password"
+                        passwordrules="minlength: 8; required: upper; required: digit;"
+                        pattern="(?=.*[A-Z])(?=.*\d).{8,}">
+                      <label data-i18n="password" for="customerPassword">كلمة المرور</label>
+                      <span aria-hidden="true" class="required-mark">*</span>
+                      <button aria-label="إظهار كلمة المرور" class="field-action password-toggle"
+                        data-i18n-aria-label="showPassword" data-password-target="customerPassword" type="button">
+                        <span aria-hidden="true" class="icon external-ui-icon icon-eye"></span>
+                        <span aria-hidden="true" class="icon external-ui-icon icon-eye-off"></span>
+                      </button>
+                      <div class="password-tooltip" id="customerPasswordTooltip" data-password-tooltip
+                        role="tooltip" aria-hidden="true" dir="auto">
+                        <strong data-i18n="passwordTooltipTitle">يجب أن تحتوي كلمة المرور على:</strong>
+                        <span data-password-criterion="length" data-i18n="passwordTooltipLength">• 8 أحرف على الأقل</span>
+                        <span data-password-criterion="uppercase" data-i18n="passwordTooltipUppercase">• حرف كبير واحد</span>
+                        <span data-password-criterion="number" data-i18n="passwordTooltipNumber">• رقم واحد</span>
+                        <span class="tooltip-arrow" aria-hidden="true"></span>
+                      </div>
+                      <div aria-live="assertive" class="field-error field-error-message" data-i18n="passwordSubmitError"
+                        dir="auto" id="customerPasswordError" role="alert" hidden>⚠️ كلمة المرور غير صحيحة. حاول مجدداً.</div>
+                    </div>
+                    <ul aria-live="polite" class="password-requirements" data-password-requirements="customerPassword"
+                      id="customerPasswordHint">
+                      <li data-requirement="length"><span aria-hidden="true" class="password-requirement-icon"><svg
+                            class="icon">
+                            <use href="#icon-check"></use>
+                          </svg></span><span data-i18n="passwordRequirementLength">8 أحرف على الأقل</span></li>
+                      <li data-requirement="uppercase"><span aria-hidden="true" class="password-requirement-icon"><svg
+                            class="icon">
+                            <use href="#icon-check"></use>
+                          </svg></span><span data-i18n="passwordRequirementUppercase">حرف إنجليزي كبير</span></li>
+                      <li data-requirement="number"><span aria-hidden="true" class="password-requirement-icon"><svg
+                            class="icon">
+                            <use href="#icon-check"></use>
+                          </svg></span><span data-i18n="passwordRequirementNumber">رقم واحد على الأقل</span></li>
+                      <li data-requirement="symbol"><span aria-hidden="true" class="password-requirement-icon"><svg
+                            class="icon">
+                            <use href="#icon-check"></use>
+                          </svg></span><span data-i18n="passwordRequirementSymbol">رمز خاص واحد على الأقل</span></li>
+                    </ul>
+                    <p class="password-strong-message" data-password-strong="customerPassword" aria-live="polite"
+                      hidden><span aria-hidden="true">✓</span> <span data-i18n="passwordStrong">كلمة مرور قوية</span>
+                    </p>
+                  </div>
+                  <div class="field-group">
+                    <div class="floating-field has-action">
+                      <input aria-describedby="customerPasswordConfirmError" aria-required="true"
+                        autocomplete="new-password" class="password-input" id="customerPasswordConfirm"
+                        name="passwordConfirm" placeholder=" " required="" type="password" />
+                      <label data-i18n="confirmPassword" for="customerPasswordConfirm">تأكيد كلمة المرور</label>
+                      <span aria-hidden="true" class="required-mark">*</span>
+                      <button aria-label="إظهار كلمة المرور" class="field-action password-toggle"
+                        data-i18n-aria-label="showPassword" data-password-target="customerPasswordConfirm"
+                        type="button">
+                        <span aria-hidden="true" class="icon external-ui-icon icon-eye"></span>
+                        <span aria-hidden="true" class="icon external-ui-icon icon-eye-off"></span>
+                      </button>
+                    </div>
+                    <p aria-live="polite" class="field-error" id="customerPasswordConfirmError"></p>
+                  </div>
+                </div>
+                <label class="consent-row" for="customerTerms">
+                  <input id="customerTerms" name="terms" required="" type="checkbox" />
+                  <span aria-hidden="true" class="custom-checkbox">
+                    <svg class="icon">
+                      <use href="#icon-check"></use>
+                    </svg>
+                  </span>
+                  <span>
+                    <span data-i18n="agreeTo">أوافق على</span>
+                    <a data-i18n="termsAndConditions" href="terms.html" rel="noopener" target="_blank">الشروط
+                      والأحكام</a>
+                    <span data-i18n="and">و</span>
+                    <a data-i18n="privacyPolicy" href="privacy.html" rel="noopener" target="_blank">سياسة الخصوصية</a>
+                  </span>
+                </label>
+                <p aria-live="polite" class="field-error consent-error" id="customerTermsError"></p>
+                <div aria-live="polite" class="form-status" id="customerFormStatus" role="status"></div>
+                <button class="primary-button submit-button" type="submit">
+                  <span data-i18n="createCustomerAccount">إنشاء حساب العميل</span>
+                  <span aria-hidden="true" class="button-loader"></span>
+                </button>
+                <div class="social-divider" role="separator">
+                  <span></span>
+                  <strong data-i18n="or">أو</strong>
+                  <span></span>
+                </div>
+                <button class="google-button" data-google-role="customer" type="button">
+                  <img alt="" aria-hidden="true" class="google-mark" height="20" src="assets/icons/google-g.svg"
+                    width="20" />
+                  <span data-i18n="continueWithGoogleAndComplete">المتابعة باستخدام Google</span>
+                </button>
+              </form>
+            </section>
+            <!-- Designer registration panel -->
+            <section aria-labelledby="designer-tab" class="account-panel" data-role-panel="designer" hidden=""
+              id="designer-panel" role="tabpanel">
+              <form action="#" class="register-form" enctype="multipart/form-data" id="designerForm" method="post"
+                novalidate="">
+                <input name="accountType" type="hidden" value="designer" />
+                <div class="form-grid form-grid-two">
+                  <div class="field-group">
+                    <div class="floating-field">
+                      <input aria-describedby="designerFullNameError" aria-required="true" autocomplete="name"
+                        id="designerFullName" minlength="3" name="fullName" placeholder=" " required="" type="text" />
+                      <label data-i18n="fullName" for="designerFullName">الاسم الكامل</label>
+                      <span aria-hidden="true" class="required-mark">*</span>
+                    </div>
+                    <p aria-live="polite" class="field-error" id="designerFullNameError"></p>
+                  </div>
+                  <div class="field-group">
+                    <div class="floating-field">
+                      <input aria-describedby="designerEmailError" aria-required="true" autocomplete="email"
+                        id="designerEmail" name="email" placeholder=" " required="" type="email" />
+                      <label data-i18n="email" for="designerEmail">البريد الإلكتروني</label>
+                      <span aria-hidden="true" class="required-mark">*</span>
+                    </div>
+                    <p aria-live="polite" class="field-error" id="designerEmailError"></p>
+                  </div>
+                  <div class="field-group">
+                    <div class="floating-field has-action password-wrapper">
+                      <input aria-describedby="designerPasswordTooltip designerPasswordError" aria-required="true"
+                        autocomplete="new-password" class="password-input" id="designerPassword" minlength="8"
+                        name="password" placeholder=" " required="" type="password"
+                        passwordrules="minlength: 8; required: upper; required: digit;"
+                        pattern="(?=.*[A-Z])(?=.*\d).{8,}">
+                      <label data-i18n="password" for="designerPassword">كلمة المرور</label>
+                      <span aria-hidden="true" class="required-mark">*</span>
+                      <button aria-label="إظهار كلمة المرور" class="field-action password-toggle"
+                        data-i18n-aria-label="showPassword" data-password-target="designerPassword" type="button">
+                        <span aria-hidden="true" class="icon external-ui-icon icon-eye"></span>
+                        <span aria-hidden="true" class="icon external-ui-icon icon-eye-off"></span>
+                      </button>
+                      <div class="password-tooltip" id="designerPasswordTooltip" data-password-tooltip
+                        role="tooltip" aria-hidden="true" dir="auto">
+                        <strong data-i18n="passwordTooltipTitle">يجب أن تحتوي كلمة المرور على:</strong>
+                        <span data-password-criterion="length" data-i18n="passwordTooltipLength">• 8 أحرف على الأقل</span>
+                        <span data-password-criterion="uppercase" data-i18n="passwordTooltipUppercase">• حرف كبير واحد</span>
+                        <span data-password-criterion="number" data-i18n="passwordTooltipNumber">• رقم واحد</span>
+                        <span class="tooltip-arrow" aria-hidden="true"></span>
+                      </div>
+                      <div aria-live="assertive" class="field-error field-error-message" data-i18n="passwordSubmitError"
+                        dir="auto" id="designerPasswordError" role="alert" hidden>⚠️ كلمة المرور غير صحيحة. حاول مجدداً.</div>
+                    </div>
+                    <ul aria-live="polite" class="password-requirements" data-password-requirements="designerPassword"
+                      id="designerPasswordHint">
+                      <li data-requirement="length"><span aria-hidden="true" class="password-requirement-icon"><svg
+                            class="icon">
+                            <use href="#icon-check"></use>
+                          </svg></span><span data-i18n="passwordRequirementLength">8 أحرف على الأقل</span></li>
+                      <li data-requirement="uppercase"><span aria-hidden="true" class="password-requirement-icon"><svg
+                            class="icon">
+                            <use href="#icon-check"></use>
+                          </svg></span><span data-i18n="passwordRequirementUppercase">حرف إنجليزي كبير</span></li>
+                      <li data-requirement="number"><span aria-hidden="true" class="password-requirement-icon"><svg
+                            class="icon">
+                            <use href="#icon-check"></use>
+                          </svg></span><span data-i18n="passwordRequirementNumber">رقم واحد على الأقل</span></li>
+                      <li data-requirement="symbol"><span aria-hidden="true" class="password-requirement-icon"><svg
+                            class="icon">
+                            <use href="#icon-check"></use>
+                          </svg></span><span data-i18n="passwordRequirementSymbol">رمز خاص واحد على الأقل</span></li>
+                    </ul>
+                    <p class="password-strong-message" data-password-strong="designerPassword" aria-live="polite"
+                      hidden><span aria-hidden="true">✓</span> <span data-i18n="passwordStrong">كلمة مرور قوية</span>
+                    </p>
+                  </div>
+                  <div class="field-group">
+                    <div class="floating-field has-action">
+                      <input aria-describedby="designerPasswordConfirmError" aria-required="true"
+                        autocomplete="new-password" class="password-input" id="designerPasswordConfirm"
+                        name="passwordConfirm" placeholder=" " required="" type="password" />
+                      <label data-i18n="confirmPassword" for="designerPasswordConfirm">تأكيد كلمة المرور</label>
+                      <span aria-hidden="true" class="required-mark">*</span>
+                      <button aria-label="إظهار كلمة المرور" class="field-action password-toggle"
+                        data-i18n-aria-label="showPassword" data-password-target="designerPasswordConfirm"
+                        type="button">
+                        <span aria-hidden="true" class="icon external-ui-icon icon-eye"></span>
+                        <span aria-hidden="true" class="icon external-ui-icon icon-eye-off"></span>
+                      </button>
+                    </div>
+                    <p aria-live="polite" class="field-error" id="designerPasswordConfirmError"></p>
+                  </div>
+                  <div class="field-group form-grid-full">
+                    <div class="floating-field">
+                      <input aria-describedby="designerWhatsappHint designerWhatsappError" aria-required="true"
+                        autocomplete="tel" id="designerWhatsapp" inputmode="tel" name="whatsappNumber" placeholder=" "
+                        required="" type="tel" />
+                      <label data-i18n="whatsappNumber" for="designerWhatsapp">رقم الهاتف المرتبط بواتساب</label>
+                      <span aria-hidden="true" class="required-mark">*</span>
+                    </div>
+                    <p class="field-hint" data-i18n="phoneHint" id="designerWhatsappHint">
+                      أدخل الرقم مع مفتاح الدولة، مثال: +970 59 000 0000
+                    </p>
+                    <p aria-live="polite" class="field-error" id="designerWhatsappError"></p>
+                  </div>
+                  <div class="field-group form-grid-full">
+                    <div class="floating-field">
+                      <input aria-describedby="designerPortfolioHint designerPortfolioError" aria-required="true"
+                        autocomplete="url" id="designerPortfolio" inputmode="url" name="portfolioUrl" placeholder=" "
+                        required="" type="url" />
+                      <label data-i18n="portfolioUrl" for="designerPortfolio">رابط معرض الأعمال</label>
+                      <span aria-hidden="true" class="required-mark">*</span>
+                    </div>
+                    <p class="field-hint" data-i18n="portfolioHint" id="designerPortfolioHint">
+                      أضف رابط Behance أو Dribbble أو موقعك الشخصي.
+                    </p>
+                    <p aria-live="polite" class="field-error" id="designerPortfolioError"></p>
+                  </div>
+                </div>
+                <fieldset class="upload-fieldset">
+                  <legend data-i18n="designerPhoto"><span data-i18n="designerPhoto">الصورة الشخصية للمصمم</span><span
+                      class="optional-badge" data-i18n="optional">اختياري</span></legend>
+                  <div class="image-uploader" data-uploader="designerAvatar">
+                    <input accept="image/png,image/jpeg,image/webp"
+                      aria-describedby="designerAvatarHint designerAvatarError" class="file-input" id="designerAvatar"
+                      name="profileImage" type="file" />
+                    <label class="image-dropzone" for="designerAvatar">
+                      <span class="upload-preview-placeholder">
+                        <span aria-hidden="true" class="upload-icon">
+                          <svg class="icon">
+                            <use href="#icon-upload"></use>
+                          </svg>
+                        </span>
+                        <strong data-i18n="uploadDesignerPhoto">ارفع صورتك الشخصية</strong>
+                        <small data-i18n="dragOrBrowse">اسحب الصورة هنا أو اضغط للاختيار</small>
+                      </span>
+                      <img alt="" class="upload-preview-image" hidden="" src="" />
+                    </label>
+                    <button class="remove-upload-button" data-remove-upload="designerAvatar" hidden="" type="button">
+                      <svg aria-hidden="true" class="icon">
+                        <use href="#icon-trash"></use>
+                      </svg>
+                      <span data-i18n="removeImage">حذف الصورة</span>
+                    </button>
+                  </div>
+                  <p class="field-hint" data-i18n="imageUploadHint" id="designerAvatarHint">
+                    PNG أو JPG أو WEBP، وبحجم لا يتجاوز 5MB.
+                  </p>
+                  <p aria-live="polite" class="field-error" id="designerAvatarError"></p>
+                </fieldset>
+                <label class="consent-row" for="designerTerms">
+                  <input id="designerTerms" name="terms" required="" type="checkbox" />
+                  <span aria-hidden="true" class="custom-checkbox">
+                    <svg class="icon">
+                      <use href="#icon-check"></use>
+                    </svg>
+                  </span>
+                  <span>
+                    <span data-i18n="agreeTo">أوافق على</span>
+                    <a data-i18n="termsAndConditions" href="terms.html" rel="noopener" target="_blank">الشروط
+                      والأحكام</a>
+                    <span data-i18n="and">و</span>
+                    <a data-i18n="privacyPolicy" href="privacy.html" rel="noopener" target="_blank">سياسة الخصوصية</a>
+                  </span>
+                </label>
+                <p aria-live="polite" class="field-error consent-error" id="designerTermsError"></p>
+                <div aria-live="polite" class="form-status" id="designerFormStatus" role="status"></div>
+                <button class="primary-button submit-button" type="submit">
+                  <span data-i18n="createDesignerAccount">إنشاء حساب المصمم</span>
+                  <span aria-hidden="true" class="button-loader"></span>
+                </button>
+                <div class="social-divider" role="separator">
+                  <span></span>
+                  <strong data-i18n="or">أو</strong>
+                  <span></span>
+                </div>
+                <button class="google-button" data-google-role="designer" type="button">
+                  <img alt="" aria-hidden="true" class="google-mark" height="20" src="assets/icons/google-g.svg"
+                    width="20" />
+                  <span data-i18n="continueWithGoogleAndComplete">المتابعة باستخدام Google</span>
+                </button>
+                <p class="approval-note">
+                  <svg aria-hidden="true" class="icon">
+                    <use href="#icon-check"></use>
+                  </svg>
+                  <span data-i18n="designerApprovalNote">
+                    بعد إرسال الطلب، ينتقل الحساب إلى مرحلة مراجعة الإدارة.
+                  </span>
+                </p>
+              </form>
+            </section>
+            <!-- Print provider registration panel -->
+            <section aria-labelledby="printer-tab" class="account-panel" data-role-panel="printer" hidden=""
+              id="printer-panel" role="tabpanel">
+              <form action="#" class="register-form" enctype="multipart/form-data" id="printerForm" method="post"
+                novalidate="">
+                <input name="accountType" type="hidden" value="printer" />
+                <section class="printer-form-section" data-printer-section="" id="printer-business-section">
+                  <div class="printer-section-header"><span aria-hidden="true" class="printer-section-icon"><svg
+                        class="icon">
+                        <use href="#icon-building"></use>
+                      </svg></span>
+                    <div class="printer-section-copy">
+                      <h3 data-i18n="printerBusinessSection">بيانات المطبعة</h3>
+                      <p data-i18n="printerBusinessSectionDescription">المعلومات الأساسية ووسائل التواصل الخاصة
+                        بالمطبعة.</p>
+                    </div><span aria-live="polite" class="section-error-badge" data-section-error-count=""
+                      hidden=""></span>
+                  </div>
+                  <div class="form-grid form-grid-two printer-section-grid">
+                    <div class="field-group">
+                      <div class="floating-field">
+                        <input aria-describedby="printerNameError" aria-required="true" autocomplete="organization"
+                          id="printerName" minlength="3" name="printerName" placeholder=" " required="" type="text" />
+                        <label data-i18n="printerName" for="printerName">اسم المطبعة</label>
+                        <span aria-hidden="true" class="required-mark">*</span>
+                      </div>
+                      <p aria-live="polite" class="field-error" id="printerNameError"></p>
+                    </div>
+                    <div class="field-group">
+                      <div class="floating-field">
+                        <input aria-describedby="printerEmailError" aria-required="true" autocomplete="email"
+                          id="printerEmail" name="email" placeholder=" " required="" type="email" />
+                        <label data-i18n="email" for="printerEmail">البريد الإلكتروني</label>
+                        <span aria-hidden="true" class="required-mark">*</span>
+                      </div>
+                      <p aria-live="polite" class="field-error" id="printerEmailError"></p>
+                    </div>
+                    <div class="field-group">
+                      <div class="floating-field">
+                        <input aria-describedby="printerWhatsappHint printerWhatsappError" aria-required="true"
+                          autocomplete="tel" id="printerWhatsapp" inputmode="tel" name="whatsappNumber" placeholder=" "
+                          required="" type="tel" />
+                        <label data-i18n="whatsappNumber" for="printerWhatsapp">رقم الهاتف المرتبط بواتساب</label>
+                        <span aria-hidden="true" class="required-mark">*</span>
+                      </div>
+                      <p class="field-hint" data-i18n="whatsappHint" id="printerWhatsappHint">
+                        أدخل الرقم مع مفتاح الدولة، مثال: +970 59 000 0000
+                      </p>
+                      <p aria-live="polite" class="field-error" id="printerWhatsappError"></p>
+                    </div>
+                    <div class="field-group">
+                      <div class="floating-field">
+                        <input aria-describedby="printerAddressError" aria-required="true" autocomplete="street-address"
+                          id="printerAddress" name="address" placeholder=" " required="" type="text" />
+                        <label data-i18n="printerAddress" for="printerAddress">عنوان المطبعة</label>
+                        <span aria-hidden="true" class="required-mark">*</span>
+                      </div>
+                      <p aria-live="polite" class="field-error" id="printerAddressError"></p>
+                    </div>
+                  </div>
+                </section>
+                <section class="printer-form-section" data-printer-section="" id="printer-hours-section">
+                  <div class="printer-section-header"><span aria-hidden="true" class="printer-section-icon"><svg
+                        class="icon">
+                        <use href="#icon-clock"></use>
+                      </svg></span>
+                    <div class="printer-section-copy">
+                      <h3 data-i18n="printerHoursSection">أوقات العمل</h3>
+                      <p data-i18n="printerHoursSectionDescription">حدد وقت بداية الدوام ونهايته لاستقبال الطلبات.</p>
+                    </div><span aria-live="polite" class="section-error-badge" data-section-error-count=""
+                      hidden=""></span>
+                  </div>
+                  <div class="form-grid form-grid-two printer-section-grid">
+                    <div class="field-group">
+                      <div class="floating-field time-field">
+                        <input aria-describedby="printerOpeningTimeError" aria-required="true" id="printerOpeningTime"
+                          name="openingTime" placeholder=" " required="" type="time" />
+                        <label data-i18n="openingTime" for="printerOpeningTime">بداية الدوام</label>
+                        <span aria-hidden="true" class="required-mark">*</span>
+                      </div>
+                      <p aria-live="polite" class="field-error" id="printerOpeningTimeError"></p>
+                    </div>
+                    <div class="field-group">
+                      <div class="floating-field time-field">
+                        <input aria-describedby="printerClosingTimeError" aria-required="true" id="printerClosingTime"
+                          name="closingTime" placeholder=" " required="" type="time" />
+                        <label data-i18n="closingTime" for="printerClosingTime">نهاية الدوام</label>
+                        <span aria-hidden="true" class="required-mark">*</span>
+                      </div>
+                      <p aria-live="polite" class="field-error" id="printerClosingTimeError"></p>
+                    </div>
+                  </div>
+                </section>
+                <section class="printer-form-section" data-printer-section="" id="printer-security-section">
+                  <div class="printer-section-header"><span aria-hidden="true" class="printer-section-icon"><svg
+                        class="icon">
+                        <use href="#icon-lock"></use>
+                      </svg></span>
+                    <div class="printer-section-copy">
+                      <h3 data-i18n="printerSecuritySection">بيانات تسجيل الدخول</h3>
+                      <p data-i18n="printerSecuritySectionDescription">أنشئ كلمة مرور قوية وآمنة لحساب المطبعة.</p>
+                    </div><span aria-live="polite" class="section-error-badge" data-section-error-count=""
+                      hidden=""></span>
+                  </div>
+                  <div class="form-grid form-grid-two printer-section-grid">
+                    <div class="field-group">
+                      <div class="floating-field has-action password-wrapper">
+                        <input aria-describedby="printerPasswordTooltip printerPasswordError" aria-required="true"
+                          autocomplete="new-password" class="password-input" id="printerPassword" minlength="8"
+                          name="password" placeholder=" " required="" type="password"
+                          passwordrules="minlength: 8; required: upper; required: digit;"
+                          pattern="(?=.*[A-Z])(?=.*\d).{8,}">
+                        <label data-i18n="password" for="printerPassword">كلمة المرور</label>
+                        <span aria-hidden="true" class="required-mark">*</span>
+                        <button aria-label="إظهار كلمة المرور" class="field-action password-toggle"
+                          data-i18n-aria-label="showPassword" data-password-target="printerPassword" type="button">
+                          <span aria-hidden="true" class="icon external-ui-icon icon-eye"></span>
+                          <span aria-hidden="true" class="icon external-ui-icon icon-eye-off"></span>
+                        </button>
+                        <div class="password-tooltip" id="printerPasswordTooltip" data-password-tooltip
+                          role="tooltip" aria-hidden="true" dir="auto">
+                          <strong data-i18n="passwordTooltipTitle">يجب أن تحتوي كلمة المرور على:</strong>
+                          <span data-password-criterion="length" data-i18n="passwordTooltipLength">• 8 أحرف على الأقل</span>
+                          <span data-password-criterion="uppercase" data-i18n="passwordTooltipUppercase">• حرف كبير واحد</span>
+                          <span data-password-criterion="number" data-i18n="passwordTooltipNumber">• رقم واحد</span>
+                          <span class="tooltip-arrow" aria-hidden="true"></span>
+                        </div>
+                        <div aria-live="assertive" class="field-error field-error-message" data-i18n="passwordSubmitError"
+                          dir="auto" id="printerPasswordError" role="alert" hidden>⚠️ كلمة المرور غير صحيحة. حاول مجدداً.</div>
+                      </div>
+                      <ul aria-live="polite" class="password-requirements" data-password-requirements="printerPassword"
+                        id="printerPasswordHint">
+                        <li data-requirement="length"><span aria-hidden="true" class="password-requirement-icon"><svg
+                              class="icon">
+                              <use href="#icon-check"></use>
+                            </svg></span><span data-i18n="passwordRequirementLength">8 أحرف على الأقل</span></li>
+                        <li data-requirement="uppercase"><span aria-hidden="true" class="password-requirement-icon"><svg
+                              class="icon">
+                              <use href="#icon-check"></use>
+                            </svg></span><span data-i18n="passwordRequirementUppercase">حرف إنجليزي كبير</span></li>
+                        <li data-requirement="number"><span aria-hidden="true" class="password-requirement-icon"><svg
+                              class="icon">
+                              <use href="#icon-check"></use>
+                            </svg></span><span data-i18n="passwordRequirementNumber">رقم واحد على الأقل</span></li>
+                        <li data-requirement="symbol"><span aria-hidden="true" class="password-requirement-icon"><svg
+                              class="icon">
+                              <use href="#icon-check"></use>
+                            </svg></span><span data-i18n="passwordRequirementSymbol">رمز خاص واحد على الأقل</span></li>
+                      </ul>
+                      <p class="password-strong-message" data-password-strong="printerPassword" aria-live="polite"
+                        hidden><span aria-hidden="true">✓</span> <span data-i18n="passwordStrong">كلمة مرور قوية</span>
+                      </p>
+                    </div>
+                    <div class="field-group">
+                      <div class="floating-field has-action">
+                        <input aria-describedby="printerPasswordConfirmError" aria-required="true"
+                          autocomplete="new-password" class="password-input" id="printerPasswordConfirm"
+                          name="passwordConfirm" placeholder=" " required="" type="password" />
+                        <label data-i18n="confirmPassword" for="printerPasswordConfirm">تأكيد كلمة المرور</label>
+                        <span aria-hidden="true" class="required-mark">*</span>
+                        <button aria-label="إظهار كلمة المرور" class="field-action password-toggle"
+                          data-i18n-aria-label="showPassword" data-password-target="printerPasswordConfirm"
+                          type="button">
+                          <span aria-hidden="true" class="icon external-ui-icon icon-eye"></span>
+                          <span aria-hidden="true" class="icon external-ui-icon icon-eye-off"></span>
+                        </button>
+                      </div>
+                      <p aria-live="polite" class="field-error" id="printerPasswordConfirmError"></p>
+                    </div>
+                  </div>
+                </section>
+                <section class="printer-form-section" data-printer-section="" id="printer-files-section">
+                  <div class="printer-section-header"><span aria-hidden="true" class="printer-section-icon"><svg
+                        class="icon">
+                        <use href="#icon-files"></use>
+                      </svg></span>
+                    <div class="printer-section-copy">
+                      <h3 data-i18n="printerFilesSection">الشعار والترخيص</h3>
+                      <p data-i18n="printerFilesSectionDescription">أضف شعار المطبعة وارفع نسخة واضحة من الترخيص.</p>
+                    </div><span aria-live="polite" class="section-error-badge" data-section-error-count=""
+                      hidden=""></span>
+                  </div>
+                  <div class="printer-files-stack">
+                    <fieldset class="upload-fieldset printer-logo-fieldset">
+                      <legend data-i18n="printerLogo"><span data-i18n="printerLogo">شعار المطبعة</span><span
+                          class="optional-badge" data-i18n="optional">اختياري</span></legend>
+                      <div class="image-uploader" data-uploader="printerLogo">
+                        <input accept="image/png,image/jpeg,image/webp"
+                          aria-describedby="printerLogoHint printerLogoError" class="file-input" id="printerLogo"
+                          name="printerLogo" type="file" />
+                        <label class="image-dropzone" for="printerLogo">
+                          <span class="upload-preview-placeholder">
+                            <span aria-hidden="true" class="upload-icon">
+                              <svg class="icon">
+                                <use href="#icon-upload"></use>
+                              </svg>
+                            </span>
+                            <strong data-i18n="uploadPrinterLogo">ارفع شعار المطبعة</strong>
+                            <small data-i18n="dragOrBrowse">اسحب الصورة هنا أو اضغط للاختيار</small>
+                          </span>
+                          <img alt="" class="upload-preview-image" hidden="" src="" />
+                        </label>
+                        <button class="remove-upload-button" data-remove-upload="printerLogo" hidden="" type="button">
+                          <svg aria-hidden="true" class="icon">
+                            <use href="#icon-trash"></use>
+                          </svg>
+                          <span data-i18n="removeImage">حذف الصورة</span>
+                        </button>
+                      </div>
+                      <p class="field-hint" data-i18n="imageUploadHint" id="printerLogoHint">
+                        PNG أو JPG أو WEBP، وبحجم لا يتجاوز 5MB.
+                      </p>
+                      <p aria-live="polite" class="field-error" id="printerLogoError"></p>
+                    </fieldset>
+                    <fieldset class="documents-fieldset printer-license-fieldset">
+                      <legend data-i18n="printerLicense">ترخيص المطبعة</legend>
+                      <p class="fieldset-description" data-i18n="printerLicenseDescription">
+                        ارفع نسخة واضحة من ترخيص المطبعة لمراجعة طلب التسجيل.
+                      </p>
+                      <div class="document-upload-grid document-upload-grid-single">
+                        <div class="document-upload-card printer-license-card">
+                          <input accept="application/pdf,image/png,image/jpeg"
+                            aria-describedby="printerLicenseHint printerLicenseError" aria-required="true"
+                            class="file-input" id="printerLicense" name="printerLicense" required="" type="file" />
+                          <label for="printerLicense">
+                            <svg aria-hidden="true" class="icon">
+                              <use href="#icon-upload"></use>
+                            </svg>
+                            <strong data-i18n="uploadPrinterLicense">رفع ترخيص المطبعة</strong>
+                            <small class="selected-file-name" data-empty-text="لم يتم اختيار ملف"
+                              data-i18n="noFileSelected">
+                              لم يتم اختيار ملف
+                            </small>
+                          </label>
+                          <p class="field-hint" data-i18n="documentUploadHint" id="printerLicenseHint">
+                            PDF أو JPG أو PNG، بحد أقصى 8MB.
+                          </p>
+                          <p aria-live="polite" class="field-error" id="printerLicenseError"></p>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+                </section>
+                <section class="printer-form-section" data-printer-section="" id="printer-services-section">
+                  <div class="printer-section-header"><span aria-hidden="true" class="printer-section-icon"><svg
+                        class="icon">
+                        <use href="#icon-grid"></use>
+                      </svg></span>
+                    <div class="printer-section-copy">
+                      <h3 data-i18n="printerServicesSection">خدمات الطباعة</h3>
+                      <p data-i18n="printerServicesSectionDescription">اختر كل المنتجات التي تستطيع المطبعة تنفيذها.</p>
+                    </div><span aria-live="polite" class="section-error-badge" data-section-error-count=""
+                      hidden=""></span>
+                  </div>
+                  <fieldset aria-describedby="printerServicesHint printerServicesError" class="services-fieldset">
+                    <legend data-i18n="printingServices">خدمات الطباعة المتاحة</legend>
+                    <p class="fieldset-description" data-i18n="printingServicesDescription" id="printerServicesHint">
+                      اختر المنتجات التي تستطيع المطبعة تنفيذها. يمكنك اختيار أكثر من خدمة.
+                    </p>
+                    <div class="services-grid">
+                      <label class="service-option">
+                        <input name="services" type="checkbox" value="tshirts" />
+                        <span aria-hidden="true" class="service-check">
+                          <svg class="icon">
+                            <use href="#icon-check"></use>
+                          </svg>
+                        </span>
+                        <span aria-hidden="true" class="service-icon service-icon-tshirt"></span>
+                        <span data-i18n="serviceTshirts">تيشيرتات</span>
+                      </label>
+                      <label class="service-option">
+                        <input name="services" type="checkbox" value="hoodies" />
+                        <span aria-hidden="true" class="service-check">
+                          <svg class="icon">
+                            <use href="#icon-check"></use>
+                          </svg>
+                        </span>
+                        <span aria-hidden="true" class="service-icon service-icon-hoodie"></span>
+                        <span data-i18n="serviceHoodies">هوديز</span>
+                      </label>
+                      <label class="service-option">
+                        <input name="services" type="checkbox" value="mugs" />
+                        <span aria-hidden="true" class="service-check">
+                          <svg class="icon">
+                            <use href="#icon-check"></use>
+                          </svg>
+                        </span>
+                        <span aria-hidden="true" class="service-icon service-icon-mug"></span>
+                        <span data-i18n="serviceMugs">أكواب</span>
+                      </label>
+                      <label class="service-option">
+                        <input name="services" type="checkbox" value="bags" />
+                        <span aria-hidden="true" class="service-check">
+                          <svg class="icon">
+                            <use href="#icon-check"></use>
+                          </svg>
+                        </span>
+                        <span aria-hidden="true" class="service-icon service-icon-bag"></span>
+                        <span data-i18n="serviceBags">حقائب</span>
+                      </label>
+                      <label class="service-option">
+                        <input name="services" type="checkbox" value="caps" />
+                        <span aria-hidden="true" class="service-check">
+                          <svg class="icon">
+                            <use href="#icon-check"></use>
+                          </svg>
+                        </span>
+                        <span aria-hidden="true" class="service-icon service-icon-cap"></span>
+                        <span data-i18n="serviceCaps">قبعات</span>
+                      </label>
+                      <label class="service-option">
+                        <input name="services" type="checkbox" value="notebooks" />
+                        <span aria-hidden="true" class="service-check">
+                          <svg class="icon">
+                            <use href="#icon-check"></use>
+                          </svg>
+                        </span>
+                        <span aria-hidden="true" class="service-icon service-icon-notebook"></span>
+                        <span data-i18n="serviceNotebooks">دفاتر</span>
+                      </label>
+                      <label class="service-option">
+                        <input name="services" type="checkbox" value="paper-products" />
+                        <span aria-hidden="true" class="service-check">
+                          <svg class="icon">
+                            <use href="#icon-check"></use>
+                          </svg>
+                        </span>
+                        <span aria-hidden="true" class="service-icon service-icon-paper"></span>
+                        <span data-i18n="servicePaperProducts">ورقيات</span>
+                      </label>
+                      <label class="service-option">
+                        <input name="services" type="checkbox" value="stickers" />
+                        <span aria-hidden="true" class="service-check">
+                          <svg class="icon">
+                            <use href="#icon-check"></use>
+                          </svg>
+                        </span>
+                        <span aria-hidden="true" class="service-icon service-icon-sticker"></span>
+                        <span data-i18n="serviceStickers">ملصقات</span>
+                      </label>
+                      <label class="service-option">
+                        <input name="services" type="checkbox" value="posters" />
+                        <span aria-hidden="true" class="service-check">
+                          <svg class="icon">
+                            <use href="#icon-check"></use>
+                          </svg>
+                        </span>
+                        <span aria-hidden="true" class="service-icon service-icon-poster"></span>
+                        <span data-i18n="servicePosters">بوسترات</span>
+                      </label>
+                    </div>
+                    <p aria-live="polite" class="field-error" id="printerServicesError"></p>
+                  </fieldset>
+                </section>
+                <section class="printer-submit-section"><label class="consent-row" for="printerTerms">
+                    <input id="printerTerms" name="terms" required="" type="checkbox" />
+                    <span aria-hidden="true" class="custom-checkbox">
+                      <svg class="icon">
+                        <use href="#icon-check"></use>
+                      </svg>
+                    </span>
+                    <span>
+                      <span data-i18n="agreeTo">أوافق على</span>
+                      <a data-i18n="termsAndConditions" href="terms.html" rel="noopener" target="_blank">الشروط
+                        والأحكام</a>
+                      <span data-i18n="and">و</span>
+                      <a data-i18n="privacyPolicy" href="privacy.html" rel="noopener" target="_blank">سياسة الخصوصية</a>
+                    </span>
+                  </label>
+                  <p aria-live="polite" class="field-error consent-error" id="printerTermsError"></p>
+                  <div aria-live="polite" class="form-status" id="printerFormStatus" role="status"></div><button
+                    class="primary-button submit-button printer-submit-button"
+                    type="submit">
+                    <span data-i18n="submitPrinterRequest">إرسال طلب تسجيل المطبعة</span>
+                    <span aria-hidden="true" class="button-loader"></span>
+                  </button>
+                  <div class="social-divider" role="separator">
+                    <span></span>
+                    <strong data-i18n="or">أو</strong>
+                    <span></span>
+                  </div><button class="google-button" data-google-role="printer" type="button">
+                    <img alt="" aria-hidden="true" class="google-mark" height="20" src="assets/icons/google-g.svg"
+                      width="20" />
+                    <span data-i18n="continueWithGoogleAndComplete">المتابعة باستخدام Google</span>
+                  </button>
+                  <p class="approval-note">
+                    <svg aria-hidden="true" class="icon">
+                      <use href="#icon-check"></use>
+                    </svg>
+                    <span data-i18n="printerApprovalNote">
+                      سيتم حفظ الطلب بحالة «قيد المراجعة» حتى تعتمد الإدارة الحساب.
+                    </span>
+                  </p>
+                </section>
+              </form>
+            </section>
+            <footer class="register-footer">
+              <span data-i18n="alreadyHaveAccount">هل لديك حساب بالفعل؟</span>
+              <a data-i18n="signIn" href="login.html">تسجيل الدخول</a>
+            </footer>
+          </section>
+        </section>
+      </div>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <p>
+      <span>©</span>
+      <span id="currentYear">2026</span>
+      <strong>PALPRINTS</strong>
+      <span data-i18n="allRightsReserved">جميع الحقوق محفوظة.</span>
+    </p>
+  </footer>
+</body>
+
+</html>

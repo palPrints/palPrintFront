@@ -1,0 +1,940 @@
+/* ==========================================================================
+   PALPRINTS — Register Page CSS
+   Rebuilt against: PALPRINTS Design System v2.0 (PDF)
+   Scope: body.register-page and its children only.
+
+   Structural goals (from earlier iterations, unchanged):
+   - Image panel + form panel each 50% width, full height.
+   - Image panel never scrolls.
+   - Form panel scrolls internally ONLY if content exceeds viewport height
+     (this happens naturally on "المطبعة" — it has ~15 fields vs. ~5 on the
+     other two tabs. That's expected, not a bug.)
+   - Customer & Designer panels fit typical viewports (800px+) with zero
+     scrolling.
+
+   Design-system goals (new):
+   - All colors, radii, shadows, type scale, button/badge specs pulled
+     directly from the Design System PDF tokens below.
+   - Full dark-mode support via a `.dark-mode` class on <body>, per the
+     system's explicit requirement: "الوضع الليلي يجب أن يكون مدعوماً في
+     كل صفحة عبر إضافة الكلاس dark-mode".
+   ========================================================================== */
+
+:root {
+  /* ---- Design System tokens (from PDF) ---- */
+  --ds-purple: #7c3aed;
+  --ds-blue: #2563eb;
+  --ds-teal: #0d9488;
+  --ds-purple-light: #ede9fe;
+  --ds-blue-light: #dbeafe;
+  --ds-teal-light: #ccfbf1;
+
+  --ds-gradient-primary: linear-gradient(135deg, #7c3aed, #2563eb, #0d9488);
+  --ds-gradient-light: linear-gradient(135deg, #a78bfa, #60a5fa, #2dd4bf);
+
+  --ds-text-primary: #0f172a;
+  --ds-text-secondary: #475569;
+  --ds-text-disabled: #94a3b8;
+
+  --ds-bg-page: #f8fafc;
+  --ds-surface: #ffffff;
+  --ds-border: #e2e8f0;
+
+  --ds-danger: #dc2626;
+  --ds-danger-bg: #fee2e2;
+  --ds-warning: #d97706;
+  --ds-warning-bg: #fef3c7;
+  --ds-info: #2563eb;
+  --ds-info-bg: #dbeafe;
+  --ds-success: #0d9488;
+  --ds-success-bg: #ccfbf1;
+
+  /* Radii */
+  --ds-radius-card: 16px;
+  --ds-radius-field: 12px;
+  --ds-radius-button: 9999px;
+  --ds-radius-badge: 6px;
+
+  /* Shadows */
+  --ds-shadow-default: 0 4px 20px rgba(15, 23, 42, 0.06);
+  --ds-shadow-elevated: 0 12px 40px rgba(15, 23, 42, 0.12);
+
+  /* Sizing */
+  --ds-header-h: 72px;
+  --ds-field-h: 44px;
+  --ds-button-h: 48px;
+
+  /* Type scale */
+  --ds-h1: 700 32px/1.3 'Cairo', Arial, sans-serif;
+  --ds-h2: 700 26px/1.3 'Cairo', Arial, sans-serif;
+  --ds-h3: 600 20px/1.4 'Cairo', Arial, sans-serif;
+  --ds-body: 400 16px/1.6 'Cairo', Arial, sans-serif;
+  --ds-small: 500 14px/1.5 'Cairo', Arial, sans-serif;
+  --ds-caption: 500 12px/1.4 'Cairo', Arial, sans-serif;
+  --ds-tiny: 500 10px/1.3 'Cairo', Arial, sans-serif;
+
+  /* Page-specific compact spacing (NOT a design-system token — the system
+     specifies 24–28px between cards, but this page is height-locked to
+     avoid scrolling, so spacing is intentionally tighter. Increase these
+     toward 24–28px if you relax the no-scroll requirement.) */
+  --auth-gap-xs: 0.375rem;
+  --auth-gap-sm: 0.5rem;
+  --auth-gap-md: 0.75rem;
+  --auth-gap-lg: 1rem;
+}
+
+/* Keep the print-provider primary action compact and centered. */
+body.register-page #printerForm .printer-submit-button {
+  width: min(100%, 320px) !important;
+  min-width: 0 !important;
+  max-width: 320px !important;
+  inline-size: min(100%, 320px) !important;
+  min-inline-size: 0 !important;
+  max-inline-size: 320px !important;
+  height: 54px !important;
+  min-height: 54px !important;
+  max-height: 54px !important;
+  flex: 0 0 auto !important;
+  justify-self: center !important;
+  align-self: center !important;
+  margin-inline: auto !important;
+}
+
+/* Error fields use one red border without an exterior focus halo. */
+body.register-page .field-group.has-error .floating-field input,
+body.register-page .field-group.has-error .floating-field textarea,
+body.register-page .floating-field input[aria-invalid="true"],
+body.register-page .floating-field textarea[aria-invalid="true"],
+body.register-page .floating-field input[aria-invalid="true"]:focus,
+body.register-page .floating-field textarea[aria-invalid="true"]:focus {
+  border-color: var(--ds-danger) !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* --------------------------------------------------------------------
+   0. Global page lock — prevents whole-page scrolling on this route
+   -------------------------------------------------------------------- */
+html:has(body.register-page),
+body.register-page {
+  height: 100%;
+}
+
+body.register-page {
+  margin: 0;
+  min-height: 100dvh;
+  height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Cairo', Arial, sans-serif;
+  background: var(--ds-bg-page);
+  color: var(--ds-text-primary);
+}
+
+body.register-page .site-footer {
+  display: none; /* register-footer already has the login link */
+}
+
+/* --------------------------------------------------------------------
+   Dark mode — required per Design System guideline #5 (الوضع الليلي).
+   Toggled via <body class="register-page dark-mode">.
+   Principle from the PDF: "التدرجات تبقى كما هي مع زيادة التباين
+   للخلفيات الداكنة" — gradients stay the same, only backgrounds/text
+   contrast changes.
+   -------------------------------------------------------------------- */
+body.register-page.dark-mode {
+  background: #0f172a;
+  color: #f1f5f9;
+}
+body.register-page.dark-mode .auth-topbar {
+  background: rgba(15, 23, 42, 0.92);
+  border-color: rgba(51, 65, 85, 0.6);
+}
+body.register-page.dark-mode .header-control {
+  background: #1e293b;
+  border-color: #334155;
+  color: #f1f5f9;
+}
+body.register-page.dark-mode .register-heading h1,
+body.register-page.dark-mode .account-tab-content strong,
+body.register-page.dark-mode .printer-section-copy h3,
+body.register-page.dark-mode .section-title {
+  color: #f1f5f9;
+}
+body.register-page.dark-mode .register-subtitle,
+body.register-page.dark-mode .field-hint,
+body.register-page.dark-mode .printer-section-copy p,
+body.register-page.dark-mode .consent-row,
+body.register-page.dark-mode .approval-note {
+  color: #94a3b8;
+}
+body.register-page.dark-mode .account-tab,
+body.register-page.dark-mode .floating-field input,
+body.register-page.dark-mode .google-button,
+body.register-page.dark-mode .image-dropzone,
+body.register-page.dark-mode .document-upload-card label,
+body.register-page.dark-mode .service-option {
+  background: #1e293b;
+  border-color: #334155;
+  color: #f1f5f9;
+}
+body.register-page.dark-mode .floating-field label {
+  background: #1e293b;
+  color: #94a3b8;
+}
+body.register-page.dark-mode .form-divider span,
+body.register-page.dark-mode .social-divider span,
+body.register-page.dark-mode .printer-form-section {
+  background: #334155;
+  border-color: #334155;
+}
+body.register-page.dark-mode .password-requirements li {
+  background: #1e293b;
+  color: #94a3b8;
+}
+body.register-page.dark-mode .custom-checkbox {
+  border-color: #334155;
+}
+
+/* --------------------------------------------------------------------
+   1. Topbar — matches "الهيدر" component spec: 72px, glass blur, 
+      1px bottom border at 60% opacity
+   -------------------------------------------------------------------- */
+body.register-page .auth-topbar {
+  flex: 0 0 auto;
+  height: var(--ds-header-h);
+  display: flex;
+  align-items: center;
+  padding: 0 1.5rem;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+}
+
+body.register-page .auth-topbar__container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+body.register-page .brand-logo {
+  height: 34px;
+  width: auto;
+}
+
+body.register-page .header-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  height: 40px;
+  padding: 0 0.9rem;
+  border: 1px solid var(--ds-border);
+  border-radius: var(--ds-radius-button);
+  background: var(--ds-surface);
+  font: var(--ds-caption);
+  color: var(--ds-text-primary);
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+body.register-page .header-control:hover {
+  background: var(--ds-purple-light);
+  border-color: var(--ds-purple);
+}
+body.register-page .header-control:focus-visible {
+  outline: 2px solid var(--ds-purple);
+  outline-offset: 2px;
+}
+
+/* --------------------------------------------------------------------
+   2 & 3. Main layout — 50/50 split, image fixed, form scrolls internally
+   -------------------------------------------------------------------- */
+body.register-page .main-content {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+}
+
+body.register-page .auth-layout {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+body.register-page .auth-visual-panel {
+  position: relative;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  background: linear-gradient(160deg, #ded3c4, #cdbfae);
+  /* PRODUCTION: replace with your real photo, e.g.:
+     background: #d8cfc3 url("assets/hero-products.jpg") center/cover no-repeat; */
+}
+
+body.register-page .auth-visual-inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 2rem 2.5rem;
+}
+
+body.register-page .auth-visual-copy {
+  color: #fff;
+  max-width: 90%;
+}
+
+body.register-page .auth-visual-kicker {
+  font: var(--ds-small);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin: 0 0 0.5rem;
+}
+
+body.register-page .auth-visual-copy h2 {
+  font: var(--ds-h2);
+  font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+  margin: 0 0 0.5rem;
+}
+
+body.register-page .auth-visual-description {
+  font: var(--ds-small);
+  opacity: 0.9;
+  margin: 0 0 1.5rem;
+}
+
+body.register-page .auth-form-panel {
+  height: 100%;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  padding: 1.25rem 1.5rem 1.5rem;
+}
+
+body.register-page .auth-form-panel::-webkit-scrollbar {
+  width: 6px;
+}
+body.register-page .auth-form-panel::-webkit-scrollbar-thumb {
+  background: var(--ds-border);
+  border-radius: var(--ds-radius-button);
+}
+
+/* --------------------------------------------------------------------
+   4. Register card / heading — H1/Body tokens from the type scale
+   -------------------------------------------------------------------- */
+body.register-page .register-card {
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+body.register-page .register-heading {
+  text-align: center;
+  margin-bottom: var(--auth-gap-md);
+}
+
+body.register-page .eyebrow {
+  display: inline-block;
+  font: var(--ds-caption);
+  font-weight: 700;
+  color: var(--ds-purple);
+  background: var(--ds-purple-light);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--ds-radius-badge);
+  margin: 0 0 0.5rem;
+}
+
+body.register-page .register-heading h1 {
+  font: var(--ds-h1);
+  font-size: clamp(1.5rem, 2.4vw, 2rem); /* scaled down from 32px to fit the compact panel */
+  margin: 0 0 0.35rem;
+  color: var(--ds-text-primary);
+}
+
+body.register-page .register-subtitle {
+  font: var(--ds-small);
+  color: var(--ds-text-secondary);
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------
+   5. Account type tabs — card radius (16px), gradient icon circles,
+      hover = light-purple fill, focus = 2px purple outline
+   -------------------------------------------------------------------- */
+body.register-page .account-type-section {
+  margin-bottom: var(--auth-gap-md);
+}
+
+body.register-page .section-title {
+  font: var(--ds-caption);
+  font-weight: 700;
+  text-align: center;
+  margin: 0 0 var(--auth-gap-sm);
+  color: var(--ds-text-primary);
+}
+
+body.register-page .account-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--auth-gap-sm);
+}
+
+body.register-page .account-tab {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.65rem 0.4rem;
+  border: 2px solid var(--ds-border);
+  border-radius: var(--ds-radius-card);
+  background: var(--ds-surface);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+body.register-page .account-tab:hover {
+  background: var(--ds-purple-light);
+}
+body.register-page .account-tab:focus-visible {
+  outline: 2px solid var(--ds-purple);
+  outline-offset: 2px;
+}
+body.register-page .account-tab.is-active {
+  border-color: var(--ds-purple);
+  box-shadow: var(--ds-shadow-default);
+}
+
+body.register-page .account-tab-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ds-gradient-primary);
+  color: #fff;
+}
+body.register-page .account-tab-icon .icon {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+body.register-page .account-tab-check {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--ds-purple);
+  color: #fff;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+body.register-page .account-tab-check .icon {
+  width: 10px;
+  height: 10px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3;
+}
+body.register-page .account-tab.is-active .account-tab-check {
+  display: flex;
+}
+
+body.register-page .account-tab-content strong {
+  display: block;
+  font: var(--ds-small);
+  color: var(--ds-text-primary);
+}
+body.register-page .account-tab-content small {
+  display: none; /* hidden to save vertical space; description text still in DOM for a11y */
+}
+
+/* --------------------------------------------------------------------
+   6. Divider
+   -------------------------------------------------------------------- */
+body.register-page .form-divider {
+  display: flex;
+  align-items: center;
+  gap: var(--auth-gap-sm);
+  margin: 0 0 var(--auth-gap-sm);
+}
+body.register-page .form-divider span {
+  flex: 1;
+  height: 1px;
+  background: var(--ds-border);
+}
+body.register-page .form-divider strong {
+  font: var(--ds-caption);
+  color: var(--ds-text-secondary);
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------------
+   7. Fields — exact spec: 44px height, 12px radius, 1px #e2e8f0 border
+   -------------------------------------------------------------------- */
+body.register-page .form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--auth-gap-sm) var(--auth-gap-md);
+  margin-bottom: var(--auth-gap-sm);
+}
+body.register-page .form-grid-full {
+  grid-column: 1 / -1;
+}
+
+body.register-page .floating-field {
+  position: relative;
+}
+
+body.register-page .floating-field input {
+  width: 100%;
+  height: var(--ds-field-h);
+  padding: 0 2.4rem 0 0.9rem;
+  border: 1px solid var(--ds-border);
+  border-radius: var(--ds-radius-field);
+  font: var(--ds-small);
+  color: var(--ds-text-primary);
+  background: var(--ds-surface);
+  transition: border-color 0.2s;
+}
+body.register-page .floating-field input:focus {
+  outline: 2px solid var(--ds-purple);
+  outline-offset: 2px;
+  border-color: var(--ds-purple);
+}
+
+body.register-page .floating-field label {
+  position: absolute;
+  right: 0.9rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font: var(--ds-small);
+  color: var(--ds-text-disabled);
+  background: var(--ds-surface);
+  padding: 0 0.3rem;
+  pointer-events: none;
+  transition: all 0.15s ease;
+}
+body.register-page .floating-field input:focus + label,
+body.register-page .floating-field input:not(:placeholder-shown) + label {
+  top: 0;
+  font-size: 0.7rem;
+  color: var(--ds-purple);
+}
+
+body.register-page .floating-field .required-mark {
+  position: absolute;
+  left: 0.6rem;
+  top: 0.5rem;
+  color: var(--ds-danger);
+  font-size: 0.75rem;
+}
+
+body.register-page .floating-field.has-action .field-action {
+  position: absolute;
+  left: 0.7rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--ds-text-disabled);
+  cursor: pointer;
+  padding: 0.2rem;
+  border-radius: 50%;
+}
+body.register-page .floating-field.has-action .field-action:hover {
+  background: var(--ds-purple-light);
+  color: var(--ds-purple);
+}
+body.register-page .floating-field.has-action .field-action:focus-visible {
+  outline: 2px solid var(--ds-purple);
+  outline-offset: 2px;
+}
+
+body.register-page .field-hint {
+  font: var(--ds-tiny);
+  color: var(--ds-text-secondary);
+  margin: 0.25rem 0 0;
+}
+
+body.register-page .field-error {
+  font: var(--ds-tiny);
+  color: var(--ds-danger);
+  margin: 0.2rem 0 0;
+  min-height: 0;
+}
+
+/* Password requirement chips — styled as badges per the badge tokens.
+   Add class "is-met" via JS once a requirement passes to switch to
+   badge-success styling. */
+body.register-page .password-requirements {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  list-style: none;
+  margin: 0.35rem 0 0;
+  padding: 0;
+}
+body.register-page .password-requirements li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  font: var(--ds-tiny);
+  font-weight: 600;
+  color: var(--ds-text-secondary);
+  background: #f1f5f9;
+  border-radius: var(--ds-radius-badge);
+  padding: 0.15rem 0.5rem;
+  transition: background 0.2s, color 0.2s;
+}
+body.register-page .password-requirements li.is-met {
+  background: var(--ds-success-bg);
+  color: var(--ds-success);
+}
+body.register-page .password-requirement-icon .icon {
+  width: 10px;
+  height: 10px;
+}
+
+body.register-page .password-strong-message {
+  font: var(--ds-tiny);
+  color: var(--ds-success);
+  margin: 0.3rem 0 0;
+}
+
+/* --------------------------------------------------------------------
+   8. File uploads — card radius, dashed border, purple hover
+   -------------------------------------------------------------------- */
+body.register-page .upload-fieldset,
+body.register-page .documents-fieldset {
+  border: none;
+  padding: 0;
+  margin: 0 0 var(--auth-gap-sm);
+}
+body.register-page .upload-fieldset legend,
+body.register-page .documents-fieldset legend {
+  font: var(--ds-caption);
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--ds-text-primary);
+}
+body.register-page .optional-badge {
+  font: var(--ds-tiny);
+  color: var(--ds-text-secondary);
+  font-weight: 500;
+  background: #f1f5f9;
+  padding: 0.1rem 0.4rem;
+  border-radius: var(--ds-radius-badge);
+}
+
+body.register-page .image-dropzone,
+body.register-page .document-upload-card label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  border: 1.5px dashed var(--ds-border);
+  border-radius: var(--ds-radius-card);
+  padding: 0.6rem 0.9rem;
+  cursor: pointer;
+  font: var(--ds-caption);
+  color: var(--ds-text-primary);
+  transition: border-color 0.2s, background 0.2s;
+}
+body.register-page .image-dropzone:hover,
+body.register-page .document-upload-card label:hover {
+  border-color: var(--ds-purple);
+  background: var(--ds-purple-light);
+}
+
+body.register-page .upload-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--ds-purple-light);
+  color: var(--ds-purple);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+body.register-page .upload-preview-placeholder strong {
+  display: block;
+  font: var(--ds-small);
+}
+body.register-page .upload-preview-placeholder small,
+body.register-page .selected-file-name {
+  font: var(--ds-tiny);
+  color: var(--ds-text-secondary);
+}
+
+/* --------------------------------------------------------------------
+   9. Printer-specific grouped sections
+   -------------------------------------------------------------------- */
+body.register-page .printer-form-section {
+  margin-bottom: var(--auth-gap-md);
+  padding-bottom: var(--auth-gap-md);
+  border-bottom: 1px solid var(--ds-border);
+}
+body.register-page .printer-form-section:last-of-type {
+  border-bottom: none;
+}
+
+body.register-page .printer-section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: var(--auth-gap-sm);
+}
+body.register-page .printer-section-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--ds-gradient-primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+body.register-page .printer-section-icon .icon {
+  width: 15px;
+  height: 15px;
+}
+body.register-page .printer-section-copy h3 {
+  font: var(--ds-small);
+  font-weight: 700;
+  margin: 0;
+  color: var(--ds-text-primary);
+}
+body.register-page .printer-section-copy p {
+  font: var(--ds-tiny);
+  color: var(--ds-text-secondary);
+  margin: 0.1rem 0 0;
+}
+
+body.register-page .services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 0.5rem;
+}
+body.register-page .service-option {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  border: 1.5px solid var(--ds-border);
+  border-radius: var(--ds-radius-field);
+  padding: 0.6rem 0.4rem;
+  font: var(--ds-tiny);
+  font-weight: 600;
+  color: var(--ds-text-primary);
+  cursor: pointer;
+  text-align: center;
+  transition: border-color 0.2s, background 0.2s;
+}
+body.register-page .service-option:hover {
+  border-color: var(--ds-purple);
+  background: var(--ds-purple-light);
+}
+body.register-page .service-option input {
+  position: absolute;
+  opacity: 0;
+}
+body.register-page .service-option input:focus-visible ~ * {
+  outline: 2px solid var(--ds-purple);
+  outline-offset: 2px;
+}
+body.register-page .service-option:has(input:checked) {
+  border-color: var(--ds-purple);
+  background: var(--ds-purple-light);
+}
+body.register-page .service-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: #eee;
+}
+
+/* --------------------------------------------------------------------
+   10. Consent, submit button, social buttons, footer link
+   -------------------------------------------------------------------- */
+body.register-page .consent-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font: var(--ds-caption);
+  color: var(--ds-text-secondary);
+  margin: var(--auth-gap-sm) 0;
+  cursor: pointer;
+}
+body.register-page .consent-row a {
+  color: var(--ds-purple);
+  text-decoration: none;
+}
+body.register-page .consent-row a:hover {
+  text-decoration: underline;
+}
+body.register-page .custom-checkbox {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--ds-border);
+  border-radius: 4px;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.1rem;
+  transition: background 0.2s, border-color 0.2s;
+}
+body.register-page .consent-row input {
+  position: absolute;
+  opacity: 0;
+}
+body.register-page .consent-row input:checked ~ .custom-checkbox {
+  background: var(--ds-gradient-primary);
+  border-color: var(--ds-purple);
+  color: #fff;
+}
+body.register-page .consent-row input:focus-visible ~ .custom-checkbox {
+  outline: 2px solid var(--ds-purple);
+  outline-offset: 2px;
+}
+
+/* Primary button — exact spec: 48px height, full-pill radius, gradient bg */
+body.register-page .submit-button {
+  width: 100%;
+  height: var(--ds-button-h);
+  border: none;
+  border-radius: var(--ds-radius-button);
+  background: var(--ds-gradient-primary);
+  color: #fff;
+  font: var(--ds-small);
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0.25rem;
+  transition: box-shadow 0.2s, transform 0.15s;
+}
+body.register-page .submit-button:hover {
+  box-shadow: var(--ds-shadow-elevated);
+}
+body.register-page .submit-button:active {
+  transform: scale(0.98);
+}
+body.register-page .submit-button:focus-visible {
+  outline: 2px solid var(--ds-purple);
+  outline-offset: 2px;
+}
+
+body.register-page .social-divider {
+  display: flex;
+  align-items: center;
+  gap: var(--auth-gap-sm);
+  margin: var(--auth-gap-md) 0;
+}
+body.register-page .social-divider span {
+  flex: 1;
+  height: 1px;
+  background: var(--ds-border);
+}
+body.register-page .social-divider strong {
+  font: var(--ds-caption);
+  color: var(--ds-text-secondary);
+}
+
+/* Secondary/outline-style button per spec: transparent bg, 2px border,
+   purple text — adapted here to a neutral bordered pill for social login
+   (keeps full-pill radius + 48px height from the button spec) */
+body.register-page .google-button {
+  width: 100%;
+  height: var(--ds-button-h);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 2px solid var(--ds-border);
+  border-radius: var(--ds-radius-button);
+  background: var(--ds-surface);
+  color: var(--ds-text-primary);
+  font: var(--ds-small);
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+body.register-page .google-button:hover {
+  border-color: var(--ds-purple);
+  background: var(--ds-purple-light);
+}
+body.register-page .google-button:focus-visible {
+  outline: 2px solid var(--ds-purple);
+  outline-offset: 2px;
+}
+
+body.register-page .approval-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+  font: var(--ds-tiny);
+  color: var(--ds-text-secondary);
+  margin: 0.6rem 0 0;
+}
+
+body.register-page .register-footer {
+  text-align: center;
+  font: var(--ds-caption);
+  color: var(--ds-text-secondary);
+  margin-top: var(--auth-gap-md);
+  padding-bottom: 0.25rem;
+}
+body.register-page .register-footer a {
+  color: var(--ds-purple);
+  font-weight: 700;
+  text-decoration: none;
+}
+body.register-page .register-footer a:hover {
+  text-decoration: underline;
+}
+
+/* --------------------------------------------------------------------
+   11. Responsive — stack columns, allow natural page scroll on mobile
+   -------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  body.register-page {
+    height: auto;
+    min-height: 100dvh;
+    overflow: visible;
+  }
+  body.register-page .main-content {
+    display: block;
+  }
+  body.register-page .auth-layout {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  body.register-page .auth-visual-panel {
+    height: 220px;
+  }
+  body.register-page .auth-form-panel {
+    height: auto;
+    overflow-y: visible;
+    padding: 1.25rem 1rem 2rem;
+  }
+  body.register-page .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
