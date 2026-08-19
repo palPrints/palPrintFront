@@ -32,7 +32,7 @@
   <!-- الأساس المشترك -->
   <link
     rel="stylesheet"
-    href="assets/css/pages/profile-core.css?v=4"
+    href="assets/css/pages/profile-core.css?v=12"
   >
 
   <!-- CSS الخاص بصفحة ملف المطبعة -->
@@ -338,7 +338,7 @@
             data-i18n-aria="closeSidebar"
           >
             <i
-              class="bi bi-arrow-left"
+              class="bi bi-list"
               id="sidebarToggleIcon"
               aria-hidden="true"
             ></i>
@@ -363,30 +363,14 @@
 
           <button
             type="button"
-            class="profile-action-button"
+            class="profile-action-button profile-language-button"
             id="languageToggleButton"
             aria-label="تغيير اللغة"
             data-i18n-aria="changeLanguage"
           >
-            <i
-              class="bi bi-globe2"
-              aria-hidden="true"
-            ></i>
+            <i class="bi bi-globe2" aria-hidden="true"></i>
+            <span class="profile-language-code" id="languageToggleText" aria-hidden="true">EN</span>
           </button>
-
-          <a
-            href="cart.html"
-            class="profile-action-button"
-            aria-label="سلة المشتريات"
-            data-i18n-aria="shoppingCart"
-          >
-            <i
-              class="bi bi-cart3"
-              aria-hidden="true"
-            ></i>
-
-            <span class="profile-action-badge">2</span>
-          </a>
 
           <a
             href="printingNotifications.html"
@@ -2249,7 +2233,7 @@
 
   </div>
 
-  <script src="assets/js/pages/profile-core.js?v=1"></script>
+  <script src="assets/js/pages/profile-core.js?v=4"></script>
   <script src="assets/js/pages/printingProfile.js?v=10"></script>
   <script src="assets/js/interactions.js?v=1"></script>
 

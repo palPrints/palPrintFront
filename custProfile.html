@@ -32,13 +32,13 @@
   <!-- الأساس المشترك لصفحات الملف الشخصي -->
   <link
     rel="stylesheet"
-    href="assets/css/pages/profile-core.css?v=4"
+    href="assets/css/pages/profile-core.css?v=12"
   >
 
   <!-- CSS الخاص بصفحة ملف العميل -->
   <link
     rel="stylesheet"
-    href="assets/css/pages/custProfile.css?v=41"
+    href="assets/css/pages/custProfile.css?v=42"
   >
 
   <!-- حركات الأزرار وظهور العناصر — تُحمّل أخيراً -->
@@ -339,7 +339,7 @@
             data-i18n-aria="closeSidebar"
           >
             <i
-              class="bi bi-arrow-left"
+              class="bi bi-list"
               id="sidebarToggleIcon"
               aria-hidden="true"
             ></i>
@@ -364,15 +364,13 @@
 
           <button
             type="button"
-            class="profile-action-button"
+            class="profile-action-button profile-language-button"
             id="languageToggleButton"
             aria-label="تغيير اللغة"
             data-i18n-aria="changeLanguage"
           >
-            <i
-              class="bi bi-globe2"
-              aria-hidden="true"
-            ></i>
+            <i class="bi bi-globe2" aria-hidden="true"></i>
+            <span class="profile-language-code" id="languageToggleText" aria-hidden="true">EN</span>
           </button>
 
           <a
@@ -625,7 +623,7 @@
 
               <button
                 type="button"
-                class="profile-button is-outline"
+                class="profile-button is-primary"
                 data-dialog-open="customerEditDialog"
               >
                 <i
@@ -1789,7 +1787,7 @@
 
   <!-- JavaScript -->
 
-  <script src="assets/js/pages/profile-core.js?v=1"></script>
+  <script src="assets/js/pages/profile-core.js?v=4"></script>
   <script src="assets/js/pages/custProfile.js?v=41"></script>
   <script src="assets/js/interactions.js?v=1"></script>
 

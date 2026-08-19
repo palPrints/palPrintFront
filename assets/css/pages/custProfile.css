@@ -256,7 +256,7 @@ html[dir="ltr"] .customer-tracker-step::after {
 }
 
 .customer-current-order .profile-button.is-primary {
-  align-self: flex-start;
+  align-self: flex-end;
 
   min-width: 190px;
 }
