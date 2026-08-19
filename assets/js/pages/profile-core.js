@@ -235,7 +235,7 @@
     const toggleText = document.getElementById("languageToggleText");
 
     if (toggleText) {
-      toggleText.textContent = next === "ar" ? "EN" : "ع";
+      toggleText.textContent = next === "ar" ? "EN" : "AR";
     }
 
     applyTranslations();
@@ -358,9 +358,6 @@
       const icon = document.getElementById("sidebarToggleIcon");
       const open = this.isOpen();
 
-      const isRtl =
-        document.documentElement.getAttribute("dir") !== "ltr";
-
       if (button) {
         button.setAttribute("aria-expanded", open ? "true" : "false");
 
@@ -377,14 +374,13 @@
       }
 
       if (icon) {
-        /* القائمة على اليمين في RTL:
-           مفتوحة  → السهم لليسار
-           مغلقة   → السهم لليمين
-           والعكس في LTR */
-        const pointsLeft = isRtl ? open : !open;
-
-        icon.classList.remove("bi-arrow-left", "bi-arrow-right");
-        icon.classList.add(pointsLeft ? "bi-arrow-left" : "bi-arrow-right");
+        icon.classList.remove(
+          "bi-arrow-left",
+          "bi-arrow-right",
+          "bi-list",
+          "bi-x-lg"
+        );
+        icon.classList.add(open ? "bi-x-lg" : "bi-list");
       }
 
       if (this.sidebar) {
@@ -860,6 +856,155 @@
      التهيئة العامة
      ======================================================= */
 
+  function setupHeaderPopovers() {
+    const topbar = document.querySelector(".profile-topbar");
+
+    if (!topbar || topbar.dataset.popoversReady === "true") {
+      return;
+    }
+
+    const triggers = [
+      {
+        selector: '[data-i18n-aria="shoppingCart"]',
+        type: "cart",
+        icon: "bi-cart3"
+      },
+      {
+        selector: '[data-i18n-aria="notifications"]',
+        type: "notifications",
+        icon: "bi-bell"
+      }
+    ];
+
+    const copy = {
+      ar: {
+        cartTitle: "سلة المشتريات",
+        cartCount: "منتجان",
+        cartItemOne: "تيشيرت بتصميم عصري",
+        cartItemTwo: "كوب بطباعة مخصصة",
+        total: "الإجمالي",
+        viewCart: "عرض السلة",
+        notificationsTitle: "الإشعارات",
+        notificationsCount: "3 جديدة",
+        notificationOne: "تم تأكيد طلبك بنجاح",
+        notificationOneTime: "منذ 5 دقائق",
+        notificationTwo: "تصميمك أصبح جاهزًا للطباعة",
+        notificationTwoTime: "منذ ساعة",
+        notificationThree: "تمت إضافة أرباح جديدة إلى محفظتك",
+        notificationThreeTime: "أمس",
+        viewNotifications: "عرض كل الإشعارات"
+      },
+      en: {
+        cartTitle: "Shopping cart",
+        cartCount: "2 items",
+        cartItemOne: "Modern design T-shirt",
+        cartItemTwo: "Custom printed mug",
+        total: "Total",
+        viewCart: "View cart",
+        notificationsTitle: "Notifications",
+        notificationsCount: "3 new",
+        notificationOne: "Your order has been confirmed",
+        notificationOneTime: "5 minutes ago",
+        notificationTwo: "Your design is ready for printing",
+        notificationTwoTime: "1 hour ago",
+        notificationThree: "New earnings were added to your wallet",
+        notificationThreeTime: "Yesterday",
+        viewNotifications: "View all notifications"
+      }
+    };
+
+    const entries = [];
+
+    function closeAll(except) {
+      entries.forEach(function (entry) {
+        if (entry === except) return;
+        entry.trigger.setAttribute("aria-expanded", "false");
+        entry.popover.hidden = true;
+      });
+    }
+
+    function render(entry) {
+      const text = copy[getLanguage()] || copy.ar;
+      const originalHref = entry.trigger.getAttribute("href") || "#";
+
+      if (entry.type === "cart") {
+        entry.popover.setAttribute("aria-label", text.cartTitle);
+        entry.popover.innerHTML =
+          '<div class="profile-header-popover-head"><span class="profile-header-popover-title"><i class="bi bi-cart3" aria-hidden="true"></i>' + text.cartTitle + '</span><span class="profile-header-popover-count">' + text.cartCount + '</span></div>' +
+          '<div class="profile-header-popover-list"><div class="profile-header-popover-item"><span class="profile-header-popover-item-icon is-purple"><i class="bi bi-bag" aria-hidden="true"></i></span><span><strong>' + text.cartItemOne + '</strong><small dir="ltr">$24.00</small></span></div><div class="profile-header-popover-item"><span class="profile-header-popover-item-icon is-blue"><i class="bi bi-cup-hot" aria-hidden="true"></i></span><span><strong>' + text.cartItemTwo + '</strong><small dir="ltr">$12.00</small></span></div></div>' +
+          '<div class="profile-header-popover-total"><span>' + text.total + '</span><strong dir="ltr">$36.00</strong></div>' +
+          '<a class="profile-header-popover-footer" href="' + originalHref + '">' + text.viewCart + '<i class="bi bi-arrow-left" aria-hidden="true"></i></a>';
+      } else {
+        entry.popover.setAttribute("aria-label", text.notificationsTitle);
+        entry.popover.innerHTML =
+          '<div class="profile-header-popover-head"><span class="profile-header-popover-title"><i class="bi bi-bell" aria-hidden="true"></i>' + text.notificationsTitle + '</span><span class="profile-header-popover-count">' + text.notificationsCount + '</span></div>' +
+          '<div class="profile-header-popover-list"><div class="profile-header-popover-item is-unread"><span class="profile-header-popover-item-icon is-green"><i class="bi bi-check2" aria-hidden="true"></i></span><span><strong>' + text.notificationOne + '</strong><small>' + text.notificationOneTime + '</small></span></div><div class="profile-header-popover-item is-unread"><span class="profile-header-popover-item-icon is-blue"><i class="bi bi-printer" aria-hidden="true"></i></span><span><strong>' + text.notificationTwo + '</strong><small>' + text.notificationTwoTime + '</small></span></div><div class="profile-header-popover-item"><span class="profile-header-popover-item-icon is-purple"><i class="bi bi-wallet2" aria-hidden="true"></i></span><span><strong>' + text.notificationThree + '</strong><small>' + text.notificationThreeTime + '</small></span></div></div>' +
+          '<a class="profile-header-popover-footer" href="' + originalHref + '">' + text.viewNotifications + '<i class="bi bi-arrow-left" aria-hidden="true"></i></a>';
+      }
+    }
+
+    triggers.forEach(function (config, index) {
+      const trigger = topbar.querySelector(config.selector);
+
+      if (!trigger) return;
+
+      const wrapper = document.createElement("div");
+      const popover = document.createElement("div");
+      const popoverId = "profileHeaderPopover" + index;
+      const entry = { trigger: trigger, popover: popover, type: config.type };
+
+      wrapper.className = "profile-header-action";
+      popover.className = "profile-header-popover";
+      popover.id = popoverId;
+      popover.hidden = true;
+      popover.setAttribute("role", "dialog");
+
+      trigger.parentNode.insertBefore(wrapper, trigger);
+      wrapper.appendChild(trigger);
+      wrapper.appendChild(popover);
+
+      trigger.setAttribute("aria-haspopup", "dialog");
+      trigger.setAttribute("aria-controls", popoverId);
+      trigger.setAttribute("aria-expanded", "false");
+
+      render(entry);
+      entries.push(entry);
+
+      trigger.addEventListener("click", function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const willOpen = popover.hidden;
+        closeAll(entry);
+        popover.hidden = !willOpen;
+        trigger.setAttribute("aria-expanded", String(willOpen));
+      });
+
+      popover.addEventListener("click", function (event) {
+        event.stopPropagation();
+      });
+    });
+
+    document.addEventListener("click", function () {
+      closeAll();
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key !== "Escape") return;
+      const openEntry = entries.find(function (entry) { return !entry.popover.hidden; });
+      if (!openEntry) return;
+      closeAll();
+      openEntry.trigger.focus();
+    });
+
+    onLanguageChange(function () {
+      entries.forEach(render);
+      closeAll();
+    });
+
+    topbar.dataset.popoversReady = "true";
+  }
+
   function init(options) {
     const settings = options || {};
 
@@ -875,6 +1020,7 @@
     setupLogout();
     setupRetryButtons();
     setupAvatarUpload(settings.avatar);
+    setupHeaderPopovers();
 
     const themeButton = document.getElementById("themeToggleButton");
 
