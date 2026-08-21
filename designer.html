@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="PalPrints - محرر التصميم">
+    <title>PalPrints | محرر التصميم</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=block" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="designer.css">
+</head>
+<body>
+    <main class="designer-shell">
+        <header class="designer-header">
+            <a class="brand-mark" href="index.html" aria-label="العودة إلى اختيار المنتج">
+                <img class="brand-logo" src="assets/logo/PalPrints-logo.svg" alt="PalPrints">
+            </a>
+            <div class="editor-title">
+                <span class="eyebrow">استوديو التصميم</span>
+                <h1>محرر التصميم</h1>
+            </div>
+            <div class="header-actions">
+                <span class="save-status"><i class="bi bi-cloud-check" aria-hidden="true"></i> تم حفظ التغييرات</span>
+                <button class="button button-outline" id="previewButton" type="button"><i class="bi bi-eye" aria-hidden="true"></i> معاينة المنتج</button>
+                <button class="button button-primary" id="saveButton" type="button"><i class="bi bi-download" aria-hidden="true"></i> حفظ التصميم</button>
+            </div>
+        </header>
+
+        <div class="editor-layout">
+            <aside class="tools-panel" aria-label="أدوات التصميم">
+                <h2>أدوات التصميم</h2>
+                <button class="tool-card active" type="button" data-tool="upload"><span class="tool-icon"><i class="bi bi-cloud-arrow-up" aria-hidden="true"></i></span><span><strong>رفع صورة</strong><small>ارفع صورتك الخاصة</small></span></button>
+                <button class="tool-card" type="button" data-tool="text"><span class="tool-icon"><i class="bi bi-type" aria-hidden="true"></i></span><span><strong>نص</strong><small>إضافة نص جديد</small></span></button>
+                <button class="tool-card" type="button" data-tool="elements"><span class="tool-icon"><i class="bi bi-shapes" aria-hidden="true"></i></span><span><strong>عناصر</strong><small>إضافة عناصر جاهزة</small></span></button>
+                <input id="imageUpload" type="file" accept="image/*" hidden>
+                <div class="tip-card"><i class="bi bi-lightbulb" aria-hidden="true"></i><strong>نصيحة</strong><p>حدد منطقة الطباعة ثم اختر أداة لإضافة تصميمك.</p></div>
+            </aside>
+
+            <section class="workspace" aria-label="مساحة العمل">
+                <div class="workspace-toolbar">
+                    <div><span class="workspace-label">المنتج</span><strong id="canvasProductName">تي شيرت كلاسيكي</strong><span class="separator">•</span><span id="canvasVariant">اللون: أبيض · المقاس: M</span></div>
+                    <label class="area-select-label" for="areaSelect">مكان الطباعة <select id="areaSelect"></select><i class="bi bi-chevron-down" aria-hidden="true"></i></label>
+                </div>
+                <div class="canvas-stage" id="canvasStage">
+                    <div class="stage-glow"></div>
+                    <div class="product-canvas" id="productCanvas">
+                        <img id="productImage" src="assets/images/tshirt.webp" alt="تي شيرت كلاسيكي">
+                        <div class="print-zone" id="printZone" role="group" aria-label="منطقة الطباعة">
+                            <div class="zone-border"></div>
+                            <div class="zone-badge"><i class="bi bi-bounding-box" aria-hidden="true"></i><span id="zoneBadgeText">منطقة الطباعة</span></div>
+                            <div class="image-layer" id="imageLayer" hidden>
+                                <img id="uploadedImage" class="uploaded-image" alt="التصميم المرفوع" draggable="false">
+                                <button class="image-handle image-rotate-handle" id="imageRotateHandle" type="button" aria-label="تدوير الصورة"><i class="bi bi-arrow-clockwise" aria-hidden="true"></i></button>
+                                <button class="image-handle image-resize-handle" id="imageResizeHandle" type="button" aria-label="تغيير حجم الصورة"><i class="bi bi-arrows-angle-expand" aria-hidden="true"></i></button>
+                                <button class="image-handle image-stretch-x-handle" id="imageStretchXHandle" type="button" aria-label="تمديد الصورة أفقياً"><i class="bi bi-arrows-expand" aria-hidden="true"></i></button>
+                                <button class="image-handle image-stretch-y-handle" id="imageStretchYHandle" type="button" aria-label="تمديد الصورة عمودياً"><i class="bi bi-arrows-expand-vertical" aria-hidden="true"></i></button>
+                                <button class="image-handle image-delete-handle" id="imageDeleteHandle" type="button" aria-label="حذف الصورة"><i class="bi bi-trash3" aria-hidden="true"></i></button>
+                            </div>
+                            <div class="text-layer" id="textLayer" hidden>
+                                <span class="text-content" id="textContentPreview"></span>
+                                <button class="text-handle text-rotate-handle" id="textRotateHandle" type="button" aria-label="تدوير النص"><i class="bi bi-arrow-clockwise" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer class="workspace-footer">
+                    <button class="text-button" id="undoButton" type="button"><i class="bi bi-arrow-counterclockwise" aria-hidden="true"></i> تراجع</button>
+                    <button class="text-button muted" id="redoButton" type="button"><i class="bi bi-arrow-clockwise" aria-hidden="true"></i> إعادة</button>
+                    <div class="zoom-control"><button id="zoomOut" type="button" aria-label="تصغير"><i class="bi bi-dash" aria-hidden="true"></i></button><strong id="zoomValue">100%</strong><button id="zoomIn" type="button" aria-label="تكبير"><i class="bi bi-plus" aria-hidden="true"></i></button></div>
+                    <button class="text-button" id="fitButton" type="button"><i class="bi bi-fullscreen" aria-hidden="true"></i> ملاءمة للشاشة</button>
+                </footer>
+            </section>
+
+            <aside class="details-panel" aria-label="تفاصيل المنتج">
+                <section class="text-settings-panel" id="textPanel" hidden aria-label="إعدادات النص">
+                    <div class="panel-heading"><h2>إعدادات النص</h2><i class="bi bi-type" aria-hidden="true"></i></div>
+                    <label class="settings-label" for="textContent">النص<textarea id="textContent" rows="2" placeholder="اكتب النص هنا"></textarea></label>
+                    <label class="settings-label" for="fontFamily">الخط<select id="fontFamily"><option value="Cairo">Cairo Bold</option><option value="Cairo">Cairo Regular</option></select></label>
+                    <div class="settings-row"><label class="settings-label" for="textSize">حجم الخط<input id="textSize" type="range" min="12" max="64" value="28"></label><label class="settings-label color-setting" for="textColor">اللون<input id="textColor" type="color" value="#6432f2"></label></div>
+                    <div class="settings-group"><span>المحاذاة</span><div class="alignment-buttons"><button class="alignment-button" type="button" data-align="right" aria-label="محاذاة لليمين"><i class="bi bi-text-right"></i></button><button class="alignment-button active" type="button" data-align="center" aria-label="توسيط النص"><i class="bi bi-text-center"></i></button><button class="alignment-button" type="button" data-align="left" aria-label="محاذاة لليسار"><i class="bi bi-text-left"></i></button></div></div>
+                    <div class="settings-group"><span>المسافات</span><div class="stepper-row"><label>تباعد الأحرف<input id="letterSpacing" type="number" value="0" step="0.1"></label><label>تباعد الأسطر<input id="lineHeight" type="number" value="1.2" step="0.1"></label></div></div>
+                    <div class="settings-group"><span>التحويل</span><div class="stepper-row"><label>الموضع X<input id="positionX" type="number" value="120"></label><label>الموضع Y<input id="positionY" type="number" value="60"></label><label>الدوران<input id="rotation" type="number" value="0"></label></div></div>
+                    <div class="settings-group"><span>الإجراءات</span><div class="action-row"><button type="button" id="duplicateText"><i class="bi bi-copy"></i> تكرار</button><button class="danger-action" type="button" id="deleteText"><i class="bi bi-trash3"></i> حذف</button></div></div>
+                    <button class="add-text-button" id="addTextButton" type="button"><i class="bi bi-check2" aria-hidden="true"></i> تطبيق النص</button>
+                    <button class="close-settings-button" id="closeTextPanel" type="button">العودة إلى إعدادات المنتج</button>
+                </section>
+                <div class="panel-heading"><h2>المنتج</h2><i class="bi bi-t-shirt" aria-hidden="true"></i></div>
+                <label class="product-field" for="productName">المنتج<input id="productName" value="تي شيرت كلاسيكي" readonly></label>
+                <section class="option-section"><div class="section-title"><h3>اللون</h3><i class="bi bi-palette" aria-hidden="true"></i></div><div class="swatches" id="swatches"></div></section>
+                <section class="option-section"><div class="section-title"><h3>المقاس</h3></div><div class="sizes" id="sizes"></div></section>
+                <section class="print-info"><div class="section-title"><h3>معلومات الطباعة</h3><i class="bi bi-info-circle" aria-hidden="true"></i></div><div class="info-row"><span>منطقة الطباعة</span><strong id="areaDimensions">28 × 36 سم</strong></div><div class="info-row accent"><span>منطقة الأمان</span><strong id="safeAreaDimensions">24 × 32 سم</strong></div></section>
+                <div class="notice"><i class="bi bi-shield-check" aria-hidden="true"></i><div><strong>معلومة</strong><p>تصميمك سيظهر داخل منطقة الطباعة الآمنة للحصول على أفضل نتيجة.</p></div></div>
+            </aside>
+        </div>
+    </main>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="designer.js"></script>
+</body>
+</html>
