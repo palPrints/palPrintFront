@@ -1195,8 +1195,7 @@ legend {
 
     .page-content {
 
-        grid-template-columns:
-            minmax(0, 1fr) 420px;
+        grid-template-columns: 1fr;
 
         align-items: start;
     }
@@ -1239,8 +1238,7 @@ legend {
 
     .page-content {
 
-        grid-template-columns:
-            minmax(0, 1fr) 490px;
+        grid-template-columns: 1fr;
 
         gap: 28px;
 

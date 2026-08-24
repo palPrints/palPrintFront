@@ -763,7 +763,7 @@ function createProductCard(product) {
 
     button.setAttribute(
         "aria-label",
-        `اختيار ${product.name}`
+        `بدء تصميم ${product.name}`
     );
 
 
@@ -985,13 +985,11 @@ function selectProduct(productId) {
             );
 
 
-    renderProducts();
-
-    renderProductDetails();
-
     announce(
         `تم اختيار ${product.name}`
     );
+
+    startDesign();
 
 }
 

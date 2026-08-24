@@ -7,24 +7,13 @@ const catalog = {
         image: "assets/images/tshirt.webp",
         colors: [{ id: "white", value: "#fff" }, { id: "black", value: "#111" }, { id: "navy", value: "#173b87" }, { id: "red", value: "#d52a3c" }, { id: "green", value: "#2e9b42" }],
         sizes: ["S", "M", "L", "XL", "XXL"],
-        areas: [
-            { id: "front", name: "الأمام", useColorImage: true, dimensions: "28 × 36 سم", safeDimensions: "24 × 32 سم", safeInset: { x: "7%", y: "6%" }, zone: { top: "28%", left: "33%", width: "34%", height: "38%" } },
-            { id: "back", name: "الخلف", image: "assets/images/printing-areas/tshirt/tshirt-back-removebg-preview.png", dimensions: "28 × 36 سم", safeDimensions: "24 × 32 سم", safeInset: { x: "7%", y: "6%" }, zone: { top: "25%", left: "35%", width: "30%", height: "42%" } },
-            { id: "right-sleeve", name: "الكم الأيمن", image: "assets/images/printing-areas/tshirt/tshirt-rightSleeve-removebg-preview.png", dimensions: "10 × 12 سم", safeDimensions: "8 × 10 سم", safeInset: { x: "10%", y: "8%" }, compact: true, zone: { top: "22%", left: "74%", width: "9%", height: "19%", rotation: "-14deg" } },
-            { id: "left-sleeve", name: "الكم الأيسر", image: "assets/images/printing-areas/tshirt/tshirt-leftSleeve-removebg-preview.png", dimensions: "10 × 12 سم", safeDimensions: "8 × 10 سم", safeInset: { x: "10%", y: "8%" }, compact: true, zone: { top: "22%", left: "17%", width: "9%", height: "19%", rotation: "14deg" } }
-        ]
+        areas: [{ id: "front", name: "الأمام", image: "assets/images/printing-areas/tshirt/tshirt-front-removebg-preview.png", dimensions: "28 × 36 سم" }, { id: "back", name: "الخلف", image: "assets/images/printing-areas/tshirt/tshirt-back-removebg-preview.png", dimensions: "28 × 36 سم" }, { id: "right-sleeve", name: "الكم الأيمن", image: "assets/images/printing-areas/tshirt/tshirt-rightSleeve-removebg-preview.png", dimensions: "10 × 12 سم" }, { id: "left-sleeve", name: "الكم الأيسر", image: "assets/images/printing-areas/tshirt/tshirt-leftSleeve-removebg-preview.png", dimensions: "10 × 12 سم" }]
     },
     "product-002": {
-        name: "هودي بسيط", colorName: { white: "أبيض", black: "أسود" }, colors: [{ id: "white", value: "#fff", image: "assets/images/hoodie.png" }, { id: "black", value: "#111", image: "assets/images/hoodie-black.png" }], sizes: ["S", "M", "L", "XL"], areas: [
-            { id: "front", name: "الأمام", useColorImage: true, dimensions: "28 × 36 سم", safeDimensions: "24 × 32 سم", safeInset: { x: "7%", y: "6%" }, zone: { top: "26%", left: "32%", width: "36%", height: "38%" } },
-            { id: "back", name: "الخلف", image: "assets/images/printing-areas/hoodie/hoodie-back.png", dimensions: "28 × 36 سم", safeDimensions: "24 × 32 سم", safeInset: { x: "7%", y: "6%" }, zone: { top: "29%", left: "31%", width: "38%", height: "46%" } }
-        ]
+        name: "هودي بسيط", colorName: { white: "أبيض", black: "أسود" }, colors: [{ id: "white", value: "#fff", image: "assets/images/hoodie.png" }, { id: "black", value: "#111", image: "assets/images/hoodie-black.png" }], sizes: ["S", "M", "L", "XL"], areas: [{ id: "front", name: "الأمام", image: "assets/images/printing-areas/hoodie/hoodie-front.png", dimensions: "28 × 36 سم" }, { id: "back", name: "الخلف", image: "assets/images/printing-areas/hoodie/hoodie-back.png", dimensions: "28 × 36 سم" }]
     },
-    "product-003": { name: "كوب سيراميك", colorName: { white: "أبيض" }, image: "assets/images/cup.webp", colors: [{ id: "white", value: "#fff" }], sizes: ["قياسي"], areas: [{ id: "front", name: "الواجهة", useColorImage: true, dimensions: "20 × 9 سم", safeDimensions: "18 × 7 سم", safeInset: { x: "5%", y: "11%" }, zone: { top: "32%", left: "22%", width: "40%", height: "25%" } }] },
-    "product-004": { name: "حقيبة قماشية", colorName: { white: "أبيض" }, image: "assets/images/bag.png", colors: [{ id: "white", value: "#fff" }], sizes: ["قياسي"], areas: [
-        { id: "front", name: "الأمام", useColorImage: true, dimensions: "28 × 30 سم", safeDimensions: "24 × 26 سم", safeInset: { x: "7%", y: "7%" }, zone: { top: "39%", left: "25%", width: "42%", height: "26%" } },
-        { id: "back", name: "الخلف", useColorImage: true, dimensions: "28 × 30 سم", safeDimensions: "24 × 26 سم", safeInset: { x: "7%", y: "7%" }, zone: { top: "39%", left: "25%", width: "42%", height: "26%" } }
-    ] },
+    "product-003": { name: "كوب سيراميك", colorName: { white: "أبيض" }, image: "assets/images/cup.webp", colors: [{ id: "white", value: "#fff" }], sizes: ["قياسي"], areas: [{ id: "front", name: "الواجهة", image: "assets/images/cup.webp", dimensions: "20 × 9 سم" }] },
+    "product-004": { name: "حقيبة قماشية", colorName: { white: "أبيض" }, image: "assets/images/bag.png", colors: [{ id: "white", value: "#fff" }], sizes: ["قياسي"], areas: [{ id: "front", name: "الأمام", image: "assets/images/bag.png", dimensions: "28 × 30 سم" }, { id: "back", name: "الخلف", image: "assets/images/bag.png", dimensions: "28 × 30 سم" }] },
     "product-005": {
         name: "تي شيرت ثقيل باهت",
         colorName: { "faded-black": "أسود باهت", "faded-brown": "بني باهت", "faded-cream": "كريمي باهت", "faded-navy": "كحلي باهت" },
@@ -35,14 +24,10 @@ const catalog = {
             { id: "faded-navy", value: "#345775", image: "assets/products/tshirt-2/tshirt-dyed-heavyweight-faded-navy-removebg-preview.png" }
         ],
         sizes: ["S", "M", "L", "XL", "XXL"],
-        areas: [
-            { id: "front", name: "الأمام", useColorImage: true, dimensions: "28 × 36 سم", safeDimensions: "24 × 32 سم", safeInset: { x: "7%", y: "6%" }, zone: { top: "31%", left: "32%", width: "36%", height: "36%" } },
-            { id: "back", name: "الخلف", image: "assets/images/printing-areas/tshirt/tshirt-back-removebg-preview.png", dimensions: "28 × 36 سم", safeDimensions: "24 × 32 سم", safeInset: { x: "7%", y: "6%" }, zone: { top: "25%", left: "35%", width: "30%", height: "42%" } },
-            { id: "right-sleeve", name: "الكم الأيمن", image: "assets/images/printing-areas/tshirt/tshirt-rightSleeve-removebg-preview.png", dimensions: "10 × 12 سم", safeDimensions: "8 × 10 سم", safeInset: { x: "10%", y: "8%" }, compact: true, zone: { top: "22%", left: "74%", width: "9%", height: "19%", rotation: "-14deg" } },
-            { id: "left-sleeve", name: "الكم الأيسر", image: "assets/images/printing-areas/tshirt/tshirt-leftSleeve-removebg-preview.png", dimensions: "10 × 12 سم", safeDimensions: "8 × 10 سم", safeInset: { x: "10%", y: "8%" }, compact: true, zone: { top: "22%", left: "17%", width: "9%", height: "19%", rotation: "14deg" } }
-        ],
+        areas: [{ id: "front", name: "الأمام", image: "assets/images/printing-areas/tshirt/tshirt-front-removebg-preview.png", dimensions: "28 × 36 سم" }, { id: "back", name: "الخلف", image: "assets/images/printing-areas/tshirt/tshirt-back-removebg-preview.png", dimensions: "28 × 36 سم" }, { id: "right-sleeve", name: "الكم الأيمن", image: "assets/images/printing-areas/tshirt/tshirt-rightSleeve-removebg-preview.png", dimensions: "10 × 12 سم" }, { id: "left-sleeve", name: "الكم الأيسر", image: "assets/images/printing-areas/tshirt/tshirt-leftSleeve-removebg-preview.png", dimensions: "10 × 12 سم" }],
         canvasWidth: "min(56%, 455px)",
-        canvasMobileWidth: "76%"
+        canvasMobileWidth: "76%",
+        printZone: { top: "31%", left: "32%", width: "36%", height: "36%" }
     },
     "product-006": {
         name: "قبعة كلاسيكية",
@@ -54,18 +39,177 @@ const catalog = {
             { id: "walnut", value: "#786551", image: "assets/products/cap/cap-wallnut-removebg-preview.png" }
         ],
         sizes: ["قياسي"],
-        areas: [{ id: "front", name: "الواجهة", useColorImage: true, dimensions: "18 × 8 سم", safeDimensions: "16 × 6 سم", safeInset: { x: "6%", y: "13%" }, zone: { top: "29%", left: "31%", width: "38%", height: "20%" } }],
+        areas: [{ id: "front", name: "الواجهة", dimensions: "18 × 8 سم" }],
         canvasWidth: "min(56%, 455px)",
-        canvasMobileWidth: "76%"
+        canvasMobileWidth: "76%",
+        printZone: { top: "29%", left: "31%", width: "38%", height: "20%" }
     }
 };
 
 const product = catalog[selection?.productId] || catalog["product-001"];
-const state = { colorId: selection?.colorId || product.colors[0].id, sizeId: selection?.sizeId || product.sizes[0], areaId: selection?.printAreaIds?.[0] || "front", zoom: 1, tool: "upload", hasDesign: false, imageUrl: null, imageX: 50, imageY: 50, imageWidth: 65, imageHeight: 65, imageRotation: 0, imageSelected: false, text: "", textSize: 28, textColor: "#6432f2", textAlign: "center", letterSpacing: 0, lineHeight: 1.2, rotation: 0, textX: 50, textY: 38, textSelected: false, zoneLabelHidden: false };
+const state = { colorId: selection?.colorId || product.colors[0].id, sizeId: selection?.sizeId || product.sizes[0], areaId: selection?.printAreaIds?.[0] || "front", zoom: 1, tool: "upload", hasDesign: false, images: [], selectedImageId: null, nextImageId: 1, texts: [], selectedTextId: null, nextTextId: 1, zoneLabelHidden: false };
 const $ = id => document.getElementById(id);
+let fontSelectionRequest = 0;
+
+async function loadFont(family, weight = 800, size = 28, sample = "PalPrints تصميم") {
+    if (!document.fonts) return;
+    const descriptor = `${weight} ${size}px "${family}"`;
+    await document.fonts.load(descriptor, sample);
+    if (!document.fonts.check(descriptor, sample)) throw new Error(`Font failed to load: ${family}`);
+}
+
+async function revealDesignerAfterFontsLoad() {
+    try {
+        await Promise.all([loadFont("Cairo", 400, 16), loadFont("Cairo", 800, 28)]);
+        renderProduct();
+    } finally {
+        window.clearTimeout(window.palPrintsFontTimeout);
+        document.documentElement.classList.remove("fonts-loading");
+    }
+}
 
 function showToast(message) { const toast = $("toast"); toast.textContent = message; toast.classList.add("show"); setTimeout(() => toast.classList.remove("show"), 2200); }
 function activeArea() { return product.areas.find(area => area.id === state.areaId) || product.areas[0]; }
+function createImageLayer(image) {
+    const layer = document.createElement("div");
+    layer.className = "image-layer";
+    layer.dataset.imageId = image.id;
+    layer.innerHTML = `
+        <img class="uploaded-image" alt="تصميم مرفوع" draggable="false">
+        <button class="image-handle image-rotate-handle" type="button" data-image-action="rotate" aria-label="تدوير الصورة"><i class="bi bi-arrow-clockwise" aria-hidden="true"></i></button>
+        <button class="image-handle image-resize-handle" type="button" data-image-action="resize" aria-label="تغيير حجم الصورة"><i class="bi bi-arrows-angle-expand" aria-hidden="true"></i></button>
+        <button class="image-handle image-stretch-x-handle" type="button" data-image-action="stretch-x" aria-label="تمديد الصورة أفقياً"><i class="bi bi-arrows-expand" aria-hidden="true"></i></button>
+        <button class="image-handle image-stretch-y-handle" type="button" data-image-action="stretch-y" aria-label="تمديد الصورة عمودياً"><i class="bi bi-arrows-expand-vertical" aria-hidden="true"></i></button>
+        <button class="image-handle image-delete-handle" type="button" data-image-action="delete" aria-label="حذف الصورة"><i class="bi bi-trash3" aria-hidden="true"></i></button>
+    `;
+    $("imageLayers").appendChild(layer);
+    return layer;
+}
+function renderImages() {
+    const container = $("imageLayers");
+    container.querySelectorAll(".image-layer").forEach(layer => {
+        if (!state.images.some(image => String(image.id) === layer.dataset.imageId)) layer.remove();
+    });
+    state.images.forEach((image, index) => {
+        const layer = container.querySelector(`[data-image-id="${image.id}"]`) || createImageLayer(image);
+        const imageElement = layer.querySelector(".uploaded-image");
+        if (imageElement.src !== image.url) imageElement.src = image.url;
+        imageElement.alt = `تصميم مرفوع ${index + 1}`;
+        layer.classList.toggle("selected", image.id === state.selectedImageId);
+        layer.style.zIndex = image.id === state.selectedImageId ? "2" : "1";
+        layer.style.left = `${image.x}%`;
+        layer.style.top = `${image.y}%`;
+        layer.style.width = `${image.width}%`;
+        layer.style.height = `${image.height}%`;
+        layer.style.transform = `translate(-50%, -50%) rotate(${image.rotation}deg)`;
+        constrainImagePosition(image, layer);
+        layer.style.left = `${image.x}%`;
+        layer.style.top = `${image.y}%`;
+    });
+}
+function updateImageOverlapIndicators(activeImageId = null) {
+    const container = $("imageLayers");
+    const layers = [...container.querySelectorAll(".image-layer")];
+    container.classList.toggle("dragging", activeImageId !== null);
+    layers.forEach(layer => layer.classList.remove("overlapping"));
+    if (activeImageId === null) return;
+    const activeLayer = layers.find(layer => Number(layer.dataset.imageId) === activeImageId);
+    if (!activeLayer) return;
+    const activeBounds = activeLayer.getBoundingClientRect();
+    layers.forEach(layer => {
+        if (layer === activeLayer) return;
+        const bounds = layer.getBoundingClientRect();
+        const overlaps = activeBounds.left < bounds.right && activeBounds.right > bounds.left && activeBounds.top < bounds.bottom && activeBounds.bottom > bounds.top;
+        if (!overlaps) return;
+        activeLayer.classList.add("overlapping");
+        layer.classList.add("overlapping");
+    });
+}
+function selectedText() {
+    return state.texts.find(text => text.id === state.selectedTextId) || null;
+}
+
+function createText(content = "") {
+    return { id: state.nextTextId++, content, fontFamily: "Cairo", size: 28, color: "#6432f2", align: "center", letterSpacing: 0, lineHeight: 1.2, rotation: 0, x: 50, y: 50 };
+}
+
+function ensureSelectedText() {
+    let text = selectedText();
+    if (text) return text;
+    text = createText();
+    state.texts.push(text);
+    state.selectedTextId = text.id;
+    state.selectedImageId = null;
+    return text;
+}
+
+function createTextLayer(text) {
+    const layer = document.createElement("div");
+    layer.className = "text-layer";
+    layer.dataset.textId = text.id;
+    layer.innerHTML = `
+        <span class="text-content" dir="auto"></span>
+        <button class="text-handle text-rotate-handle" type="button" data-text-action="rotate" aria-label="تدوير النص"><i class="bi bi-arrow-clockwise" aria-hidden="true"></i></button>
+    `;
+    $("textLayers").appendChild(layer);
+    return layer;
+}
+
+function fitTextLayer(text, layer) {
+    if (!text.content) return;
+    const zone = $("printZone");
+    const content = layer.querySelector(".text-content");
+    const styles = getComputedStyle(content);
+    const measuringCanvas = fitTextLayer.measuringCanvas || (fitTextLayer.measuringCanvas = document.createElement("canvas"));
+    const context = measuringCanvas.getContext("2d");
+    context.font = `${styles.fontWeight} ${styles.fontSize} ${styles.fontFamily}`;
+    const letterSpacing = Number(text.letterSpacing) || 0;
+    const naturalWidth = Math.max(...text.content.split("\n").map(line => context.measureText(line || " ").width + Math.max(0, line.length - 1) * letterSpacing));
+    const layerWidth = clamp(Math.ceil(naturalWidth + 22), 28, Math.max(28, zone.clientWidth - 8));
+    layer.style.width = `${layerWidth}px`;
+    layer.style.height = "auto";
+    const layerStyles = getComputedStyle(layer);
+    const verticalSpacing = Number.parseFloat(layerStyles.paddingTop) + Number.parseFloat(layerStyles.paddingBottom) + Number.parseFloat(layerStyles.borderTopWidth) + Number.parseFloat(layerStyles.borderBottomWidth);
+    const layerHeight = Math.min(Math.ceil(content.offsetHeight + verticalSpacing), Math.max(20, zone.clientHeight - 16));
+    layer.style.height = `${layerHeight}px`;
+}
+
+function renderTexts() {
+    const container = $("textLayers");
+    container.querySelectorAll(".text-layer").forEach(layer => {
+        if (!state.texts.some(text => String(text.id) === layer.dataset.textId)) layer.remove();
+    });
+    state.texts.forEach(text => {
+        const layer = container.querySelector(`[data-text-id="${text.id}"]`) || createTextLayer(text);
+        const content = layer.querySelector(".text-content");
+        layer.hidden = !text.content;
+        if (!text.content) return;
+        layer.classList.toggle("selected", text.id === state.selectedTextId);
+        layer.style.zIndex = text.id === state.selectedTextId ? "4" : "3";
+        content.textContent = text.content;
+        layer.style.left = "0";
+        layer.style.top = "0";
+        layer.style.fontSize = `${text.size}px`;
+        layer.style.fontFamily = `"${text.fontFamily}", sans-serif`;
+        content.style.fontFamily = `"${text.fontFamily}", sans-serif`;
+        layer.style.color = text.color;
+        layer.style.textAlign = text.align;
+        content.style.letterSpacing = `${Number(text.letterSpacing) || 0}px`;
+        layer.style.lineHeight = text.lineHeight;
+        layer.style.transform = "none";
+        fitTextLayer(text, layer);
+        constrainTextPosition(text, layer);
+        layer.style.left = `calc(${text.x}% - ${layer.offsetWidth / 2}px)`;
+        layer.style.top = `calc(${text.y}% - ${layer.offsetHeight / 2}px)`;
+        layer.style.transform = `rotate(${text.rotation}deg)`;
+    });
+    const text = selectedText();
+    if (text) {
+        $("positionX").value = Math.round(text.x);
+        $("positionY").value = Math.round(text.y);
+        $("rotation").value = text.rotation;
+    }
+}
 function renderProduct() {
     $("canvasProductName").textContent = product.name;
     $("productName").value = product.name;
@@ -74,56 +218,22 @@ function renderProduct() {
     if (product.canvasWidth) productCanvas.style.setProperty("--product-canvas-width", product.canvasWidth); else productCanvas.style.removeProperty("--product-canvas-width");
     if (product.canvasMobileWidth) productCanvas.style.setProperty("--product-canvas-mobile-width", product.canvasMobileWidth); else productCanvas.style.removeProperty("--product-canvas-mobile-width");
     const activeColor = product.colors.find(color => color.id === state.colorId) || product.colors[0];
+    $("productImage").src = activeColor.image || product.image;
+    $("productImage").alt = product.name;
     const area = activeArea();
-    $("productImage").src = area.useColorImage ? (activeColor.image || product.image) : (area.image || activeColor.image || product.image);
-    $("productImage").alt = `${product.name} - ${area.name}`;
     $("areaDimensions").textContent = area.dimensions;
-    $("safeAreaDimensions").textContent = area.safeDimensions;
     const printZone = $("printZone");
-    printZone.style.top = area.zone.top;
-    printZone.style.left = area.zone.left;
-    printZone.style.width = area.zone.width;
-    printZone.style.height = area.zone.height;
-    printZone.style.transform = `rotate(${area.zone.rotation || "0deg"})`;
-    printZone.style.setProperty("--safe-inset-x", area.safeInset.x);
-    printZone.style.setProperty("--safe-inset-y", area.safeInset.y);
-    const zoneBadge = document.querySelector(".zone-badge");
-    zoneBadge.classList.toggle("compact", Boolean(area.compact));
-    $("zoneBadgeText").textContent = area.compact ? "" : "منطقة الطباعة";
-    zoneBadge.setAttribute("aria-label", `منطقة طباعة ${area.name}`);
-    state.hasDesign = Boolean(state.imageUrl || state.text);
-    zoneBadge.hidden = state.hasDesign || state.zoneLabelHidden;
-    const imageLayer = $("imageLayer");
-    imageLayer.hidden = !state.imageUrl;
-    imageLayer.classList.toggle("selected", state.imageSelected && Boolean(state.imageUrl));
-    imageLayer.style.left = `${state.imageX}%`;
-    imageLayer.style.top = `${state.imageY}%`;
-    imageLayer.style.width = `${state.imageWidth}%`;
-    imageLayer.style.height = `${state.imageHeight}%`;
-    imageLayer.style.transform = `translate(-50%, -50%) rotate(${state.imageRotation}deg)`;
-    if (state.imageUrl && $("uploadedImage").src !== state.imageUrl) $("uploadedImage").src = state.imageUrl;
-    if (state.imageUrl) {
-        constrainImagePosition();
-        imageLayer.style.left = `${state.imageX}%`;
-        imageLayer.style.top = `${state.imageY}%`;
-    }
-    $("textLayer").hidden = !state.text;
-    $("textLayer").classList.toggle("selected", state.textSelected && Boolean(state.text));
-    $("textContentPreview").textContent = state.text;
-    $("textLayer").style.left = `${state.textX}%`;
-    $("textLayer").style.top = `${state.textY}%`;
-    $("textLayer").style.fontSize = `${state.textSize}px`;
-    $("textLayer").style.color = state.textColor;
-    $("textLayer").style.textAlign = state.textAlign;
-    $("textLayer").style.letterSpacing = `${state.letterSpacing}px`;
-    $("textLayer").style.lineHeight = state.lineHeight;
-    $("textLayer").style.rotate = `${state.rotation}deg`;
-    constrainTextPosition();
-    $("textLayer").style.left = `${state.textX}%`;
-    $("textLayer").style.top = `${state.textY}%`;
-    $("positionX").value = Math.round(state.textX);
-    $("positionY").value = Math.round(state.textY);
-    $("rotation").value = state.rotation;
+    printZone.style.top = product.printZone?.top || "";
+    printZone.style.left = product.printZone?.left || "";
+    printZone.style.width = product.printZone?.width || "";
+    printZone.style.height = product.printZone?.height || "";
+    state.hasDesign = Boolean(state.images.length || state.texts.some(text => text.content));
+    document.querySelector(".zone-badge").hidden = state.hasDesign || state.zoneLabelHidden;
+    renderImages();
+    renderTexts();
+    const hasSelection = state.selectedImageId !== null || state.selectedTextId !== null;
+    $("selectionActions").hidden = !hasSelection;
+    $("selectionActionLabel").textContent = state.selectedImageId !== null ? "الصورة المحددة" : "النص المحدد";
 }
 function renderAreas() { const select = $("areaSelect"); select.innerHTML = product.areas.map(area => `<option value="${area.id}">${area.name}</option>`).join(""); select.value = state.areaId; }
 function renderColors() { $("swatches").innerHTML = product.colors.map(color => `<button class="swatch ${color.id === state.colorId ? "active" : ""}" type="button" data-color="${color.id}" style="background:${color.value}" aria-label="${product.colorName[color.id]}"></button>`).join(""); document.querySelectorAll("[data-color]").forEach(button => button.addEventListener("click", () => { state.colorId = button.dataset.color; renderColors(); renderProduct(); showToast(`تم اختيار اللون ${product.colorName[state.colorId]}`); })); }
@@ -131,78 +241,180 @@ function renderSizes() { $("sizes").innerHTML = product.sizes.map(size => `<butt
 
 function addDesign() { state.hasDesign = true; renderProduct(); showToast("تمت إضافة عنصر جاهز"); }
 
-function openTextPanel() {
-    state.text = "";
-    state.textSelected = false;
-    state.hasDesign = Boolean(state.imageUrl);
+function syncTextControls(text = selectedText()) {
+    const values = text || { content: "", fontFamily: "Cairo", size: 28, color: "#6432f2", align: "center", letterSpacing: 0, lineHeight: 1.2, rotation: 0, x: 50, y: 50 };
+    $("textContent").value = values.content;
+    $("fontFamily").value = values.fontFamily;
+    $("fontFamily").style.setProperty("--selected-font", `"${values.fontFamily}"`);
+    $("textSize").value = values.size;
+    $("textColor").value = values.color;
+    $("letterSpacing").value = values.letterSpacing;
+    $("lineHeight").value = values.lineHeight;
+    $("rotation").value = values.rotation;
+    $("positionX").value = values.x;
+    $("positionY").value = values.y;
+    document.querySelectorAll("[data-align]").forEach(button => button.classList.toggle("active", button.dataset.align === values.align));
+}
+
+function openTextPanel(startNew = false) {
+    if (startNew) {
+        state.selectedTextId = null;
+        state.selectedImageId = null;
+    } else if (!selectedText()) {
+        const latestText = [...state.texts].reverse().find(text => text.content);
+        state.selectedTextId = latestText?.id || null;
+        if (latestText) state.selectedImageId = null;
+    }
     state.zoneLabelHidden = true;
-    state.textX = 50;
-    state.textY = 38;
-    state.rotation = 0;
-    state.textSize = 28;
-    state.textColor = "#6432f2";
-    state.textAlign = "center";
-    state.letterSpacing = 0;
-    state.lineHeight = 1.2;
-    $("textContent").value = "";
-    $("textSize").value = state.textSize;
-    $("textColor").value = state.textColor;
-    $("letterSpacing").value = state.letterSpacing;
-    $("lineHeight").value = state.lineHeight;
-    $("rotation").value = state.rotation;
-    $("positionX").value = state.textX;
-    $("positionY").value = state.textY;
-    document.querySelectorAll("[data-align]").forEach(button => button.classList.toggle("active", button.dataset.align === state.textAlign));
+    syncTextControls();
     renderProduct();
-    $("textPanel").hidden = false;
-    document.querySelector(".details-panel").classList.add("text-mode");
+    setDetailsMode("text");
     $("textContent").focus();
 }
 
-function closeTextPanel() { $("textPanel").hidden = true; document.querySelector(".details-panel").classList.remove("text-mode"); state.zoneLabelHidden = Boolean(state.text); renderProduct(); }
+function setDetailsMode(mode) {
+    const textMode = mode === "text";
+    $("textPanel").hidden = !textMode;
+    document.querySelector(".details-panel").classList.toggle("text-mode", textMode);
+    document.querySelectorAll("[data-details-mode]").forEach(button => {
+        const active = button.dataset.detailsMode === mode;
+        button.classList.toggle("active", active);
+        button.setAttribute("aria-selected", String(active));
+    });
+}
 
-function removeUploadedImage() {
-    if (state.imageUrl) URL.revokeObjectURL(state.imageUrl);
-    state.imageUrl = null;
-    state.imageSelected = false;
-    $("uploadedImage").removeAttribute("src");
+function closeTextPanel() { state.selectedTextId = null; state.zoneLabelHidden = state.texts.some(text => text.content); setDetailsMode("product"); renderProduct(); }
+
+function removeUploadedImage(imageId = state.selectedImageId) {
+    const imageIndex = state.images.findIndex(image => image.id === imageId);
+    if (imageIndex < 0) return;
+    const [removedImage] = state.images.splice(imageIndex, 1);
+    if (!state.images.some(image => image.url === removedImage.url)) URL.revokeObjectURL(removedImage.url);
+    state.selectedImageId = state.images.at(-1)?.id || null;
+}
+
+function clearUploadedImages() {
+    new Set(state.images.map(image => image.url)).forEach(url => URL.revokeObjectURL(url));
+    state.images = [];
+    state.selectedImageId = null;
     $("imageUpload").value = "";
 }
 
-document.querySelectorAll("[data-tool]").forEach(button => button.addEventListener("click", () => { state.tool = button.dataset.tool; document.querySelectorAll("[data-tool]").forEach(item => item.classList.toggle("active", item === button)); if (state.tool === "upload") $("imageUpload").click(); else if (state.tool === "text") openTextPanel(); else addDesign(); }));
-$("textContent").addEventListener("input", event => { state.text = event.target.value; renderProduct(); });
-$("textSize").addEventListener("input", event => { state.textSize = event.target.value; renderProduct(); });
-$("textColor").addEventListener("input", event => { state.textColor = event.target.value; renderProduct(); });
-$("letterSpacing").addEventListener("input", event => { state.letterSpacing = event.target.value; renderProduct(); });
-$("lineHeight").addEventListener("input", event => { state.lineHeight = event.target.value; renderProduct(); });
-$("rotation").addEventListener("input", event => { state.rotation = event.target.value; renderProduct(); });
-$("positionX").addEventListener("input", event => { state.textX = clamp(Number(event.target.value), 12, 88); renderProduct(); });
-$("positionY").addEventListener("input", event => { state.textY = clamp(Number(event.target.value), 12, 88); renderProduct(); });
-document.querySelectorAll("[data-align]").forEach(button => button.addEventListener("click", () => { state.textAlign = button.dataset.align; document.querySelectorAll("[data-align]").forEach(item => item.classList.toggle("active", item === button)); renderProduct(); }));
-$("addTextButton").addEventListener("click", () => { state.text = $("textContent").value.trim() || "تصميمك"; state.hasDesign = true; state.textSelected = true; renderProduct(); showToast("تمت إضافة النص إلى التصميم"); });
-$("closeTextPanel").addEventListener("click", closeTextPanel);
-$("duplicateText").addEventListener("click", () => showToast("تم تكرار النص"));
-$("deleteText").addEventListener("click", () => { state.text = ""; state.hasDesign = false; renderProduct(); showToast("تم حذف النص"); });
+function removeText(textId = state.selectedTextId) {
+    const textIndex = state.texts.findIndex(text => text.id === textId);
+    if (textIndex < 0) return;
+    state.texts.splice(textIndex, 1);
+    state.selectedTextId = state.texts.at(-1)?.id || null;
+    syncTextControls();
+}
+
+function duplicateSelectedDesign() {
+    if (state.selectedImageId !== null) {
+        const image = state.images.find(item => item.id === state.selectedImageId);
+        if (!image) return;
+        const duplicate = { ...image, id: state.nextImageId++, x: clamp(Number(image.x) + 4, 0, 100), y: clamp(Number(image.y) + 4, 0, 100) };
+        state.images.push(duplicate);
+        state.selectedImageId = duplicate.id;
+        state.selectedTextId = null;
+        setDetailsMode("product");
+        renderProduct();
+        showToast("تم تكرار الصورة");
+        return;
+    }
+    const text = selectedText();
+    if (text) {
+        const duplicate = { ...text, id: state.nextTextId++, x: clamp(Number(text.x) + 4, 0, 100), y: clamp(Number(text.y) + 4, 0, 100) };
+        state.texts.push(duplicate);
+        state.selectedTextId = duplicate.id;
+        syncTextControls(duplicate);
+        renderProduct();
+        showToast("تم تكرار النص");
+        return;
+    }
+    showToast("حدد صورة أو نصاً أولاً");
+}
+
+function deleteSelectedDesign() {
+    if (state.selectedImageId !== null) {
+        removeUploadedImage();
+        renderProduct();
+        showToast("تم حذف الصورة");
+        return;
+    }
+    if (state.selectedTextId !== null) {
+        removeText();
+        renderProduct();
+        showToast("تم حذف النص");
+        return;
+    }
+    showToast("حدد صورة أو نصاً أولاً");
+}
+
+document.querySelectorAll("[data-tool]").forEach(button => button.addEventListener("click", () => { state.tool = button.dataset.tool; document.querySelectorAll("[data-tool]").forEach(item => item.classList.toggle("active", item === button)); if (state.tool === "upload") $("imageUpload").click(); else if (state.tool === "text") openTextPanel(true); else addDesign(); }));
+document.querySelectorAll("[data-details-mode]").forEach(button => button.addEventListener("click", () => { if (button.dataset.detailsMode === "text") openTextPanel(); else closeTextPanel(); }));
+$("textContent").addEventListener("input", event => { const text = ensureSelectedText(); text.content = event.target.value; renderProduct(); });
+$("fontFamily").addEventListener("change", async event => {
+    const select = event.currentTarget;
+    const nextFontFamily = select.value;
+    const text = ensureSelectedText();
+    const textId = text.id;
+    const requestId = ++fontSelectionRequest;
+    select.setAttribute("aria-busy", "true");
+    try {
+        await loadFont(nextFontFamily, 800, text.size, text.content || "PalPrints تصميم");
+        if (requestId !== fontSelectionRequest) return;
+        const targetText = state.texts.find(item => item.id === textId);
+        if (!targetText) return;
+        targetText.fontFamily = nextFontFamily;
+        if (state.selectedTextId === textId) select.style.setProperty("--selected-font", `"${nextFontFamily}"`);
+        renderProduct();
+    } catch {
+        if (requestId !== fontSelectionRequest) return;
+        select.value = selectedText()?.fontFamily || "Cairo";
+        showToast("تعذر تحميل الخط المحدد");
+    } finally {
+        if (requestId === fontSelectionRequest) select.removeAttribute("aria-busy");
+    }
+});
+$("textSize").addEventListener("input", event => { ensureSelectedText().size = event.target.value; renderProduct(); });
+$("textColor").addEventListener("input", event => { ensureSelectedText().color = event.target.value; renderProduct(); });
+$("letterSpacing").addEventListener("input", event => { ensureSelectedText().letterSpacing = event.target.value; renderProduct(); });
+$("lineHeight").addEventListener("input", event => { ensureSelectedText().lineHeight = event.target.value; renderProduct(); });
+$("rotation").addEventListener("input", event => { ensureSelectedText().rotation = event.target.value; renderProduct(); });
+$("positionX").addEventListener("input", event => { ensureSelectedText().x = clamp(Number(event.target.value), 0, 100); renderProduct(); });
+$("positionY").addEventListener("input", event => { ensureSelectedText().y = clamp(Number(event.target.value), 0, 100); renderProduct(); });
+document.querySelectorAll("[data-align]").forEach(button => button.addEventListener("click", () => { const text = ensureSelectedText(); text.align = button.dataset.align; document.querySelectorAll("[data-align]").forEach(item => item.classList.toggle("active", item === button)); renderProduct(); }));
+$("addTextButton").addEventListener("click", () => { const text = ensureSelectedText(); text.content = $("textContent").value.trim() || "تصميمك"; $("textContent").value = text.content; renderProduct(); showToast("تمت إضافة النص إلى التصميم"); });
+$("duplicateText").addEventListener("click", duplicateSelectedDesign);
+$("deleteText").addEventListener("click", deleteSelectedDesign);
 $("imageUpload").addEventListener("change", event => {
     const file = event.target.files[0];
     if (!file) return;
     if (!file.type.startsWith("image/")) { showToast("يرجى اختيار ملف صورة"); event.target.value = ""; return; }
-    if (state.imageUrl) URL.revokeObjectURL(state.imageUrl);
     const imageUrl = URL.createObjectURL(file);
-    state.imageUrl = imageUrl;
-    state.imageX = 50;
-    state.imageY = 50;
-    state.imageRotation = 0;
-    state.imageSelected = true;
+    const imageId = state.nextImageId++;
+    const offset = (state.images.length % 4) * 4;
+    const uploadedImage = { id: imageId, url: imageUrl, x: 50 + offset, y: 50 + offset, width: 70, height: 70, rotation: 0 };
+    state.images.push(uploadedImage);
+    state.selectedImageId = imageId;
+    state.selectedTextId = null;
+    setDetailsMode("product");
+    event.target.value = "";
     const imageProbe = new Image();
     imageProbe.onload = () => {
-        if (state.imageUrl !== imageUrl) return;
+        const image = state.images.find(item => item.id === imageId && item.url === imageUrl);
+        if (!image) return;
         const imageRatio = imageProbe.naturalWidth / imageProbe.naturalHeight;
-        state.imageWidth = imageRatio >= 1 ? 70 : 70 * imageRatio;
-        state.imageHeight = imageRatio >= 1 ? 70 / imageRatio : 70;
+        image.width = imageRatio >= 1 ? 70 : 70 * imageRatio;
+        image.height = imageRatio >= 1 ? 70 / imageRatio : 70;
         renderProduct();
     };
-    imageProbe.onerror = () => { if (state.imageUrl !== imageUrl) return; removeUploadedImage(); renderProduct(); showToast("تعذر تحميل الصورة"); };
+    imageProbe.onerror = () => {
+        if (!state.images.some(item => item.id === imageId && item.url === imageUrl)) return;
+        removeUploadedImage(imageId);
+        renderProduct();
+        showToast("تعذر تحميل الصورة");
+    };
     imageProbe.src = imageUrl;
     renderProduct();
     showToast("تمت إضافة الصورة");
@@ -211,194 +423,250 @@ $("areaSelect").addEventListener("change", event => { state.areaId = event.targe
 $("zoomIn").addEventListener("click", () => { state.zoom = Math.min(1.4, state.zoom + .1); $("productCanvas").style.transform = `scale(${state.zoom})`; $("zoomValue").textContent = `${Math.round(state.zoom * 100)}%`; });
 $("zoomOut").addEventListener("click", () => { state.zoom = Math.max(.7, state.zoom - .1); $("productCanvas").style.transform = `scale(${state.zoom})`; $("zoomValue").textContent = `${Math.round(state.zoom * 100)}%`; });
 $("fitButton").addEventListener("click", () => { state.zoom = 1; $("productCanvas").style.transform = "scale(1)"; $("zoomValue").textContent = "100%"; });
-$("undoButton").addEventListener("click", () => { removeUploadedImage(); state.hasDesign = false; state.text = ""; renderProduct(); showToast("تم التراجع"); });
+$("undoButton").addEventListener("click", () => { clearUploadedImages(); state.texts = []; state.selectedTextId = null; state.hasDesign = false; syncTextControls(); renderProduct(); showToast("تم التراجع"); });
 $("redoButton").addEventListener("click", () => showToast("لا توجد تغييرات لإعادتها"));
 $("saveButton").addEventListener("click", () => { sessionStorage.setItem("palprintsDesignerState", JSON.stringify(state)); showToast("تم حفظ التصميم"); });
 $("previewButton").addEventListener("click", () => showToast("المعاينة جاهزة"));
 
 function clamp(value, minimum, maximum) { return Math.min(maximum, Math.max(minimum, value)); }
 
-function constrainImagePosition() {
-    if (!state.imageUrl) return;
+function getPrintZoneBounds() {
     const zone = $("printZone");
-    const layer = $("imageLayer");
-    const angle = Math.abs(Number(state.imageRotation) * Math.PI / 180);
+    const bounds = zone.getBoundingClientRect();
+    const scaleX = bounds.width / zone.offsetWidth;
+    const scaleY = bounds.height / zone.offsetHeight;
+    const left = bounds.left + zone.clientLeft * scaleX;
+    const top = bounds.top + zone.clientTop * scaleY;
+    const width = zone.clientWidth * scaleX;
+    const height = zone.clientHeight * scaleY;
+    return { left, top, width, height, right: left + width, bottom: top + height };
+}
+
+function constrainImagePosition(image, layer) {
+    if (!image || !layer) return;
+    const zone = $("printZone");
+    const angle = Math.abs(Number(image.rotation) * Math.PI / 180);
     const rotatedWidth = Math.abs(layer.offsetWidth * Math.cos(angle)) + Math.abs(layer.offsetHeight * Math.sin(angle));
     const rotatedHeight = Math.abs(layer.offsetWidth * Math.sin(angle)) + Math.abs(layer.offsetHeight * Math.cos(angle));
     const horizontalPadding = Math.min(50, (rotatedWidth / zone.clientWidth) * 50);
     const verticalPadding = Math.min(50, (rotatedHeight / zone.clientHeight) * 50);
-    state.imageX = clamp(Number(state.imageX), horizontalPadding, 100 - horizontalPadding);
-    state.imageY = clamp(Number(state.imageY), verticalPadding, 100 - verticalPadding);
+    image.x = clamp(Number(image.x), horizontalPadding, 100 - horizontalPadding);
+    image.y = clamp(Number(image.y), verticalPadding, 100 - verticalPadding);
 }
 
-function constrainTextPosition() {
+function constrainTextPosition(text, layer) {
+    if (!text || !layer) return;
     const zone = $("printZone");
-    const layer = $("textLayer");
-    const angle = Math.abs(Number(state.rotation) * Math.PI / 180);
+    const angle = Math.abs(Number(text.rotation) * Math.PI / 180);
     const width = layer.offsetWidth;
     const height = layer.offsetHeight;
     const rotatedWidth = Math.abs(width * Math.cos(angle)) + Math.abs(height * Math.sin(angle));
     const rotatedHeight = Math.abs(width * Math.sin(angle)) + Math.abs(height * Math.cos(angle));
-    const horizontalPadding = (rotatedWidth / zone.clientWidth) * 50;
-    const verticalPadding = (rotatedHeight / zone.clientHeight) * 50;
-    state.textX = clamp(Number(state.textX), horizontalPadding, 100 - horizontalPadding);
-    state.textY = clamp(Number(state.textY), verticalPadding, 100 - verticalPadding);
+    const horizontalPadding = Math.min(50, (rotatedWidth / zone.clientWidth) * 50);
+    const verticalPadding = Math.min(50, (rotatedHeight / zone.clientHeight) * 50);
+    text.x = clamp(Number(text.x), horizontalPadding, 100 - horizontalPadding);
+    text.y = clamp(Number(text.y), verticalPadding, 100 - verticalPadding);
 }
 
 let imageDragOffset = null;
-$("imageLayer").addEventListener("click", event => { event.stopPropagation(); });
-$("imageLayer").addEventListener("pointerdown", event => {
-    if (event.target.closest(".image-handle") || !state.imageUrl) return;
-    event.preventDefault();
+const imageLayers = $("imageLayers");
+imageLayers.addEventListener("click", event => {
+    const layer = event.target.closest(".image-layer");
+    if (!layer) return;
     event.stopPropagation();
-    state.imageSelected = true;
-    state.textSelected = false;
-    const layer = $("imageLayer");
-    const zone = $("printZone").getBoundingClientRect();
-    const layerRect = layer.getBoundingClientRect();
-    imageDragOffset = { x: event.clientX - (layerRect.left + layerRect.width / 2), y: event.clientY - (layerRect.top + layerRect.height / 2), zone, width: layerRect.width, height: layerRect.height };
-    layer.setPointerCapture(event.pointerId);
+    const imageId = Number(layer.dataset.imageId);
+    if (event.target.closest('[data-image-action="delete"]')) {
+        removeUploadedImage(imageId);
+        renderProduct();
+        showToast("تم حذف الصورة");
+        return;
+    }
+    state.selectedImageId = imageId;
+    state.selectedTextId = null;
+    setDetailsMode("product");
     renderProduct();
 });
-$("imageLayer").addEventListener("pointermove", event => {
+imageLayers.addEventListener("pointerdown", event => {
+    const layer = event.target.closest(".image-layer");
+    if (!layer) return;
+    const image = state.images.find(item => item.id === Number(layer.dataset.imageId));
+    if (!image) return;
+    state.selectedImageId = image.id;
+    state.selectedTextId = null;
+    setDetailsMode("product");
+    const action = event.target.closest("[data-image-action]")?.dataset.imageAction;
+    if (action === "resize") return beginImageResize(event, "both", image, layer);
+    if (action === "stretch-x") return beginImageResize(event, "horizontal", image, layer);
+    if (action === "stretch-y") return beginImageResize(event, "vertical", image, layer);
+    if (action === "rotate") return beginImageRotation(event, image, layer);
+    if (action === "delete") return;
+    event.preventDefault();
+    event.stopPropagation();
+    const zone = getPrintZoneBounds();
+    const layerRect = layer.getBoundingClientRect();
+    imageDragOffset = { imageId: image.id, x: event.clientX - (layerRect.left + layerRect.width / 2), y: event.clientY - (layerRect.top + layerRect.height / 2), zone, width: layerRect.width, height: layerRect.height };
+    layer.setPointerCapture(event.pointerId);
+    renderProduct();
+    updateImageOverlapIndicators(image.id);
+});
+imageLayers.addEventListener("pointermove", event => {
     if (!imageDragOffset) return;
+    const image = state.images.find(item => item.id === imageDragOffset.imageId);
+    if (!image) return;
     const { zone, width, height } = imageDragOffset;
     const centerX = clamp(event.clientX - imageDragOffset.x, zone.left + width / 2, zone.right - width / 2);
     const centerY = clamp(event.clientY - imageDragOffset.y, zone.top + height / 2, zone.bottom - height / 2);
-    state.imageX = ((centerX - zone.left) / zone.width) * 100;
-    state.imageY = ((centerY - zone.top) / zone.height) * 100;
+    image.x = ((centerX - zone.left) / zone.width) * 100;
+    image.y = ((centerY - zone.top) / zone.height) * 100;
     renderProduct();
+    updateImageOverlapIndicators(image.id);
 });
-$("imageLayer").addEventListener("pointerup", event => {
+function finishImageDrag(event) {
+    const layer = event.target.closest(".image-layer");
     imageDragOffset = null;
-    if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
-});
-function beginImageResize(event, mode) {
+    if (layer?.hasPointerCapture(event.pointerId)) layer.releasePointerCapture(event.pointerId);
+    updateImageOverlapIndicators();
+}
+imageLayers.addEventListener("pointerup", finishImageDrag);
+imageLayers.addEventListener("pointercancel", finishImageDrag);
+function beginImageResize(event, mode, image, layerElement) {
     event.preventDefault();
     event.stopPropagation();
-    const zone = $("printZone").getBoundingClientRect();
-    const layer = $("imageLayer").getBoundingClientRect();
+    const zone = getPrintZoneBounds();
+    const layer = layerElement.getBoundingClientRect();
     const centerX = layer.left + layer.width / 2;
     const centerY = layer.top + layer.height / 2;
     const startX = event.clientX;
     const startY = event.clientY;
-    const startWidth = state.imageWidth;
-    const startHeight = state.imageHeight;
+    const startWidth = image.width;
+    const startHeight = image.height;
     const startDistance = Math.max(1, Math.hypot(startX - centerX, startY - centerY));
-    const rotation = Number(state.imageRotation) * Math.PI / 180;
+    const rotation = Number(image.rotation) * Math.PI / 180;
+    updateImageOverlapIndicators(image.id);
     const move = moveEvent => {
         if (mode === "both") {
             const distance = Math.hypot(moveEvent.clientX - centerX, moveEvent.clientY - centerY);
             const minimumScale = Math.max(10 / startWidth, 10 / startHeight);
             const maximumScale = Math.min(100 / startWidth, 100 / startHeight);
             const scale = clamp(distance / startDistance, minimumScale, maximumScale);
-            state.imageWidth = startWidth * scale;
-            state.imageHeight = startHeight * scale;
+            image.width = startWidth * scale;
+            image.height = startHeight * scale;
         } else {
             const deltaX = moveEvent.clientX - startX;
             const deltaY = moveEvent.clientY - startY;
             const localX = deltaX * Math.cos(rotation) + deltaY * Math.sin(rotation);
             const localY = -deltaX * Math.sin(rotation) + deltaY * Math.cos(rotation);
-            if (mode === "horizontal") state.imageWidth = clamp(startWidth + (localX / zone.width) * 100, 10, 100);
-            if (mode === "vertical") state.imageHeight = clamp(startHeight + (localY / zone.height) * 100, 10, 100);
+            if (mode === "horizontal") image.width = clamp(startWidth + (localX / zone.width) * 100, 10, 100);
+            if (mode === "vertical") image.height = clamp(startHeight + (localY / zone.height) * 100, 10, 100);
         }
         renderProduct();
+        updateImageOverlapIndicators(image.id);
     };
-    const stop = () => { window.removeEventListener("pointermove", move); window.removeEventListener("pointerup", stop); };
+    const stop = () => { updateImageOverlapIndicators(); window.removeEventListener("pointermove", move); window.removeEventListener("pointerup", stop); };
     window.addEventListener("pointermove", move);
     window.addEventListener("pointerup", stop);
 }
-$("imageResizeHandle").addEventListener("pointerdown", event => beginImageResize(event, "both"));
-$("imageStretchXHandle").addEventListener("pointerdown", event => beginImageResize(event, "horizontal"));
-$("imageStretchYHandle").addEventListener("pointerdown", event => beginImageResize(event, "vertical"));
-$("imageRotateHandle").addEventListener("pointerdown", event => {
+function beginImageRotation(event, image, layerElement) {
     event.preventDefault();
     event.stopPropagation();
-    const layer = $("imageLayer").getBoundingClientRect();
+    const layer = layerElement.getBoundingClientRect();
     const centerX = layer.left + layer.width / 2;
     const centerY = layer.top + layer.height / 2;
     const startAngle = Math.atan2(event.clientY - centerY, event.clientX - centerX) * 180 / Math.PI;
-    const startRotation = Number(state.imageRotation);
+    const startRotation = Number(image.rotation);
+    updateImageOverlapIndicators(image.id);
     const move = moveEvent => {
         const angle = Math.atan2(moveEvent.clientY - centerY, moveEvent.clientX - centerX) * 180 / Math.PI;
-        state.imageRotation = Math.round(startRotation + angle - startAngle);
+        image.rotation = Math.round(startRotation + angle - startAngle);
         renderProduct();
+        updateImageOverlapIndicators(image.id);
     };
-    const stop = () => { window.removeEventListener("pointermove", move); window.removeEventListener("pointerup", stop); };
+    const stop = () => { updateImageOverlapIndicators(); window.removeEventListener("pointermove", move); window.removeEventListener("pointerup", stop); };
     window.addEventListener("pointermove", move);
     window.addEventListener("pointerup", stop);
-});
-$("imageDeleteHandle").addEventListener("click", event => {
-    event.stopPropagation();
-    removeUploadedImage();
-    renderProduct();
-    showToast("تم حذف الصورة");
-});
+}
 document.addEventListener("keydown", event => {
-    if (!state.imageSelected || !["Delete", "Backspace"].includes(event.key) || event.target.closest("input, textarea, select")) return;
+    if ((state.selectedImageId === null && state.selectedTextId === null) || !["Delete", "Backspace"].includes(event.key) || event.target.closest("input, textarea, select")) return;
     event.preventDefault();
-    removeUploadedImage();
-    renderProduct();
-    showToast("تم حذف الصورة");
+    deleteSelectedDesign();
 });
-window.addEventListener("beforeunload", () => { if (state.imageUrl) URL.revokeObjectURL(state.imageUrl); });
+window.addEventListener("beforeunload", () => { new Set(state.images.map(image => image.url)).forEach(url => URL.revokeObjectURL(url)); });
 
-let dragOffset = null;
-$("textLayer").addEventListener("click", event => {
+let textDragOffset = null;
+const textLayers = $("textLayers");
+textLayers.addEventListener("click", event => {
+    const layer = event.target.closest(".text-layer");
+    if (!layer) return;
     event.stopPropagation();
-    state.textSelected = true;
-    state.imageSelected = false;
+    state.selectedTextId = Number(layer.dataset.textId);
+    state.selectedImageId = null;
+    syncTextControls();
+    setDetailsMode("text");
     renderProduct();
 });
-$("textLayer").addEventListener("pointerdown", event => {
-    if (event.target.closest(".text-rotate-handle") || !state.text) return;
+textLayers.addEventListener("pointerdown", event => {
+    const layer = event.target.closest(".text-layer");
+    if (!layer) return;
+    const text = state.texts.find(item => item.id === Number(layer.dataset.textId));
+    if (!text) return;
+    state.selectedTextId = text.id;
+    state.selectedImageId = null;
+    if (event.target.closest('[data-text-action="rotate"]')) return beginTextRotation(event, text, layer);
+    if (!event.target.closest(".text-content")) return;
     event.preventDefault();
     event.stopPropagation();
-    const layer = $("textLayer");
-    const zone = $("printZone").getBoundingClientRect();
+    const zone = getPrintZoneBounds();
     const layerRect = layer.getBoundingClientRect();
-    dragOffset = { x: event.clientX - (layerRect.left + layerRect.width / 2), y: event.clientY - (layerRect.top + layerRect.height / 2), zone };
+    textDragOffset = { textId: text.id, x: event.clientX - (layerRect.left + layerRect.width / 2), y: event.clientY - (layerRect.top + layerRect.height / 2), zone };
     layer.setPointerCapture(event.pointerId);
+    renderProduct();
 });
 document.addEventListener("pointerdown", event => {
     let shouldRender = false;
-    if (!event.target.closest("#imageLayer") && state.imageSelected) {
-        state.imageSelected = false;
+    if (!event.target.closest(".image-layer") && !event.target.closest("#selectionActions") && state.selectedImageId !== null) {
+        state.selectedImageId = null;
         shouldRender = true;
     }
-    if (!$("productCanvas").contains(event.target)) {
-        state.textSelected = false;
+    if (!event.target.closest(".text-layer") && !event.target.closest("#textPanel") && !event.target.closest("#selectionActions") && state.selectedTextId !== null) {
+        state.selectedTextId = null;
         shouldRender = true;
     }
     if (shouldRender) renderProduct();
 });
-$("textLayer").addEventListener("pointermove", event => {
-    if (!dragOffset) return;
-    const zone = dragOffset.zone;
-    const layer = $("textLayer");
-    const angle = Math.abs(Number(state.rotation) * Math.PI / 180);
-    const rotatedWidth = Math.abs(layer.offsetWidth * Math.cos(angle)) + Math.abs(layer.offsetHeight * Math.sin(angle));
-    const rotatedHeight = Math.abs(layer.offsetWidth * Math.sin(angle)) + Math.abs(layer.offsetHeight * Math.cos(angle));
-    const centerX = clamp(event.clientX - dragOffset.x, zone.left + rotatedWidth / 2, zone.right - rotatedWidth / 2);
-    const centerY = clamp(event.clientY - dragOffset.y, zone.top + rotatedHeight / 2, zone.bottom - rotatedHeight / 2);
-    state.textX = ((centerX - zone.left) / zone.width) * 100;
-    state.textY = ((centerY - zone.top) / zone.height) * 100;
+textLayers.addEventListener("pointermove", event => {
+    if (!textDragOffset) return;
+    const text = state.texts.find(item => item.id === textDragOffset.textId);
+    const layer = textLayers.querySelector(`[data-text-id="${textDragOffset.textId}"]`);
+    if (!text || !layer) return;
+    const zone = textDragOffset.zone;
+    const layerBounds = layer.getBoundingClientRect();
+    const rotatedWidth = layerBounds.width;
+    const rotatedHeight = layerBounds.height;
+    const centerX = clamp(event.clientX - textDragOffset.x, zone.left + rotatedWidth / 2, zone.right - rotatedWidth / 2);
+    const centerY = clamp(event.clientY - textDragOffset.y, zone.top + rotatedHeight / 2, zone.bottom - rotatedHeight / 2);
+    text.x = ((centerX - zone.left) / zone.width) * 100;
+    text.y = ((centerY - zone.top) / zone.height) * 100;
     renderProduct();
 });
-$("textLayer").addEventListener("pointerup", event => { dragOffset = null; if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId); });
-$("textRotateHandle").addEventListener("pointerdown", event => {
+function finishTextDrag(event) {
+    const layer = event.target.closest(".text-layer");
+    textDragOffset = null;
+    if (layer?.hasPointerCapture(event.pointerId)) layer.releasePointerCapture(event.pointerId);
+}
+textLayers.addEventListener("pointerup", finishTextDrag);
+textLayers.addEventListener("pointercancel", finishTextDrag);
+function beginTextRotation(event, text, layerElement) {
     event.preventDefault();
     event.stopPropagation();
-    const zone = $("printZone").getBoundingClientRect();
-    const layer = $("textLayer").getBoundingClientRect();
+    const layer = layerElement.getBoundingClientRect();
     const centerX = layer.left + layer.width / 2;
     const centerY = layer.top + layer.height / 2;
     const startAngle = Math.atan2(event.clientY - centerY, event.clientX - centerX) * 180 / Math.PI;
-    const startRotation = Number(state.rotation);
-    const move = moveEvent => { const angle = Math.atan2(moveEvent.clientY - centerY, moveEvent.clientX - centerX) * 180 / Math.PI; state.rotation = Math.round(startRotation + angle - startAngle); renderProduct(); };
+    const startRotation = Number(text.rotation);
+    const move = moveEvent => { const angle = Math.atan2(moveEvent.clientY - centerY, moveEvent.clientX - centerX) * 180 / Math.PI; text.rotation = Math.round(startRotation + angle - startAngle); renderProduct(); };
     const stop = () => { window.removeEventListener("pointermove", move); window.removeEventListener("pointerup", stop); };
     window.addEventListener("pointermove", move);
     window.addEventListener("pointerup", stop);
-});
+}
 
-renderAreas(); renderColors(); renderSizes(); renderProduct();
+renderAreas(); renderColors(); renderSizes(); renderProduct(); revealDesignerAfterFontsLoad();
