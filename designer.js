@@ -3,6 +3,7 @@ const selection = JSON.parse(sessionStorage.getItem("palprintsDesignerSelection"
 const catalog = {
     "product-001": {
         name: "تي شيرت كلاسيكي",
+        price: 29,
         colorName: { white: "أبيض", black: "أسود", navy: "كحلي", red: "أحمر", green: "أخضر" },
         image: "assets/images/tshirt.webp",
         colors: [{ id: "white", value: "#fff" }, { id: "black", value: "#111" }, { id: "navy", value: "#173b87" }, { id: "red", value: "#d52a3c" }, { id: "green", value: "#2e9b42" }],
@@ -10,12 +11,13 @@ const catalog = {
         areas: [{ id: "front", name: "الأمام", image: "assets/images/printing-areas/tshirt/tshirt-front-removebg-preview.png", dimensions: "28 × 36 سم" }, { id: "back", name: "الخلف", image: "assets/images/printing-areas/tshirt/tshirt-back-removebg-preview.png", dimensions: "28 × 36 سم" }, { id: "right-sleeve", name: "الكم الأيمن", image: "assets/images/printing-areas/tshirt/tshirt-rightSleeve-removebg-preview.png", dimensions: "10 × 12 سم" }, { id: "left-sleeve", name: "الكم الأيسر", image: "assets/images/printing-areas/tshirt/tshirt-leftSleeve-removebg-preview.png", dimensions: "10 × 12 سم" }]
     },
     "product-002": {
-        name: "هودي بسيط", colorName: { white: "أبيض", black: "أسود" }, colors: [{ id: "white", value: "#fff", image: "assets/images/hoodie.png" }, { id: "black", value: "#111", image: "assets/images/hoodie-black.png" }], sizes: ["S", "M", "L", "XL"], areas: [{ id: "front", name: "الأمام", image: "assets/images/printing-areas/hoodie/hoodie-front.png", dimensions: "28 × 36 سم" }, { id: "back", name: "الخلف", image: "assets/images/printing-areas/hoodie/hoodie-back.png", dimensions: "28 × 36 سم" }]
+        name: "هودي بسيط", price: 79, colorName: { white: "أبيض", black: "أسود" }, colors: [{ id: "white", value: "#fff", image: "assets/images/hoodie.png" }, { id: "black", value: "#111", image: "assets/images/hoodie-black.png" }], sizes: ["S", "M", "L", "XL"], areas: [{ id: "front", name: "الأمام", image: "assets/images/printing-areas/hoodie/hoodie-front.png", dimensions: "28 × 36 سم" }, { id: "back", name: "الخلف", image: "assets/images/printing-areas/hoodie/hoodie-back.png", dimensions: "28 × 36 سم" }]
     },
-    "product-003": { name: "كوب سيراميك", colorName: { white: "أبيض" }, image: "assets/images/cup.webp", colors: [{ id: "white", value: "#fff" }], sizes: ["قياسي"], areas: [{ id: "front", name: "الواجهة", image: "assets/images/cup.webp", dimensions: "20 × 9 سم" }] },
-    "product-004": { name: "حقيبة قماشية", colorName: { white: "أبيض" }, image: "assets/images/bag.png", colors: [{ id: "white", value: "#fff" }], sizes: ["قياسي"], areas: [{ id: "front", name: "الأمام", image: "assets/images/bag.png", dimensions: "28 × 30 سم" }, { id: "back", name: "الخلف", image: "assets/images/bag.png", dimensions: "28 × 30 سم" }] },
+    "product-003": { name: "كوب سيراميك", price: 19, colorName: { white: "أبيض" }, image: "assets/images/cup.webp", colors: [{ id: "white", value: "#fff" }], sizes: ["قياسي"], areas: [{ id: "front", name: "الواجهة", image: "assets/images/cup.webp", dimensions: "20 × 9 سم" }] },
+    "product-004": { name: "حقيبة قماشية", price: 39, colorName: { white: "أبيض" }, image: "assets/images/bag.png", colors: [{ id: "white", value: "#fff" }], sizes: ["قياسي"], areas: [{ id: "front", name: "الأمام", image: "assets/images/bag.png", dimensions: "28 × 30 سم" }, { id: "back", name: "الخلف", image: "assets/images/bag.png", dimensions: "28 × 30 سم" }] },
     "product-005": {
         name: "تي شيرت ثقيل باهت",
+        price: 49,
         colorName: { "faded-black": "أسود باهت", "faded-brown": "بني باهت", "faded-cream": "كريمي باهت", "faded-navy": "كحلي باهت" },
         colors: [
             { id: "faded-black", value: "#4a4a48", image: "assets/products/tshirt-2/tshirt-dyed-heavyweight-faded-black-removebg-preview.png" },
@@ -31,6 +33,7 @@ const catalog = {
     },
     "product-006": {
         name: "قبعة كلاسيكية",
+        price: 25,
         colorName: { black: "أسود", navy: "كحلي", storm: "رمادي فاتح", walnut: "جوزي" },
         colors: [
             { id: "black", value: "#171717", image: "assets/products/cap/cap-black-removebg-preview.png" },
@@ -46,10 +49,95 @@ const catalog = {
     }
 };
 
-const product = catalog[selection?.productId] || catalog["product-001"];
-const state = { colorId: selection?.colorId || product.colors[0].id, sizeId: selection?.sizeId || product.sizes[0], areaId: selection?.printAreaIds?.[0] || "front", zoom: 1, tool: "upload", hasDesign: false, images: [], selectedImageId: null, nextImageId: 1, texts: [], selectedTextId: null, nextTextId: 1, zoneLabelHidden: false };
+const productId = selection?.productId || "product-001";
+const product = catalog[productId] || catalog["product-001"];
+const storedDesignerState = JSON.parse(sessionStorage.getItem("palprintsDesignerState") || "null");
+const restoredState = storedDesignerState?.productId === productId ? storedDesignerState : null;
+const requestedAreaId = restoredState?.areaId || selection?.printAreaIds?.[0] || "front";
+const initialAreaId = product.areas.some(area => area.id === requestedAreaId) ? requestedAreaId : product.areas[0].id;
+const state = {
+    productId,
+    colorId: restoredState?.colorId || selection?.colorId || product.colors[0].id,
+    sizeId: restoredState?.sizeId || selection?.sizeId || product.sizes[0],
+    areaId: initialAreaId,
+    zoom: 1,
+    tool: "upload",
+    hasDesign: false,
+    images: [],
+    selectedImageId: null,
+    nextImageId: 1,
+    texts: [],
+    selectedTextId: null,
+    nextTextId: 1,
+    zoneLabelHidden: false,
+    designsByArea: restoredState?.designsByArea || {}
+};
 const $ = id => document.getElementById(id);
 let fontSelectionRequest = 0;
+
+function emptyAreaDesign() {
+    return { images: [], texts: [], nextImageId: 1, nextTextId: 1, zoneLabelHidden: false };
+}
+
+function activeAreaDesign() {
+    return state.designsByArea[state.areaId] || (state.designsByArea[state.areaId] = emptyAreaDesign());
+}
+
+function loadAreaDesign(areaId) {
+    const design = state.designsByArea[areaId] || (state.designsByArea[areaId] = emptyAreaDesign());
+    state.images = Array.isArray(design.images) ? design.images : [];
+    state.texts = Array.isArray(design.texts) ? design.texts : [];
+    state.nextImageId = Number(design.nextImageId) || 1;
+    state.nextTextId = Number(design.nextTextId) || 1;
+    state.zoneLabelHidden = Boolean(design.zoneLabelHidden);
+    state.selectedImageId = null;
+    state.selectedTextId = null;
+}
+
+function syncActiveAreaDesign() {
+    const design = activeAreaDesign();
+    design.images = state.images;
+    design.texts = state.texts;
+    design.nextImageId = state.nextImageId;
+    design.nextTextId = state.nextTextId;
+    design.zoneLabelHidden = state.zoneLabelHidden;
+}
+
+function createStoredDesignerState() {
+    syncActiveAreaDesign();
+    return {
+        version: 2,
+        productId: state.productId,
+        colorId: state.colorId,
+        sizeId: state.sizeId,
+        areaId: state.areaId,
+        product,
+        designsByArea: state.designsByArea,
+        updatedAt: new Date().toISOString()
+    };
+}
+
+function persistDesignerState() {
+    const storedState = createStoredDesignerState();
+    try {
+        sessionStorage.setItem("palprintsDesignerState", JSON.stringify(storedState));
+        return storedState;
+    } catch {
+        showToast("تعذر حفظ التصميم؛ حجم الصور المرفوعة كبير جدًا");
+        return null;
+    }
+}
+
+loadAreaDesign(state.areaId);
+
+const componentAssets = [
+    { id: "heart", name: "قلب", svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="#ef476f" d="M50 88 15 54C-8 31 8 8 29 12c10 2 17 9 21 17 4-8 11-15 21-17 21-4 37 19 14 42Z"/></svg>' },
+    { id: "star", name: "نجمة", svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="#ffbd2e" d="m50 7 13 27 30 4-22 21 6 30-27-14-27 14 6-30L7 38l30-4Z"/></svg>' },
+    { id: "leaf", name: "ورقة نبات", svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="#49bd72" d="M86 12C47 14 20 30 17 58c-2 15 7 26 20 29 23 5 48-16 49-75Z"/><path fill="none" stroke="#167d45" stroke-width="6" stroke-linecap="round" d="M18 91c13-29 29-44 55-62"/></svg>' },
+    { id: "coffee", name: "فنجان قهوة", svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="#6432f2" d="M15 31h58v31c0 16-13 27-29 27S15 78 15 62Z"/><path fill="none" stroke="#6432f2" stroke-width="9" d="M72 40h7c18 0 18 25 0 25h-7"/><path fill="none" stroke="#19c8d7" stroke-width="5" stroke-linecap="round" d="M32 23c-8-8 8-10 0-18m22 18c-8-8 8-10 0-18"/></svg>' },
+    { id: "chef", name: "قبعة طاهٍ", svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="#fff" stroke="#142d70" stroke-width="5" d="M24 47C8 43 11 20 28 20c5-17 29-17 36-2 19-5 30 19 13 29v35H24Z"/><path fill="none" stroke="#6432f2" stroke-width="5" d="M24 64h53M38 47v17m24-17v17"/></svg>' },
+    { id: "pizza", name: "بيتزا", svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="#ffcf5c" stroke="#d98b2b" stroke-width="6" d="M15 18c24-12 49-12 73 0L51 89Z"/><path fill="none" stroke="#a85d25" stroke-width="10" stroke-linecap="round" d="M15 18c24-12 49-12 73 0"/><circle fill="#ef476f" cx="42" cy="38" r="8"/><circle fill="#ef476f" cx="61" cy="59" r="7"/><circle fill="#49bd72" cx="64" cy="29" r="6"/></svg>' }
+].map(asset => ({ ...asset, src: `data:image/svg+xml;charset=utf-8,${encodeURIComponent(asset.svg)}` }));
 
 async function loadFont(family, weight = 800, size = 28, sample = "PalPrints تصميم") {
     if (!document.fonts) return;
@@ -94,7 +182,7 @@ function renderImages() {
         const layer = container.querySelector(`[data-image-id="${image.id}"]`) || createImageLayer(image);
         const imageElement = layer.querySelector(".uploaded-image");
         if (imageElement.src !== image.url) imageElement.src = image.url;
-        imageElement.alt = `تصميم مرفوع ${index + 1}`;
+        imageElement.alt = image.name || `تصميم مرفوع ${index + 1}`;
         layer.classList.toggle("selected", image.id === state.selectedImageId);
         layer.style.zIndex = image.id === state.selectedImageId ? "2" : "1";
         layer.style.left = `${image.x}%`;
@@ -129,8 +217,24 @@ function selectedText() {
     return state.texts.find(text => text.id === state.selectedTextId) || null;
 }
 
+function selectedImage() {
+    return state.images.find(image => image.id === state.selectedImageId) || null;
+}
+
+function selectedComponent() {
+    return selectedText() || selectedImage();
+}
+
+function componentLayer(component = selectedComponent()) {
+    if (!component) return null;
+    if (state.texts.includes(component)) return $("textLayers").querySelector(`[data-text-id="${component.id}"]`);
+    return $("imageLayers").querySelector(`[data-image-id="${component.id}"]`);
+}
+
 function createText(content = "") {
-    return { id: state.nextTextId++, content, fontFamily: "Cairo", size: 28, color: "#6432f2", align: "center", letterSpacing: 0, lineHeight: 1.2, rotation: 0, x: 50, y: 50 };
+    const placements = [[50, 50], [36, 36], [64, 36], [36, 64], [64, 64]];
+    const [x, y] = placements[state.texts.length % placements.length];
+    return { id: state.nextTextId++, content, fontFamily: "Cairo", size: 28, color: "#6432f2", align: "center", letterSpacing: 0, lineHeight: 1.2, rotation: 0, x, y };
 }
 
 function ensureSelectedText() {
@@ -170,8 +274,16 @@ function fitTextLayer(text, layer) {
     layer.style.height = "auto";
     const layerStyles = getComputedStyle(layer);
     const verticalSpacing = Number.parseFloat(layerStyles.paddingTop) + Number.parseFloat(layerStyles.paddingBottom) + Number.parseFloat(layerStyles.borderTopWidth) + Number.parseFloat(layerStyles.borderBottomWidth);
-    const layerHeight = Math.min(Math.ceil(content.offsetHeight + verticalSpacing), Math.max(20, zone.clientHeight - 16));
+    const contentHeight = Math.ceil(content.getBoundingClientRect().height);
+    const layerHeight = Math.min(contentHeight + verticalSpacing + 2, Math.max(20, zone.clientHeight - 16));
     layer.style.height = `${layerHeight}px`;
+    if (zone.clientWidth > 0) {
+        text.previewMetrics = {
+            widthPercent: layerWidth / zone.clientWidth * 100,
+            fontSizePercent: Number(text.size) / zone.clientWidth * 100,
+            letterSpacingPercent: letterSpacing / zone.clientWidth * 100
+        };
+    }
 }
 
 function renderTexts() {
@@ -203,24 +315,18 @@ function renderTexts() {
         layer.style.top = `calc(${text.y}% - ${layer.offsetHeight / 2}px)`;
         layer.style.transform = `rotate(${text.rotation}deg)`;
     });
-    const text = selectedText();
-    if (text) {
-        $("positionX").value = Math.round(text.x);
-        $("positionY").value = Math.round(text.y);
-        $("rotation").value = text.rotation;
-    }
 }
 function renderProduct() {
-    $("canvasProductName").textContent = product.name;
     $("productName").value = product.name;
-    $("canvasVariant").textContent = `اللون: ${product.colorName[state.colorId] || product.colorName[product.colors[0].id]} · المقاس: ${state.sizeId}`;
     const productCanvas = $("productCanvas");
     if (product.canvasWidth) productCanvas.style.setProperty("--product-canvas-width", product.canvasWidth); else productCanvas.style.removeProperty("--product-canvas-width");
     if (product.canvasMobileWidth) productCanvas.style.setProperty("--product-canvas-mobile-width", product.canvasMobileWidth); else productCanvas.style.removeProperty("--product-canvas-mobile-width");
     const activeColor = product.colors.find(color => color.id === state.colorId) || product.colors[0];
-    $("productImage").src = activeColor.image || product.image;
-    $("productImage").alt = product.name;
+    const productImage = $("productImage");
     const area = activeArea();
+    productImage.src = (area.id === "front" && (activeColor.image || product.image)) || area.image || activeColor.image || product.image;
+    productImage.alt = `${product.name} - ${area.name}`;
+    if (productImage.complete && productImage.naturalWidth) updateProductAspectRatio();
     $("areaDimensions").textContent = area.dimensions;
     const printZone = $("printZone");
     printZone.style.top = product.printZone?.top || "";
@@ -234,12 +340,75 @@ function renderProduct() {
     const hasSelection = state.selectedImageId !== null || state.selectedTextId !== null;
     $("selectionActions").hidden = !hasSelection;
     $("selectionActionLabel").textContent = state.selectedImageId !== null ? "الصورة المحددة" : "النص المحدد";
+    syncTransformControls();
+}
+
+function updateProductAspectRatio() {
+    const image = $("productImage");
+    if (!image.naturalWidth || !image.naturalHeight) return;
+    const canvas = $("productCanvas");
+    canvas.style.setProperty("--product-aspect-ratio", `${image.naturalWidth} / ${image.naturalHeight}`);
+    fitProductToStage();
+}
+
+function fitProductToStage() {
+    const image = $("productImage");
+    const canvas = $("productCanvas");
+    const stage = $("canvasStage");
+    if (!image.naturalWidth || !image.naturalHeight || !stage.clientHeight) return;
+
+    canvas.style.removeProperty("--product-render-width");
+    const preferredWidth = canvas.offsetWidth;
+    const stageStyles = getComputedStyle(stage);
+    const availableHeight = stage.clientHeight
+        - parseFloat(stageStyles.paddingTop)
+        - parseFloat(stageStyles.paddingBottom);
+    const heightFitWidth = availableHeight * image.naturalWidth / image.naturalHeight;
+    canvas.style.setProperty("--product-render-width", `${Math.max(1, Math.min(preferredWidth, heightFitWidth))}px`);
 }
 function renderAreas() { const select = $("areaSelect"); select.innerHTML = product.areas.map(area => `<option value="${area.id}">${area.name}</option>`).join(""); select.value = state.areaId; }
 function renderColors() { $("swatches").innerHTML = product.colors.map(color => `<button class="swatch ${color.id === state.colorId ? "active" : ""}" type="button" data-color="${color.id}" style="background:${color.value}" aria-label="${product.colorName[color.id]}"></button>`).join(""); document.querySelectorAll("[data-color]").forEach(button => button.addEventListener("click", () => { state.colorId = button.dataset.color; renderColors(); renderProduct(); showToast(`تم اختيار اللون ${product.colorName[state.colorId]}`); })); }
 function renderSizes() { $("sizes").innerHTML = product.sizes.map(size => `<button class="size-button ${size === state.sizeId ? "active" : ""}" type="button" data-size="${size}">${size}</button>`).join(""); document.querySelectorAll("[data-size]").forEach(button => button.addEventListener("click", () => { state.sizeId = button.dataset.size; renderSizes(); renderProduct(); })); }
 
-function addDesign() { state.hasDesign = true; renderProduct(); showToast("تمت إضافة عنصر جاهز"); }
+function renderComponentsLibrary() {
+    $("componentsGrid").innerHTML = componentAssets.map(asset => `
+        <button class="component-thumbnail" type="button" data-component-id="${asset.id}" aria-label="إضافة ${asset.name}" title="${asset.name}">
+            <img src="${asset.src}" alt="">
+        </button>
+    `).join("");
+}
+
+function toggleComponentsLibrary(open) {
+    const library = $("componentsLibrary");
+    const button = $("elementsTool");
+    const menu = button.closest(".tool-menu");
+    library.hidden = !open;
+    button.setAttribute("aria-expanded", String(open));
+    menu.classList.toggle("open", open);
+}
+
+function addComponentAsset(asset) {
+    if (!asset) return;
+    const offset = (state.images.length % 5) * 3;
+    const image = {
+        id: state.nextImageId++,
+        name: asset.name,
+        componentId: asset.id,
+        url: asset.src,
+        x: clamp(50 + offset, 25, 75),
+        y: clamp(50 + offset, 25, 75),
+        width: 46,
+        height: 46,
+        rotation: 0
+    };
+    state.images.push(image);
+    state.selectedImageId = image.id;
+    state.selectedTextId = null;
+    state.zoneLabelHidden = true;
+    setDetailsMode("product");
+    renderProduct();
+    showToast(`تمت إضافة ${asset.name}`);
+}
 
 function syncTextControls(text = selectedText()) {
     const values = text || { content: "", fontFamily: "Cairo", size: 28, color: "#6432f2", align: "center", letterSpacing: 0, lineHeight: 1.2, rotation: 0, x: 50, y: 50 };
@@ -247,12 +416,11 @@ function syncTextControls(text = selectedText()) {
     $("fontFamily").value = values.fontFamily;
     $("fontFamily").style.setProperty("--selected-font", `"${values.fontFamily}"`);
     $("textSize").value = values.size;
+    $("textSizeNumber").value = values.size;
     $("textColor").value = values.color;
     $("letterSpacing").value = values.letterSpacing;
     $("lineHeight").value = values.lineHeight;
     $("rotation").value = values.rotation;
-    $("positionX").value = values.x;
-    $("positionY").value = values.y;
     document.querySelectorAll("[data-align]").forEach(button => button.classList.toggle("active", button.dataset.align === values.align));
 }
 
@@ -260,16 +428,23 @@ function openTextPanel(startNew = false) {
     if (startNew) {
         state.selectedTextId = null;
         state.selectedImageId = null;
+        const pendingText = [...state.texts].reverse().find(text => !text.content);
+        if (pendingText) state.selectedTextId = pendingText.id;
     } else if (!selectedText()) {
-        const latestText = [...state.texts].reverse().find(text => text.content);
+        const latestText = state.texts.at(-1);
         state.selectedTextId = latestText?.id || null;
         if (latestText) state.selectedImageId = null;
     }
+    const text = ensureSelectedText();
     state.zoneLabelHidden = true;
-    syncTextControls();
-    renderProduct();
     setDetailsMode("text");
-    $("textContent").focus();
+    syncTextControls(text);
+    renderProduct();
+    const detailsPanel = document.querySelector(".details-panel");
+    void detailsPanel.offsetHeight;
+    detailsPanel.scrollTop = 0;
+    requestAnimationFrame(() => { detailsPanel.scrollTop = 0; });
+    $("textContent").focus({ preventScroll: true });
 }
 
 function setDetailsMode(mode) {
@@ -289,12 +464,12 @@ function removeUploadedImage(imageId = state.selectedImageId) {
     const imageIndex = state.images.findIndex(image => image.id === imageId);
     if (imageIndex < 0) return;
     const [removedImage] = state.images.splice(imageIndex, 1);
-    if (!state.images.some(image => image.url === removedImage.url)) URL.revokeObjectURL(removedImage.url);
+    if (removedImage.url.startsWith("blob:") && !state.images.some(image => image.url === removedImage.url)) URL.revokeObjectURL(removedImage.url);
     state.selectedImageId = state.images.at(-1)?.id || null;
 }
 
 function clearUploadedImages() {
-    new Set(state.images.map(image => image.url)).forEach(url => URL.revokeObjectURL(url));
+    new Set(state.images.map(image => image.url).filter(url => url.startsWith("blob:"))).forEach(url => URL.revokeObjectURL(url));
     state.images = [];
     state.selectedImageId = null;
     $("imageUpload").value = "";
@@ -350,11 +525,33 @@ function deleteSelectedDesign() {
     showToast("حدد صورة أو نصاً أولاً");
 }
 
-document.querySelectorAll("[data-tool]").forEach(button => button.addEventListener("click", () => { state.tool = button.dataset.tool; document.querySelectorAll("[data-tool]").forEach(item => item.classList.toggle("active", item === button)); if (state.tool === "upload") $("imageUpload").click(); else if (state.tool === "text") openTextPanel(true); else addDesign(); }));
+document.querySelectorAll("[data-tool]").forEach(button => button.addEventListener("click", () => {
+    const tool = button.dataset.tool;
+    if (tool === "elements") {
+        const willOpen = $("componentsLibrary").hidden;
+        state.tool = willOpen ? tool : null;
+        document.querySelectorAll("[data-tool]").forEach(item => item.classList.toggle("active", item === button && willOpen));
+        toggleComponentsLibrary(willOpen);
+        if (willOpen) closeTextPanel();
+        return;
+    }
+    state.tool = tool;
+    toggleComponentsLibrary(false);
+    document.querySelectorAll("[data-tool]").forEach(item => item.classList.toggle("active", item === button));
+    if (tool === "upload") $("imageUpload").click();
+    else if (tool === "text") openTextPanel(true);
+}));
+$("componentsGrid").addEventListener("click", event => {
+    const thumbnail = event.target.closest("[data-component-id]");
+    if (!thumbnail) return;
+    addComponentAsset(componentAssets.find(asset => asset.id === thumbnail.dataset.componentId));
+});
 document.querySelectorAll("[data-details-mode]").forEach(button => button.addEventListener("click", () => { if (button.dataset.detailsMode === "text") openTextPanel(); else closeTextPanel(); }));
 $("textContent").addEventListener("input", event => { const text = ensureSelectedText(); text.content = event.target.value; renderProduct(); });
 $("fontFamily").addEventListener("change", async event => {
     const select = event.currentTarget;
+    const detailsPanel = select.closest(".details-panel");
+    const preservedScrollTop = detailsPanel?.scrollTop || 0;
     const nextFontFamily = select.value;
     const text = ensureSelectedText();
     const textId = text.id;
@@ -367,22 +564,35 @@ $("fontFamily").addEventListener("change", async event => {
         if (!targetText) return;
         targetText.fontFamily = nextFontFamily;
         if (state.selectedTextId === textId) select.style.setProperty("--selected-font", `"${nextFontFamily}"`);
-        renderProduct();
+        renderTexts();
+        syncTransformControls();
     } catch {
         if (requestId !== fontSelectionRequest) return;
         select.value = selectedText()?.fontFamily || "Cairo";
         showToast("تعذر تحميل الخط المحدد");
     } finally {
+        if (detailsPanel) {
+            detailsPanel.scrollTop = preservedScrollTop;
+            requestAnimationFrame(() => { detailsPanel.scrollTop = preservedScrollTop; });
+        }
         if (requestId === fontSelectionRequest) select.removeAttribute("aria-busy");
     }
 });
-$("textSize").addEventListener("input", event => { ensureSelectedText().size = event.target.value; renderProduct(); });
+function updateTextSize(value) {
+    const size = clamp(Number(value) || 12, 12, 64);
+    ensureSelectedText().size = size;
+    $("textSize").value = size;
+    $("textSizeNumber").value = size;
+    renderProduct();
+}
+$("textSize").addEventListener("input", event => updateTextSize(event.target.value));
+$("textSizeNumber").addEventListener("input", event => updateTextSize(event.target.value));
 $("textColor").addEventListener("input", event => { ensureSelectedText().color = event.target.value; renderProduct(); });
 $("letterSpacing").addEventListener("input", event => { ensureSelectedText().letterSpacing = event.target.value; renderProduct(); });
 $("lineHeight").addEventListener("input", event => { ensureSelectedText().lineHeight = event.target.value; renderProduct(); });
-$("rotation").addEventListener("input", event => { ensureSelectedText().rotation = event.target.value; renderProduct(); });
-$("positionX").addEventListener("input", event => { ensureSelectedText().x = clamp(Number(event.target.value), 0, 100); renderProduct(); });
-$("positionY").addEventListener("input", event => { ensureSelectedText().y = clamp(Number(event.target.value), 0, 100); renderProduct(); });
+$("rotation").addEventListener("input", event => applyComponentRotation(event.target.value, true));
+$("positionX").addEventListener("input", event => setComponentEdgeCoordinate("x", event.target.value));
+$("positionY").addEventListener("input", event => setComponentEdgeCoordinate("y", event.target.value));
 document.querySelectorAll("[data-align]").forEach(button => button.addEventListener("click", () => { const text = ensureSelectedText(); text.align = button.dataset.align; document.querySelectorAll("[data-align]").forEach(item => item.classList.toggle("active", item === button)); renderProduct(); }));
 $("addTextButton").addEventListener("click", () => { const text = ensureSelectedText(); text.content = $("textContent").value.trim() || "تصميمك"; $("textContent").value = text.content; renderProduct(); showToast("تمت إضافة النص إلى التصميم"); });
 $("duplicateText").addEventListener("click", duplicateSelectedDesign);
@@ -391,44 +601,181 @@ $("imageUpload").addEventListener("change", event => {
     const file = event.target.files[0];
     if (!file) return;
     if (!file.type.startsWith("image/")) { showToast("يرجى اختيار ملف صورة"); event.target.value = ""; return; }
-    const imageUrl = URL.createObjectURL(file);
-    const imageId = state.nextImageId++;
-    const offset = (state.images.length % 4) * 4;
-    const uploadedImage = { id: imageId, url: imageUrl, x: 50 + offset, y: 50 + offset, width: 70, height: 70, rotation: 0 };
-    state.images.push(uploadedImage);
-    state.selectedImageId = imageId;
-    state.selectedTextId = null;
-    setDetailsMode("product");
     event.target.value = "";
-    const imageProbe = new Image();
-    imageProbe.onload = () => {
-        const image = state.images.find(item => item.id === imageId && item.url === imageUrl);
-        if (!image) return;
-        const imageRatio = imageProbe.naturalWidth / imageProbe.naturalHeight;
-        image.width = imageRatio >= 1 ? 70 : 70 * imageRatio;
-        image.height = imageRatio >= 1 ? 70 / imageRatio : 70;
+    const reader = new FileReader();
+    reader.onerror = () => showToast("تعذر قراءة الصورة");
+    reader.onload = () => {
+        const imageUrl = String(reader.result);
+        const imageId = state.nextImageId++;
+        const offset = (state.images.length % 4) * 4;
+        const uploadedImage = { id: imageId, name: file.name, url: imageUrl, x: 50 + offset, y: 50 + offset, width: 70, height: 70, rotation: 0 };
+        state.images.push(uploadedImage);
+        state.selectedImageId = imageId;
+        state.selectedTextId = null;
+        setDetailsMode("product");
+        const imageProbe = new Image();
+        imageProbe.onload = () => {
+            const image = state.images.find(item => item.id === imageId && item.url === imageUrl);
+            if (!image) return;
+            const imageRatio = imageProbe.naturalWidth / imageProbe.naturalHeight;
+            image.width = imageRatio >= 1 ? 70 : 70 * imageRatio;
+            image.height = imageRatio >= 1 ? 70 / imageRatio : 70;
+            image.naturalWidth = imageProbe.naturalWidth;
+            image.naturalHeight = imageProbe.naturalHeight;
+            renderProduct();
+        };
+        imageProbe.onerror = () => {
+            if (!state.images.some(item => item.id === imageId && item.url === imageUrl)) return;
+            removeUploadedImage(imageId);
+            renderProduct();
+            showToast("تعذر تحميل الصورة");
+        };
+        imageProbe.src = imageUrl;
         renderProduct();
+        showToast("تمت إضافة الصورة");
     };
-    imageProbe.onerror = () => {
-        if (!state.images.some(item => item.id === imageId && item.url === imageUrl)) return;
-        removeUploadedImage(imageId);
-        renderProduct();
-        showToast("تعذر تحميل الصورة");
-    };
-    imageProbe.src = imageUrl;
-    renderProduct();
-    showToast("تمت إضافة الصورة");
+    reader.readAsDataURL(file);
 });
-$("areaSelect").addEventListener("change", event => { state.areaId = event.target.value; renderProduct(); });
+$("areaSelect").addEventListener("change", event => {
+    syncActiveAreaDesign();
+    state.areaId = event.target.value;
+    loadAreaDesign(state.areaId);
+    syncTextControls();
+    renderProduct();
+});
+$("productImage").addEventListener("load", updateProductAspectRatio);
+window.addEventListener("resize", fitProductToStage);
 $("zoomIn").addEventListener("click", () => { state.zoom = Math.min(1.4, state.zoom + .1); $("productCanvas").style.transform = `scale(${state.zoom})`; $("zoomValue").textContent = `${Math.round(state.zoom * 100)}%`; });
 $("zoomOut").addEventListener("click", () => { state.zoom = Math.max(.7, state.zoom - .1); $("productCanvas").style.transform = `scale(${state.zoom})`; $("zoomValue").textContent = `${Math.round(state.zoom * 100)}%`; });
 $("fitButton").addEventListener("click", () => { state.zoom = 1; $("productCanvas").style.transform = "scale(1)"; $("zoomValue").textContent = "100%"; });
-$("undoButton").addEventListener("click", () => { clearUploadedImages(); state.texts = []; state.selectedTextId = null; state.hasDesign = false; syncTextControls(); renderProduct(); showToast("تم التراجع"); });
+$("undoButton").addEventListener("click", () => { clearUploadedImages(); state.texts = []; state.selectedTextId = null; state.hasDesign = false; syncActiveAreaDesign(); syncTextControls(); renderProduct(); showToast("تم التراجع"); });
 $("redoButton").addEventListener("click", () => showToast("لا توجد تغييرات لإعادتها"));
-$("saveButton").addEventListener("click", () => { sessionStorage.setItem("palprintsDesignerState", JSON.stringify(state)); showToast("تم حفظ التصميم"); });
-$("previewButton").addEventListener("click", () => showToast("المعاينة جاهزة"));
+$("saveButton").addEventListener("click", () => { if (persistDesignerState()) showToast("تم حفظ التصميم"); });
+$("previewButton").addEventListener("click", () => {
+    if (!persistDesignerState()) return;
+    window.location.href = "review.html";
+});
 
 function clamp(value, minimum, maximum) { return Math.min(maximum, Math.max(minimum, value)); }
+
+function normalizeRotation(rotation) {
+    const normalized = Number(rotation) % 360;
+    return normalized < 0 ? normalized + 360 : normalized;
+}
+
+function rotatedLayerSize(layer, rotation) {
+    const angle = normalizeRotation(rotation) * Math.PI / 180;
+    const cosine = Math.abs(Math.cos(angle));
+    const sine = Math.abs(Math.sin(angle));
+    return {
+        width: layer.offsetWidth * cosine + layer.offsetHeight * sine,
+        height: layer.offsetWidth * sine + layer.offsetHeight * cosine
+    };
+}
+
+function rotationFitsPrintZone(component, layer, rotation) {
+    if (!component || !layer) return false;
+    const zone = $("printZone");
+    const bounds = rotatedLayerSize(layer, rotation);
+    const centerX = Number(component.x) * zone.clientWidth / 100;
+    const centerY = Number(component.y) * zone.clientHeight / 100;
+    const tolerance = .25;
+    return centerX - bounds.width / 2 >= -tolerance
+        && centerX + bounds.width / 2 <= zone.clientWidth + tolerance
+        && centerY - bounds.height / 2 >= -tolerance
+        && centerY + bounds.height / 2 <= zone.clientHeight + tolerance;
+}
+
+function componentEdgeCoordinates(component, layer) {
+    const zone = $("printZone");
+    const bounds = rotatedLayerSize(layer, component.rotation);
+    const rightGap = zone.clientWidth - (Number(component.x) * zone.clientWidth / 100 + bounds.width / 2);
+    const bottomGap = zone.clientHeight - (Number(component.y) * zone.clientHeight / 100 + bounds.height / 2);
+    return {
+        x: Math.max(0, rightGap / zone.clientWidth * 100),
+        y: Math.max(0, bottomGap / zone.clientHeight * 100),
+        maxX: Math.max(0, 100 - bounds.width / zone.clientWidth * 100),
+        maxY: Math.max(0, 100 - bounds.height / zone.clientHeight * 100)
+    };
+}
+
+function syncTransformControls() {
+    const component = selectedComponent();
+    const panel = $("componentTransformPanel");
+    const layer = componentLayer(component);
+    panel.hidden = !component || !layer || layer.hidden;
+    if (panel.hidden) return;
+    const coordinates = componentEdgeCoordinates(component, layer);
+    $("positionX").max = Math.floor(coordinates.maxX);
+    $("positionY").max = Math.floor(coordinates.maxY);
+    $("positionX").value = Math.round(coordinates.x);
+    $("positionY").value = Math.round(coordinates.y);
+    $("rotation").value = component.rotation;
+}
+
+function setComponentEdgeCoordinate(axis, value) {
+    const component = selectedComponent();
+    const layer = componentLayer(component);
+    if (!component || !layer) return;
+    const coordinates = componentEdgeCoordinates(component, layer);
+    const gap = clamp(Number(value) || 0, 0, axis === "x" ? coordinates.maxX : coordinates.maxY);
+    const zone = $("printZone");
+    const bounds = rotatedLayerSize(layer, component.rotation);
+    if (axis === "x") component.x = 100 - gap - bounds.width / zone.clientWidth * 50;
+    else component.y = 100 - gap - bounds.height / zone.clientHeight * 50;
+    renderProduct();
+}
+
+function applyComponentRotation(value, showBoundaryMessage = false) {
+    const component = selectedComponent();
+    const layer = componentLayer(component);
+    const nextRotation = Number(value);
+    if (!component || !layer || !Number.isFinite(nextRotation)) return;
+    if (!rotationFitsPrintZone(component, layer, nextRotation)) {
+        $("rotation").value = component.rotation;
+        if (showBoundaryMessage) showToast("لا يمكن تدوير العنصر خارج حدود منطقة الأمان");
+        return false;
+    }
+    component.rotation = nextRotation;
+    renderProduct();
+    return true;
+}
+
+function beginBoundedRotation(event, component, layerElement, afterRender = () => {}) {
+    event.preventDefault();
+    event.stopPropagation();
+    const layer = layerElement.getBoundingClientRect();
+    const centerX = layer.left + layer.width / 2;
+    const centerY = layer.top + layer.height / 2;
+    let previousPointerAngle = Math.atan2(event.clientY - centerY, event.clientX - centerX) * 180 / Math.PI;
+    let blockedDirection = 0;
+    const move = moveEvent => {
+        const pointerAngle = Math.atan2(moveEvent.clientY - centerY, moveEvent.clientX - centerX) * 180 / Math.PI;
+        let delta = pointerAngle - previousPointerAngle;
+        if (delta > 180) delta -= 360;
+        if (delta < -180) delta += 360;
+        previousPointerAngle = pointerAngle;
+        const direction = Math.sign(delta);
+        if (!direction) return;
+        if (blockedDirection && direction === blockedDirection) return;
+        if (blockedDirection && direction !== blockedDirection) blockedDirection = 0;
+        const candidate = normalizeRotation(Number(component.rotation) + delta);
+        if (!rotationFitsPrintZone(component, layerElement, candidate)) {
+            blockedDirection = direction;
+            return;
+        }
+        component.rotation = Math.round(candidate);
+        renderProduct();
+        afterRender();
+    };
+    const stop = () => {
+        window.removeEventListener("pointermove", move);
+        window.removeEventListener("pointerup", stop);
+    };
+    window.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", stop);
+    return stop;
+}
 
 function getPrintZoneBounds() {
     const zone = $("printZone");
@@ -445,9 +792,7 @@ function getPrintZoneBounds() {
 function constrainImagePosition(image, layer) {
     if (!image || !layer) return;
     const zone = $("printZone");
-    const angle = Math.abs(Number(image.rotation) * Math.PI / 180);
-    const rotatedWidth = Math.abs(layer.offsetWidth * Math.cos(angle)) + Math.abs(layer.offsetHeight * Math.sin(angle));
-    const rotatedHeight = Math.abs(layer.offsetWidth * Math.sin(angle)) + Math.abs(layer.offsetHeight * Math.cos(angle));
+    const { width: rotatedWidth, height: rotatedHeight } = rotatedLayerSize(layer, image.rotation);
     const horizontalPadding = Math.min(50, (rotatedWidth / zone.clientWidth) * 50);
     const verticalPadding = Math.min(50, (rotatedHeight / zone.clientHeight) * 50);
     image.x = clamp(Number(image.x), horizontalPadding, 100 - horizontalPadding);
@@ -457,11 +802,7 @@ function constrainImagePosition(image, layer) {
 function constrainTextPosition(text, layer) {
     if (!text || !layer) return;
     const zone = $("printZone");
-    const angle = Math.abs(Number(text.rotation) * Math.PI / 180);
-    const width = layer.offsetWidth;
-    const height = layer.offsetHeight;
-    const rotatedWidth = Math.abs(width * Math.cos(angle)) + Math.abs(height * Math.sin(angle));
-    const rotatedHeight = Math.abs(width * Math.sin(angle)) + Math.abs(height * Math.cos(angle));
+    const { width: rotatedWidth, height: rotatedHeight } = rotatedLayerSize(layer, text.rotation);
     const horizontalPadding = Math.min(50, (rotatedWidth / zone.clientWidth) * 50);
     const verticalPadding = Math.min(50, (rotatedHeight / zone.clientHeight) * 50);
     text.x = clamp(Number(text.x), horizontalPadding, 100 - horizontalPadding);
@@ -567,50 +908,49 @@ function beginImageResize(event, mode, image, layerElement) {
     window.addEventListener("pointerup", stop);
 }
 function beginImageRotation(event, image, layerElement) {
-    event.preventDefault();
-    event.stopPropagation();
-    const layer = layerElement.getBoundingClientRect();
-    const centerX = layer.left + layer.width / 2;
-    const centerY = layer.top + layer.height / 2;
-    const startAngle = Math.atan2(event.clientY - centerY, event.clientX - centerX) * 180 / Math.PI;
-    const startRotation = Number(image.rotation);
     updateImageOverlapIndicators(image.id);
-    const move = moveEvent => {
-        const angle = Math.atan2(moveEvent.clientY - centerY, moveEvent.clientX - centerX) * 180 / Math.PI;
-        image.rotation = Math.round(startRotation + angle - startAngle);
-        renderProduct();
-        updateImageOverlapIndicators(image.id);
-    };
-    const stop = () => { updateImageOverlapIndicators(); window.removeEventListener("pointermove", move); window.removeEventListener("pointerup", stop); };
-    window.addEventListener("pointermove", move);
-    window.addEventListener("pointerup", stop);
+    const stopRotation = beginBoundedRotation(event, image, layerElement, () => updateImageOverlapIndicators(image.id));
+    window.addEventListener("pointerup", () => { updateImageOverlapIndicators(); stopRotation(); }, { once: true });
 }
 document.addEventListener("keydown", event => {
     if ((state.selectedImageId === null && state.selectedTextId === null) || !["Delete", "Backspace"].includes(event.key) || event.target.closest("input, textarea, select")) return;
     event.preventDefault();
     deleteSelectedDesign();
 });
-window.addEventListener("beforeunload", () => { new Set(state.images.map(image => image.url)).forEach(url => URL.revokeObjectURL(url)); });
+window.addEventListener("beforeunload", () => { new Set(state.images.map(image => image.url).filter(url => url.startsWith("blob:"))).forEach(url => URL.revokeObjectURL(url)); });
 
 let textDragOffset = null;
 const textLayers = $("textLayers");
 textLayers.addEventListener("click", event => {
-    const layer = event.target.closest(".text-layer");
-    if (!layer) return;
-    event.stopPropagation();
-    state.selectedTextId = Number(layer.dataset.textId);
-    state.selectedImageId = null;
-    syncTextControls();
-    setDetailsMode("text");
-    renderProduct();
+    if (event.target.closest(".text-layer")) event.stopPropagation();
 });
+
+function selectableTextLayersAtPoint(clientX, clientY) {
+    return [...textLayers.querySelectorAll(".text-layer:not([hidden])")].reverse().filter(layer => {
+        const bounds = layer.getBoundingClientRect();
+        return clientX >= bounds.left && clientX <= bounds.right && clientY >= bounds.top && clientY <= bounds.bottom;
+    });
+}
+
+function textLayerForPointer(event, targetLayer) {
+    if (event.target.closest("[data-text-action]")) return targetLayer;
+    const candidates = selectableTextLayersAtPoint(event.clientX, event.clientY);
+    if (candidates.length < 2) return targetLayer;
+    const selectedIndex = candidates.findIndex(layer => Number(layer.dataset.textId) === state.selectedTextId);
+    return selectedIndex < 0 ? targetLayer : candidates[(selectedIndex + 1) % candidates.length];
+}
+
 textLayers.addEventListener("pointerdown", event => {
-    const layer = event.target.closest(".text-layer");
-    if (!layer) return;
+    const targetLayer = event.target.closest(".text-layer");
+    if (!targetLayer) return;
+    const layer = textLayerForPointer(event, targetLayer);
     const text = state.texts.find(item => item.id === Number(layer.dataset.textId));
     if (!text) return;
     state.selectedTextId = text.id;
     state.selectedImageId = null;
+    syncTextControls(text);
+    setDetailsMode("text");
+    renderProduct();
     if (event.target.closest('[data-text-action="rotate"]')) return beginTextRotation(event, text, layer);
     if (!event.target.closest(".text-content")) return;
     event.preventDefault();
@@ -619,15 +959,14 @@ textLayers.addEventListener("pointerdown", event => {
     const layerRect = layer.getBoundingClientRect();
     textDragOffset = { textId: text.id, x: event.clientX - (layerRect.left + layerRect.width / 2), y: event.clientY - (layerRect.top + layerRect.height / 2), zone };
     layer.setPointerCapture(event.pointerId);
-    renderProduct();
 });
 document.addEventListener("pointerdown", event => {
     let shouldRender = false;
-    if (!event.target.closest(".image-layer") && !event.target.closest("#selectionActions") && state.selectedImageId !== null) {
+    if (!event.target.closest(".image-layer") && !event.target.closest(".details-mode-toggle") && !event.target.closest("#componentTransformPanel") && !event.target.closest("#selectionActions") && state.selectedImageId !== null) {
         state.selectedImageId = null;
         shouldRender = true;
     }
-    if (!event.target.closest(".text-layer") && !event.target.closest("#textPanel") && !event.target.closest("#selectionActions") && state.selectedTextId !== null) {
+    if (!event.target.closest(".text-layer") && !event.target.closest(".details-mode-toggle") && !event.target.closest("#textPanel") && !event.target.closest("#componentTransformPanel") && !event.target.closest("#selectionActions") && state.selectedTextId !== null) {
         state.selectedTextId = null;
         shouldRender = true;
     }
@@ -656,17 +995,7 @@ function finishTextDrag(event) {
 textLayers.addEventListener("pointerup", finishTextDrag);
 textLayers.addEventListener("pointercancel", finishTextDrag);
 function beginTextRotation(event, text, layerElement) {
-    event.preventDefault();
-    event.stopPropagation();
-    const layer = layerElement.getBoundingClientRect();
-    const centerX = layer.left + layer.width / 2;
-    const centerY = layer.top + layer.height / 2;
-    const startAngle = Math.atan2(event.clientY - centerY, event.clientX - centerX) * 180 / Math.PI;
-    const startRotation = Number(text.rotation);
-    const move = moveEvent => { const angle = Math.atan2(moveEvent.clientY - centerY, moveEvent.clientX - centerX) * 180 / Math.PI; text.rotation = Math.round(startRotation + angle - startAngle); renderProduct(); };
-    const stop = () => { window.removeEventListener("pointermove", move); window.removeEventListener("pointerup", stop); };
-    window.addEventListener("pointermove", move);
-    window.addEventListener("pointerup", stop);
+    beginBoundedRotation(event, text, layerElement);
 }
 
-renderAreas(); renderColors(); renderSizes(); renderProduct(); revealDesignerAfterFontsLoad();
+renderAreas(); renderColors(); renderSizes(); renderComponentsLibrary(); renderProduct(); revealDesignerAfterFontsLoad();
