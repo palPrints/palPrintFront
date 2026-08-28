@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,11 +10,15 @@
         document.documentElement.classList.add("fonts-loading");
         window.palPrintsFontTimeout = window.setTimeout(() => document.documentElement.classList.remove("fonts-loading"), 3000);
     </script>
-    <link rel="preload" href="assets/fonts/Cairo-Variable.ttf" as="font" type="font/ttf" crossorigin>
-    <link rel="stylesheet" href="assets/fonts/fonts.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&amp;family=Almarai:wght@400;800&amp;family=Amiri:wght@400;700&amp;family=Aref+Ruqaa:wght@400;700&amp;family=Baloo+Bhaijaan+2:wght@400..800&amp;family=Cairo:wght@200..1000&amp;family=Changa:wght@200..800&amp;family=El+Messiri:wght@400..700&amp;family=Gulzar&amp;family=Harmattan:wght@400;700&amp;family=IBM+Plex+Sans+Arabic:wght@400;700&amp;family=Jomhuria&amp;family=Katibeh&amp;family=Lalezar&amp;family=Lateef:wght@400;800&amp;family=Lemonada:wght@300..700&amp;family=Mada:wght@200..900&amp;family=Marhey:wght@300..700&amp;family=Markazi+Text:wght@400..700&amp;family=Mirza:wght@400;700&amp;display=block">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@100..900&amp;family=Noto+Naskh+Arabic:wght@400..700&amp;family=Noto+Sans+Arabic:wght@100..900&amp;family=Rakkas&amp;family=Readex+Pro:wght@160..700&amp;family=Reem+Kufi:wght@400..700&amp;family=Rubik:wght@300..900&amp;family=Scheherazade+New:wght@400;700&amp;family=Tajawal:wght@400;800&amp;family=Vibes&amp;display=block">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Lato:wght@400;800&amp;family=Merriweather:wght@300..900&amp;family=Montserrat:wght@100..900&amp;family=Open+Sans:wght@300..800&amp;family=Oswald:wght@200..700&amp;family=Playfair+Display:wght@400..900&amp;family=Poppins:wght@400;800&amp;family=Raleway:wght@100..900&amp;family=Roboto:wght@100..900&amp;display=block">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="review.css">
+    <link rel="stylesheet" href="assets/css/review.css">
 </head>
+
 <body>
     <main class="review-shell">
         <header class="review-header">
@@ -25,8 +30,8 @@
                 </div>
             </div>
             <button class="back-button" id="backToEditor" type="button">
-                <i class="bi bi-arrow-right" aria-hidden="true"></i>
                 <span>رجوع للمحرر</span>
+                <i class="bi bi-arrow-left" aria-hidden="true"></i>
             </button>
         </header>
 
@@ -63,29 +68,45 @@
                         <button id="zoomOut" type="button" aria-label="تصغير"><i class="bi bi-dash-lg"></i></button>
                         <output id="zoomValue">100%</output>
                         <button id="zoomIn" type="button" aria-label="تكبير"><i class="bi bi-plus-lg"></i></button>
-                        <button class="fit-button" id="fitButton" type="button" aria-label="ملاءمة للشاشة"><i class="bi bi-fullscreen"></i></button>
+                        <button class="fit-button" id="fitButton" type="button" aria-label="ملاءمة للشاشة"><i
+                                class="bi bi-fullscreen"></i></button>
                     </div>
                 </div>
 
                 <section class="warnings-card" id="warningsCard" aria-labelledby="warningsTitle">
                     <div class="warnings-heading">
                         <span class="warning-icon"><i class="bi bi-shield-check" aria-hidden="true"></i></span>
-                        <div><h3 id="warningsTitle">فحص جودة التصميم</h3><p id="warningsSummary"></p></div>
+                        <div>
+                            <h3 id="warningsTitle">فحص جودة التصميم</h3>
+                            <p id="warningsSummary"></p>
+                        </div>
                     </div>
                     <ul id="warningsList"></ul>
                 </section>
 
                 <dl class="product-summary">
-                    <div><dt><i class="bi bi-tag" aria-hidden="true"></i> نوع المنتج</dt><dd id="productName"></dd></div>
-                    <div><dt><i class="bi bi-palette" aria-hidden="true"></i> اللون</dt><dd><span class="color-dot" id="colorDot"></span><span id="colorName"></span></dd></div>
-                    <div><dt><i class="bi bi-rulers" aria-hidden="true"></i> المقاس</dt><dd id="sizeName"></dd></div>
+                    <div>
+                        <dt><i class="bi bi-tag" aria-hidden="true"></i> نوع المنتج</dt>
+                        <dd id="productName"></dd>
+                    </div>
+                    <div>
+                        <dt><i class="bi bi-palette" aria-hidden="true"></i> اللون</dt>
+                        <dd><span class="color-dot" id="colorDot"></span><span id="colorName"></span></dd>
+                    </div>
+                    <div>
+                        <dt><i class="bi bi-rulers" aria-hidden="true"></i> المقاس</dt>
+                        <dd id="sizeName"></dd>
+                    </div>
                 </dl>
             </section>
 
             <aside class="publish-panel" aria-labelledby="publishTitle">
                 <div class="publish-heading">
                     <span><i class="bi bi-sliders" aria-hidden="true"></i></span>
-                    <div><h2 id="publishTitle">تفاصيل النشر</h2><p>أكمل البيانات المطلوبة للمتابعة</p></div>
+                    <div>
+                        <h2 id="publishTitle">تفاصيل النشر</h2>
+                        <p>أكمل البيانات المطلوبة للمتابعة</p>
+                    </div>
                 </div>
 
                 <label class="field-label" for="designName">
@@ -95,20 +116,26 @@
                 </label>
 
                 <section class="price-section" aria-labelledby="priceTitle">
-                    <div class="subheading"><h3 id="priceTitle">السعر</h3><span>حدّد هامش ربحك</span></div>
-                    <div class="price-row base-price"><span>تكلفة المنتج (الأساسية)</span><strong><bdi id="basePrice">0.00</bdi> <small>ر.س</small></strong></div>
+                    <div class="subheading">
+                        <h3 id="priceTitle">السعر</h3><span>حدّد هامش ربحك</span>
+                    </div>
+                    <div class="price-row base-price"><span>تكلفة المنتج (الأساسية)</span><strong><bdi
+                                id="basePrice">0.00</bdi> <small>ر.س</small></strong></div>
                     <label class="price-row selling-price" for="sellingPrice">
                         <span>سعر البيع <b aria-hidden="true">*</b></span>
-                        <span class="money-input"><input id="sellingPrice" type="number" min="0" step="1" inputmode="decimal"><small>ر.س</small></span>
+                        <span class="money-input"><input id="sellingPrice" type="number" min="0" step="1"
+                                inputmode="decimal"><small>ر.س</small></span>
                     </label>
-                    <div class="price-row profit-row"><span><i class="bi bi-graph-up-arrow" aria-hidden="true"></i> ربحك</span><strong><bdi id="profitValue">0.00</bdi> <small>ر.س</small></strong></div>
+                    <div class="price-row profit-row"><span><i class="bi bi-graph-up-arrow" aria-hidden="true"></i>
+                            ربحك</span><strong><bdi id="profitValue">0.00</bdi> <small>ر.س</small></strong></div>
                     <p class="field-error" id="priceError" role="alert"></p>
                 </section>
 
                 <label class="rights-check" for="rightsCheck">
                     <input id="rightsCheck" type="checkbox">
                     <span class="custom-check"><i class="bi bi-check-lg" aria-hidden="true"></i></span>
-                    <span><strong>أؤكد أنني أملك حق استخدام هذا التصميم</strong><small>أتحمل مسؤولية المحتوى وحقوق الملكية الفكرية.</small></span>
+                    <span><strong>أؤكد أنني أملك حق استخدام هذا التصميم</strong><small>أتحمل مسؤولية المحتوى وحقوق
+                            الملكية الفكرية.</small></span>
                 </label>
 
                 <div class="validation-note" id="validationNote" role="status" aria-live="polite"></div>
@@ -116,13 +143,16 @@
         </div>
 
         <footer class="review-footer">
-            <button class="save-draft-button" id="saveButton" type="button"><i class="bi bi-bookmark" aria-hidden="true"></i> حفظ كمسودة</button>
-            <button class="publish-button" id="publishButton" type="button"><span>متابعة وإرسال للمراجعة</span><i class="bi bi-arrow-left" aria-hidden="true"></i></button>
+            <button class="save-draft-button" id="saveButton" type="button"><i class="bi bi-bookmark"
+                    aria-hidden="true"></i> حفظ كمسودة</button>
+            <button class="publish-button" id="publishButton" type="button"><span>متابعة وإرسال للمراجعة</span><i
+                    class="bi bi-arrow-left" aria-hidden="true"></i></button>
         </footer>
     </main>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <div class="success-dialog" id="successDialog" role="dialog" aria-modal="true" aria-labelledby="successTitle" hidden>
+    <div class="success-dialog" id="successDialog" role="dialog" aria-modal="true" aria-labelledby="successTitle"
+        hidden>
         <div class="dialog-card">
             <span class="success-mark"><i class="bi bi-check2" aria-hidden="true"></i></span>
             <h2 id="successTitle">تم إرسال التصميم للمراجعة</h2>
@@ -130,6 +160,7 @@
             <button id="closeDialog" type="button">حسنًا</button>
         </div>
     </div>
-    <script src="review.js"></script>
+    <script src="assets/js/review.js"></script>
 </body>
+
 </html>

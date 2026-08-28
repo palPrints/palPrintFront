@@ -1,0 +1,3 @@
+# Local headless-browser profiles and visual test output
+.chrome-*/
+*-results.png
