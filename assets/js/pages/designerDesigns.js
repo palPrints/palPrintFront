@@ -307,7 +307,7 @@
         item.image ||
         item.previewImage ||
         item.thumbnail ||
-        "assets/file.png",
+        "assets/images/file.png",
       date: item.updatedAt || item.date || item.createdAt || "",
       previewUrl: item.previewUrl || "",
       editorUrl: item.editorUrl || ""

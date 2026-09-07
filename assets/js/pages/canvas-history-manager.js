@@ -3,11 +3,11 @@
  * Reusable undo/redo history for Fabric.js canvases.
  *
  * Browser usage:
- *   <script src="assets/js/utils/canvas-history-manager.js"></script>
+ *   <script src="assets/js/pages/canvas-history-manager.js"></script>
  *   const history = new CanvasHistoryManager(fabricCanvas);
  *
  * CommonJS usage:
- *   const CanvasHistoryManager = require('./assets/js/utils/canvas-history-manager.js');
+ *   const CanvasHistoryManager = require('./assets/js/pages/canvas-history-manager.js');
  */
 (function attachCanvasHistoryManager(root, factory) {
     const CanvasHistoryManager = factory(root);

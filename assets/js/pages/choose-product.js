@@ -466,28 +466,28 @@ const backendResponse = {
                     id: "faded-black",
                     name: "أسود باهت",
                     value: "#4A4A48",
-                    image: "assets/products/tshirt-2/tshirt-dyed-heavyweight-faded-black-removebg-preview.png"
+                    image: "assets/images/products1/tshirt-2/tshirt-dyed-heavyweight-faded-black-removebg-preview.png"
                 },
 
                 {
                     id: "faded-brown",
                     name: "بني باهت",
                     value: "#9B816A",
-                    image: "assets/products/tshirt-2/tshirt-dyed-heavyweight-faded-brown-removebg-preview.png"
+                    image: "assets/images/products1/tshirt-2/tshirt-dyed-heavyweight-faded-brown-removebg-preview.png"
                 },
 
                 {
                     id: "faded-cream",
                     name: "كريمي باهت",
                     value: "#F1EBDD",
-                    image: "assets/products/tshirt-2/tshirt-dyed-heavyweight-faded-cream-removebg-preview.png"
+                    image: "assets/images/products1/tshirt-2/tshirt-dyed-heavyweight-faded-cream-removebg-preview.png"
                 },
 
                 {
                     id: "faded-navy",
                     name: "كحلي باهت",
                     value: "#345775",
-                    image: "assets/products/tshirt-2/tshirt-dyed-heavyweight-faded-navy-removebg-preview.png"
+                    image: "assets/images/products1/tshirt-2/tshirt-dyed-heavyweight-faded-navy-removebg-preview.png"
                 }
 
             ],
@@ -508,7 +508,7 @@ const backendResponse = {
             ],
 
             thumbnail:
-                "assets/products/tshirt-2/tshirt-dyed-heavyweight-faded-black-removebg-preview.png"
+                "assets/images/products1/tshirt-2/tshirt-dyed-heavyweight-faded-black-removebg-preview.png"
         },
 
 
@@ -527,10 +527,10 @@ const backendResponse = {
             defaultColor: "black",
 
             colors: [
-                { id: "black", name: "أسود", value: "#171717", image: "assets/products/cap/cap-black-removebg-preview.png" },
-                { id: "navy", name: "كحلي", value: "#1D1E2B", image: "assets/products/cap/cap-navy-removebg-preview.png" },
-                { id: "storm", name: "رمادي فاتح", value: "#D3D3D3", image: "assets/products/cap/cap-storm-removebg-preview.png" },
-                { id: "walnut", name: "جوزي", value: "#786551", image: "assets/products/cap/cap-wallnut-removebg-preview.png" }
+                { id: "black", name: "أسود", value: "#171717", image: "assets/images/products1/cap/cap-black-removebg-preview.png" },
+                { id: "navy", name: "كحلي", value: "#1D1E2B", image: "assets/images/products1/cap/cap-navy-removebg-preview.png" },
+                { id: "storm", name: "رمادي فاتح", value: "#D3D3D3", image: "assets/images/products1/cap/cap-storm-removebg-preview.png" },
+                { id: "walnut", name: "جوزي", value: "#786551", image: "assets/images/products1/cap/cap-wallnut-removebg-preview.png" }
             ],
 
             sizes: [
@@ -542,7 +542,7 @@ const backendResponse = {
             ],
 
             thumbnail:
-                "assets/products/cap/cap-black-removebg-preview.png"
+                "assets/images/products1/cap/cap-black-removebg-preview.png"
         }
 
     ]

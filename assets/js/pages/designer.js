@@ -20,10 +20,10 @@ const catalog = {
         price: 49,
         colorName: { "faded-black": "أسود باهت", "faded-brown": "بني باهت", "faded-cream": "كريمي باهت", "faded-navy": "كحلي باهت" },
         colors: [
-            { id: "faded-black", value: "#4a4a48", image: "assets/products/tshirt-2/tshirt-dyed-heavyweight-faded-black-removebg-preview.png" },
-            { id: "faded-brown", value: "#9b816a", image: "assets/products/tshirt-2/tshirt-dyed-heavyweight-faded-brown-removebg-preview.png" },
-            { id: "faded-cream", value: "#f1ebdd", image: "assets/products/tshirt-2/tshirt-dyed-heavyweight-faded-cream-removebg-preview.png" },
-            { id: "faded-navy", value: "#345775", image: "assets/products/tshirt-2/tshirt-dyed-heavyweight-faded-navy-removebg-preview.png" }
+            { id: "faded-black", value: "#4a4a48", image: "assets/images/products1/tshirt-2/tshirt-dyed-heavyweight-faded-black-removebg-preview.png" },
+            { id: "faded-brown", value: "#9b816a", image: "assets/images/products1/tshirt-2/tshirt-dyed-heavyweight-faded-brown-removebg-preview.png" },
+            { id: "faded-cream", value: "#f1ebdd", image: "assets/images/products1/tshirt-2/tshirt-dyed-heavyweight-faded-cream-removebg-preview.png" },
+            { id: "faded-navy", value: "#345775", image: "assets/images/products1/tshirt-2/tshirt-dyed-heavyweight-faded-navy-removebg-preview.png" }
         ],
         sizes: ["S", "M", "L", "XL", "XXL"],
         areas: [{ id: "front", name: "الأمام", image: "assets/images/printing-areas/tshirt/tshirt-front-removebg-preview.png", dimensions: "28 × 36 سم" }, { id: "back", name: "الخلف", image: "assets/images/printing-areas/tshirt/tshirt-back-removebg-preview.png", dimensions: "28 × 36 سم" }, { id: "right-sleeve", name: "الكم الأيمن", image: "assets/images/printing-areas/tshirt/tshirt-rightSleeve-removebg-preview.png", dimensions: "10 × 12 سم" }, { id: "left-sleeve", name: "الكم الأيسر", image: "assets/images/printing-areas/tshirt/tshirt-leftSleeve-removebg-preview.png", dimensions: "10 × 12 سم" }],
@@ -36,10 +36,10 @@ const catalog = {
         price: 25,
         colorName: { black: "أسود", navy: "كحلي", storm: "رمادي فاتح", walnut: "جوزي" },
         colors: [
-            { id: "black", value: "#171717", image: "assets/products/cap/cap-black-removebg-preview.png" },
-            { id: "navy", value: "#1d1e2b", image: "assets/products/cap/cap-navy-removebg-preview.png" },
-            { id: "storm", value: "#d3d3d3", image: "assets/products/cap/cap-storm-removebg-preview.png" },
-            { id: "walnut", value: "#786551", image: "assets/products/cap/cap-wallnut-removebg-preview.png" }
+            { id: "black", value: "#171717", image: "assets/images/products1/cap/cap-black-removebg-preview.png" },
+            { id: "navy", value: "#1d1e2b", image: "assets/images/products1/cap/cap-navy-removebg-preview.png" },
+            { id: "storm", value: "#d3d3d3", image: "assets/images/products1/cap/cap-storm-removebg-preview.png" },
+            { id: "walnut", value: "#786551", image: "assets/images/products1/cap/cap-wallnut-removebg-preview.png" }
         ],
         sizes: ["قياسي"],
         areas: [{ id: "front", name: "الواجهة", dimensions: "18 × 8 سم" }],
