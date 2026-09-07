@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="متجر PalPrints للمنتجات الطباعية المخصصة">
+  <title>متجر PalPrints</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/pages/storefront.css?v=70">
+  <link rel="stylesheet" href="assets/css/pages/interactions.css?v=4">
+</head>
+<body class="storefront-page">
+  <a class="skip-link" href="#mainContent">تخطي إلى المحتوى</a>
+
+  <header class="store-header">
+    <div class="container-palprints store-header__inner">
+      <button type="button" class="icon-button sidebar-toggle" id="sidebarToggle" aria-label="فتح القائمة الجانبية" aria-expanded="false" aria-controls="storeSidebar">
+        <i class="bi bi-list" aria-hidden="true"></i>
+      </button>
+
+      <form class="store-search" id="productSearchForm" role="search">
+        <span class="store-search__icon" aria-hidden="true">
+          <i class="bi bi-search"></i>
+        </span>
+        <input type="search" id="productSearch" placeholder="ابحث عن منتج..." aria-label="ابحث عن منتج" autocomplete="off" aria-controls="productGrid">
+      </form>
+
+      <div class="store-header__actions" aria-label="إجراءات الحساب">
+        <button type="button" class="icon-button" aria-label="سلة التسوق">
+          <i class="bi bi-cart3" aria-hidden="true"></i>
+          <span class="icon-badge" aria-hidden="true">2</span>
+        </button>
+        <div class="profile-menu">
+          <button type="button" class="icon-button" id="profileMenuToggle" aria-label="الملف الشخصي" aria-expanded="false" aria-controls="profileDropdown">
+            <i class="bi bi-person" aria-hidden="true"></i>
+          </button>
+          <div class="profile-dropdown" id="profileDropdown" hidden>
+            <a href="#" class="profile-dropdown__item"><i class="bi bi-person-circle" aria-hidden="true"></i><span>الملف الشخصي</span></a>
+            <a href="#" class="profile-dropdown__item"><i class="bi bi-heart" aria-hidden="true"></i><span>المفضلة</span></a>
+            <button type="button" class="profile-dropdown__item profile-dropdown__logout"><i class="bi bi-box-arrow-right" aria-hidden="true"></i><span>تسجيل الخروج</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="sidebar-backdrop" id="sidebarBackdrop" hidden></div>
+  <aside class="store-sidebar is-collapsed" id="storeSidebar" aria-label="القائمة الجانبية" aria-hidden="true">
+    <div class="store-sidebar__header">
+      <a class="store-brand" href="storefront.html" aria-label="PalPrints">
+        <span class="store-brand__wordmark" aria-hidden="true"><span>PAL</span><strong>PRINTS</strong></span>
+      </a>
+      <button type="button" class="icon-button sidebar-close" id="sidebarClose" aria-label="إغلاق القائمة الجانبية">
+        <i class="bi bi-x-lg" aria-hidden="true"></i>
+      </button>
+    </div>
+    <nav class="store-sidebar__nav" aria-label="روابط الحساب">
+      <a href="storefront.html" class="store-sidebar__item active pal-pressable" aria-current="page"><i class="bi bi-shop" aria-hidden="true"></i><span>متجر PalPrint</span></a>
+      <a href="custProfile.html" class="store-sidebar__item pal-pressable"><i class="bi bi-person" aria-hidden="true"></i><span>الملف الشخصي</span></a>
+      <a href="custProfile.html#currentOrderSection" class="store-sidebar__item pal-pressable"><i class="bi bi-bag" aria-hidden="true"></i><span>طلباتي</span></a>
+      <a href="custProfile.html#activitySection" class="store-sidebar__item pal-pressable"><i class="bi bi-heart" aria-hidden="true"></i><span>المفضلة</span></a>
+      <a href="custProfile.html#preferencesSection" class="store-sidebar__item pal-pressable"><i class="bi bi-gear" aria-hidden="true"></i><span>الإعدادات</span></a>
+      <a href="custProfile.html#profileMain" class="store-sidebar__item pal-pressable"><i class="bi bi-headset" aria-hidden="true"></i><span>الدعم الفني</span></a>
+    </nav>
+    <div class="store-sidebar__divider" aria-hidden="true"></div>
+    <button type="button" class="store-sidebar__logout pal-pressable" id="storeSidebarLogout" data-href="login.html"><i class="bi bi-box-arrow-left" aria-hidden="true"></i><span>تسجيل الخروج</span></button>
+  </aside>
+
+  <main id="mainContent" class="store-main">
+    <section class="hero-section section-space">
+      <div class="container-palprints hero-grid">
+        <div class="hero-visual">
+          <img src="assets/images/palprints-hero-collage.png" alt="منتجات PalPrints وتطبيقاتها" class="hero-visual__image">
+        </div>
+        <div class="hero-copy hero-copy--card">
+          <h1><span>متجر</span><strong>PalPrints</strong></h1>
+          <p class="hero-copy__text"><span class="hero-copy__line hero-copy__line--dark">منتجات عالية الجودة تناسب كل احتياجاتك</span><br><span class="hero-copy__line hero-copy__line--accent">اطلب الآن واطبع بطريقتك الخاصة</span></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="products" class="section-space products-section">
+      <div class="container-palprints">
+        <div class="section-heading">
+          <h2>تصفح منتجات متجرنا</h2>
+          <p>اختر المنتج المناسب لك واستكشف التصاميم المتاحة عليه</p>
+        </div>
+
+        <div class="products-grid" id="productGrid">
+          <article class="product-card" data-category="clothing" data-product="shirt" data-order="1">
+            <div class="product-card__media">
+              <img src="assets/images/products/1.png" alt="تيشيرت">
+            </div>
+            <div class="product-card__body">
+              <h3>تيشيرت</h3>
+              <p>تصاميم مخصصة بطباعة واضحة ومظهر يومي أنيق.</p>
+            </div>
+          </article>
+          <article class="product-card" data-category="clothing" data-product="hoodie" data-order="2">
+            <div class="product-card__media">
+              <img src="assets/images/products/2.png" alt="هودي">
+            </div>
+            <div class="product-card__body">
+              <h3>هودي</h3>
+              <p>خيار مريح بطباعة مميزة يناسب الاستخدام اليومي.</p>
+            </div>
+          </article>
+          <article class="product-card" data-category="clothing" data-product="cap" data-order="6" data-available="false">
+            <div class="product-card__media">
+              <img src="assets/images/products/3.png" alt="قبعات">
+            </div>
+            <div class="product-card__body">
+              <h3>قبعات</h3>
+              <p>قبعات بطابع بسيط مع إمكانية تخصيص التصميم.</p>
+            </div>
+          </article>
+          <article class="product-card" data-category="accessories" data-product="bag" data-order="7" data-available="false">
+            <div class="product-card__media">
+              <img src="assets/images/products/4.png" alt="حقائب">
+            </div>
+            <div class="product-card__body">
+              <h3>حقائب</h3>
+              <p>حقائب عملية بتصاميم مطبوعة تناسب الهدايا والاستخدام.</p>
+            </div>
+          </article>
+          <article class="product-card" data-category="accessories" data-product="scarf" data-order="8" data-available="false">
+            <div class="product-card__media">
+              <img src="assets/images/products/5.png" alt="وشاحات">
+            </div>
+            <div class="product-card__body">
+              <h3>وشاحات</h3>
+              <p>وشاحات بطباعة خاصة ولمسة ناعمة تناسب المناسبات.</p>
+            </div>
+          </article>
+          <article class="product-card" data-category="accessories" data-product="phone-case" data-order="9" data-available="false">
+            <div class="product-card__media">
+              <img src="assets/images/products/6.png" alt="كفرات موبايل">
+            </div>
+            <div class="product-card__body">
+              <h3>كفرات موبايل</h3>
+              <p>حماية أنيقة للموبايل مع تصاميم قابلة للتخصيص.</p>
+            </div>
+          </article>
+          <article class="product-card" data-category="drinkware" data-product="cups" data-order="5">
+            <div class="product-card__media">
+              <img src="assets/images/products/7.png" alt="اكواب">
+            </div>
+            <div class="product-card__body">
+              <h3>اكواب</h3>
+              <p>أكواب مطبوعة بجودة عالية تناسب البيت والعمل.</p>
+            </div>
+          </article>
+          <article class="product-card" data-category="office" data-product="paper" data-order="3">
+            <div class="product-card__media">
+              <img src="assets/images/products/8.png" alt="طباعة ورق">
+            </div>
+            <div class="product-card__body">
+              <h3>طباعة ورق</h3>
+              <p>طباعة ورق متنوعة للتغليف والعرض بطباعة مرتبة وأنيقة.</p>
+            </div>
+          </article>
+          <article class="product-card" data-category="office" data-product="notebooks" data-order="10" data-available="false">
+            <div class="product-card__media">
+              <img src="assets/images/products/9.png" alt="دفاتر">
+            </div>
+            <div class="product-card__body">
+              <h3>دفاتر</h3>
+              <p>دفاتر بتصميم خاص تناسب الدراسة والعمل والهدايا.</p>
+            </div>
+          </article>
+          <article class="product-card" data-category="office" data-product="posters" data-order="11" data-available="false">
+            <div class="product-card__media">
+              <img src="assets/images/products/10.png" alt="بوسترات">
+            </div>
+            <div class="product-card__body">
+              <h3>بوسترات</h3>
+              <p>بوسترات مطبوعة بجودة واضحة لعرض الأفكار والديكور.</p>
+            </div>
+          </article>
+          <article class="product-card" data-category="office" data-product="stickers" data-order="4">
+            <div class="product-card__media">
+              <img src="assets/images/products/11.png" alt="ستيكرات">
+            </div>
+            <div class="product-card__body">
+              <h3>ستيكرات</h3>
+              <p>ستيكرات مخصصة بأشكال متعددة ولمسات جذابة.</p>
+            </div>
+          </article>
+          <article class="product-card" data-category="office" data-product="wedding-cards" data-order="12" data-available="false">
+            <div class="product-card__media">
+              <img src="assets/images/products/12.png" alt="كروت افراح">
+            </div>
+            <div class="product-card__body">
+              <h3>كروت افراح</h3>
+              <p>كروت أفراح بتصاميم فخمة تناسب المناسبات الخاصة.</p>
+            </div>
+          </article>
+        </div>
+        <p class="products-empty" id="productsEmpty" role="status" aria-live="polite" hidden>لا توجد منتجات مطابقة لبحثك.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="store-footer">
+    <div class="store-footer__inner">
+      <div class="store-footer__brand">
+        <a href="storefront.html" class="store-footer__logo-link" aria-label="PalPrints">
+          <span class="store-footer__wordmark" aria-hidden="true"><span>PAL</span><strong>PRINTS</strong></span>
+        </a>
+        <p>منتجات مطبوعة بتصاميم مميزة وجودة تناسب ذوقك.</p>
+        <div class="store-footer__social" aria-label="حسابات التواصل الاجتماعي">
+          <a href="#" aria-label="Instagram"><i class="bi bi-instagram" aria-hidden="true"></i></a>
+          <a href="#" aria-label="Facebook"><i class="bi bi-facebook" aria-hidden="true"></i></a>
+          <a href="#" aria-label="TikTok"><i class="bi bi-tiktok" aria-hidden="true"></i></a>
+        </div>
+      </div>
+      <div class="store-footer__column">
+        <h2>المتجر</h2>
+        <a href="#products">كل المنتجات</a>
+        <a href="#products">الملابس</a>
+        <a href="#products">الإكسسوارات</a>
+      </div>
+      <div class="store-footer__column">
+        <h2>حسابك</h2>
+        <a href="custProfile.html">الملف الشخصي</a>
+        <a href="#">طلباتي</a>
+        <a href="#">المفضلة</a>
+      </div>
+      <div class="store-footer__column">
+        <h2>المساعدة</h2>
+        <a href="#">الدعم الفني</a>
+        <a href="#">سياسة الخصوصية</a>
+        <a href="#">الشروط والأحكام</a>
+      </div>
+    </div>
+    <div class="store-footer__bottom">
+      <p>© 2026 PalPrints. جميع الحقوق محفوظة.</p>
+      <span>صُنع بحب للطباعة والإبداع</span>
+    </div>
+  </footer>
+
+  <script src="assets/js/pages/storefront.js?v=17"></script>
+  <script src="assets/js/pages/interactions.js?v=4"></script>
+</body>
+</html>
