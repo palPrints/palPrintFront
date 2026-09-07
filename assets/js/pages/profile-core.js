@@ -75,6 +75,13 @@
 
   const mobileScreen = window.matchMedia("(max-width: 991.98px)");
 
+  /* يمكن للصفحات الجديدة تخصيص بداية القائمة دون تغيير السلوك
+     الافتراضي لصفحات الملف الشخصي الحالية. */
+  const sidebarSettings = {
+    desktopInitial: "stored",
+    persist: true
+  };
+
   /* =======================================================
      الترجمة
      =======================================================
@@ -321,7 +328,10 @@
         document.body.style.overflow = "hidden";
       } else {
         this.app.classList.remove("sidebar-collapsed");
-        writeStorage(STORAGE.sidebar, "false");
+
+        if (sidebarSettings.persist) {
+          writeStorage(STORAGE.sidebar, "false");
+        }
       }
 
       this.sync();
@@ -337,7 +347,10 @@
         document.body.style.overflow = "";
       } else {
         this.app.classList.add("sidebar-collapsed");
-        writeStorage(STORAGE.sidebar, "true");
+
+        if (sidebarSettings.persist) {
+          writeStorage(STORAGE.sidebar, "true");
+        }
       }
 
       this.sync();
@@ -404,6 +417,8 @@
 
       if (this.isMobile()) {
         /* على الهاتف لا يوجد طيّ — القائمة منزلقة */
+        this.app.classList.remove("sidebar-collapsed");
+      } else if (sidebarSettings.desktopInitial === "open") {
         this.app.classList.remove("sidebar-collapsed");
       } else if (readStorage(STORAGE.sidebar) === "true") {
         this.app.classList.add("sidebar-collapsed");
@@ -1007,6 +1022,15 @@
 
   function init(options) {
     const settings = options || {};
+
+    if (settings.sidebar) {
+      sidebarSettings.desktopInitial =
+        settings.sidebar.desktopInitial === "open" ? "open" : "stored";
+      sidebarSettings.persist = settings.sidebar.persist !== false;
+    } else {
+      sidebarSettings.desktopInitial = "stored";
+      sidebarSettings.persist = true;
+    }
 
     if (settings.dictionary) {
       registerDictionary(settings.dictionary);
