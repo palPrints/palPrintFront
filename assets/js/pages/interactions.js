@@ -48,6 +48,7 @@
     ".btn",
     ".btn-brand",
     ".btn-brand-outline",
+    ".pal-pressable",
     "button",
     "[role='button']"
   ].join(",");
