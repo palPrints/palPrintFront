@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-bs-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="عاين منتجك المخصص واختر اللون والمقاس ومناطق الطباعة قبل إضافته إلى السلة">
+  <title>معاينة المنتج | PalPrints</title>
+
+  <link rel="stylesheet" href="assets/icons/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="assets/css/pages/profile-core.css?v=14">
+  <link rel="stylesheet" href="assets/css/pages/storefront.css?v=78">
+  <link rel="stylesheet" href="assets/css/pages/interactions.css?v=4">
+  <link rel="stylesheet" href="assets/css/pages/productPreview.css?v=2">
+</head>
+
+<body class="storefront-page product-preview-page" data-authenticated="true" data-sidebar-default-open>
+  <a class="skip-link" href="#productPreviewMain">تخطي إلى المحتوى</a>
+
+  <header class="store-header">
+    <div class="container-palprints store-header__inner">
+      <button type="button" class="icon-button sidebar-toggle" id="sidebarToggle" aria-label="فتح القائمة الجانبية" aria-expanded="false" aria-controls="storeSidebar">
+        <i class="bi bi-list" aria-hidden="true"></i>
+      </button>
+      <form class="store-search" id="productSearchForm" role="search" action="storefront.html">
+        <span class="store-search__icon" aria-hidden="true"><i class="bi bi-search"></i></span>
+        <input type="search" id="productSearch" name="q" placeholder="ابحث عن منتج..." aria-label="ابحث عن منتج" autocomplete="off">
+      </form>
+      <div class="store-header__actions" aria-label="إجراءات الحساب">
+        <a class="icon-button" href="cart.html" aria-label="سلة التسوق"><i class="bi bi-cart3" aria-hidden="true"></i><span class="icon-badge" id="cartBadge" aria-hidden="true">0</span></a>
+        <div class="notifications-menu">
+          <button type="button" class="icon-button notifications-button" id="notificationsToggle" aria-label="الإشعارات" aria-expanded="false" aria-controls="notificationsPanel"><i class="bi bi-bell" aria-hidden="true"></i><span class="icon-badge notifications-badge" aria-hidden="true" hidden>0</span></button>
+          <div class="notifications-panel" id="notificationsPanel" hidden>
+            <div class="notifications-panel__header"><strong>الإشعارات</strong><button type="button" class="notifications-clear">مسح الكل</button></div>
+            <div class="notifications-list"></div><p class="notifications-empty">لا توجد إشعارات جديدة</p>
+          </div>
+        </div>
+        <div class="profile-menu">
+          <button type="button" class="icon-button" id="profileMenuToggle" aria-label="الملف الشخصي" aria-expanded="false" aria-controls="profileDropdown"><i class="bi bi-person" aria-hidden="true"></i></button>
+          <div class="profile-dropdown" id="profileDropdown" hidden>
+            <a href="custProfile.html" class="profile-dropdown__item"><i class="bi bi-person-circle" aria-hidden="true"></i><span>الملف الشخصي</span></a>
+            <a href="custProfile.html#activitySection" class="profile-dropdown__item"><i class="bi bi-heart" aria-hidden="true"></i><span>المفضلة</span></a>
+            <button type="button" class="profile-dropdown__item profile-dropdown__logout"><i class="bi bi-box-arrow-right" aria-hidden="true"></i><span>تسجيل الخروج</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="sidebar-backdrop" id="sidebarBackdrop" hidden></div>
+  <aside class="store-sidebar is-collapsed" id="storeSidebar" aria-label="القائمة الجانبية" aria-hidden="true">
+    <div class="store-sidebar__header">
+      <a class="store-brand" href="storefront.html" aria-label="PalPrints"><span class="store-brand__logo-frame" aria-hidden="true"><img class="palprints-approved-logo" src="assets/images/palprints-wordmark-approved.png" alt=""></span></a>
+      <button type="button" class="icon-button sidebar-close" id="sidebarClose" aria-label="إغلاق القائمة الجانبية"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+    </div>
+    <nav class="store-sidebar__nav" aria-label="روابط الحساب">
+      <a href="storefront.html" class="store-sidebar__item active pal-pressable" aria-current="page"><i class="bi bi-shop" aria-hidden="true"></i><span>متجر PalPrint</span></a>
+      <a href="custProfile.html" class="store-sidebar__item pal-pressable"><i class="bi bi-person" aria-hidden="true"></i><span>الملف الشخصي</span></a>
+      <a href="custProfile.html#currentOrderSection" class="store-sidebar__item pal-pressable"><i class="bi bi-bag" aria-hidden="true"></i><span>طلباتي</span></a>
+      <a href="custProfile.html#activitySection" class="store-sidebar__item pal-pressable"><i class="bi bi-heart" aria-hidden="true"></i><span>المفضلة</span></a>
+      <a href="custProfile.html#preferencesSection" class="store-sidebar__item pal-pressable"><i class="bi bi-gear" aria-hidden="true"></i><span>الإعدادات</span></a>
+      <a href="custProfile.html#profileMain" class="store-sidebar__item pal-pressable"><i class="bi bi-headset" aria-hidden="true"></i><span>الدعم الفني</span></a>
+    </nav>
+    <div class="store-sidebar__divider" aria-hidden="true"></div>
+    <button type="button" class="store-sidebar__logout pal-pressable" id="storeSidebarLogout" data-href="login.html"><i class="bi bi-box-arrow-left" aria-hidden="true"></i><span>تسجيل الخروج</span></button>
+  </aside>
+
+  <main class="store-main product-preview-main" id="productPreviewMain">
+    <div class="product-preview-container">
+      <header class="preview-page-heading">
+        <ol class="preview-breadcrumb" aria-label="مسار التنقل">
+          <li><a href="index.html">الرئيسية</a></li>
+          <li><a href="storefront.html#products">المنتجات</a></li>
+          <li><a href="hoodies.html">هودي</a></li>
+          <li aria-current="page"><span>معاينة المنتج</span></li>
+        </ol>
+        <div class="preview-title-row">
+          <span class="preview-heading-icon" aria-hidden="true"><i class="bi bi-eye"></i></span>
+          <div>
+            <h1>معاينة المنتج</h1>
+            <p>راجع الشكل النهائي واختياراتك، ثم أضف المنتج إلى سلتك بثقة.</p>
+          </div>
+        </div>
+      </header>
+
+      <div class="preview-layout">
+        <section class="product-preview-card" aria-labelledby="visualPreviewTitle">
+          <header class="preview-card-heading">
+            <div>
+              <h2 id="visualPreviewTitle">شاهد تصميمك على المنتج</h2>
+            </div>
+          </header>
+
+          <div class="product-gallery">
+            <div class="view-tabs" id="viewTabs" role="tablist" aria-label="واجهات المنتج"></div>
+
+            <div class="product-stage" id="productStage">
+              <span class="current-view-badge" id="currentViewBadge"></span>
+              <div class="product-canvas" id="productCanvas" aria-live="polite">
+                <img class="preview-product-image" id="productImage" alt="">
+                <div class="preview-design-placement" id="designPlacement" aria-hidden="true">
+                  <div class="preview-design-art" id="designArt"></div>
+                </div>
+                <div class="preview-image-placeholder" id="imagePlaceholder" hidden>
+                  <i class="bi bi-image" aria-hidden="true"></i>
+                  <strong>تعذّر تحميل صورة المنتج</strong>
+                  <span>جرّب اختيار واجهة أخرى.</span>
+                </div>
+              </div>
+
+              <div class="preview-controls" aria-label="أدوات تكبير المعاينة">
+                <button type="button" id="zoomOut" aria-label="تصغير المعاينة"><i class="bi bi-zoom-out" aria-hidden="true"></i></button>
+                <output id="zoomValue" aria-live="polite">100%</output>
+                <button type="button" id="zoomIn" aria-label="تكبير المعاينة"><i class="bi bi-zoom-in" aria-hidden="true"></i></button>
+                <span class="controls-divider" aria-hidden="true"></span>
+                <button type="button" id="fitPreview" aria-label="ملاءمة المعاينة"><i class="bi bi-arrows-angle-contract" aria-hidden="true"></i></button>
+                <button type="button" id="openFullscreen" aria-label="فتح المعاينة بكامل الشاشة"><i class="bi bi-fullscreen" aria-hidden="true"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="screen-color-note">
+            <i class="bi bi-info-circle-fill" aria-hidden="true"></i>
+            <div><strong>معاينة قريبة من النتيجة النهائية</strong><span>قد تختلف درجة اللون قليلًا بين الشاشة والمنتج المطبوع.</span></div>
+          </div>
+          <ul class="customer-warnings" id="customerWarnings" role="status" hidden></ul>
+        </section>
+
+        <aside class="product-summary-card" aria-labelledby="summaryTitle">
+          <div class="summary-product-head">
+            <span class="summary-product-icon"><i class="bi bi-bag-heart" aria-hidden="true"></i></span>
+            <div><h2 id="summaryTitle"></h2><p id="designMeta"></p></div>
+          </div>
+
+          <fieldset class="preview-option-group">
+            <legend><span><i class="bi bi-palette" aria-hidden="true"></i> اللون</span><strong id="selectedColorName"></strong></legend>
+            <div class="color-options" id="colorOptions"></div>
+          </fieldset>
+
+          <fieldset class="preview-option-group">
+            <legend><span><i class="bi bi-rulers" aria-hidden="true"></i> المقاس</span><strong id="selectedSizeName"></strong></legend>
+            <div class="size-options" id="sizeOptions"></div>
+          </fieldset>
+
+          <section class="quantity-section" aria-labelledby="quantityTitle">
+            <div><span class="option-label" id="quantityTitle"><i class="bi bi-copy" aria-hidden="true"></i> الكمية</span><small>الحد الأقصى 99 قطعة</small></div>
+            <div class="quantity-control">
+              <button type="button" id="decreaseQuantity" aria-label="تقليل الكمية"><i class="bi bi-dash-lg" aria-hidden="true"></i></button>
+              <output id="quantityValue">1</output>
+              <button type="button" id="increaseQuantity" aria-label="زيادة الكمية"><i class="bi bi-plus-lg" aria-hidden="true"></i></button>
+            </div>
+          </section>
+
+          <fieldset class="preview-option-group print-area-group">
+            <legend><span><i class="bi bi-printer" aria-hidden="true"></i> مناطق الطباعة</span><small>اختر منطقة واحدة على الأقل</small></legend>
+            <div class="print-area-options" id="printAreaOptions"></div>
+            <p class="option-error" id="printAreaError" role="alert"></p>
+          </fieldset>
+
+          <section class="price-card" aria-labelledby="priceTitle">
+            <div class="price-card-title"><span><i class="bi bi-receipt" aria-hidden="true"></i><strong id="priceTitle">تفاصيل السعر</strong></span><small>لا يشمل التوصيل</small></div>
+            <div class="price-breakdown" id="priceBreakdown"></div>
+            <div class="price-total"><span>الإجمالي</span><strong id="totalPrice" dir="ltr">—</strong></div>
+          </section>
+
+          <p class="summary-validation" id="summaryValidation" role="status" aria-live="polite"></p>
+          <button type="button" class="preview-button is-primary" id="addToCartButton"><i class="bi bi-cart-plus" aria-hidden="true"></i><span>إضافة إلى السلة</span></button>
+          <a class="preview-button is-secondary" href="hoodies.html"><i class="bi bi-arrow-right" aria-hidden="true"></i><span>العودة إلى تصاميم الهودي</span></a>
+          <p class="summary-help"><i class="bi bi-headset" aria-hidden="true"></i> تحتاج مساعدة؟ تواصل مع الدعم الفني</p>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <footer class="store-footer">
+    <div class="store-footer__inner">
+      <div class="store-footer__brand">
+        <a href="storefront.html" class="store-footer__logo-link" aria-label="PalPrints"><span class="store-footer__logo-frame" aria-hidden="true"><img class="palprints-approved-logo" src="assets/images/palprints-wordmark-approved.png" alt=""></span></a>
+        <p>منتجات مطبوعة بتصاميم مميزة وجودة تناسب ذوقك.</p>
+        <div class="store-footer__social" aria-label="حسابات التواصل الاجتماعي">
+          <a href="#" aria-label="Instagram"><i class="bi bi-instagram" aria-hidden="true"></i></a>
+          <a href="#" aria-label="Facebook"><i class="bi bi-facebook" aria-hidden="true"></i></a>
+          <a href="#" aria-label="TikTok"><i class="bi bi-tiktok" aria-hidden="true"></i></a>
+        </div>
+      </div>
+      <div class="store-footer__column"><h2>المتجر</h2><a href="storefront.html">كل المنتجات</a><a href="storefront.html#products">الملابس</a><a href="storefront.html#products">الإكسسوارات</a></div>
+      <div class="store-footer__column"><h2>حسابك</h2><a href="custProfile.html">الملف الشخصي</a><a href="custProfile.html#currentOrderSection">طلباتي</a><a href="custProfile.html#activitySection">المفضلة</a></div>
+      <div class="store-footer__column"><h2>المساعدة</h2><a href="custProfile.html#profileMain">الدعم الفني</a><a href="#">سياسة الخصوصية</a><a href="#">الشروط والأحكام</a></div>
+    </div>
+    <div class="store-footer__bottom"><p>© 2026 PalPrints. جميع الحقوق محفوظة.</p><span>صُنع بحب للطباعة والإبداع</span></div>
+  </footer>
+
+  <div class="preview-mobile-bar" id="previewMobileBar">
+    <div><span>الإجمالي</span><strong id="mobileTotalPrice" dir="ltr">—</strong></div>
+    <button type="button" class="preview-button is-primary" id="mobileAddToCart"><i class="bi bi-cart-plus" aria-hidden="true"></i><span>إضافة إلى السلة</span></button>
+  </div>
+
+  <dialog class="fullscreen-preview-dialog" id="fullscreenDialog" aria-labelledby="fullscreenTitle">
+    <header>
+      <div><span>معاينة مكبرة</span><h2 id="fullscreenTitle"></h2></div>
+      <button type="button" id="closeFullscreen" aria-label="إغلاق المعاينة المكبرة"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+    </header>
+    <div class="fullscreen-stage" id="fullscreenStage"></div>
+  </dialog>
+
+  <div class="preview-toast" id="previewToast" role="status" aria-live="polite"><span class="preview-toast-icon"><i class="bi bi-check2" aria-hidden="true"></i></span><span id="previewToastMessage"></span></div>
+
+  <script src="assets/js/pages/profile-core.js?v=5"></script>
+  <script src="assets/js/pages/storefront.js?v=21"></script>
+  <script src="assets/js/pages/interactions.js?v=4"></script>
+  <script src="assets/js/pages/productPreview.js?v=1"></script>
+</body>
+</html>
