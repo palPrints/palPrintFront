@@ -81,19 +81,6 @@ html[data-bs-theme="dark"] body.hoodies-page::before {
 .catalog-back i { transition: transform .18s ease; }
 .catalog-back:hover { color: #fff; background: var(--store-primary); box-shadow: 0 6px 16px rgb(22 119 255 / 24%); transform: translateY(-2px); }
 .catalog-back:hover i { transform: translateX(-3px); }
-.hoodies-page .icon-button.sidebar-toggle,
-.hoodies-page .icon-button.sidebar-toggle:hover,
-.hoodies-page .icon-button.sidebar-toggle:active,
-.hoodies-page .icon-button.sidebar-toggle:focus,
-.hoodies-page .icon-button.sidebar-toggle:focus-visible,
-.hoodies-page .icon-button.sidebar-toggle[aria-expanded="true"] { background: transparent !important; border-color: transparent !important; border-radius: 0 !important; box-shadow: none !important; outline: 0 !important; transform: none !important; }
-.hoodies-page .icon-button.sidebar-toggle > i { color: var(--store-primary) !important; animation: none !important; transition: color .18s ease, transform .18s ease; }
-.hoodies-page .icon-button.sidebar-toggle:hover > i,
-.hoodies-page .icon-button.sidebar-toggle:focus-visible > i { color: var(--store-primary-hover) !important; transform: scale(1.16) !important; }
-.hoodies-page .icon-button.sidebar-toggle:active > i { transform: scale(.92) !important; }
-.hoodies-page .icon-button.sidebar-toggle[aria-expanded="true"]:hover > i,
-.hoodies-page .icon-button.sidebar-toggle[aria-expanded="true"]:focus-visible > i { color: #e5384f !important; }
-.hoodies-page .icon-button.sidebar-toggle .pal-ripple { display: none; }
 .catalog-heading { text-align: center; padding: 8px 0 22px; }
 .catalog-heading h1 { display: flex; justify-content: center; align-items: center; gap: 15px; margin: 0; color: var(--store-navy); font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 800; }
 .catalog-heading h1 img { width: 46px; height: 46px; padding: 8px; background: transparent; }

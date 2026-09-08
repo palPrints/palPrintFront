@@ -105,12 +105,20 @@
       }, 2800);
     };
 
+    const ringNotificationBell = () => {
+      notificationsToggle.classList.remove("has-new-notification");
+      void notificationsToggle.offsetWidth;
+      notificationsToggle.classList.add("has-new-notification");
+      window.setTimeout(() => notificationsToggle.classList.remove("has-new-notification"), 800);
+    };
+
     window.PalPrintNotifications = {
       add(message, icon = "bell") {
         notifications.unshift({ message, icon, unread: true, createdAt: Date.now() });
         notifications = notifications.slice(0, 20);
         saveNotifications();
         renderNotifications();
+        ringNotificationBell();
         showToast(message);
       }
     };

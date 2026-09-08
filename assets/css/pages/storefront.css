@@ -207,6 +207,45 @@ body.storefront-page {
   font-size: 19px;
 }
 
+.storefront-page .icon-button.sidebar-toggle,
+.storefront-page .icon-button.sidebar-toggle:hover,
+.storefront-page .icon-button.sidebar-toggle:active,
+.storefront-page .icon-button.sidebar-toggle:focus,
+.storefront-page .icon-button.sidebar-toggle:focus-visible,
+.storefront-page .icon-button.sidebar-toggle[aria-expanded="true"] {
+  background: transparent !important;
+  border-color: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  outline: 0 !important;
+  transform: none !important;
+}
+
+.storefront-page .icon-button.sidebar-toggle > i {
+  color: var(--store-primary) !important;
+  animation: none !important;
+  transition: color .18s ease, transform .18s ease;
+}
+
+.storefront-page .icon-button.sidebar-toggle:hover > i,
+.storefront-page .icon-button.sidebar-toggle:focus-visible > i {
+  color: var(--store-primary-hover) !important;
+  transform: scale(1.16) !important;
+}
+
+.storefront-page .icon-button.sidebar-toggle:active > i {
+  transform: scale(.92) !important;
+}
+
+.storefront-page .icon-button.sidebar-toggle[aria-expanded="true"]:hover > i,
+.storefront-page .icon-button.sidebar-toggle[aria-expanded="true"]:focus-visible > i {
+  color: #e5384f !important;
+}
+
+.storefront-page .icon-button.sidebar-toggle .pal-ripple {
+  display: none;
+}
+
 .store-sidebar__nav {
   flex: 1 1 auto;
   min-height: 0;
@@ -469,6 +508,11 @@ body.storefront-page {
 
 .notifications-menu {
   position: relative;
+}
+
+.storefront-page .notifications-button.has-new-notification > .bi-bell {
+  transform-origin: top center;
+  animation: palBellRing .72s ease;
 }
 
 .notifications-badge[hidden],
@@ -1771,6 +1815,25 @@ body.storefront-page {
 
 .storefront-page .icon-button.pal-pressable {
   overflow: visible;
+}
+
+/* Header account actions stay icon-only in every interaction state. */
+.storefront-page .store-header .sidebar-toggle:hover,
+.storefront-page .store-header .sidebar-toggle:focus,
+.storefront-page .store-header .sidebar-toggle:focus-visible,
+.storefront-page .store-header .sidebar-toggle:active,
+.storefront-page .store-header .sidebar-toggle.is-pressed,
+.storefront-page .store-header .sidebar-toggle[aria-expanded="true"],
+.storefront-page .store-header__actions .icon-button:hover,
+.storefront-page .store-header__actions .icon-button:focus,
+.storefront-page .store-header__actions .icon-button:focus-visible,
+.storefront-page .store-header__actions .icon-button:active,
+.storefront-page .store-header__actions .icon-button.is-pressed,
+.storefront-page .store-header__actions .icon-button[aria-expanded="true"] {
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  outline: 0 !important;
 }
 
 .storefront-page .product-card[data-product="hoodie"] .product-card__media img.is-hover-image {
