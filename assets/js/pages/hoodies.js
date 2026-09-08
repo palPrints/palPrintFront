@@ -10,9 +10,9 @@
     { id: "smile", category: "kids", title: "هودي أطفال", description: "ابتسم دائماً", designer: "Rana H.", tone: "cream", icon: "emoji-laughing", print: "KEEP<br>SMILING" },
     { id: "create", category: "adults", title: "هودي رجال / نساء", description: "اصنع قصتك", designer: "Khaled N.", tone: "black", icon: "stars", print: "CREATE<br>YOUR STORY" }
   ];
+  const previewPageUrl = "product-preview.html";
   const grid = document.getElementById("productGrid");
   const search = document.getElementById("productSearch");
-  const dialog = document.getElementById("hoodieDialog");
   const filters = [...document.querySelectorAll("[data-filter]")];
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   let entranceComplete = reducedMotion;
@@ -110,14 +110,10 @@
     }
     const preview = event.target.closest("[data-preview]");
     if (preview) {
-      const product = products.find(item => item.id === preview.dataset.preview);
-      document.getElementById("previewContent").innerHTML = `${media(product)}<h2 id="previewTitle">${product.title}</h2><p>${product.description} · <bdi>${product.designer}</bdi></p><strong>يبدأ من <bdi>$20</bdi></strong><p>معاينة توضيحية للتصميم على الهودي.</p>`;
-      dialog.showModal();
+      const target = new URL(previewPageUrl, window.location.href);
+      target.searchParams.set("id", preview.dataset.preview);
+      window.location.href = target.href;
     }
-  });
-  dialog.addEventListener("click", event => {
-    const rect = dialog.getBoundingClientRect();
-    if (event.target === dialog && (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom)) dialog.close();
   });
   render();
 
