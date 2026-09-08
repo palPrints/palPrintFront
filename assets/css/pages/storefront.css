@@ -19,6 +19,13 @@
    ========================================================= */
 
 body.storefront-page {
+  --pal-cyan: #12bfd0;
+  --pal-blue: #168fdf;
+  --pal-indigo: #5266e9;
+  --pal-page-bg: #fcfdff;
+  --pal-surface: #fff;
+  --pal-border: #e8eaf2;
+
   /* ألوان الهوية الثلاثة */
   --store-navy: #0b1f3a;
   --store-primary: #1677ff;
@@ -48,13 +55,55 @@ body.storefront-page {
   --store-sidebar-inset: 14px;
   --store-sidebar-clearance: 34px;
 
-  background:
-    radial-gradient(circle at 12% 8%, rgb(226 214 255 / 55%), transparent 38%),
-    radial-gradient(circle at 88% 10%, rgb(206 231 255 / 55%), transparent 38%),
-    radial-gradient(circle at 78% 78%, rgb(248 229 255 / 45%), transparent 38%),
-    linear-gradient(145deg, #f9f9ff 0%, #f3f6ff 46%, #faf7ff 100%);
+  background: var(--pal-page-bg);
   color: var(--store-navy);
   font-family: "Cairo", sans-serif;
+}
+
+body.storefront-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 10% 6%, rgb(18 191 208 / 6%), transparent 40%),
+    radial-gradient(circle at 92% 4%, rgb(22 143 223 / 5%), transparent 42%),
+    radial-gradient(circle at 82% 84%, rgb(18 191 208 / 4%), transparent 44%),
+    radial-gradient(circle at 4% 92%, rgb(22 143 223 / 4%), transparent 40%),
+    linear-gradient(140deg, #fff 0%, #fbfdff 50%, #fdffff 100%);
+}
+
+body.storefront-page::after {
+  content: "";
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: 3000;
+  height: 3px;
+  pointer-events: none;
+  background: linear-gradient(100deg, var(--pal-cyan) 0%, var(--pal-blue) 55%, var(--pal-indigo) 100%);
+}
+
+html[data-bs-theme="dark"] body.storefront-page {
+  --pal-page-bg: #080d1c;
+  --pal-surface: #11182b;
+  --pal-border: #2b3650;
+}
+
+html[data-bs-theme="dark"] body.storefront-page::before {
+  background:
+    radial-gradient(circle at 10% 6%, rgb(18 191 208 / 10%), transparent 40%),
+    radial-gradient(circle at 92% 4%, rgb(22 143 223 / 11%), transparent 42%),
+    radial-gradient(circle at 82% 84%, rgb(18 191 208 / 9%), transparent 44%),
+    radial-gradient(circle at 4% 92%, rgb(22 143 223 / 8%), transparent 40%),
+    linear-gradient(140deg, #080d1c 0%, #091226 48%, #0a1524 100%);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  body.storefront-page::before {
+    transition: background .3s ease;
+  }
 }
 
 /* =========================================================
