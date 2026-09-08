@@ -10,6 +10,7 @@
     { id: "smile", category: "kids", title: "هودي أطفال", description: "ابتسم دائماً", designer: "Rana H.", tone: "cream", icon: "emoji-laughing", print: "KEEP<br>SMILING" },
     { id: "create", category: "adults", title: "هودي رجال / نساء", description: "اصنع قصتك", designer: "Khaled N.", tone: "black", icon: "stars", print: "CREATE<br>YOUR STORY" }
   ];
+  const previewPageUrl = "product-preview.html";
   const grid = document.getElementById("productGrid");
   const search = document.getElementById("productSearch");
   const filters = [...document.querySelectorAll("[data-filter]")];
