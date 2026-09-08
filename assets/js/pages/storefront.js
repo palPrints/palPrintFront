@@ -387,3 +387,134 @@
 
   applyFilters();
 })();
+
+(function () {
+  "use strict";
+
+  const toggle = document.getElementById("notificationsToggle");
+  const panel = document.getElementById("notificationsPanel");
+  const badge = document.querySelector(".notifications-badge");
+  const list = document.querySelector(".notifications-list");
+  const empty = document.querySelector(".notifications-empty");
+  const clear = document.querySelector(".notifications-clear");
+  const profileToggle = document.getElementById("profileMenuToggle");
+  const profilePanel = document.getElementById("profileDropdown");
+
+  if (!toggle || !panel || !badge || !list || !empty) return;
+
+  const storageKey = "palprints-store-notifications";
+  let notifications = [];
+  let toastTimer = 0;
+
+  try {
+    const saved = JSON.parse(localStorage.getItem(storageKey) || "[]");
+    if (Array.isArray(saved)) notifications = saved.slice(0, 20);
+  } catch (_) { /* Keep notifications for this session only. */ }
+
+  const save = () => {
+    try { localStorage.setItem(storageKey, JSON.stringify(notifications)); }
+    catch (_) { /* Keep notifications for this session only. */ }
+  };
+
+  const render = () => {
+    list.replaceChildren();
+
+    notifications.forEach((notification) => {
+      const item = document.createElement("div");
+      const icon = document.createElement("i");
+      const content = document.createElement("div");
+      const message = document.createElement("p");
+      const time = document.createElement("time");
+
+      item.className = "notification-item";
+      icon.className = `bi bi-${notification.icon || "bell"}`;
+      icon.setAttribute("aria-hidden", "true");
+      message.textContent = notification.message;
+      time.textContent = "الآن";
+      content.append(message, time);
+      item.append(icon, content);
+      list.append(item);
+    });
+
+    const unread = notifications.filter((notification) => notification.unread).length;
+    badge.textContent = unread > 99 ? "99+" : String(unread);
+    badge.hidden = unread === 0;
+    empty.hidden = notifications.length > 0;
+    toggle.setAttribute("aria-label", unread ? `الإشعارات، ${unread} جديدة` : "الإشعارات");
+  };
+
+  const ring = () => {
+    toggle.classList.remove("has-new-notification");
+    void toggle.offsetWidth;
+    toggle.classList.add("has-new-notification");
+    window.setTimeout(() => toggle.classList.remove("has-new-notification"), 800);
+  };
+
+  const showToast = (message) => {
+    document.querySelector(".store-notification-toast")?.remove();
+    window.clearTimeout(toastTimer);
+    const toast = document.createElement("div");
+    toast.className = "store-notification-toast";
+    toast.setAttribute("role", "status");
+    toast.innerHTML = '<i class="bi bi-heart-fill" aria-hidden="true"></i><span></span>';
+    toast.querySelector("span").textContent = message;
+    document.body.append(toast);
+    requestAnimationFrame(() => toast.classList.add("is-visible"));
+    toastTimer = window.setTimeout(() => {
+      toast.classList.remove("is-visible");
+      window.setTimeout(() => toast.remove(), 300);
+    }, 2800);
+  };
+
+  window.PalPrintNotifications = {
+    add(message, icon = "bell") {
+      notifications.unshift({ message, icon, unread: true, createdAt: Date.now() });
+      notifications = notifications.slice(0, 20);
+      save();
+      render();
+      ring();
+      showToast(message);
+    }
+  };
+
+  toggle.addEventListener("click", (event) => {
+    event.stopPropagation();
+    const open = panel.hidden;
+    panel.hidden = !open;
+    toggle.setAttribute("aria-expanded", String(open));
+    if (!open) return;
+    if (profilePanel && profileToggle) {
+      profilePanel.hidden = true;
+      profileToggle.setAttribute("aria-expanded", "false");
+    }
+    notifications.forEach((notification) => { notification.unread = false; });
+    save();
+    render();
+  });
+
+  profileToggle?.addEventListener("click", () => {
+    panel.hidden = true;
+    toggle.setAttribute("aria-expanded", "false");
+  });
+
+  clear?.addEventListener("click", () => {
+    notifications = [];
+    save();
+    render();
+  });
+
+  document.addEventListener("click", (event) => {
+    if (event.target.closest(".notifications-menu")) return;
+    panel.hidden = true;
+    toggle.setAttribute("aria-expanded", "false");
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape" || panel.hidden) return;
+    panel.hidden = true;
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.focus();
+  });
+
+  render();
+})();
