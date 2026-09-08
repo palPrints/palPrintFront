@@ -20,6 +20,12 @@
   const submenus = [...document.querySelectorAll(".category-submenu")];
   const profileMenuToggle = document.getElementById("profileMenuToggle");
   const profileDropdown = document.getElementById("profileDropdown");
+  const notificationsToggle = document.getElementById("notificationsToggle");
+  const notificationsPanel = document.getElementById("notificationsPanel");
+  const notificationsBadge = document.querySelector(".notifications-badge");
+  const notificationsList = document.querySelector(".notifications-list");
+  const notificationsEmpty = document.querySelector(".notifications-empty");
+  const notificationsClear = document.querySelector(".notifications-clear");
   const sidebarToggle = document.getElementById("sidebarToggle");
   const sidebarClose = document.getElementById("sidebarClose");
   const storeSidebar = document.getElementById("storeSidebar");
@@ -37,12 +43,135 @@
 
   if (!form || !input || !grid || !emptyState) return;
 
+  if (notificationsToggle && notificationsPanel && notificationsBadge && notificationsList && notificationsEmpty) {
+    const storageKey = "palprints-store-notifications";
+    let notifications = [];
+    let toastTimer = 0;
+
+    try {
+      const savedNotifications = JSON.parse(localStorage.getItem(storageKey) || "[]");
+      if (Array.isArray(savedNotifications)) notifications = savedNotifications.slice(0, 20);
+    } catch (_) { /* Notifications remain available for this session. */ }
+
+    const saveNotifications = () => {
+      try { localStorage.setItem(storageKey, JSON.stringify(notifications)); }
+      catch (_) { /* Session-only fallback. */ }
+    };
+
+    const renderNotifications = () => {
+      notificationsList.replaceChildren();
+
+      notifications.forEach((notification) => {
+        const item = document.createElement("div");
+        const icon = document.createElement("i");
+        const content = document.createElement("div");
+        const message = document.createElement("p");
+        const time = document.createElement("time");
+
+        item.className = "notification-item";
+        icon.className = `bi bi-${notification.icon || "bell"}`;
+        icon.setAttribute("aria-hidden", "true");
+        message.textContent = notification.message;
+        time.dateTime = new Date(notification.createdAt).toISOString();
+        time.textContent = new Intl.DateTimeFormat("ar", { hour: "numeric", minute: "2-digit" }).format(notification.createdAt);
+        content.append(message, time);
+        item.append(icon, content);
+        notificationsList.append(item);
+      });
+
+      const unreadCount = notifications.filter((notification) => notification.unread).length;
+      notificationsBadge.textContent = unreadCount > 99 ? "99+" : String(unreadCount);
+      notificationsBadge.hidden = unreadCount === 0;
+      notificationsEmpty.hidden = notifications.length > 0;
+      notificationsToggle.setAttribute("aria-label", unreadCount ? `الإشعارات، ${unreadCount} جديدة` : "الإشعارات");
+    };
+
+    const showToast = (message) => {
+      document.querySelector(".store-notification-toast")?.remove();
+      window.clearTimeout(toastTimer);
+
+      const toast = document.createElement("div");
+      toast.className = "store-notification-toast";
+      toast.setAttribute("role", "status");
+      toast.setAttribute("aria-live", "polite");
+      toast.innerHTML = '<i class="bi bi-heart-fill" aria-hidden="true"></i><span></span>';
+      toast.querySelector("span").textContent = message;
+      document.body.append(toast);
+      requestAnimationFrame(() => toast.classList.add("is-visible"));
+
+      toastTimer = window.setTimeout(() => {
+        toast.classList.remove("is-visible");
+        window.setTimeout(() => toast.remove(), 300);
+      }, 2800);
+    };
+
+    const ringNotificationBell = () => {
+      notificationsToggle.classList.remove("has-new-notification");
+      void notificationsToggle.offsetWidth;
+      notificationsToggle.classList.add("has-new-notification");
+      window.setTimeout(() => notificationsToggle.classList.remove("has-new-notification"), 800);
+    };
+
+    window.PalPrintNotifications = {
+      add(message, icon = "bell") {
+        notifications.unshift({ message, icon, unread: true, createdAt: Date.now() });
+        notifications = notifications.slice(0, 20);
+        saveNotifications();
+        renderNotifications();
+        ringNotificationBell();
+        showToast(message);
+      }
+    };
+
+    notificationsToggle.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const willOpen = notificationsPanel.hidden;
+      notificationsPanel.hidden = !willOpen;
+      notificationsToggle.setAttribute("aria-expanded", String(willOpen));
+
+      if (willOpen) {
+        if (profileDropdown && profileMenuToggle) {
+          profileDropdown.hidden = true;
+          profileMenuToggle.setAttribute("aria-expanded", "false");
+        }
+        notifications.forEach((notification) => { notification.unread = false; });
+        saveNotifications();
+        renderNotifications();
+      }
+    });
+
+    notificationsClear?.addEventListener("click", () => {
+      notifications = [];
+      saveNotifications();
+      renderNotifications();
+    });
+
+    document.addEventListener("click", (event) => {
+      if (event.target.closest(".notifications-menu")) return;
+      notificationsPanel.hidden = true;
+      notificationsToggle.setAttribute("aria-expanded", "false");
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape" || notificationsPanel.hidden) return;
+      notificationsPanel.hidden = true;
+      notificationsToggle.setAttribute("aria-expanded", "false");
+      notificationsToggle.focus();
+    });
+
+    renderNotifications();
+  }
+
   if (profileMenuToggle && profileDropdown) {
     profileMenuToggle.addEventListener("click", (event) => {
       event.stopPropagation();
       const isOpen = profileMenuToggle.getAttribute("aria-expanded") === "true";
       profileMenuToggle.setAttribute("aria-expanded", String(!isOpen));
       profileDropdown.hidden = isOpen;
+      if (!isOpen && notificationsPanel && notificationsToggle) {
+        notificationsPanel.hidden = true;
+        notificationsToggle.setAttribute("aria-expanded", "false");
+      }
     });
 
     document.addEventListener("click", (event) => {
@@ -52,7 +181,7 @@
     });
 
     document.addEventListener("keydown", (event) => {
-      if (event.key !== "Escape") return;
+      if (event.key !== "Escape" || profileDropdown.hidden) return;
       profileDropdown.hidden = true;
       profileMenuToggle.setAttribute("aria-expanded", "false");
       profileMenuToggle.focus();
@@ -157,6 +286,9 @@
 
     syncSidebar();
   }
+
+  // Category pages reuse the store shell and provide their own catalog behavior.
+  if (document.body.classList.contains("hoodies-page")) return;
 
   const normalize = (value) => value
     .toLocaleLowerCase("ar")
