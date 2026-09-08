@@ -17,12 +17,12 @@ document.addEventListener("DOMContentLoaded", function () {
       stepOne: "الخطوة 1 من 4", stepTwo: "الخطوة 2 من 4", stepThree: "الخطوة 3 من 4", stepFour: "الخطوة 4 من 4",
       uploadTitle: "ابدأ برفع ملفاتك", uploadDescription: "سنحلل الصفحات أولًا حتى تكون الخصائص والسعر أدق.", dropFiles: "اسحب ملفاتك إلى هنا", dropOrChoose: "أو اخترها من جهازك لبدء المعالجة", chooseFiles: "اختيار الملفات", sizeLimit: "50MB لكل ملف", filesLimit: "10 ملفات / 500 صفحة", uploadedFiles: "الملفات المرفوعة", addMore: "إضافة ملفات", continueToPrint: "متابعة إلى خصائص الطباعة",
       printOptionsTitle: "اختر خصائص الطباعة", printOptionsDescription: "تطبّق هذه الخصائص على جميع الملفات، ويمكنك تخصيص أي ملف لاحقًا.", generalSettings: "الإعداد العام", allFilesUseGeneral: "سيُطبق على جميع الملفات", applyToAll: "تطبيق العام على الجميع", required: "مطلوب", paperSize: "حجم الورق", paperType: "نوع الورق", standardPaper: "عادي 80 جم", standardPaperHint: "للمستندات اليومية", thickPaper: "فاخر 120 جم", thickPaperHint: "أكثر سماكة", coatedPaper: "مصقول 150 جم", coatedPaperHint: "ألوان أوضح", printColor: "لون الطباعة", blackWhite: "أبيض وأسود", blackWhiteHint: "اقتصادي وواضح", fullColor: "ملون", fullColorHint: "للعروض والصور", printSides: "جوانب الطباعة", singleSided: "وجه واحد", singleSidedHint: "كل صفحة على ورقة", doubleSided: "وجهين", doubleSidedHint: "أوراق أقل", pageLayout: "تخطيط الصفحة", onePage: "صفحة واحدة", twoPages: "صفحتان", fourPages: "4 صفحات", perSheet: "لكل وجه", fileCustomization: "تخصيص ملفات منفردة", fileCustomizationHint: "اختياري — استخدمه فقط إذا احتاج ملف إلى خصائص مختلفة.", confirmPrint: "تأكيد خصائص الطباعة",
-      bindingTitle: "كيف تريد استلام ملفاتك؟", bindingDescription: "اختر طريقة التجميع، ثم التغليف المناسب للمطبوعات.", groupingMethod: "طريقة التعامل مع الملفات", combineAll: "دمج الجميع", combineAllHint: "ملزمة واحدة حسب الترتيب", separateAll: "فصل الجميع", separateAllHint: "كل ملف كمطبوعة مستقلة", bindingOrder: "ترتيب الملفات داخل الملزمة", bindingOrderHint: "استخدم الأسهم لتحديد ترتيب الدمج.", chooseBinding: "اختر التغليف", disabledOptionsHint: "الخيار غير المتاح يوضح سببه.", bindingEachFile: "تغليف كل ملف", bindingEachFileHint: "يمكن أن يختلف التغليف من ملف لآخر.", orderQuantity: "كمية الطلب", orderQuantityHint: "تطبق الكمية على الطلب الكامل", decreaseQuantity: "تقليل الكمية", increaseQuantity: "زيادة الكمية", continueReview: "متابعة إلى المراجعة",
+      bindingTitle: "كيف تريد استلام ملفاتك؟", bindingDescription: "اختر طريقة التجميع، ثم التغليف المناسب للمطبوعات.", groupingMethod: "طريقة التعامل مع الملفات", combineAll: "دمج الجميع", combineAllHint: "ملزمة واحدة حسب الترتيب", separateAll: "فصل الجميع", separateAllHint: "كل ملف كمطبوعة مستقلة", bindingOrder: "ترتيب الملفات داخل الملزمة", bindingOrderHint: "استخدم الأسهم لتحديد ترتيب الدمج.", chooseBinding: "اختر التغليف", disabledOptionsHint: "الخيار غير المتاح يوضح سببه.", bindingEachFile: "تغليف كل ملف", bindingEachFileHint: "يمكن أن يختلف التغليف من ملف لآخر.", orderQuantity: "كمية الطلب", orderQuantityHint: "تطبق الكمية على الطلب الكامل", perFileQuantity: "كمية هذا الملف", perFileQuantities: "كمية مختلفة لكل ملف", decreaseQuantity: "تقليل الكمية", increaseQuantity: "زيادة الكمية", continueReview: "متابعة إلى المراجعة",
       reviewTitle: "راجع طلبك قبل إضافته للسلة", reviewDescription: "تأكد من الملفات والخصائص والتغليف. يمكنك تعديل أي مرحلة دون فقدان اختياراتك.", printingTotal: "إجمالي الطباعة", shippingLater: "يُحسب التوصيل في السلة", addToCart: "إضافة إلى السلة", previous: "السابق", continue: "متابعة",
-      yourOrder: "طلبك", orderSummary: "ملخص الطباعة", liveUpdate: "يتحدث مباشرة", currentStep: "المرحلة الحالية", files: "الملفات", printing: "الطباعة", binding: "التغليف", quantity: "الكمية", priceBreakdown: "تفصيل السعر", shippingNotIncluded: "لا يشمل التوصيل", needHelp: "تحتاج مساعدة؟ تواصل مع الدعم الفني", filePreview: "معاينة الملف", previewUnavailable: "المعاينة المرئية غير متاحة لهذا النوع",
-      customize: "تخصيص", customized: "إعدادات مختلفة", removeOverride: "إزالة التخصيص", saveOverride: "حفظ التخصيص", cancel: "إلغاء", selectBinding: "اختر التغليف", edit: "تعديل", pages: "صفحة", ready: "جاهز", processing: "جارٍ تحليل الملف", converting: "جارٍ تحويل الملف", failed: "يحتاج إلى إجراء", retry: "إعادة المحاولة", delete: "حذف", preview: "معاينة", moveUp: "تحريك لأعلى", moveDown: "تحريك لأسفل",
-      spiral: "سلك حلزوني", clearCover: "غلاف شفاف", glue: "تجليد حراري", sideStaple: "تدبيس جانبي", cornerStaple: "تدبيس زاوية", none: "بدون تغليف", lamination: "تغليف حراري شفاف", free: "مجانًا", glueMin: "يتطلب 20 صفحة على الأقل", spiralMax: "غير متاح لأكثر من 350 صفحة", stapleMax: "عدد الصفحات أكبر من الحد", laminationA3: "غير متاح مع مقاس A3",
-      filesRequired: "أضف ملفًا جاهزًا واحدًا على الأقل.", resolveFiles: "عالج الملفات التي تحتاج إلى إجراء قبل المتابعة.", printRequired: "اختر جميع خصائص الطباعة المطلوبة.", groupingRequired: "اختر دمج الملفات أو فصلها.", bindingRequired: "اختر التغليف المطلوب.", signInRequired: "يجب تسجيل الدخول قبل رفع الملفات.", unsupportedFile: "صيغة الملف غير مدعومة.", fileTooLarge: "حجم الملف يتجاوز 50MB.", tooManyFiles: "يمكن رفع 10 ملفات كحد أقصى.", tooManyPages: "سيؤدي هذا الملف إلى تجاوز حد 500 صفحة.", duplicateFile: "هذا الملف مضاف بالفعل.", deleteConfirm: "سيؤثر حذف هذا الملف على الطلب والسعر. هل تريد المتابعة؟", fileRemoved: "تم حذف الملف.", undo: "استعادة", fileRestored: "تمت استعادة الملف.", settingsConfirmed: "تم حفظ خصائص الطباعة.", bindingConfirmed: "تم حفظ التجميع والتغليف.", orderAdded: "تمت إضافة طلب الطباعة إلى السلة.", applyAllConfirm: "سيتم حذف تخصيصات الملفات الفردية. هل تريد المتابعة؟", overridesCleared: "تم تطبيق الإعداد العام على جميع الملفات.", addedNeedsReview: "تمت إضافة الملف. راجع الخصائص قبل المتابعة.", overrideFirst: "أكمل الإعداد العام أولًا.", overrideSaved: "تم حفظ خصائص الملف.", priceCalculating: "يُحسب بعد إكمال الخصائص", printCost: "تكلفة الطباعة", bindingCost: "تكلفة التغليف", orderOutput: "مخرج الطلب", oneBooklet: "ملزمة واحدة", separatePrints: "مطبوعات منفصلة", mixedSettings: "خصائص مختلفة", notSelected: "لم تحدد بعد", oneFile: "ملف واحد", fileCount: "{count} ملفات", pageCount: "{count} صفحة", overridesCount: "{count} ملف بإعداد مختلف", stageReady: "جاهزة",
+      yourOrder: "طلبك", orderSummary: "ملخص الطباعة", currentStep: "المرحلة الحالية", files: "الملفات", printing: "الطباعة", binding: "التغليف", quantity: "الكمية", priceBreakdown: "تفصيل السعر", shippingNotIncluded: "لا يشمل التوصيل", needHelp: "تحتاج مساعدة؟ تواصل مع الدعم الفني", filePreview: "معاينة الملف", previewUnavailable: "المعاينة المرئية غير متاحة لهذا النوع",
+      customize: "تخصيص", customized: "إعدادات مختلفة", removeOverride: "إزالة التخصيص", saveOverride: "حفظ التخصيص", cancel: "إلغاء", edit: "تعديل", pages: "صفحة", ready: "جاهز", processing: "جارٍ تحليل الملف", converting: "جارٍ تحويل الملف", failed: "يحتاج إلى إجراء", retry: "إعادة المحاولة", delete: "حذف", preview: "معاينة", moveUp: "تحريك لأعلى", moveDown: "تحريك لأسفل",
+      spiral: "سلك حلزوني", clearCover: "غلاف شفاف", glue: "تجليد حراري", sideStaple: "تدبيس جانبي", cornerStaple: "تدبيس زاوية", none: "بدون تغليف", noBindingFree: "بدون تغليف مجاني", lamination: "تغليف حراري شفاف", free: "مجانًا", glueMin: "يتطلب 20 صفحة على الأقل", spiralMax: "غير متاح لأكثر من 350 صفحة", stapleMax: "عدد الصفحات أكبر من الحد", laminationA3: "غير متاح مع مقاس A3",
+      filesRequired: "أضف ملفًا جاهزًا واحدًا على الأقل.", resolveFiles: "عالج الملفات التي تحتاج إلى إجراء قبل المتابعة.", printRequired: "اختر جميع خصائص الطباعة المطلوبة.", groupingRequired: "اختر دمج الملفات أو فصلها.", bindingRequired: "حدد نوع التغليف المطلوب.", signInRequired: "يجب تسجيل الدخول قبل رفع الملفات.", unsupportedFile: "صيغة الملف غير مدعومة.", fileTooLarge: "حجم الملف يتجاوز 50MB.", tooManyFiles: "يمكن رفع 10 ملفات كحد أقصى.", tooManyPages: "سيؤدي هذا الملف إلى تجاوز حد 500 صفحة.", duplicateFile: "هذا الملف مضاف بالفعل.", deleteConfirm: "سيؤثر حذف هذا الملف على الطلب والسعر. هل تريد المتابعة؟", fileRemoved: "تم حذف الملف.", undo: "استعادة", fileRestored: "تمت استعادة الملف.", settingsConfirmed: "تم حفظ خصائص الطباعة.", bindingConfirmed: "تم حفظ التجميع والتغليف.", orderAdded: "تمت إضافة طلب الطباعة إلى السلة.", applyAllConfirm: "سيتم حذف تخصيصات الملفات الفردية. هل تريد المتابعة؟", overridesCleared: "تم تطبيق الإعداد العام على جميع الملفات.", addedNeedsReview: "تمت إضافة الملف. راجع الخصائص قبل المتابعة.", overrideFirst: "أكمل الإعداد العام أولًا.", overrideSaved: "تم حفظ خصائص الملف.", priceCalculating: "يُحسب بعد إكمال الخصائص", printCost: "تكلفة الطباعة", bindingCost: "تكلفة التغليف", orderOutput: "مخرج الطلب", oneBooklet: "ملزمة واحدة", separatePrints: "مطبوعات منفصلة", mixedSettings: "خصائص مختلفة", notSelected: "لم تحدد بعد", oneFile: "ملف واحد", fileCount: "{count} ملفات", pageCount: "{count} صفحة", overridesCount: "{count} ملف بإعداد مختلف", stageReady: "جاهزة",
       A4: "A4", A5: "A5", A3: "A3", standard: "عادي 80 جم", thick: "فاخر 120 جم", coated: "مصقول 150 جم", bw: "أبيض وأسود", color: "ملون", single: "وجه واحد", double: "وجهين", layout1: "صفحة واحدة", layout2: "صفحتان", layout4: "4 صفحات"
     },
     en: {
@@ -33,11 +33,11 @@ document.addEventListener("DOMContentLoaded", function () {
       stepOne: "Step 1 of 4", stepTwo: "Step 2 of 4", stepThree: "Step 3 of 4", stepFour: "Step 4 of 4",
       uploadTitle: "Start by uploading your files", uploadDescription: "We analyze pages first so options and pricing are more accurate.", dropFiles: "Drop your files here", dropOrChoose: "or choose them from your device", chooseFiles: "Choose files", sizeLimit: "50MB per file", filesLimit: "10 files / 500 pages", uploadedFiles: "Uploaded files", addMore: "Add files", continueToPrint: "Continue to print options",
       printOptionsTitle: "Choose print options", printOptionsDescription: "These options apply to every file. You can customize individual files later.", generalSettings: "General settings", allFilesUseGeneral: "Applies to all files", applyToAll: "Apply general settings to all", required: "Required", paperSize: "Paper size", paperType: "Paper type", standardPaper: "Standard 80 gsm", standardPaperHint: "Everyday documents", thickPaper: "Premium 120 gsm", thickPaperHint: "More substantial", coatedPaper: "Coated 150 gsm", coatedPaperHint: "Richer colors", printColor: "Print color", blackWhite: "Black & white", blackWhiteHint: "Clear and economical", fullColor: "Full color", fullColorHint: "For slides and images", printSides: "Print sides", singleSided: "Single-sided", singleSidedHint: "Each page on one sheet", doubleSided: "Double-sided", doubleSidedHint: "Uses fewer sheets", pageLayout: "Page layout", onePage: "One page", twoPages: "Two pages", fourPages: "4 pages", perSheet: "per side", fileCustomization: "Customize individual files", fileCustomizationHint: "Optional — use only when a file needs different settings.", confirmPrint: "Confirm print options",
-      bindingTitle: "How should we prepare your files?", bindingDescription: "Choose grouping, then the right binding for the output.", groupingMethod: "File handling", combineAll: "Combine all", combineAllHint: "One booklet in your chosen order", separateAll: "Keep separate", separateAllHint: "Each file is its own print item", bindingOrder: "File order in the booklet", bindingOrderHint: "Use the arrows to set merge order.", chooseBinding: "Choose binding", disabledOptionsHint: "Unavailable options explain why.", bindingEachFile: "Binding for each file", bindingEachFileHint: "Each file can use a different finish.", orderQuantity: "Order quantity", orderQuantityHint: "Quantity applies to the entire order", decreaseQuantity: "Decrease quantity", increaseQuantity: "Increase quantity", continueReview: "Continue to review",
+      bindingTitle: "How should we prepare your files?", bindingDescription: "Choose grouping, then the right binding for the output.", groupingMethod: "File handling", combineAll: "Combine all", combineAllHint: "One booklet in your chosen order", separateAll: "Keep separate", separateAllHint: "Each file is its own print item", bindingOrder: "File order in the booklet", bindingOrderHint: "Use the arrows to set merge order.", chooseBinding: "Choose binding", disabledOptionsHint: "Unavailable options explain why.", bindingEachFile: "Binding for each file", bindingEachFileHint: "Each file can use a different finish.", orderQuantity: "Order quantity", orderQuantityHint: "Quantity applies to the entire order", perFileQuantity: "Quantity for this file", perFileQuantities: "Different quantity per file", decreaseQuantity: "Decrease quantity", increaseQuantity: "Increase quantity", continueReview: "Continue to review",
       reviewTitle: "Review before adding to cart", reviewDescription: "Check files, options and binding. You can edit any step without losing choices.", printingTotal: "Printing total", shippingLater: "Shipping is calculated in cart", addToCart: "Add to cart", previous: "Back", continue: "Continue",
-      yourOrder: "Your order", orderSummary: "Print summary", liveUpdate: "Updates live", currentStep: "Current step", files: "Files", printing: "Printing", binding: "Binding", quantity: "Quantity", priceBreakdown: "Price breakdown", shippingNotIncluded: "Shipping not included", needHelp: "Need help? Contact support", filePreview: "File preview", previewUnavailable: "Visual preview is unavailable for this file type",
-      customize: "Customize", customized: "Different settings", removeOverride: "Remove override", saveOverride: "Save override", cancel: "Cancel", selectBinding: "Choose binding", edit: "Edit", pages: "pages", ready: "Ready", processing: "Analyzing file", converting: "Converting file", failed: "Action required", retry: "Retry", delete: "Delete", preview: "Preview", moveUp: "Move up", moveDown: "Move down",
-      spiral: "Spiral binding", clearCover: "Clear cover", glue: "Glue binding", sideStaple: "Side stapling", cornerStaple: "Corner stapling", none: "No binding", lamination: "Thermal lamination", free: "Free", glueMin: "Requires at least 20 pages", spiralMax: "Unavailable above 350 pages", stapleMax: "Page count exceeds the limit", laminationA3: "Unavailable with A3",
+      yourOrder: "Your order", orderSummary: "Print summary", currentStep: "Current step", files: "Files", printing: "Printing", binding: "Binding", quantity: "Quantity", priceBreakdown: "Price breakdown", shippingNotIncluded: "Shipping not included", needHelp: "Need help? Contact support", filePreview: "File preview", previewUnavailable: "Visual preview is unavailable for this file type",
+      customize: "Customize", customized: "Different settings", removeOverride: "Remove override", saveOverride: "Save override", cancel: "Cancel", edit: "Edit", pages: "pages", ready: "Ready", processing: "Analyzing file", converting: "Converting file", failed: "Action required", retry: "Retry", delete: "Delete", preview: "Preview", moveUp: "Move up", moveDown: "Move down",
+      spiral: "Spiral binding", clearCover: "Clear cover", glue: "Glue binding", sideStaple: "Side stapling", cornerStaple: "Corner stapling", none: "No binding", noBindingFree: "No binding — Free", lamination: "Thermal lamination", free: "Free", glueMin: "Requires at least 20 pages", spiralMax: "Unavailable above 350 pages", stapleMax: "Page count exceeds the limit", laminationA3: "Unavailable with A3",
       filesRequired: "Add at least one ready file.", resolveFiles: "Resolve files that need attention before continuing.", printRequired: "Choose every required print option.", groupingRequired: "Choose combine or separate files.", bindingRequired: "Choose the required binding.", signInRequired: "Sign in before uploading files.", unsupportedFile: "Unsupported file format.", fileTooLarge: "File size exceeds 50MB.", tooManyFiles: "You can upload up to 10 files.", tooManyPages: "This file would exceed the 500-page limit.", duplicateFile: "This file is already added.", deleteConfirm: "Deleting this file will affect your order and price. Continue?", fileRemoved: "File removed.", undo: "Undo", fileRestored: "File restored.", settingsConfirmed: "Print options saved.", bindingConfirmed: "Grouping and binding saved.", orderAdded: "Print order added to cart.", applyAllConfirm: "This removes all individual file overrides. Continue?", overridesCleared: "General settings applied to every file.", addedNeedsReview: "File added. Review the options before continuing.", overrideFirst: "Complete general settings first.", overrideSaved: "File settings saved.", priceCalculating: "Calculated after completing options", printCost: "Printing cost", bindingCost: "Binding cost", orderOutput: "Order output", oneBooklet: "One booklet", separatePrints: "Separate prints", mixedSettings: "Mixed settings", notSelected: "Not selected yet", oneFile: "1 file", fileCount: "{count} files", pageCount: "{count} pages", overridesCount: "{count} files with different settings", stageReady: "Ready",
       A4: "A4", A5: "A5", A3: "A3", standard: "Standard 80 gsm", thick: "Premium 120 gsm", coated: "Coated 150 gsm", bw: "Black & white", color: "Full color", single: "Single-sided", double: "Double-sided", layout1: "One page", layout2: "Two pages", layout4: "4 pages"
     }
@@ -48,6 +48,9 @@ document.addEventListener("DOMContentLoaded", function () {
     sidebar: { desktopInitial: "open", persist: false }
   });
 
+  /* The current storefront design system is intentionally light-only. */
+  document.documentElement.setAttribute("data-bs-theme", "light");
+
   const state = {
     currentStep: 1,
     completedStep: 0,
@@ -55,8 +58,9 @@ document.addEventListener("DOMContentLoaded", function () {
     globalSettings: { size: null, paper: null, color: null, sides: null, layout: null },
     grouping: null,
     fileOrder: [],
-    combinedBinding: null,
+    combinedBinding: "none",
     separateBindings: {},
+    separateQuantities: {},
     quantity: 1,
     overrideFileId: null,
     overrideDraft: null
@@ -77,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const $ = function (selector, scope) { return (scope || document).querySelector(selector); };
   const $$ = function (selector, scope) { return Array.prototype.slice.call((scope || document).querySelectorAll(selector)); };
   const el = {
-    input: $("#paperFileInput"), choose: $("#chooseFilesButton"), addMore: $("#addMoreFilesButton"), zone: $("#uploadZone"), fileSection: $("#fileSection"), fileList: $("#paperFileList"), fileCounter: $("#fileCounter"), customization: $("#customizationList"), overrideEditor: $("#overrideEditor"), applyAll: $("#applyAllButton"), overrideCount: $("#overrideCountText"), bindingWorkspace: $("#bindingWorkspace"), reorderPanel: $("#reorderPanel"), reorderList: $("#reorderList"), combinedPanel: $("#combinedBindingPanel"), bindingGrid: $("#bindingGrid"), separatePanel: $("#separateBindingPanel"), separateList: $("#separateBindingList"), quantity: $("#quantityOutput"), summaryCta: $("#summaryCta"), mobileCta: $("#mobileCta"), total: $("#summaryTotal"), mobileTotal: $("#mobileTotal"), reviewTotal: $("#reviewTotal"), reviewList: $("#reviewList"), toast: $("#paperToast"), toastMessage: $("#paperToastMessage"), preview: $("#previewDialog"), mobileSummary: $("#mobileSummaryDialog")
+    input: $("#paperFileInput"), choose: $("#chooseFilesButton"), addMore: $("#addMoreFilesButton"), zone: $("#uploadZone"), fileSection: $("#fileSection"), fileList: $("#paperFileList"), fileCounter: $("#fileCounter"), customization: $("#customizationList"), overrideEditor: $("#overrideEditor"), applyAll: $("#applyAllButton"), overrideCount: $("#overrideCountText"), bindingWorkspace: $("#bindingWorkspace"), reorderPanel: $("#reorderPanel"), reorderList: $("#reorderList"), combinedPanel: $("#combinedBindingPanel"), bindingGrid: $("#bindingGrid"), separatePanel: $("#separateBindingPanel"), separateList: $("#separateBindingList"), quantityPanel: $("#orderQuantityPanel"), quantity: $("#quantityOutput"), configurator: $(".paper-configurator-layout"), orderSummary: $(".order-summary"), mobileOrderBar: $("#mobileOrderBar"), summaryCta: $("#summaryCta"), mobileCta: $("#mobileCta"), total: $("#summaryTotal"), mobileTotal: $("#mobileTotal"), reviewTotal: $("#reviewTotal"), reviewList: $("#reviewList"), toast: $("#paperToast"), toastMessage: $("#paperToastMessage"), preview: $("#previewDialog"), mobileSummary: $("#mobileSummaryDialog")
   };
 
   let toastTimer = null;
@@ -232,12 +236,15 @@ document.addEventListener("DOMContentLoaded", function () {
     state.files.splice(index, 1);
     state.fileOrder = state.fileOrder.filter(function (fileId) { return fileId !== id; });
     delete state.separateBindings[id];
+    const removedQuantity = state.separateQuantities[id] || 1;
+    delete state.separateQuantities[id];
     state.completedStep = 0;
     state.currentStep = 1;
     renderAll();
     showToast(t("fileRemoved"), "success", { label: t("undo"), callback: function () {
       state.files.splice(Math.min(index, state.files.length), 0, file);
       if (file.status === "ready") state.fileOrder.splice(Math.min(index, state.fileOrder.length), 0, file.id);
+      state.separateQuantities[file.id] = removedQuantity;
       renderAll();
       showToast(t("fileRestored"));
     }});
@@ -333,11 +340,14 @@ document.addEventListener("DOMContentLoaded", function () {
   function bindingLabel(id) { return id ? t(id) : t("notSelected"); }
 
   function renderBindings() {
+    const ready = readyFiles();
+    const usesPerFileQuantities = state.grouping === "separate" && ready.length > 1;
     $$("[data-grouping]").forEach(function (button) { button.classList.toggle("is-selected", state.grouping === button.dataset.grouping); });
     el.bindingWorkspace.hidden = !state.grouping;
     el.reorderPanel.hidden = state.grouping !== "combined";
     el.combinedPanel.hidden = state.grouping !== "combined";
     el.separatePanel.hidden = state.grouping !== "separate";
+    el.quantityPanel.hidden = !state.grouping || usesPerFileQuantities;
     el.quantity.textContent = state.quantity;
     if (!state.grouping) return;
 
@@ -352,9 +362,10 @@ document.addEventListener("DOMContentLoaded", function () {
         return '<button type="button" class="choice-card binding-card ' + (state.combinedBinding === binding.id ? 'is-selected' : '') + '" data-binding="' + binding.id + '" ' + (!availability.ok ? 'disabled' : '') + '><i class="bi ' + binding.icon + '"></i><strong>' + escapeHtml(t(binding.id)) + '</strong><span class="binding-price">' + escapeHtml(binding.price ? "+ " + formatMoney(binding.price) : t("free")) + '</span>' + (!availability.ok ? '<small class="binding-reason">' + escapeHtml(t(availability.reason)) + '</small>' : '') + '</button>';
       }).join("");
     } else {
-      const files = readyFiles();
+      const files = ready;
       files.forEach(function (file) {
-        if (!(file.id in state.separateBindings)) state.separateBindings[file.id] = null;
+        if (!(file.id in state.separateBindings)) state.separateBindings[file.id] = "none";
+        if (!(file.id in state.separateQuantities)) state.separateQuantities[file.id] = 1;
         const chosen = state.separateBindings[file.id];
         if (chosen && !bindingAvailability(chosen, [file]).ok) state.separateBindings[file.id] = null;
       });
@@ -363,9 +374,13 @@ document.addEventListener("DOMContentLoaded", function () {
         const options = bindings.map(function (binding) {
           const availability = bindingAvailability(binding.id, [file]);
           const suffix = availability.ok ? (binding.price ? " — " + formatMoney(binding.price) : " — " + t("free")) : " — " + t(availability.reason);
-          return '<option value="' + binding.id + '" ' + (state.separateBindings[file.id] === binding.id ? 'selected' : '') + ' ' + (!availability.ok ? 'disabled' : '') + '>' + escapeHtml(t(binding.id) + suffix) + '</option>';
+          const optionLabel = binding.id === "none" ? t("noBindingFree") : t(binding.id) + suffix;
+          return '<option value="' + binding.id + '" ' + (state.separateBindings[file.id] === binding.id ? 'selected' : '') + ' ' + (!availability.ok ? 'disabled' : '') + '>' + escapeHtml(optionLabel) + '</option>';
         }).join("");
-        return '<div class="separate-binding-item" data-file-id="' + file.id + '"><span class="file-type-icon ' + icon.type + '"><i class="bi ' + icon.icon + '"></i></span><div class="file-info"><strong>' + escapeHtml(file.name) + '</strong><small>' + escapeHtml(t("pageCount", { count: file.pages })) + '</small></div><label class="binding-select-wrap"><select data-separate-binding="' + file.id + '"><option value="">' + escapeHtml(t("selectBinding")) + '</option>' + options + '</select><small>' + escapeHtml(settingsSummary(effectiveSettings(file))) + '</small></label></div>';
+        const selectedBinding = state.separateBindings[file.id];
+        const bindingControl = '<label class="binding-select-wrap"><span class="binding-select-title"><i class="bi bi-journal-bookmark" aria-hidden="true"></i>' + escapeHtml(t("chooseBinding")) + '</span><select class="has-selection" data-separate-binding="' + file.id + '" aria-label="' + escapeHtml(t("binding")) + '">' + options + '</select><small>' + escapeHtml(settingsSummary(effectiveSettings(file))) + '</small></label>';
+        const quantityControl = usesPerFileQuantities ? '<div class="per-file-quantity"><span>' + escapeHtml(t("perFileQuantity")) + '</span><div class="quantity-control"><button type="button" data-file-quantity-action="decrease" aria-label="' + escapeHtml(t("decreaseQuantity")) + '"><i class="bi bi-dash-lg"></i></button><output>' + state.separateQuantities[file.id] + '</output><button type="button" data-file-quantity-action="increase" aria-label="' + escapeHtml(t("increaseQuantity")) + '"><i class="bi bi-plus-lg"></i></button></div></div>' : '';
+        return '<div class="separate-binding-item" data-file-id="' + file.id + '"><span class="file-type-icon ' + icon.type + '"><i class="bi ' + icon.icon + '"></i></span><div class="file-info"><strong>' + escapeHtml(file.name) + '</strong><small>' + escapeHtml(t("pageCount", { count: file.pages })) + '</small></div><div class="separate-binding-controls">' + bindingControl + quantityControl + '</div></div>';
       }).join("");
     }
   }
@@ -419,6 +434,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function updateJourney() {
     const max = state.completedStep + 1;
+    const isReviewMode = state.currentStep === 4;
+    el.configurator.classList.toggle("is-review-mode", isReviewMode);
+    el.orderSummary.hidden = isReviewMode;
+    el.mobileOrderBar.hidden = isReviewMode;
+    document.body.classList.toggle("paper-review-active", isReviewMode);
     $$(".journey-stage").forEach(function (stage) {
       const number = Number(stage.dataset.stage);
       stage.classList.toggle("is-active", number === state.currentStep);
@@ -458,14 +478,25 @@ document.addEventListener("DOMContentLoaded", function () {
     return found ? found.price : 0;
   }
 
+  function usesPerFileQuantity() {
+    return state.grouping === "separate" && readyFiles().length > 1;
+  }
+
+  function quantityFor(file) {
+    return usesPerFileQuantity() ? Math.max(1, Number(state.separateQuantities[file.id]) || 1) : state.quantity;
+  }
+
   function calculatePrice() {
     if (!globalComplete() || !readyFiles().length) return null;
-    const lines = readyFiles().map(function (file) { return { label: file.name, amount: printCostFor(file) }; });
+    const lines = readyFiles().map(function (file) {
+      const quantity = quantityFor(file);
+      return { label: file.name, amount: printCostFor(file) * quantity, quantity: quantity };
+    });
     let bindingCost = 0;
-    if (state.grouping === "combined" && state.combinedBinding) bindingCost = bindingPrice(state.combinedBinding);
-    if (state.grouping === "separate") bindingCost = readyFiles().reduce(function (sum, file) { return sum + bindingPrice(state.separateBindings[file.id]); }, 0);
+    if (state.grouping === "combined" && state.combinedBinding) bindingCost = bindingPrice(state.combinedBinding) * state.quantity;
+    if (state.grouping === "separate") bindingCost = readyFiles().reduce(function (sum, file) { return sum + (bindingPrice(state.separateBindings[file.id]) * quantityFor(file)); }, 0);
     const printTotal = lines.reduce(function (sum, line) { return sum + line.amount; }, 0);
-    return { lines: lines, printing: printTotal, binding: bindingCost, total: (printTotal + bindingCost) * state.quantity };
+    return { lines: lines, printing: printTotal, binding: bindingCost, total: printTotal + bindingCost };
   }
 
   function groupingSummary() {
@@ -482,10 +513,10 @@ document.addEventListener("DOMContentLoaded", function () {
     $("#summaryFiles").textContent = readyFiles().length ? t("fileCount", { count: readyFiles().length }) + " • " + t("pageCount", { count: totalPages() }) : "—";
     $("#summaryPrint").textContent = globalComplete() ? settingsSummary(state.globalSettings) + (readyFiles().some(function (file) { return file.override; }) ? " • " + t("mixedSettings") : "") : t("notSelected");
     $("#summaryBinding").textContent = groupingSummary();
-    $("#summaryQuantity").textContent = state.quantity;
+    $("#summaryQuantity").textContent = usesPerFileQuantity() ? t("perFileQuantities") : state.quantity;
     const totalText = price ? formatMoney(price.total) : "—";
     el.total.textContent = totalText; el.mobileTotal.textContent = totalText; el.reviewTotal.textContent = totalText;
-    $("#priceBreakdown").innerHTML = price ? price.lines.map(function (line) { return '<div class="price-line"><span>' + escapeHtml(line.label) + '</span><strong>' + escapeHtml(formatMoney(line.amount * state.quantity)) + '</strong></div>'; }).join("") + '<div class="price-line"><span>' + escapeHtml(t("bindingCost")) + '</span><strong>' + escapeHtml(formatMoney(price.binding * state.quantity)) + '</strong></div>' : '<div class="price-line"><span>' + escapeHtml(t("priceCalculating")) + '</span></div>';
+    $("#priceBreakdown").innerHTML = price ? price.lines.map(function (line) { return '<div class="price-line"><span>' + escapeHtml(line.label) + (usesPerFileQuantity() ? ' × ' + line.quantity : '') + '</span><strong>' + escapeHtml(formatMoney(line.amount)) + '</strong></div>'; }).join("") + '<div class="price-line"><span>' + escapeHtml(t("bindingCost")) + '</span><strong>' + escapeHtml(formatMoney(price.binding)) + '</strong></div>' : '<div class="price-line"><span>' + escapeHtml(t("priceCalculating")) + '</span></div>';
     const ctaKeys = { 1: "continueToPrint", 2: "confirmPrint", 3: "continueReview", 4: "addToCart" };
     [el.summaryCta, el.mobileCta].forEach(function (button) {
       $("span", button).textContent = t(ctaKeys[state.currentStep]);
@@ -496,10 +527,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function renderReview() {
     const price = calculatePrice();
-    const files = state.grouping === "combined" ? [{ name: t("oneBooklet"), pages: totalPages(), files: orderedFiles(), settings: readyFiles().some(function (file) { return file.override; }) ? t("mixedSettings") : settingsSummary(state.globalSettings), binding: state.combinedBinding }] : readyFiles().map(function (file) { return { name: file.name, pages: file.pages, files: [file], settings: settingsSummary(effectiveSettings(file)), binding: state.separateBindings[file.id] }; });
+    const files = state.grouping === "combined" ? [{ name: t("oneBooklet"), pages: totalPages(), files: orderedFiles(), settings: readyFiles().some(function (file) { return file.override; }) ? t("mixedSettings") : settingsSummary(state.globalSettings), binding: state.combinedBinding, quantity: state.quantity }] : readyFiles().map(function (file) { return { name: file.name, pages: file.pages, files: [file], settings: settingsSummary(effectiveSettings(file)), binding: state.separateBindings[file.id], quantity: quantityFor(file) }; });
     el.reviewList.innerHTML = files.map(function (item) {
       const names = item.files.length > 1 ? item.files.map(function (file) { return file.name; }).join("، ") : item.name;
-      return '<article class="review-card"><div class="review-card-header"><span class="review-file-icon"><i class="bi bi-files"></i></span><div><strong title="' + escapeHtml(names) + '">' + escapeHtml(item.name) + '</strong><small>' + escapeHtml(t("pageCount", { count: item.pages })) + '</small></div></div><div class="review-details"><div class="review-detail"><span>' + escapeHtml(t("printing")) + '</span><strong>' + escapeHtml(item.settings) + '</strong></div><div class="review-detail"><span>' + escapeHtml(t("binding")) + '</span><strong>' + escapeHtml(bindingLabel(item.binding)) + '</strong></div><div class="review-detail"><span>' + escapeHtml(t("files")) + '</span><strong>' + escapeHtml(names) + '</strong></div><div class="review-detail"><span>' + escapeHtml(t("quantity")) + '</span><strong>' + state.quantity + '</strong></div></div><button type="button" class="paper-button is-soft is-small review-edit" data-review-edit="3"><i class="bi bi-pencil"></i><span>' + escapeHtml(t("edit")) + '</span></button></article>';
+      return '<article class="review-card"><div class="review-card-header"><span class="review-file-icon"><i class="bi bi-files"></i></span><div><strong title="' + escapeHtml(names) + '">' + escapeHtml(item.name) + '</strong><small>' + escapeHtml(t("pageCount", { count: item.pages })) + '</small></div></div><div class="review-details"><div class="review-detail"><span>' + escapeHtml(t("printing")) + '</span><strong>' + escapeHtml(item.settings) + '</strong></div><div class="review-detail"><span>' + escapeHtml(t("binding")) + '</span><strong>' + escapeHtml(bindingLabel(item.binding)) + '</strong></div><div class="review-detail"><span>' + escapeHtml(t("files")) + '</span><strong>' + escapeHtml(names) + '</strong></div><div class="review-detail"><span>' + escapeHtml(t("quantity")) + '</span><strong>' + item.quantity + '</strong></div></div><button type="button" class="paper-button is-soft is-small review-edit" data-review-edit="3"><i class="bi bi-pencil"></i><span>' + escapeHtml(t("edit")) + '</span></button></article>';
     }).join("");
     el.reviewTotal.textContent = price ? formatMoney(price.total) : "—";
   }
@@ -517,7 +548,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function addToCart() {
     if (!validateStep(3)) { goToStep(3); return; }
     const price = calculatePrice();
-    const order = { id: "paper-" + Date.now(), createdAt: new Date().toISOString(), files: readyFiles().map(function (file) { return { name: file.name, size: file.size, pages: file.pages, settings: effectiveSettings(file) }; }), grouping: state.grouping, fileOrder: state.fileOrder.slice(), combinedBinding: state.combinedBinding, separateBindings: Object.assign({}, state.separateBindings), quantity: state.quantity, total: price ? price.total : 0 };
+    const order = { id: "paper-" + Date.now(), createdAt: new Date().toISOString(), files: readyFiles().map(function (file) { return { name: file.name, size: file.size, pages: file.pages, settings: effectiveSettings(file), quantity: quantityFor(file) }; }), grouping: state.grouping, fileOrder: state.fileOrder.slice(), combinedBinding: state.combinedBinding, separateBindings: Object.assign({}, state.separateBindings), separateQuantities: Object.assign({}, state.separateQuantities), quantity: state.quantity, total: price ? price.total : 0 };
     try {
       const cart = JSON.parse(window.localStorage.getItem("palprints-paper-cart") || "[]");
       cart.push(order);
@@ -602,6 +633,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const button = event.target.closest("[data-grouping]");
     if (!button) return;
     state.grouping = button.dataset.grouping;
+    if (state.grouping === "combined" && !state.combinedBinding) state.combinedBinding = "none";
     if (state.completedStep >= 3) state.completedStep = 2;
     renderAll();
   });
@@ -617,6 +649,18 @@ document.addEventListener("DOMContentLoaded", function () {
   el.separateList.addEventListener("change", function (event) {
     if (!event.target.matches("[data-separate-binding]")) return;
     state.separateBindings[event.target.dataset.separateBinding] = event.target.value || null;
+    if (state.completedStep >= 3) state.completedStep = 2;
+    renderAll();
+  });
+
+  el.separateList.addEventListener("click", function (event) {
+    const button = event.target.closest("[data-file-quantity-action]");
+    if (!button) return;
+    const fileId = button.closest("[data-file-id]").dataset.fileId;
+    const current = Math.max(1, Number(state.separateQuantities[fileId]) || 1);
+    state.separateQuantities[fileId] = button.dataset.fileQuantityAction === "increase"
+      ? Math.min(99, current + 1)
+      : Math.max(1, current - 1);
     if (state.completedStep >= 3) state.completedStep = 2;
     renderAll();
   });
@@ -670,6 +714,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (demoStage === "binding" || demoStage === "review") {
       state.grouping = "separate";
       state.separateBindings = { "demo-1": "spiral", "demo-2": "clearCover" };
+      state.separateQuantities = { "demo-1": 2, "demo-2": 1 };
       state.completedStep = demoStage === "review" ? 3 : 2;
       state.currentStep = demoStage === "review" ? 4 : 3;
     } else {
