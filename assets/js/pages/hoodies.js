@@ -10,7 +10,7 @@
     { id: "smile", category: "kids", title: "هودي أطفال", description: "ابتسم دائماً", designer: "Rana H.", tone: "cream", icon: "emoji-laughing", print: "KEEP<br>SMILING" },
     { id: "create", category: "adults", title: "هودي رجال / نساء", description: "اصنع قصتك", designer: "Khaled N.", tone: "black", icon: "stars", print: "CREATE<br>YOUR STORY" }
   ];
-  const previewPageUrl = "product-preview.html";
+  const previewPageUrl = "productPreview.html";
   const grid = document.getElementById("productGrid");
   const search = document.getElementById("productSearch");
   const filters = [...document.querySelectorAll("[data-filter]")];
@@ -119,7 +119,7 @@
   }
   function render() {
     const visible = products.filter(product => (selected === "all" || product.category === selected) && normalize(`${product.title} ${product.description} ${product.designer}`).includes(normalize(search.value)));
-    grid.innerHTML = visible.map(product => `<article class="product-card" data-id="${product.id}">${media(product).replace('</div>', `<button class="hoodie-favorite" type="button" aria-label="مفضلة: ${product.description}" aria-pressed="${favorites.has(product.id)}"><i class="bi bi-heart${favorites.has(product.id) ? "-fill" : ""}" aria-hidden="true"></i></button></div>`)}<div class="product-card__body"><h3>${product.title}</h3><p>${product.description}</p><div class="hoodie-credit"><span>يبدأ من <strong dir="ltr">20.00 ₪</strong></span><span class="hoodie-designer" dir="ltr"><i class="bi bi-person" aria-hidden="true"></i>by ${product.designer}</span></div><button type="button" class="hoodie-preview" data-preview="${product.id}"><i class="bi bi-eye" aria-hidden="true"></i>معاينة المنتج</button></div></article>`).join("");
+    grid.innerHTML = visible.map(product => `<article class="product-card" data-id="${product.id}" tabindex="0" aria-label="معاينة ${product.title}: ${product.description}">${media(product).replace('</div>', `<button class="hoodie-favorite" type="button" aria-label="مفضلة: ${product.description}" aria-pressed="${favorites.has(product.id)}"><i class="bi bi-heart${favorites.has(product.id) ? "-fill" : ""}" aria-hidden="true"></i></button></div>`)}<div class="product-card__body"><h3>${product.title}</h3><p>${product.description}</p><div class="hoodie-credit"><span>يبدأ من <strong dir="ltr">20.00 ₪</strong></span><span class="hoodie-designer" dir="ltr"><i class="bi bi-person" aria-hidden="true"></i>by ${product.designer}</span></div><button type="button" class="hoodie-preview" data-preview="${product.id}"><i class="bi bi-eye" aria-hidden="true"></i>معاينة المنتج</button></div></article>`).join("");
     document.getElementById("productsEmpty").hidden = visible.length > 0;
     document.getElementById("catalogCount").textContent = `عرض ${visible.length} من ${products.length} تصاميم`;
     document.querySelector(".catalog-pagination").hidden = visible.length === 0;
@@ -132,6 +132,15 @@
   }));
   search.addEventListener("input", render);
   document.getElementById("productSearchForm").addEventListener("submit", event => { event.preventDefault(); render(); });
+  function openPreview(id) {
+    const product = products.find(item => item.id === id);
+    if (!product) return;
+
+    try {
+      sessionStorage.setItem("palprintsCustomerPreview", JSON.stringify(customerPreviewPayload(product)));
+    } catch (_) { /* The preview page supplies a safe fallback if storage is unavailable. */ }
+    window.location.href = previewPageUrl;
+  }
   grid.addEventListener("click", event => {
     const favorite = event.target.closest(".hoodie-favorite");
     if (favorite) {
@@ -149,12 +158,17 @@
     }
     const preview = event.target.closest("[data-preview]");
     if (preview) {
-      const product = products.find(item => item.id === preview.dataset.preview);
-      try {
-        sessionStorage.setItem("palprintsCustomerPreview", JSON.stringify(customerPreviewPayload(product)));
-      } catch (_) { /* The preview page supplies a safe fallback if storage is unavailable. */ }
-      window.location.href = "productPreview.html";
+      openPreview(preview.dataset.preview);
+      return;
     }
+
+    const card = event.target.closest(".product-card");
+    if (card && !event.target.closest("button")) openPreview(card.dataset.id);
+  });
+  grid.addEventListener("keydown", event => {
+    if (!event.target.matches(".product-card") || !["Enter", " "].includes(event.key)) return;
+    event.preventDefault();
+    openPreview(event.target.dataset.id);
   });
   render();
 
