@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="سلة التسوق في متجر PalPrints">
+  <title>سلة التسوق | PalPrints</title>
+  <link rel="stylesheet" href="assets/icons/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="assets/css/pages/storefront.css?v=77">
+  <link rel="stylesheet" href="assets/css/pages/interactions.css?v=4">
+  <link rel="stylesheet" href="assets/css/pages/orderBasket.css?v=16">
+</head>
+<body class="storefront-page order-basket-page">
+  <a class="skip-link" href="#basketMain">تخطّي إلى محتوى السلة</a>
+
+  <header class="store-header">
+    <div class="container-palprints store-header__inner">
+      <button type="button" class="icon-button sidebar-toggle" id="sidebarToggle" aria-label="فتح القائمة الجانبية" aria-expanded="false" aria-controls="storeSidebar"><i class="bi bi-list" aria-hidden="true"></i></button>
+      <form class="store-search" role="search" action="storefront.html">
+        <span class="store-search__icon" aria-hidden="true"><i class="bi bi-search"></i></span>
+        <input type="search" name="q" placeholder="ابحث عن منتج..." aria-label="ابحث عن منتج" autocomplete="off">
+      </form>
+      <div class="store-header__actions" aria-label="إجراءات الحساب">
+        <a href="orderBasket.html" class="icon-button" aria-label="سلة التسوق، 3 منتجات"><i class="bi bi-cart3" aria-hidden="true"></i><span class="icon-badge basket-count" aria-hidden="true">3</span></a>
+        <div class="notifications-menu">
+          <button type="button" class="icon-button notifications-button" id="notificationsToggle" aria-label="الإشعارات" aria-expanded="false" aria-controls="notificationsPanel"><i class="bi bi-bell" aria-hidden="true"></i><span class="icon-badge notifications-badge" aria-hidden="true" hidden>0</span></button>
+          <div class="notifications-panel" id="notificationsPanel" hidden><div class="notifications-panel__header"><strong>الإشعارات</strong><button type="button" class="notifications-clear">مسح الكل</button></div><div class="notifications-list"></div><p class="notifications-empty">لا توجد إشعارات جديدة</p></div>
+        </div>
+        <div class="profile-menu">
+          <button type="button" class="icon-button" id="profileMenuToggle" aria-label="الملف الشخصي" aria-expanded="false" aria-controls="profileDropdown"><i class="bi bi-person" aria-hidden="true"></i></button>
+          <div class="profile-dropdown" id="profileDropdown" hidden><a href="custProfile.html" class="profile-dropdown__item"><i class="bi bi-person-circle" aria-hidden="true"></i><span>الملف الشخصي</span></a><a href="custProfile.html#activitySection" class="profile-dropdown__item"><i class="bi bi-heart" aria-hidden="true"></i><span>المفضلة</span></a><button type="button" class="profile-dropdown__item profile-dropdown__logout"><i class="bi bi-box-arrow-right" aria-hidden="true"></i><span>تسجيل الخروج</span></button></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="sidebar-backdrop" id="sidebarBackdrop" hidden></div>
+  <aside class="store-sidebar is-collapsed" id="storeSidebar" aria-label="القائمة الجانبية" aria-hidden="true">
+    <div class="store-sidebar__header">
+      <a class="store-brand" href="storefront.html" aria-label="PalPrints"><span class="store-brand__wordmark" aria-hidden="true"><span>PAL</span><strong>PRINTS</strong></span></a>
+      <button type="button" class="icon-button sidebar-close" id="sidebarClose" aria-label="إغلاق القائمة الجانبية"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+    </div>
+    <nav class="store-sidebar__nav" aria-label="روابط الحساب">
+      <a href="storefront.html" class="store-sidebar__item active pal-pressable" aria-current="page"><i class="bi bi-shop" aria-hidden="true"></i><span>متجر PalPrint</span></a>
+      <a href="custProfile.html" class="store-sidebar__item pal-pressable"><i class="bi bi-person" aria-hidden="true"></i><span>الملف الشخصي</span></a>
+      <a href="custProfile.html#currentOrderSection" class="store-sidebar__item pal-pressable"><i class="bi bi-bag" aria-hidden="true"></i><span>طلباتي</span></a>
+      <a href="custProfile.html#activitySection" class="store-sidebar__item pal-pressable"><i class="bi bi-heart" aria-hidden="true"></i><span>المفضلة</span></a>
+      <a href="custProfile.html#preferencesSection" class="store-sidebar__item pal-pressable"><i class="bi bi-gear" aria-hidden="true"></i><span>الإعدادات</span></a>
+      <a href="custProfile.html#profileMain" class="store-sidebar__item pal-pressable"><i class="bi bi-headset" aria-hidden="true"></i><span>الدعم الفني</span></a>
+    </nav>
+    <div class="store-sidebar__divider" aria-hidden="true"></div>
+    <button type="button" class="store-sidebar__logout pal-pressable" id="storeSidebarLogout" data-href="login.html"><i class="bi bi-box-arrow-left" aria-hidden="true"></i><span>تسجيل الخروج</span></button>
+  </aside>
+
+  <main class="store-main basket-main" id="basketMain">
+    <div class="page-heading">
+      <div class="breadcrumbs"><a href="index.html">الرئيسية</a><span>/</span><span>السلة</span></div>
+      <h1><i class="bi bi-cart3"></i> سلة التسوق</h1>
+      <p>لديك <strong id="itemsCount">3</strong> منتجات في السلة</p>
+    </div>
+
+    <section class="basket-card" aria-labelledby="basketTitle">
+      <h2 class="sr-only" id="basketTitle">منتجات السلة</h2>
+      <div class="basket-items" id="basketItems">
+        <article class="basket-item" data-price="20">
+          <div class="product-info"><div class="product-media"><img src="assets/images/orderBasket/explore-more-tshirt.png" alt="تيشيرت أسود بتصميم Explore More"></div><div><h3>تيشيرت كلاسيك</h3><p>تصميم Explore More</p><div class="tags"><span>المقاس: L</span><span>اللون: أسود</span><span>الطباعة: أمامي</span></div></div></div>
+          <div class="item-price"><strong>$40.00</strong><span><b>$20.00</b> × <b class="price-qty">2</b></span></div>
+          <div class="quantity" aria-label="تحديد كمية تيشيرت كلاسيك"><button data-action="increase" aria-label="زيادة الكمية">+</button><output>2</output><button data-action="decrease" aria-label="تقليل الكمية">−</button></div>
+          <button class="remove-item" type="button" aria-label="حذف تيشيرت كلاسيك"><i class="bi bi-trash3"></i></button>
+        </article>
+        <article class="basket-item" data-price="28">
+          <div class="product-info"><div class="product-media"><img src="assets/images/orderBasket/good-vibes-hoodie.png" alt="هودي رمادي بتصميم Good Vibes"></div><div><h3>هودي</h3><p>تصميم Good Vibes</p><div class="tags"><span>المقاس: M</span><span>اللون: رمادي</span></div></div></div>
+          <div class="item-price"><strong>$28.00</strong><span><b>$28.00</b> × <b class="price-qty">1</b></span></div>
+          <div class="quantity" aria-label="تحديد كمية هودي"><button data-action="increase" aria-label="زيادة الكمية">+</button><output>1</output><button data-action="decrease" aria-label="تقليل الكمية">−</button></div>
+          <button class="remove-item" type="button" aria-label="حذف هودي"><i class="bi bi-trash3"></i></button>
+        </article>
+        <article class="basket-item" data-price="15">
+          <div class="product-info"><div class="product-media"><img src="assets/images/orderBasket/mountain-cap.png" alt="طاقية خضراء بتصميم Mountain"></div><div><h3>طاقية</h3><p>تصميم Mountain</p><div class="tags"><span>المقاس: مقاس واحد</span><span>اللون: أخضر</span></div></div></div>
+          <div class="item-price"><strong>$45.00</strong><span><b>$15.00</b> × <b class="price-qty">3</b></span></div>
+          <div class="quantity" aria-label="تحديد كمية طاقية"><button data-action="increase" aria-label="زيادة الكمية">+</button><output>3</output><button data-action="decrease" aria-label="تقليل الكمية">−</button></div>
+          <button class="remove-item" type="button" aria-label="حذف طاقية"><i class="bi bi-trash3"></i></button>
+        </article>
+      </div>
+      <div class="basket-actions"><a href="checkout.html" class="primary-action"><i class="bi bi-arrow-left"></i> متابعة لإتمام الطلب</a><a href="storefront.html" class="secondary-action">العودة إلى متجر المنتجات <i class="bi bi-arrow-right"></i></a></div>
+    </section>
+
+    <section class="trending" aria-labelledby="trendingTitle">
+      <div class="section-heading"><div><h2 id="trendingTitle">ترند فلسطين</h2><p>منتجات مستوحاة من فلسطين، الأكثر رواجًا بين عملائنا</p></div></div>
+      <div class="product-grid">
+        <article class="trend-card"><div class="trend-media"><img src="assets/images/products/4.png" alt="حقيبة قماش فلسطين"></div><h3>حقيبة قماش</h3><p>تصميم أغصان الزيتون</p><strong>يبدأ من <span dir="ltr">$20</span></strong><a href="storefront.html">عرض المنتج</a></article>
+        <article class="trend-card"><div class="trend-media"><img src="assets/images/orderBasket/mountain-cap.png" alt="طاقية فلسطين"></div><h3>طاقية فلسطين</h3><p>تصميم الجبال</p><strong>يبدأ من <span dir="ltr">$20</span></strong><a href="storefront.html">معاينة المنتج</a></article>
+        <article class="trend-card"><div class="trend-media"><img src="assets/images/orderBasket/good-vibes-hoodie.png" alt="هودي فلسطين"></div><h3>هودي فلسطين</h3><p>تصميم تفاؤل</p><strong>يبدأ من <span dir="ltr">$20</span></strong><a href="hoodies.html">عرض المنتج</a></article>
+        <article class="trend-card"><div class="trend-media"><img src="assets/images/orderBasket/explore-more-tshirt.png" alt="تيشيرت فلسطين"></div><h3>تيشيرت فلسطين</h3><p>تصميم خريطة الأمل</p><strong>يبدأ من <span dir="ltr">$20</span></strong><a href="storefront.html">معاينة المنتج</a></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="store-footer">
+    <div class="store-footer__inner">
+      <div class="store-footer__brand"><a href="storefront.html" class="store-footer__logo-link" aria-label="PalPrints"><span class="store-footer__wordmark" aria-hidden="true"><span>PAL</span><strong>PRINTS</strong></span></a><p>منتجات مطبوعة بتصاميم مميزة وجودة تناسب ذوقك.</p><div class="store-footer__social" aria-label="حسابات التواصل الاجتماعي"><a href="#" aria-label="Instagram"><i class="bi bi-instagram" aria-hidden="true"></i></a><a href="#" aria-label="Facebook"><i class="bi bi-facebook" aria-hidden="true"></i></a><a href="#" aria-label="TikTok"><i class="bi bi-tiktok" aria-hidden="true"></i></a></div></div>
+      <div class="store-footer__column"><h2>المتجر</h2><a href="storefront.html#products">كل المنتجات</a><a href="storefront.html#products">الملابس</a><a href="storefront.html#products">الإكسسوارات</a></div>
+      <div class="store-footer__column"><h2>حسابك</h2><a href="custProfile.html">الملف الشخصي</a><a href="custProfile.html#currentOrderSection">طلباتي</a><a href="custProfile.html#activitySection">المفضلة</a></div>
+      <div class="store-footer__column"><h2>المساعدة</h2><a href="custProfile.html#profileMain">الدعم الفني</a><a href="#">سياسة الخصوصية</a><a href="#">الشروط والأحكام</a></div>
+    </div>
+    <div class="store-footer__bottom"><p>© 2026 PalPrints. جميع الحقوق محفوظة.</p><span>صُنع بحب للطباعة والإبداع</span></div>
+  </footer>
+
+  <div class="toast" role="status" aria-live="polite"></div>
+  <script src="assets/js/pages/interactions.js?v=4"></script>
+  <script src="assets/js/pages/orderBasket.js"></script>
+</body>
+</html>
