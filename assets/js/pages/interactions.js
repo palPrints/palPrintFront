@@ -4,8 +4,8 @@
    PalPrints — Interactions
    حركات الأزرار وظهور العناصر — مشتركة بين كل الصفحات
 
-   File: assets/js/interactions.js
-   يرافق: assets/css/interactions.css
+   File: assets/js/pages/interactions.js
+   يرافق: assets/css/pages/interactions.css
 
    لا يعتمد على أي ملف آخر، ولا يغيّر سلوك أي زر،
    وكل ما يفعله بصري بحت:
@@ -48,6 +48,7 @@
     ".btn",
     ".btn-brand",
     ".btn-brand-outline",
+    ".pal-pressable",
     "button",
     "[role='button']"
   ].join(",");

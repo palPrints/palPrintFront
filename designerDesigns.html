@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-bs-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="إدارة تصاميم المصمم ومتابعة حالتها في PalPrints"
+    />
+    <title>تصاميمي | PalPrints</title>
+    <script>
+      (function () {
+        try {
+          var language =
+            localStorage.getItem("palprints-language") === "en" ? "en" : "ar";
+          var theme =
+            localStorage.getItem("palprints-theme") === "dark"
+              ? "dark"
+              : "light";
+          document.documentElement.lang = language;
+          document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
+          document.documentElement.setAttribute("data-bs-theme", theme);
+        } catch (error) {
+          document.documentElement.lang = "ar";
+          document.documentElement.dir = "rtl";
+          document.documentElement.setAttribute("data-bs-theme", "light");
+        }
+      })();
+    </script>
+    <link
+      rel="preload"
+      href="./assets/fonts/Cairo-Variable.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="./assets/icons/fonts/bootstrap-icons.woff2?e34853135f9e39acf64315236852cd5a"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="./assets/icons/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="./assets/css/pages/mainDisgner.css" />
+    <link rel="stylesheet" href="./assets/css/pages/designerDesigns.css?v=2" />
+  </head>
+  <body class="dashboard-page designer-designs-page">
+    <a href="#designsMain" class="designs-skip-link" data-i18n="skipToContent"
+      >تخطي إلى المحتوى</a
+    >
+    <div class="dashboard-container profile-app" id="app">
+      <aside
+        class="profile-sidebar"
+        id="profileSidebar"
+        aria-label="القائمة الجانبية للمصمم"
+        data-i18n-aria="sidebarLabel"
+      >
+        <div class="profile-sidebar-header">
+          <a
+            href="index.html"
+            class="profile-brand"
+            aria-label="الصفحة الرئيسية"
+            data-i18n-aria="goHome"
+          >
+            <img
+              src="./assets/images/logoWithoutBackGround.png"
+              class="profile-brand-image"
+              alt="PalPrints"
+            />
+          </a>
+          <button
+            type="button"
+            class="profile-sidebar-close"
+            id="sidebarCloseButton"
+            aria-label="إغلاق القائمة"
+            data-i18n-aria="closeSidebar"
+          >
+            <i class="bi bi-x-lg" aria-hidden="true"></i>
+          </button>
+        </div>
+        <nav
+          class="profile-sidebar-nav"
+          aria-label="روابط حساب المصمم"
+          data-i18n-aria="designerNavLabel"
+        >
+          <a href="dashboardDesigner.html" class="profile-sidebar-link"
+            ><i class="bi bi-grid" aria-hidden="true"></i
+            ><span data-i18n="dashboard">لوحة التحكم</span></a
+          >
+          <a href="uploadDesign.html" class="profile-sidebar-link"
+            ><i class="bi bi-cloud-arrow-up" aria-hidden="true"></i
+            ><span data-i18n="uploadDesign">رفع تصميم جديد</span></a
+          >
+          <a
+            href="designerDesigns.html"
+            class="profile-sidebar-link active"
+            aria-current="page"
+            ><i class="bi bi-images" aria-hidden="true"></i
+            ><span data-i18n="myDesigns">تصاميمي</span></a
+          >
+          <a href="#" class="profile-sidebar-link"
+            ><i class="bi bi-person" aria-hidden="true"></i
+            ><span data-i18n="profileTitle">الملف الشخصي</span></a
+          >
+          <a href="#" class="profile-sidebar-link"
+            ><i class="bi bi-coin" aria-hidden="true"></i
+            ><span data-i18n="earnings">الأرباح</span></a
+          >
+          <div class="profile-sidebar-divider" aria-hidden="true"></div>
+          <a href="#" class="profile-sidebar-link"
+            ><i class="bi bi-gear" aria-hidden="true"></i
+            ><span data-i18n="settings">الإعدادات</span></a
+          >
+          <a href="#" class="profile-sidebar-link"
+            ><i class="bi bi-headset" aria-hidden="true"></i
+            ><span data-i18n="support">التواصل مع الدعم الفني</span></a
+          >
+        </nav>
+        <button
+          type="button"
+          class="profile-sidebar-logout"
+          id="profileLogoutButton"
+          data-href="login.html"
+        >
+          <i class="bi bi-box-arrow-left" aria-hidden="true"></i
+          ><span data-i18n="logout">تسجيل الخروج</span>
+        </button>
+      </aside>
+      <button
+        type="button"
+        class="sidebar-backdrop"
+        id="sidebarBackdrop"
+        aria-label="إغلاق القائمة"
+        data-i18n-aria="closeSidebar"
+      ></button>
+      <div class="page-shell">
+        <header
+          class="top-utility-bar"
+          aria-label="أدوات الصفحة"
+          data-i18n-aria="pageTools"
+        >
+          <div class="top-bar-start">
+            <button
+              type="button"
+              class="utility-btn sidebar-toggle-btn"
+              id="sidebarToggleButton"
+              aria-controls="profileSidebar"
+              aria-label="إغلاق القائمة الجانبية"
+              aria-expanded="true"
+              data-i18n-aria="closeSidebar"
+            >
+              <i
+                class="bi bi-x-lg"
+                id="sidebarToggleIcon"
+                aria-hidden="true"
+              ></i>
+            </button>
+          </div>
+          <div class="top-bar-end">
+            <button
+              type="button"
+              class="utility-btn"
+              id="themeToggleButton"
+              aria-label="تفعيل الوضع الليلي"
+              data-i18n-aria="switchToDark"
+            >
+              <i
+                class="bi bi-moon-stars"
+                id="themeToggleIcon"
+                aria-hidden="true"
+              ></i>
+            </button>
+            <button
+              type="button"
+              class="utility-btn language-toggle-btn"
+              id="languageToggleButton"
+              aria-label="تغيير اللغة"
+              data-i18n-aria="changeLanguage"
+            >
+              <i class="bi bi-globe2" aria-hidden="true"></i
+              ><span id="languageToggleText" aria-hidden="true">EN</span>
+            </button>
+            <a
+              href="notifications.html"
+              class="utility-btn notif-btn"
+              aria-label="الإشعارات"
+              data-i18n-aria="notifications"
+              ><i class="bi bi-bell" aria-hidden="true"></i
+              ><span class="notif-dot" aria-hidden="true"></span
+            ></a>
+          </div>
+        </header>
+        <main class="main-content designs-main" id="designsMain">
+          <section
+            class="section-header designs-heading"
+            aria-labelledby="designsTitle"
+          >
+            <div>
+              <h1 class="section-title" id="designsTitle" data-i18n="myDesigns">
+                تصاميمي
+              </h1>
+              <p class="section-subtitle" data-i18n="designsSubtitle">
+                إدارة تصاميمك ومتابعة حالتها من مكان واحد.
+              </p>
+            </div>
+            <a
+              class="designer-intro-action designs-new-button"
+              href="uploadDesign.html"
+              ><i class="bi bi-plus-lg" aria-hidden="true"></i
+              ><span data-i18n="newDesign">تصميم جديد</span></a
+            >
+          </section>
+          <section
+            class="activity-section designs-toolbar"
+            aria-label="البحث وتصفية التصاميم"
+            data-i18n-aria="designTools"
+          >
+            <div
+              class="design-tabs"
+              role="tablist"
+              aria-label="حالة التصميم"
+              data-i18n-aria="statusTabs"
+            >
+              <button
+                class="design-tab is-active"
+                type="button"
+                role="tab"
+                aria-selected="true"
+                data-status="all"
+              >
+                <span data-i18n="all">الكل</span
+                ><span class="tab-count" data-count="all">0</span>
+              </button>
+              <button
+                class="design-tab"
+                type="button"
+                role="tab"
+                aria-selected="false"
+                data-status="draft"
+              >
+                <span class="tab-dot draft"></span
+                ><span data-i18n="drafts">المسودات</span
+                ><span class="tab-count" data-count="draft">0</span>
+              </button>
+              <button
+                class="design-tab"
+                type="button"
+                role="tab"
+                aria-selected="false"
+                data-status="review"
+              >
+                <span class="tab-dot review"></span
+                ><span data-i18n="underReview">قيد المراجعة</span
+                ><span class="tab-count" data-count="review">0</span>
+              </button>
+              <button
+                class="design-tab"
+                type="button"
+                role="tab"
+                aria-selected="false"
+                data-status="published"
+              >
+                <span class="tab-dot published"></span
+                ><span data-i18n="published">المنشورة</span
+                ><span class="tab-count" data-count="published">0</span>
+              </button>
+              <button
+                class="design-tab"
+                type="button"
+                role="tab"
+                aria-selected="false"
+                data-status="rejected"
+              >
+                <span class="tab-dot rejected"></span
+                ><span data-i18n="rejected">المرفوضة</span
+                ><span class="tab-count" data-count="rejected">0</span>
+              </button>
+            </div>
+            <div class="design-tools">
+              <label class="design-search"
+                ><i class="bi bi-search" aria-hidden="true"></i
+                ><span class="sr-only" data-i18n="searchLabel"
+                  >البحث في التصاميم</span
+                ><input
+                  id="designSearch"
+                  type="search"
+                  placeholder="ابحث في تصاميمك..."
+                  data-i18n-placeholder="searchDesigns"
+              /></label>
+              <div class="filter-control">
+                <button
+                  type="button"
+                  class="filter-button"
+                  id="filterButton"
+                  aria-controls="filterMenu"
+                  aria-expanded="false"
+                >
+                  <i class="bi bi-funnel" aria-hidden="true"></i
+                  ><span data-i18n="filter">فلترة</span
+                  ><i
+                    class="bi bi-chevron-down filter-chevron"
+                    aria-hidden="true"
+                  ></i>
+                </button>
+                <div class="filter-menu" id="filterMenu" hidden>
+                  <p data-i18n="sortBy">ترتيب التصاميم</p>
+                  <button
+                    type="button"
+                    class="filter-option is-active"
+                    data-sort="newest"
+                  >
+                    <i class="bi bi-sort-down" aria-hidden="true"></i
+                    ><span data-i18n="newest">الأحدث أولًا</span
+                    ><i
+                      class="bi bi-check2 filter-check"
+                      aria-hidden="true"
+                    ></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="filter-option"
+                    data-sort="oldest"
+                  >
+                    <i class="bi bi-sort-up" aria-hidden="true"></i
+                    ><span data-i18n="oldest">الأقدم أولًا</span
+                    ><i
+                      class="bi bi-check2 filter-check"
+                      aria-hidden="true"
+                    ></i>
+                  </button>
+                  <button type="button" class="filter-option" data-sort="name">
+                    <i class="bi bi-sort-alpha-down" aria-hidden="true"></i
+                    ><span data-i18n="byName">حسب الاسم</span
+                    ><i
+                      class="bi bi-check2 filter-check"
+                      aria-hidden="true"
+                    ></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="designs-state" id="designsEmpty" hidden>
+            <i class="bi bi-search" aria-hidden="true"></i>
+            <h2 data-i18n="noMatchesTitle">لا توجد تصاميم مطابقة لبحثك</h2>
+            <p data-i18n="noMatches">
+              جرّب كلمة بحث أخرى أو امسح البحث الحالي.
+            </p>
+            <button
+              type="button"
+              class="card-btn tertiary state-action"
+              id="clearSearchButton"
+            >
+              <i class="bi bi-x-lg" aria-hidden="true"></i
+              ><span data-i18n="clearSearch">مسح البحث</span>
+            </button>
+          </section>
+          <div id="designGroups" aria-live="polite"></div>
+        </main>
+      </div>
+    </div>
+    <script src="assets/js/pages/masterDisgner.js"></script>
+    <script src="./assets/js/pages/designerDesigns.js?v=2"></script>
+  </body>
+</html>

@@ -322,7 +322,8 @@ html[data-bs-theme="dark"] {
 
 .profile-action-button,
 .profile-sidebar-toggle,
-.header-icon-btn {
+.header-icon-btn,
+.storefront-page .icon-button {
   transition:
     color var(--profile-transition, 0.22s ease),
     background var(--profile-transition, 0.22s ease),
@@ -336,6 +337,7 @@ html[data-bs-theme="dark"] {
 .profile-action-button > i,
 .profile-sidebar-toggle > i,
 .header-icon-btn > i,
+.storefront-page .icon-button > i,
 .profile-card-link > i {
   display: inline-block;
 
@@ -348,7 +350,8 @@ html[data-bs-theme="dark"] {
 
   .profile-action-button:hover:not(.is-pressed),
   .profile-sidebar-toggle:hover:not(.is-pressed),
-  .header-icon-btn:hover:not(.is-pressed) {
+  .header-icon-btn:hover:not(.is-pressed),
+  .storefront-page .icon-button:hover:not(.is-pressed) {
     transform: translateY(-2px);
 
     box-shadow: 0 8px 18px rgb(104 21 237 / 18%);
@@ -357,7 +360,8 @@ html[data-bs-theme="dark"] {
   /* الجرس يرنّ */
 
   .profile-action-button:hover > .bi-bell,
-  .header-icon-btn:hover > .bi-bell {
+  .header-icon-btn:hover > .bi-bell,
+  .storefront-page .icon-button:hover > .bi-bell {
     transform-origin: top center;
 
     animation: palBellRing 0.72s ease;
@@ -366,7 +370,8 @@ html[data-bs-theme="dark"] {
   /* السلة تتقدّم خطوة */
 
   .profile-action-button:hover > .bi-cart3,
-  .header-icon-btn:hover > .bi-cart3 {
+  .header-icon-btn:hover > .bi-cart3,
+  .storefront-page .icon-button:hover > .bi-cart3 {
     animation: palCartNudge 0.62s ease;
   }
 
@@ -375,32 +380,38 @@ html[data-bs-theme="dark"] {
   .profile-action-button:hover > .bi-moon-stars,
   .profile-action-button:hover > .bi-sun,
   .header-icon-btn:hover > .bi-moon-stars,
-  .header-icon-btn:hover > .bi-sun {
+  .header-icon-btn:hover > .bi-sun,
+  .storefront-page .icon-button:hover > .bi-moon-stars,
+  .storefront-page .icon-button:hover > .bi-sun {
     transform: rotate(-18deg) scale(1.14);
   }
 
   /* الكرة الأرضية تدور دورة كاملة */
 
   .profile-action-button:hover > .bi-globe2,
-  .header-icon-btn:hover > .bi-globe2 {
+  .header-icon-btn:hover > .bi-globe2,
+  .storefront-page .icon-button:hover > .bi-globe2 {
     animation: palSpin 1.1s ease;
   }
 
   /* العدسة تقترب */
 
-  .header-icon-btn:hover > .bi-search {
+  .header-icon-btn:hover > .bi-search,
+  .storefront-page .icon-button:hover > .bi-search {
     transform: scale(1.2);
   }
 
   /* القلب ينبض */
 
-  .header-icon-btn:hover > .bi-heart {
+  .header-icon-btn:hover > .bi-heart,
+  .storefront-page .icon-button:hover > .bi-heart {
     animation: palBeat 0.72s ease;
   }
 
   /* قائمة الهاتف تتمدد */
 
-  .navbar-toggler:hover > .bi-list {
+  .navbar-toggler:hover > .bi-list,
+  .storefront-page .sidebar-toggle:hover > .bi-list {
     transform: scaleX(1.18);
   }
 
@@ -425,7 +436,8 @@ html[data-bs-theme="dark"] {
 
   /* عدّاد السلة ينط، ونقطة الإشعارات تنبض */
 
-  .profile-action-button:hover .profile-action-badge {
+  .profile-action-button:hover .profile-action-badge,
+  .storefront-page .icon-button:hover .icon-badge {
     transform: scale(1.16);
   }
 
@@ -442,7 +454,8 @@ html[data-bs-theme="dark"] {
   }
 }
 
-.profile-action-badge {
+.profile-action-badge,
+.storefront-page .icon-badge {
   transition: transform 0.3s var(--pal-ease-spring);
 }
 
@@ -602,13 +615,16 @@ html[data-bs-theme="dark"] {
   .profile-action-button:hover,
   .profile-sidebar-toggle:hover,
   .header-icon-btn:hover,
+  .storefront-page .icon-button:hover,
   .profile-action-button:hover > i,
   .profile-sidebar-toggle:hover > i,
   .header-icon-btn:hover > i,
+  .storefront-page .icon-button:hover > i,
   .profile-card-link:hover > i,
   .navbar-toggler:hover > i,
   .profile-action-button:hover .profile-action-badge,
   .profile-action-button:hover .profile-action-dot,
+  .storefront-page .icon-button:hover .icon-badge,
   .profile-brand:hover .profile-brand-image,
   .navbar-brand:hover .main-logo,
   .auth-header a:hover .main-logo {
