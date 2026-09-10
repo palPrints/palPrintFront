@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="متابعة طلبات عميل PalPrints الحالية والسابقة">
+  <title>طلباتي | PalPrints</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/icons/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="assets/css/pages/orders.css?v=1">
+</head>
+<body>
+  <a class="skip-link" href="#mainContent">تخطي إلى المحتوى</a>
+  <div class="page-shell">
+    <aside class="sidebar" id="sidebar" aria-label="قائمة الحساب">
+      <a href="index.html" class="sidebar-brand" aria-label="PalPrints - الصفحة الرئيسية">
+        <img src="assets/images/palprints-wordmark-transparent.png" alt="PalPrints">
+      </a>
+      <nav class="sidebar-nav">
+        <a href="storefront.html" class="nav-link"><i class="bi bi-shop-window"></i><span>متجر PalPrints</span></a>
+        <a href="custProfile.html" class="nav-link"><i class="bi bi-person"></i><span>الملف الشخصي</span></a>
+        <a href="orders.html" class="nav-link active" aria-current="page"><i class="bi bi-bag"></i><span>طلباتي</span></a>
+        <a href="#" class="nav-link"><i class="bi bi-heart"></i><span>المفضلة</span></a>
+        <span class="nav-divider"></span>
+        <a href="#" class="nav-link"><i class="bi bi-gear"></i><span>الإعدادات</span></a>
+        <a href="#" class="nav-link"><i class="bi bi-headset"></i><span>الدعم الفني</span></a>
+      </nav>
+      <button type="button" class="logout-button"><i class="bi bi-box-arrow-left"></i><span>تسجيل الخروج</span></button>
+    </aside>
+
+    <button class="sidebar-overlay" id="sidebarOverlay" type="button" aria-label="إغلاق القائمة"></button>
+
+    <div class="site-content">
+      <header class="topbar">
+        <button class="icon-button menu-button" id="menuButton" type="button" aria-label="فتح القائمة" aria-controls="sidebar" aria-expanded="false"><i class="bi bi-list"></i></button>
+        <label class="search-box">
+          <input type="search" placeholder="ابحث عن منتج ..." aria-label="البحث عن منتج">
+          <i class="bi bi-search"></i>
+        </label>
+        <div class="header-actions">
+          <a class="icon-button account-button" href="custProfile.html" aria-label="الحساب"><i class="bi bi-person"></i></a>
+          <div class="notification-wrap">
+            <button class="icon-button notification-button" id="notificationButton" type="button" aria-label="الإشعارات" aria-haspopup="true" aria-expanded="false"><i class="bi bi-bell"></i><span class="counter notification-counter" id="notificationCounter">2</span></button>
+            <div class="notification-dropdown" id="notificationDropdown" role="menu" aria-label="قائمة الإشعارات" hidden>
+              <div class="notification-dropdown-header"><h3>الإشعارات</h3></div>
+              <ul class="notification-list"><li class="notification-item"><i class="bi bi-box-seam"></i><div class="notification-item-text"><p>طلبك #1047 قيد التنفيذ</p><span>منذ ساعتين</span></div></li><li class="notification-item"><i class="bi bi-truck"></i><div class="notification-item-text"><p>طلبك #1045 في طريقه إليك</p><span>أمس</span></div></li></ul>
+            </div>
+          </div>
+          <a class="icon-button cart-button" href="orderBasket.html" aria-label="سلة المشتريات"><i class="bi bi-cart3"></i><span class="counter">2</span></a>
+        </div>
+      </header>
+
+      <main id="mainContent">
+        <section class="orders-content" aria-labelledby="pageTitle">
+          <div class="page-heading orders-heading">
+            <div><h1 id="pageTitle">طلباتي</h1><p>تابع طلباتك الحالية واستعرض سجل طلباتك السابقة.</p></div>
+            <span class="orders-total"><i class="bi bi-receipt"></i> 8 طلبات</span>
+          </div>
+
+          <section class="orders-section app-card" aria-labelledby="currentOrdersTitle">
+            <div class="section-header"><div><span class="section-kicker">قيد المعالجة</span><h2 id="currentOrdersTitle">الطلبات الحالية</h2></div><span class="section-count">4 طلبات</span></div>
+            <div class="orders-table-wrap">
+              <table class="orders-table">
+                <thead><tr><th>رقم الطلب</th><th>المنتج</th><th>تاريخ الطلب</th><th>الإجمالي</th><th>حالة الطلب</th><th>الإجراءات</th></tr></thead>
+                <tbody>
+                  <tr><td data-label="رقم الطلب"><a href="#" class="order-number">#1048</a></td><td data-label="المنتج"><div class="product-cell"><img src="assets/images/icons8-sticker-48.png" alt="ملصقات خطوط"><div><strong>ستيكرات خطوط</strong><span>حزمة ملصقات</span></div></div></td><td data-label="تاريخ الطلب"><time datetime="2026-09-10">10 سبتمبر 2026</time></td><td data-label="الإجمالي"><strong class="price">10 شيكل</strong></td><td data-label="حالة الطلب"><span class="status status-review"><i class="bi bi-clock"></i>قيد المراجعة</span></td><td data-label="الإجراءات"><button class="cancel-order" type="button" data-order="1048"><i class="bi bi-trash3"></i>إلغاء الطلب</button></td></tr>
+                  <tr><td data-label="رقم الطلب"><a href="#" class="order-number">#1047</a></td><td data-label="المنتج"><div class="product-cell"><img src="assets/images/t-shirt.png" alt="تيشيرت فلسطين"><div><strong>تيشيرت فلسطين</strong><span>طباعة مخصصة</span></div></div></td><td data-label="تاريخ الطلب"><time datetime="2026-09-09">9 سبتمبر 2026</time></td><td data-label="الإجمالي"><strong class="price">45 شيكل</strong></td><td data-label="حالة الطلب"><span class="status status-progress"><i class="bi bi-gear"></i>قيد التنفيذ</span></td><td data-label="الإجراءات"><button class="cancel-order" type="button" data-order="1047"><i class="bi bi-trash3"></i>إلغاء الطلب</button></td></tr>
+                  <tr><td data-label="رقم الطلب"><a href="#" class="order-number">#1046</a></td><td data-label="المنتج"><div class="product-cell"><img src="assets/images/cup.webp" alt="كوب مطبوع"><div><strong>كوب مطبوع</strong><span>كوب خزفي</span></div></div></td><td data-label="تاريخ الطلب"><time datetime="2026-09-08">8 سبتمبر 2026</time></td><td data-label="الإجمالي"><strong class="price">25 شيكل</strong></td><td data-label="حالة الطلب"><span class="status status-print"><i class="bi bi-printer"></i>قيد الطباعة</span></td><td data-label="الإجراءات"><button class="cancel-order" type="button" data-order="1046"><i class="bi bi-trash3"></i>إلغاء الطلب</button></td></tr>
+                  <tr><td data-label="رقم الطلب"><a href="#" class="order-number">#1045</a></td><td data-label="المنتج"><div class="product-cell"><img src="assets/images/posterposter.png" alt="ستيكرات فيكتور"><div><strong>ستيكرات فيكتور</strong><span>قص مخصص</span></div></div></td><td data-label="تاريخ الطلب"><time datetime="2026-09-07">7 سبتمبر 2026</time></td><td data-label="الإجمالي"><strong class="price">20 شيكل</strong></td><td data-label="حالة الطلب"><span class="status status-shipping"><i class="bi bi-truck"></i>قيد التوصيل</span></td><td data-label="الإجراءات"><button class="cancel-order" type="button" data-order="1045"><i class="bi bi-trash3"></i>إلغاء الطلب</button></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="orders-section app-card" aria-labelledby="previousOrdersTitle">
+            <div class="section-header"><div><span class="section-kicker">سجل الطلبات</span><h2 id="previousOrdersTitle">الطلبات السابقة</h2></div><span class="section-count">4 طلبات</span></div>
+            <div class="orders-table-wrap">
+              <table class="orders-table previous-orders">
+                <thead><tr><th>رقم الطلب</th><th>المنتج</th><th>تاريخ الطلب</th><th>الإجمالي</th><th>حالة الطلب</th><th>الإجراءات</th></tr></thead>
+                <tbody>
+                  <tr><td data-label="رقم الطلب"><a href="#" class="order-number">#1040</a></td><td data-label="المنتج"><div class="product-cell"><img src="assets/images/hoodie-black.png" alt="هودي مطبوع"><div><strong>هودي مطبوع</strong><span>أسود، مقاس M</span></div></div></td><td data-label="تاريخ الطلب"><time datetime="2026-09-02">2 سبتمبر 2026</time></td><td data-label="الإجمالي"><strong class="price">80 شيكل</strong></td><td data-label="حالة الطلب"><span class="status status-done"><i class="bi bi-check-circle"></i>تم التنفيذ</span></td><td data-label="الإجراءات"><button class="details-button" type="button" data-order="1040">عرض التفاصيل<i class="bi bi-arrow-left"></i></button></td></tr>
+                  <tr><td data-label="رقم الطلب"><a href="#" class="order-number">#1036</a></td><td data-label="المنتج"><div class="product-cell"><img src="assets/images/icons8-sticker-48.png" alt="ستيكرات عبارات"><div><strong>ستيكرات عبارات</strong><span>حزمة ملصقات</span></div></div></td><td data-label="تاريخ الطلب"><time datetime="2026-08-28">28 أغسطس 2026</time></td><td data-label="الإجمالي"><strong class="price">10 شيكل</strong></td><td data-label="حالة الطلب"><span class="status status-cancelled"><i class="bi bi-x-circle"></i>ملغي</span></td><td data-label="الإجراءات"><button class="details-button" type="button" data-order="1036">عرض التفاصيل<i class="bi bi-arrow-left"></i></button></td></tr>
+                  <tr><td data-label="رقم الطلب"><a href="#" class="order-number">#1029</a></td><td data-label="المنتج"><div class="product-cell"><img src="assets/images/notebookicon.png" alt="دفتر مخصص"><div><strong>دفتر مخصص</strong><span>غلاف مطبوع</span></div></div></td><td data-label="تاريخ الطلب"><time datetime="2026-08-22">22 أغسطس 2026</time></td><td data-label="الإجمالي"><strong class="price">30 شيكل</strong></td><td data-label="حالة الطلب"><span class="status status-done"><i class="bi bi-check-circle"></i>تم التنفيذ</span></td><td data-label="الإجراءات"><button class="details-button" type="button" data-order="1029">عرض التفاصيل<i class="bi bi-arrow-left"></i></button></td></tr>
+                  <tr><td data-label="رقم الطلب"><a href="#" class="order-number">#1021</a></td><td data-label="المنتج"><div class="product-cell"><img src="assets/images/tshirt.webp" alt="تيشيرت مطبوع"><div><strong>تيشيرت مطبوع</strong><span>أبيض، مقاس L</span></div></div></td><td data-label="تاريخ الطلب"><time datetime="2026-08-15">15 أغسطس 2026</time></td><td data-label="الإجمالي"><strong class="price">45 شيكل</strong></td><td data-label="حالة الطلب"><span class="status status-cancelled"><i class="bi bi-x-circle"></i>ملغي</span></td><td data-label="الإجراءات"><button class="details-button" type="button" data-order="1021">عرض التفاصيل<i class="bi bi-arrow-left"></i></button></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <nav class="pagination" aria-label="صفحات الطلبات"><button type="button" aria-label="الصفحة السابقة" disabled><i class="bi bi-chevron-right"></i></button><button type="button" class="active" aria-current="page">1</button><button type="button">2</button><button type="button" aria-label="الصفحة التالية"><i class="bi bi-chevron-left"></i></button></nav>
+          </section>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="footer-grid">
+          <div class="footer-brand"><img src="assets/images/palprints-wordmark-transparent.png" alt="PalPrints"><p>من فكرة إلى واقع.<br>صنع بكل حب لكم.</p></div>
+          <div class="footer-column"><h3>المتجر</h3><a href="storefront.html">كل المنتجات</a><a href="#">التصنيفات</a><a href="#">الإكسسوارات</a><a href="#">الأكثر مبيعًا</a></div>
+          <div class="footer-column"><h3>حسابك</h3><a href="custProfile.html">الملف الشخصي</a><a href="orders.html">طلباتي</a><a href="#">المفضلة</a><a href="orderBasket.html">سلة المشتريات</a></div>
+          <div class="footer-column"><h3>المساعدة</h3><a href="#">الدعم الفني</a><a href="#">الأسئلة الشائعة</a><a href="#">سياسة الخصوصية</a><a href="#">الشروط والأحكام</a></div>
+          <div class="footer-column footer-contact"><h3>تواصل معنا</h3><a href="mailto:support@palprints.com"><i class="bi bi-envelope"></i> support@palprints.com</a><a href="tel:+970599000000"><i class="bi bi-telephone"></i><span dir="ltr">+970 59 900 0000</span></a><span><i class="bi bi-geo-alt"></i>رام الله، فلسطين</span></div>
+        </div>
+        <div class="footer-bottom"><p class="copyright">© 2026 PalPrints جميع الحقوق محفوظة.</p><div class="footer-social"><a href="#" aria-label="إنستغرام"><i class="bi bi-instagram"></i></a><a href="#" aria-label="فيسبوك"><i class="bi bi-facebook"></i></a><a href="#" aria-label="تيك توك"><i class="bi bi-tiktok"></i></a><a href="#" aria-label="واتساب"><i class="bi bi-whatsapp"></i></a></div></div>
+      </footer>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="cancelModal" hidden>
+    <section class="confirm-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalText">
+      <button type="button" class="modal-close" aria-label="إغلاق"><i class="bi bi-x-lg"></i></button>
+      <span class="modal-icon"><i class="bi bi-trash3"></i></span>
+      <h2 id="modalTitle">إلغاء الطلب؟</h2><p id="modalText">هل أنت متأكد من إلغاء الطلب <strong id="modalOrderNumber"></strong>؟ لا يمكن التراجع عن هذا الإجراء.</p>
+      <div class="modal-actions"><button type="button" class="btn-brand-outline" id="keepOrder">الاحتفاظ بالطلب</button><button type="button" class="danger-button" id="confirmCancel">نعم، إلغاء الطلب</button></div>
+    </section>
+  </div>
+  <script src="assets/js/pages/orders.js?v=1"></script>
+</body>
+</html>
