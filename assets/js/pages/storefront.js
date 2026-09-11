@@ -86,7 +86,7 @@
       notificationsToggle.setAttribute("aria-label", unreadCount ? `الإشعارات، ${unreadCount} جديدة` : "الإشعارات");
     };
 
-    const showToast = (message) => {
+    const showToast = (message, icon = "bell") => {
       document.querySelector(".store-notification-toast")?.remove();
       window.clearTimeout(toastTimer);
 
@@ -94,7 +94,8 @@
       toast.className = "store-notification-toast";
       toast.setAttribute("role", "status");
       toast.setAttribute("aria-live", "polite");
-      toast.innerHTML = '<i class="bi bi-heart-fill" aria-hidden="true"></i><span></span>';
+      toast.innerHTML = '<i aria-hidden="true"></i><span></span>';
+      toast.querySelector("i").className = `bi bi-${icon}`;
       toast.querySelector("span").textContent = message;
       document.body.append(toast);
       requestAnimationFrame(() => toast.classList.add("is-visible"));
@@ -119,7 +120,7 @@
         saveNotifications();
         renderNotifications();
         ringNotificationBell();
-        showToast(message);
+        showToast(message, icon);
       }
     };
 
@@ -288,7 +289,7 @@
   }
 
   // Category pages reuse the store shell and provide their own catalog behavior.
-  if (document.body.classList.contains("hoodies-page")) return;
+  if (document.body.matches(".hoodies-page, .stickers-page")) return;
 
   const normalize = (value) => value
     .toLocaleLowerCase("ar")
