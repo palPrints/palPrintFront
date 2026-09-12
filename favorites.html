@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="منتجاتك المفضلة في PalPrints">
+  <title>المفضلة | PalPrints</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/icons/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="assets/css/pages/favorites.css?v=8">
+</head>
+<body>
+  <a class="skip-link" href="#mainContent">تخطي إلى المحتوى</a>
+  <div class="page-shell">
+    <aside class="sidebar" id="sidebar" aria-label="قائمة الحساب">
+      <a href="index.html" class="sidebar-brand" aria-label="PalPrints - الصفحة الرئيسية"><img src="assets/images/palprints-wordmark-transparent.png" alt="PalPrints"></a>
+      <nav class="sidebar-nav">
+        <a href="storefront.html" class="nav-link"><i class="bi bi-shop-window"></i><span>متجر PalPrints</span></a>
+        <a href="custProfile.html" class="nav-link"><i class="bi bi-person"></i><span>الملف الشخصي</span></a>
+        <a href="orders.html" class="nav-link"><i class="bi bi-bag"></i><span>طلباتي</span></a>
+        <a href="favorites.html" class="nav-link active" aria-current="page"><i class="bi bi-heart"></i><span>المفضلة</span></a>
+        <span class="nav-divider"></span>
+        <a href="#" class="nav-link"><i class="bi bi-gear"></i><span>الإعدادات</span></a>
+        <a href="#" class="nav-link"><i class="bi bi-headset"></i><span>الدعم الفني</span></a>
+      </nav>
+      <button type="button" class="logout-button"><i class="bi bi-box-arrow-left"></i><span>تسجيل الخروج</span></button>
+    </aside>
+    <button class="sidebar-overlay" id="sidebarOverlay" type="button" aria-label="إغلاق القائمة"></button>
+
+    <div class="site-content">
+      <header class="topbar">
+        <button class="icon-button menu-button" id="menuButton" type="button" aria-label="فتح القائمة" aria-controls="sidebar" aria-expanded="false"><i class="bi bi-list"></i></button>
+        <label class="search-box"><input id="favoritesSearch" type="search" placeholder="ابحث في المفضلة ..." aria-label="البحث في المفضلة"><i class="bi bi-search"></i></label>
+        <div class="header-actions">
+          <a class="icon-button account-button" href="custProfile.html" aria-label="الحساب"><i class="bi bi-person"></i></a>
+          <div class="notification-wrap">
+            <button class="icon-button notification-button" id="notificationButton" type="button" aria-label="الإشعارات" aria-haspopup="true" aria-expanded="false"><i class="bi bi-bell"></i><span class="counter notification-counter" id="notificationCounter" hidden>0</span></button>
+            <div class="notification-dropdown" id="notificationDropdown" role="menu" aria-label="قائمة الإشعارات" hidden><div class="notification-dropdown-header"><h3>الإشعارات</h3></div><ul class="notification-list"><li class="notification-empty">لا توجد إشعارات بعد</li></ul></div>
+          </div>
+          <a class="icon-button cart-button" href="orderBasket.html" aria-label="سلة المشتريات"><i class="bi bi-cart3"></i><span class="counter">2</span></a>
+        </div>
+      </header>
+
+      <main id="mainContent">
+        <section class="favorites-content" aria-labelledby="pageTitle">
+          <div class="page-heading"><h1 id="pageTitle">المفضلة</h1><p>كل التصاميم التي أعجبتك في مكان واحد.</p></div>
+          <div class="favorites-grid" id="favoritesGrid" aria-live="polite"></div>
+          <section class="favorites-empty" id="favoritesEmpty" aria-labelledby="favoritesEmptyTitle" hidden>
+            <div class="favorites-empty__visual" aria-hidden="true"><span class="heart-card heart-card--back"><i class="bi bi-heart"></i></span><span class="heart-card heart-card--front"><i class="bi bi-heart"></i></span><span class="empty-heart"><i class="bi bi-heart"></i></span></div>
+            <h2 id="favoritesEmptyTitle">قائمة مفضلاتك فارغة حاليًا</h2>
+            <p>احفظ التصاميم والمنتجات التي تعجبك<br>لتعود إليها بسهولة في أي وقت.</p>
+            <a class="browse-favorites btn-brand" href="storefront.html#products">تصفح المنتجات <i class="bi bi-arrow-left" aria-hidden="true"></i></a>
+          </section>
+          <section class="favorites-suggestions" id="favoritesSuggestions" aria-labelledby="favoritesSuggestionsTitle" hidden>
+            <div class="favorites-suggestions__heading"><h2 id="favoritesSuggestionsTitle">ابدأ باختيار ما تحب</h2><p>اكتشف منتجات PalPrints المميزة</p></div>
+            <div class="favorites-suggestions__grid">
+              <a href="tshirts.html" class="favorite-suggestion"><span><i class="bi bi-person-standing-dress"></i></span><strong>تيشيرتات</strong><small>تصاميم تعبّر عنك</small></a>
+              <a href="hoodies.html" class="favorite-suggestion favorite-suggestion--coral"><span><i class="bi bi-bag"></i></span><strong>هودي</strong><small>راحة وأناقة بطابعك</small></a>
+              <a href="mugs.html" class="favorite-suggestion favorite-suggestion--cyan"><span><i class="bi bi-cup-hot"></i></span><strong>أكواب</strong><small>لحظاتك بتصميمك</small></a>
+              <a href="stickers.html" class="favorite-suggestion favorite-suggestion--violet"><span><i class="bi bi-stars"></i></span><strong>ستيكرات</strong><small>لمسات صغيرة مميزة</small></a>
+            </div>
+          </section>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="footer-grid">
+          <div class="footer-brand"><img src="assets/images/palprints-wordmark-transparent.png" alt="PalPrints"><p>من فكرة إلى واقع.<br>صنع بكل حب لكم.</p></div>
+          <div class="footer-column"><h3>المتجر</h3><a href="storefront.html">كل المنتجات</a><a href="#">التصنيفات</a><a href="#">الإكسسوارات</a><a href="#">الأكثر مبيعًا</a></div>
+          <div class="footer-column"><h3>حسابك</h3><a href="custProfile.html">الملف الشخصي</a><a href="orders.html">طلباتي</a><a href="favorites.html">المفضلة</a><a href="orderBasket.html">سلة المشتريات</a></div>
+          <div class="footer-column"><h3>المساعدة</h3><a href="#">الدعم الفني</a><a href="#">الأسئلة الشائعة</a><a href="#">سياسة الخصوصية</a><a href="#">الشروط والأحكام</a></div>
+          <div class="footer-column footer-contact"><h3>تواصل معنا</h3><a href="mailto:support@palprints.com"><i class="bi bi-envelope"></i> support@palprints.com</a><a href="tel:+970599000000"><i class="bi bi-telephone"></i><span dir="ltr">+970 59 900 0000</span></a><span><i class="bi bi-geo-alt"></i>رام الله، فلسطين</span></div>
+        </div>
+        <div class="footer-bottom"><p class="copyright">© 2026 PalPrints جميع الحقوق محفوظة.</p><div class="footer-social"><a href="#" aria-label="إنستغرام"><i class="bi bi-instagram"></i></a><a href="#" aria-label="فيسبوك"><i class="bi bi-facebook"></i></a><a href="#" aria-label="تيك توك"><i class="bi bi-tiktok"></i></a><a href="#" aria-label="واتساب"><i class="bi bi-whatsapp"></i></a></div></div>
+      </footer>
+    </div>
+  </div>
+  <script src="assets/js/pages/favorites.js?v=3"></script>
+</body>
+</html>
