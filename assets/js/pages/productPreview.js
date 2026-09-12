@@ -40,6 +40,10 @@
     selectedColorName: document.getElementById("selectedColorName"),
     sizeOptions: document.getElementById("sizeOptions"),
     selectedSizeName: document.getElementById("selectedSizeName"),
+    pieceSelector: document.getElementById("pieceSelector"),
+    pieceTabs: document.getElementById("pieceTabs"),
+    activePieceLabel: document.getElementById("activePieceLabel"),
+    pieceEditorPanel: document.getElementById("pieceEditorPanel"),
     quantityValue: document.getElementById("quantityValue"),
     decreaseQuantity: document.getElementById("decreaseQuantity"),
     increaseQuantity: document.getElementById("increaseQuantity"),
@@ -73,7 +77,7 @@
 
   function createFallbackPayload() {
     return {
-      version: 1,
+      version: 2,
       product: {
         id: "hoodie-classic",
         name: "هودي رجال / نساء",
@@ -107,7 +111,15 @@
           ]
         }
       },
-      selection: { colorId: "black", sizeId: "m", quantity: 1, printAreaIds: ["front"] },
+      selection: {
+        colorId: "black",
+        sizeId: "m",
+        quantity: 1,
+        printAreaIds: ["front"],
+        defaultItem: { colorId: "black", sizeId: "m", printAreaIds: ["front"] },
+        items: [{ colorId: "black", sizeId: "m", printAreaIds: ["front"] }],
+        activeItemIndex: 0
+      },
       customerWarnings: []
     };
   }
@@ -131,7 +143,7 @@
 
   function normalizePayload(candidate) {
     const fallback = createFallbackPayload();
-    if (!candidate || candidate.version !== 1 || !candidate.product || !candidate.design) return fallback;
+    if (!candidate || ![1, 2].includes(candidate.version) || !candidate.product || !candidate.design) return fallback;
 
     const rawProduct = candidate.product;
     const rawColors = Array.isArray(rawProduct.colors) ? rawProduct.colors : [];
@@ -237,9 +249,32 @@
     const validSizeId = product.sizes.some(function (size) { return size.id === rawSelection.sizeId; }) ? rawSelection.sizeId : product.sizes[0].id;
     const requestedAreaIds = Array.isArray(rawSelection.printAreaIds) ? rawSelection.printAreaIds : [];
     const validAreaIds = product.printAreas.filter(function (area) { return requestedAreaIds.includes(area.id); }).map(function (area) { return area.id; });
+    const legacyItem = {
+      colorId: validColorId,
+      sizeId: validSizeId,
+      printAreaIds: validAreaIds.length ? validAreaIds : [product.printAreas[0].id]
+    };
+
+    function normalizeSelectionItem(item, itemFallback) {
+      const source = item && typeof item === "object" ? item : itemFallback;
+      const colorId = product.colors.some(function (color) { return color.id === source.colorId; }) ? source.colorId : itemFallback.colorId;
+      const sizeId = product.sizes.some(function (size) { return size.id === source.sizeId; }) ? source.sizeId : itemFallback.sizeId;
+      const requestedIds = Array.isArray(source.printAreaIds) ? source.printAreaIds : itemFallback.printAreaIds;
+      const areaIds = product.printAreas.filter(function (area) { return requestedIds.includes(area.id); }).map(function (area) { return area.id; });
+      return { colorId: colorId, sizeId: sizeId, printAreaIds: areaIds.length ? areaIds : itemFallback.printAreaIds.slice() };
+    }
+
+    const defaultItem = normalizeSelectionItem(rawSelection.defaultItem, legacyItem);
+    const legacyQuantity = Math.round(safeNumber(rawSelection.quantity, 1, 1, 99));
+    const rawItems = candidate.version === 2 && Array.isArray(rawSelection.items) && rawSelection.items.length
+      ? rawSelection.items.slice(0, 99)
+      : Array.from({ length: legacyQuantity }, function () { return legacyItem; });
+    const items = rawItems.map(function (item) { return normalizeSelectionItem(item, defaultItem); });
+    const activeItemIndex = Math.round(safeNumber(rawSelection.activeItemIndex, 0, 0, items.length - 1));
+    const activeItem = items[activeItemIndex];
 
     return {
-      version: 1,
+      version: 2,
       product: product,
       design: {
         id: safeString(design.id, fallback.design.id, 80),
@@ -248,10 +283,13 @@
         preview: { images: images, texts: texts, icons: icons }
       },
       selection: {
-        colorId: validColorId,
-        sizeId: validSizeId,
-        quantity: Math.round(safeNumber(rawSelection.quantity, 1, 1, 99)),
-        printAreaIds: validAreaIds.length ? validAreaIds : [product.printAreas[0].id]
+        colorId: activeItem.colorId,
+        sizeId: activeItem.sizeId,
+        printAreaIds: activeItem.printAreaIds.slice(),
+        quantity: items.length,
+        defaultItem: defaultItem,
+        items: items,
+        activeItemIndex: activeItemIndex
       },
       customerWarnings: (Array.isArray(candidate.customerWarnings) ? candidate.customerWarnings : []).slice(0, 10).map(function (warning) {
         return {
@@ -274,40 +312,61 @@
 
   const payload = readPayload();
   const state = {
-    colorId: payload.selection.colorId,
-    sizeId: payload.selection.sizeId,
-    quantity: payload.selection.quantity,
-    printAreaIds: new Set(payload.selection.printAreaIds),
-    currentAreaId: payload.selection.printAreaIds[0],
+    items: payload.selection.items.map(function (item) {
+      return { colorId: item.colorId, sizeId: item.sizeId, printAreaIds: new Set(item.printAreaIds) };
+    }),
+    defaultItem: {
+      colorId: payload.selection.defaultItem.colorId,
+      sizeId: payload.selection.defaultItem.sizeId,
+      printAreaIds: payload.selection.defaultItem.printAreaIds.slice()
+    },
+    activePieceIndex: payload.selection.activeItemIndex,
+    currentAreaId: payload.selection.items[payload.selection.activeItemIndex].printAreaIds[0],
     zoom: 1,
     fullscreenOpener: null,
     toastTimer: null,
     buttonTimer: null
   };
 
-  function currentColor() {
-    return payload.product.colors.find(function (color) { return color.id === state.colorId; });
+  function activePiece() {
+    return state.items[state.activePieceIndex];
+  }
+
+  function currentColor(piece) {
+    const selectedPiece = piece || activePiece();
+    return payload.product.colors.find(function (color) { return color.id === selectedPiece.colorId; });
   }
 
   function currentArea() {
     return payload.product.printAreas.find(function (area) { return area.id === state.currentAreaId; }) || payload.product.printAreas[0];
   }
 
-  function selectedAreas() {
-    return payload.product.printAreas.filter(function (area) { return state.printAreaIds.has(area.id); });
+  function selectedAreas(piece) {
+    const selectedPiece = piece || activePiece();
+    return payload.product.printAreas.filter(function (area) { return selectedPiece.printAreaIds.has(area.id); });
   }
 
   function formatMoney(value) {
     return new Intl.NumberFormat("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value) + " ₪";
   }
 
-  function pricing() {
-    const areaFees = selectedAreas().map(function (area) {
+  function itemPricing(piece) {
+    const areaFees = selectedAreas(piece).map(function (area) {
       return { id: area.id, name: area.name, fee: area.fee };
     });
     const feesTotal = areaFees.reduce(function (total, area) { return total + area.fee; }, 0);
     const unitPrice = payload.product.sellingPrice + feesTotal;
-    return { areaFees: areaFees, feesTotal: feesTotal, unitPrice: unitPrice, total: unitPrice * state.quantity };
+    return { areaFees: areaFees, feesTotal: feesTotal, unitPrice: unitPrice, total: unitPrice };
+  }
+
+  function pricing() {
+    const areaFees = payload.product.printAreas.map(function (area) {
+      const count = state.items.filter(function (piece) { return piece.printAreaIds.has(area.id); }).length;
+      return { id: area.id, name: area.name, fee: area.fee, count: count, total: area.fee * count };
+    }).filter(function (area) { return area.count > 0; });
+    const baseTotal = payload.product.sellingPrice * state.items.length;
+    const feesTotal = areaFees.reduce(function (total, area) { return total + area.total; }, 0);
+    return { areaFees: areaFees, baseTotal: baseTotal, feesTotal: feesTotal, total: baseTotal + feesTotal };
   }
 
   function setText(element, text) {
@@ -375,7 +434,7 @@
   function renderProductCanvas() {
     const area = currentArea();
     const color = currentColor();
-    const selected = state.printAreaIds.has(area.id);
+    const selected = activePiece().printAreaIds.has(area.id);
     const source = area.image || (color && color.image);
 
     elements.productImage.hidden = false;
@@ -414,11 +473,11 @@
       const color = currentColor();
       const isCurrent = area.id === state.currentAreaId;
       button.type = "button";
-      button.className = "view-tab" + (state.printAreaIds.has(area.id) ? "" : " is-unselected");
+      button.className = "view-tab" + (activePiece().printAreaIds.has(area.id) ? "" : " is-unselected");
       button.dataset.areaId = area.id;
       button.setAttribute("role", "tab");
       button.setAttribute("aria-selected", String(isCurrent));
-      button.setAttribute("aria-label", "عرض " + area.name + (state.printAreaIds.has(area.id) ? "، محددة للطباعة" : "، غير محددة للطباعة"));
+      button.setAttribute("aria-label", "عرض " + area.name + (activePiece().printAreaIds.has(area.id) ? "، محددة للطباعة" : "، غير محددة للطباعة"));
       image.src = area.image || (color && color.image);
       image.alt = "";
       image.className = color ? color.toneClass : "";
@@ -434,11 +493,11 @@
     payload.product.colors.forEach(function (color) {
       const button = document.createElement("button");
       button.type = "button";
-      button.className = "color-option" + (color.id === state.colorId ? " is-selected" : "");
+      button.className = "color-option" + (color.id === activePiece().colorId ? " is-selected" : "");
       button.dataset.colorId = color.id;
       button.style.setProperty("--color-value", color.value);
       button.setAttribute("aria-label", "اللون " + color.name);
-      button.setAttribute("aria-pressed", String(color.id === state.colorId));
+      button.setAttribute("aria-pressed", String(color.id === activePiece().colorId));
       button.title = color.name;
       elements.colorOptions.appendChild(button);
     });
@@ -451,26 +510,63 @@
     payload.product.sizes.forEach(function (size) {
       const button = document.createElement("button");
       button.type = "button";
-      button.className = "size-option" + (size.id === state.sizeId ? " is-selected" : "");
+      button.className = "size-option" + (size.id === activePiece().sizeId ? " is-selected" : "");
       button.dataset.sizeId = size.id;
       button.textContent = size.name;
-      button.setAttribute("aria-pressed", String(size.id === state.sizeId));
+      button.setAttribute("aria-pressed", String(size.id === activePiece().sizeId));
       elements.sizeOptions.appendChild(button);
     });
-    const size = payload.product.sizes.find(function (item) { return item.id === state.sizeId; });
+    const size = payload.product.sizes.find(function (item) { return item.id === activePiece().sizeId; });
     setText(elements.selectedSizeName, size ? size.name : "غير محدد");
   }
 
   function renderQuantity() {
-    setText(elements.quantityValue, String(state.quantity));
-    elements.decreaseQuantity.disabled = state.quantity <= 1;
-    elements.increaseQuantity.disabled = state.quantity >= 99;
+    setText(elements.quantityValue, String(state.items.length));
+    elements.decreaseQuantity.disabled = state.items.length <= 1;
+    elements.increaseQuantity.disabled = state.items.length >= 99;
+  }
+
+  function renderPieceSelector() {
+    const multiple = state.items.length > 1;
+    elements.pieceSelector.hidden = !multiple;
+    elements.pieceTabs.replaceChildren();
+    setText(elements.activePieceLabel, "القطعة " + (state.activePieceIndex + 1) + " من " + state.items.length);
+    elements.pieceEditorPanel.setAttribute("aria-label", "خيارات القطعة " + (state.activePieceIndex + 1));
+
+    state.items.forEach(function (piece, index) {
+      const button = document.createElement("button");
+      const number = document.createElement("strong");
+      const details = document.createElement("small");
+      const colorDot = document.createElement("span");
+      const color = currentColor(piece);
+      const size = payload.product.sizes.find(function (item) { return item.id === piece.sizeId; });
+      const areas = selectedAreas(piece);
+      button.type = "button";
+      button.id = "pieceTab" + index;
+      button.className = "piece-tab";
+      button.dataset.pieceIndex = String(index);
+      button.setAttribute("role", "tab");
+      button.setAttribute("aria-selected", String(index === state.activePieceIndex));
+      button.setAttribute("aria-controls", "pieceEditorPanel");
+      button.tabIndex = index === state.activePieceIndex ? 0 : -1;
+      button.setAttribute("aria-label", "تخصيص القطعة " + (index + 1) + " من " + state.items.length);
+      colorDot.className = "piece-tab__color";
+      colorDot.style.setProperty("--piece-color", color ? color.value : "#ffffff");
+      colorDot.setAttribute("aria-hidden", "true");
+      number.textContent = "القطعة " + (index + 1);
+      details.textContent = (size ? size.name : "—") + " · " + areas.map(function (area) { return area.name; }).join(" + ");
+      button.append(colorDot, number, details);
+      elements.pieceTabs.appendChild(button);
+    });
+
+    if (multiple) elements.pieceEditorPanel.setAttribute("aria-labelledby", "pieceTab" + state.activePieceIndex);
+    else elements.pieceEditorPanel.removeAttribute("aria-labelledby");
   }
 
   function renderPrintAreas() {
     elements.printAreaOptions.replaceChildren();
     payload.product.printAreas.forEach(function (area) {
-      const selected = state.printAreaIds.has(area.id);
+      const selected = activePiece().printAreaIds.has(area.id);
       const button = document.createElement("button");
       const image = document.createElement("img");
       const body = document.createElement("span");
@@ -509,12 +605,10 @@
   function renderPrice() {
     const result = pricing();
     elements.priceBreakdown.replaceChildren();
-    addPriceRow("سعر المنتج", formatMoney(payload.product.sellingPrice));
+    addPriceRow("سعر المنتج × " + state.items.length, formatMoney(result.baseTotal));
     result.areaFees.forEach(function (area) {
-      addPriceRow("طباعة " + area.name, "+" + formatMoney(area.fee));
+      addPriceRow("طباعة " + area.name + " × " + area.count, "+" + formatMoney(area.total));
     });
-    addPriceRow("سعر الوحدة", formatMoney(result.unitPrice), "is-unit");
-    if (state.quantity > 1) addPriceRow("الكمية", "× " + state.quantity);
     setText(elements.totalPrice, formatMoney(result.total));
     setText(elements.mobileTotalPrice, formatMoney(result.total));
   }
@@ -541,9 +635,12 @@
   }
 
   function validationMessage() {
-    if (!currentColor()) return "اختر لون المنتج للمتابعة.";
-    if (!payload.product.sizes.some(function (size) { return size.id === state.sizeId; })) return "اختر المقاس للمتابعة.";
-    if (state.printAreaIds.size === 0) return "اختر منطقة طباعة واحدة على الأقل.";
+    const invalidIndex = state.items.findIndex(function (piece) {
+      return !currentColor(piece) ||
+        !payload.product.sizes.some(function (size) { return size.id === piece.sizeId; }) ||
+        piece.printAreaIds.size === 0;
+    });
+    if (invalidIndex >= 0) return "راجع خيارات القطعة " + (invalidIndex + 1) + " قبل المتابعة.";
     if (visibleWarnings().some(function (warning) { return warning.blocking; })) return "عالج التحذير الظاهر قبل الإضافة إلى السلة.";
     return "";
   }
@@ -570,11 +667,27 @@
   }
 
   function syncSession() {
+    const serializedItems = state.items.map(function (piece) {
+      return {
+        colorId: piece.colorId,
+        sizeId: piece.sizeId,
+        printAreaIds: selectedAreas(piece).map(function (area) { return area.id; })
+      };
+    });
+    const current = serializedItems[state.activePieceIndex];
+    payload.version = 2;
     payload.selection = {
-      colorId: state.colorId,
-      sizeId: state.sizeId,
-      quantity: state.quantity,
-      printAreaIds: selectedAreas().map(function (area) { return area.id; })
+      colorId: current.colorId,
+      sizeId: current.sizeId,
+      printAreaIds: current.printAreaIds.slice(),
+      quantity: serializedItems.length,
+      defaultItem: {
+        colorId: state.defaultItem.colorId,
+        sizeId: state.defaultItem.sizeId,
+        printAreaIds: state.defaultItem.printAreaIds.slice()
+      },
+      items: serializedItems,
+      activeItemIndex: state.activePieceIndex
     };
     try { sessionStorage.setItem(SESSION_KEY, JSON.stringify(payload)); } catch (error) { /* Preview still works without storage. */ }
   }
@@ -586,6 +699,7 @@
     renderColors();
     renderSizes();
     renderQuantity();
+    renderPieceSelector();
     renderPrintAreas();
     renderPrice();
     renderWarnings();
@@ -657,52 +771,67 @@
     }
 
     const cart = readCart();
-    const selectedIds = selectedAreas().map(function (area) { return area.id; });
-    const result = pricing();
-    const matching = cart.find(function (item) {
-      const itemAreaIds = Array.isArray(item && item.printAreaIds) ? item.printAreaIds : [];
-      return item && item.kind === "custom-product" &&
-        item.productId === payload.product.id &&
-        item.designId === payload.design.id &&
-        item.colorId === state.colorId &&
-        item.sizeId === state.sizeId &&
-        itemAreaIds.length === selectedIds.length &&
-        itemAreaIds.every(function (id, index) { return id === selectedIds[index]; });
+    const groups = new Map();
+    state.items.forEach(function (piece) {
+      const selectedIds = selectedAreas(piece).map(function (area) { return area.id; });
+      const key = JSON.stringify([piece.colorId, piece.sizeId, selectedIds]);
+      if (!groups.has(key)) groups.set(key, { piece: piece, selectedIds: selectedIds, quantity: 0 });
+      groups.get(key).quantity += 1;
     });
 
-    if (matching) {
-      matching.quantity = Math.min(99, safeNumber(matching.quantity, 0, 0, 99) + state.quantity);
-      matching.pricing = matching.pricing && typeof matching.pricing === "object" ? matching.pricing : {};
-      matching.pricing.sellingPrice = payload.product.sellingPrice;
-      matching.pricing.areaFees = result.areaFees;
-      matching.pricing.unitPrice = result.unitPrice;
-      matching.pricing.total = result.unitPrice * matching.quantity;
-      matching.pricing.currency = payload.product.currency;
-      matching.updatedAt = new Date().toISOString();
-    } else {
-      const color = currentColor();
-      const size = payload.product.sizes.find(function (item) { return item.id === state.sizeId; });
-      const area = currentArea();
+    let addedCount = 0;
+    let groupIndex = 0;
+    groups.forEach(function (group) {
+      const result = itemPricing(group.piece);
+      const matching = cart.find(function (item) {
+        const itemAreaIds = Array.isArray(item && item.printAreaIds) ? item.printAreaIds : [];
+        return item && item.kind === "custom-product" &&
+          item.productId === payload.product.id &&
+          item.designId === payload.design.id &&
+          item.colorId === group.piece.colorId &&
+          item.sizeId === group.piece.sizeId &&
+          itemAreaIds.length === group.selectedIds.length &&
+          itemAreaIds.every(function (id, index) { return id === group.selectedIds[index]; });
+      });
+
+      if (matching) {
+        const previousQuantity = safeNumber(matching.quantity, 0, 0, 99);
+        const acceptedQuantity = Math.min(group.quantity, 99 - previousQuantity);
+        matching.quantity = previousQuantity + acceptedQuantity;
+        matching.pricing = matching.pricing && typeof matching.pricing === "object" ? matching.pricing : {};
+        matching.pricing.sellingPrice = payload.product.sellingPrice;
+        matching.pricing.areaFees = result.areaFees;
+        matching.pricing.unitPrice = result.unitPrice;
+        matching.pricing.total = result.unitPrice * matching.quantity;
+        matching.pricing.currency = payload.product.currency;
+        matching.updatedAt = new Date().toISOString();
+        addedCount += acceptedQuantity;
+        return;
+      }
+
+      const color = currentColor(group.piece);
+      const size = payload.product.sizes.find(function (item) { return item.id === group.piece.sizeId; });
+      const area = selectedAreas(group.piece)[0];
       cart.push({
-        id: "custom-product-" + Date.now(),
+        id: "custom-product-" + Date.now() + "-" + groupIndex,
         kind: "custom-product",
         productId: payload.product.id,
         productName: payload.product.name,
         designId: payload.design.id,
         designName: payload.design.name,
         designerName: payload.design.designerName,
-        colorId: state.colorId,
+        colorId: group.piece.colorId,
         colorName: color.name,
-        sizeId: state.sizeId,
+        sizeId: group.piece.sizeId,
         sizeName: size.name,
-        quantity: state.quantity,
-        printAreaIds: selectedIds,
+        quantity: group.quantity,
+        printAreaIds: group.selectedIds,
         printAreas: result.areaFees,
         pricing: {
           sellingPrice: payload.product.sellingPrice,
           areaFees: result.areaFees,
           unitPrice: result.unitPrice,
-          total: result.total,
+          total: result.unitPrice * group.quantity,
           currency: payload.product.currency
         },
         previewSnapshot: {
@@ -713,13 +842,20 @@
         },
         createdAt: new Date().toISOString()
       });
-    }
+      addedCount += group.quantity;
+      groupIndex += 1;
+    });
 
     try {
       localStorage.setItem(CART_KEY, JSON.stringify(cart));
       updateCartBadge(cart);
-      setAddButtonSuccess();
-      showToast(matching && matching.quantity === 99 ? "تم تحديث العنصر في السلة حتى الحد الأقصى 99." : "تمت إضافة المنتج إلى السلة بنجاح.", "success");
+      if (addedCount > 0) setAddButtonSuccess();
+      const cartMessage = addedCount === 0
+        ? "تعذر إضافة القطع لأن هذه الخيارات بلغت الحد الأقصى 99."
+        : addedCount < state.items.length
+          ? "تمت إضافة " + addedCount + " قطعة فقط لأن بعض الخيارات بلغت الحد الأقصى 99."
+          : "تمت إضافة القطع إلى السلة بنجاح.";
+      showToast(cartMessage, addedCount > 0 ? "success" : "error");
     } catch (error) {
       showToast("تعذر حفظ السلة على هذا المتصفح. حاول مرة أخرى.", "error");
     }
@@ -733,6 +869,31 @@
     elements.fullscreenStage.replaceChildren(clone);
   }
 
+  function selectPiece(index, focusTab) {
+    if (index < 0 || index >= state.items.length || index === state.activePieceIndex) return;
+    state.activePieceIndex = index;
+    state.currentAreaId = selectedAreas()[0].id;
+    renderAll();
+    if (focusTab) document.getElementById("pieceTab" + index)?.focus();
+  }
+
+  elements.pieceTabs.addEventListener("click", function (event) {
+    const button = event.target.closest("[data-piece-index]");
+    if (!button) return;
+    selectPiece(Number(button.dataset.pieceIndex), false);
+  });
+
+  elements.pieceTabs.addEventListener("keydown", function (event) {
+    if (!["ArrowRight", "ArrowLeft", "Home", "End"].includes(event.key)) return;
+    event.preventDefault();
+    let nextIndex = state.activePieceIndex;
+    if (event.key === "Home") nextIndex = 0;
+    else if (event.key === "End") nextIndex = state.items.length - 1;
+    else if (event.key === "ArrowRight") nextIndex = (state.activePieceIndex - 1 + state.items.length) % state.items.length;
+    else nextIndex = (state.activePieceIndex + 1) % state.items.length;
+    selectPiece(nextIndex, true);
+  });
+
   elements.viewTabs.addEventListener("click", function (event) {
     const button = event.target.closest("[data-area-id]");
     if (!button) return;
@@ -744,19 +905,21 @@
   elements.colorOptions.addEventListener("click", function (event) {
     const button = event.target.closest("[data-color-id]");
     if (!button) return;
-    state.colorId = button.dataset.colorId;
+    activePiece().colorId = button.dataset.colorId;
     renderColors();
     renderViewTabs();
     renderPrintAreas();
     renderProductCanvas();
+    renderPieceSelector();
     syncSession();
   });
 
   elements.sizeOptions.addEventListener("click", function (event) {
     const button = event.target.closest("[data-size-id]");
     if (!button) return;
-    state.sizeId = button.dataset.sizeId;
+    activePiece().sizeId = button.dataset.sizeId;
     renderSizes();
+    renderPieceSelector();
     renderValidation();
     syncSession();
   });
@@ -765,7 +928,7 @@
     const button = event.target.closest("[data-area-id]");
     if (!button) return;
     const id = button.dataset.areaId;
-    if (state.printAreaIds.has(id) && state.printAreaIds.size === 1) {
+    if (activePiece().printAreaIds.has(id) && activePiece().printAreaIds.size === 1) {
       elements.printAreaError.hidden = false;
       setText(elements.printAreaError, "يجب إبقاء منطقة طباعة واحدة على الأقل.");
       showToast("يجب إبقاء منطقة طباعة واحدة على الأقل.", "error");
@@ -773,28 +936,37 @@
     }
     elements.printAreaError.hidden = true;
     state.currentAreaId = id;
-    if (state.printAreaIds.has(id)) state.printAreaIds.delete(id);
-    else state.printAreaIds.add(id);
+    if (activePiece().printAreaIds.has(id)) activePiece().printAreaIds.delete(id);
+    else activePiece().printAreaIds.add(id);
     renderPrintAreas();
     renderViewTabs();
     renderProductCanvas();
+    renderPieceSelector();
     renderPrice();
     renderValidation();
     syncSession();
   });
 
   elements.decreaseQuantity.addEventListener("click", function () {
-    state.quantity = Math.max(1, state.quantity - 1);
-    renderQuantity();
-    renderPrice();
-    syncSession();
+    if (state.items.length <= 1) return;
+    const pieceNumber = state.activePieceIndex + 1;
+    if (!window.confirm("هل تريد إزالة القطعة " + pieceNumber + "؟ ستفقد إعداداتها الخاصة.")) return;
+    state.items.splice(state.activePieceIndex, 1);
+    state.activePieceIndex = Math.min(state.activePieceIndex, state.items.length - 1);
+    state.currentAreaId = selectedAreas()[0].id;
+    renderAll();
   });
 
   elements.increaseQuantity.addEventListener("click", function () {
-    state.quantity = Math.min(99, state.quantity + 1);
-    renderQuantity();
-    renderPrice();
-    syncSession();
+    if (state.items.length >= 99) return;
+    state.items.push({
+      colorId: state.defaultItem.colorId,
+      sizeId: state.defaultItem.sizeId,
+      printAreaIds: new Set(state.defaultItem.printAreaIds)
+    });
+    state.activePieceIndex = state.items.length - 1;
+    state.currentAreaId = selectedAreas()[0].id;
+    renderAll();
   });
 
   elements.zoomOut.addEventListener("click", function () {
@@ -835,4 +1007,20 @@
 
   updateCartBadge(readCart());
   renderAll();
+
+  function revealInitialPreview() {
+    window.clearTimeout(window.__previewBootFallback);
+    window.requestAnimationFrame(function () {
+      window.requestAnimationFrame(function () {
+        document.body.classList.remove("preview-booting");
+        document.getElementById("productPreviewMain").setAttribute("aria-busy", "false");
+      });
+    });
+  }
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(revealInitialPreview, revealInitialPreview);
+  } else {
+    revealInitialPreview();
+  }
 })();
