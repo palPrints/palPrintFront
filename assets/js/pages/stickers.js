@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const PAGE_SIZE = 9;
+  const PAGE_SIZE = 8;
   const MAX_FILE_SIZE = 10 * 1024 * 1024;
   const CART_STORAGE_KEY = "stickerCart";
   const FAVORITES_STORAGE_KEY = "palprints-sticker-favorites";

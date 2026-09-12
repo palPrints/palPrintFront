@@ -621,7 +621,13 @@
   transform: translateY(-2px);
 }
 
-.ready-panel { background: rgb(255 255 255 / 92%); }
+.sticker-panel.ready-panel {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
 
 .ready-panel__header {
   align-items: flex-start;
