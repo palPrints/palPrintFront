@@ -207,7 +207,7 @@
         sidebarToggle.querySelector("i")?.classList.replace("bi-x-lg", "bi-list");
       } else {
         storeSidebar.classList.remove("is-open");
-        if (document.body.classList.contains("paper-printing-page")) {
+        if (document.body.classList.contains("paper-printing-page") || document.body.hasAttribute("data-sidebar-default-open")) {
           storeSidebar.classList.remove("is-collapsed");
           document.body.classList.add("sidebar-layout-open");
           storeSidebar.setAttribute("aria-hidden", "false");
