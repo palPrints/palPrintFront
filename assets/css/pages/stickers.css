@@ -621,6 +621,7 @@
   transform: translateY(-2px);
 }
 
+.sticker-panel.brand-panel,
 .sticker-panel.ready-panel {
   padding: 0;
   border: 0;
