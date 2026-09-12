@@ -7,20 +7,28 @@
   <meta name="description" content="عاين منتجك المخصص واختر اللون والمقاس ومناطق الطباعة قبل إضافته إلى السلة">
   <title>معاينة المنتج | PalPrints</title>
 
+  <link rel="preload" href="assets/fonts/Cairo-Variable.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="stylesheet" href="assets/icons/bootstrap-icons.min.css">
   <link rel="stylesheet" href="assets/css/pages/profile-core.css?v=14">
   <link rel="stylesheet" href="assets/css/pages/storefront.css?v=78">
   <link rel="stylesheet" href="assets/css/pages/interactions.css?v=4">
-  <link rel="stylesheet" href="assets/css/pages/productPreview.css?v=2">
+  <link rel="stylesheet" href="assets/css/pages/productPreview.css?v=12">
 </head>
 
-<body class="storefront-page product-preview-page" data-authenticated="true" data-sidebar-default-open>
+<body class="storefront-page product-preview-page preview-booting sidebar-layout-open" data-authenticated="true" data-sidebar-default-open>
+  <script>
+    window.__previewBootFallback = window.setTimeout(function () {
+      document.body.classList.remove("preview-booting");
+      var main = document.getElementById("productPreviewMain");
+      if (main) main.setAttribute("aria-busy", "false");
+    }, 2000);
+  </script>
   <a class="skip-link" href="#productPreviewMain">تخطي إلى المحتوى</a>
 
   <header class="store-header">
     <div class="container-palprints store-header__inner">
-      <button type="button" class="icon-button sidebar-toggle" id="sidebarToggle" aria-label="فتح القائمة الجانبية" aria-expanded="false" aria-controls="storeSidebar">
-        <i class="bi bi-list" aria-hidden="true"></i>
+      <button type="button" class="icon-button sidebar-toggle" id="sidebarToggle" aria-label="إغلاق القائمة الجانبية" aria-expanded="true" aria-controls="storeSidebar">
+        <i class="bi bi-x-lg" aria-hidden="true"></i>
       </button>
       <form class="store-search" id="productSearchForm" role="search" action="storefront.html">
         <span class="store-search__icon" aria-hidden="true"><i class="bi bi-search"></i></span>
@@ -48,7 +56,7 @@
   </header>
 
   <div class="sidebar-backdrop" id="sidebarBackdrop" hidden></div>
-  <aside class="store-sidebar is-collapsed" id="storeSidebar" aria-label="القائمة الجانبية" aria-hidden="true">
+  <aside class="store-sidebar" id="storeSidebar" aria-label="القائمة الجانبية" aria-hidden="false">
     <div class="store-sidebar__header">
       <a class="store-brand" href="storefront.html" aria-label="PalPrints"><span class="store-brand__logo-frame" aria-hidden="true"><img class="palprints-approved-logo" src="assets/images/palprints-wordmark-approved.png" alt=""></span></a>
       <button type="button" class="icon-button sidebar-close" id="sidebarClose" aria-label="إغلاق القائمة الجانبية"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
@@ -65,7 +73,7 @@
     <button type="button" class="store-sidebar__logout pal-pressable" id="storeSidebarLogout" data-href="login.html"><i class="bi bi-box-arrow-left" aria-hidden="true"></i><span>تسجيل الخروج</span></button>
   </aside>
 
-  <main class="store-main product-preview-main" id="productPreviewMain">
+  <main class="store-main product-preview-main" id="productPreviewMain" aria-busy="true">
     <div class="product-preview-container">
       <header class="preview-page-heading">
         <ol class="preview-breadcrumb" aria-label="مسار التنقل">
@@ -132,43 +140,61 @@
             <div><h2 id="summaryTitle"></h2><p id="designMeta"></p></div>
           </div>
 
-          <fieldset class="preview-option-group">
-            <legend><span><i class="bi bi-palette" aria-hidden="true"></i> اللون</span><strong id="selectedColorName"></strong></legend>
-            <div class="color-options" id="colorOptions"></div>
-          </fieldset>
-
-          <fieldset class="preview-option-group">
-            <legend><span><i class="bi bi-rulers" aria-hidden="true"></i> المقاس</span><strong id="selectedSizeName"></strong></legend>
-            <div class="size-options" id="sizeOptions"></div>
-          </fieldset>
-
-          <section class="quantity-section" aria-labelledby="quantityTitle">
-            <div><span class="option-label" id="quantityTitle"><i class="bi bi-copy" aria-hidden="true"></i> الكمية</span><small>الحد الأقصى 99 قطعة</small></div>
-            <div class="quantity-control">
-              <button type="button" id="decreaseQuantity" aria-label="تقليل الكمية"><i class="bi bi-dash-lg" aria-hidden="true"></i></button>
-              <output id="quantityValue">1</output>
-              <button type="button" id="increaseQuantity" aria-label="زيادة الكمية"><i class="bi bi-plus-lg" aria-hidden="true"></i></button>
+          <section class="piece-selector" id="pieceSelector" aria-labelledby="pieceSelectorTitle" hidden>
+            <div class="piece-selector__heading">
+              <span id="pieceSelectorTitle"><i class="bi bi-grid-3x3-gap" aria-hidden="true"></i> تخصيص القطع</span>
+              <strong id="activePieceLabel">القطعة 1 من 1</strong>
             </div>
+            <div class="piece-tabs" id="pieceTabs" role="tablist" aria-label="اختر القطعة المراد تخصيصها"></div>
+            <p>يمكنك اختيار لون ومقاس ومناطق طباعة مختلفة لكل قطعة.</p>
           </section>
 
-          <fieldset class="preview-option-group print-area-group">
-            <legend><span><i class="bi bi-printer" aria-hidden="true"></i> مناطق الطباعة</span><small>اختر منطقة واحدة على الأقل</small></legend>
-            <div class="print-area-options" id="printAreaOptions"></div>
-            <p class="option-error" id="printAreaError" role="alert"></p>
-          </fieldset>
+          <div class="piece-editor" id="pieceEditorPanel" role="tabpanel" aria-label="خيارات القطعة 1" tabindex="0">
+            <fieldset class="preview-option-group">
+              <legend><span><i class="bi bi-palette" aria-hidden="true"></i> اللون</span><strong id="selectedColorName"></strong></legend>
+              <div class="color-options" id="colorOptions"></div>
+            </fieldset>
 
-          <section class="price-card" aria-labelledby="priceTitle">
-            <div class="price-card-title"><span><i class="bi bi-receipt" aria-hidden="true"></i><strong id="priceTitle">تفاصيل السعر</strong></span><small>لا يشمل التوصيل</small></div>
-            <div class="price-breakdown" id="priceBreakdown"></div>
-            <div class="price-total"><span>الإجمالي</span><strong id="totalPrice" dir="ltr">—</strong></div>
-          </section>
+            <fieldset class="preview-option-group">
+              <legend><span><i class="bi bi-rulers" aria-hidden="true"></i> المقاس</span><strong id="selectedSizeName"></strong></legend>
+              <div class="size-options" id="sizeOptions"></div>
+            </fieldset>
 
-          <p class="summary-validation" id="summaryValidation" role="status" aria-live="polite"></p>
-          <button type="button" class="preview-button is-primary" id="addToCartButton"><i class="bi bi-cart-plus" aria-hidden="true"></i><span>إضافة إلى السلة</span></button>
-          <a class="preview-button is-secondary" href="hoodies.html"><i class="bi bi-arrow-right" aria-hidden="true"></i><span>العودة إلى تصاميم الهودي</span></a>
-          <p class="summary-help"><i class="bi bi-headset" aria-hidden="true"></i> تحتاج مساعدة؟ تواصل مع الدعم الفني</p>
+            <section class="quantity-section" aria-labelledby="quantityTitle">
+              <div><span class="option-label" id="quantityTitle"><i class="bi bi-copy" aria-hidden="true"></i> الكمية</span><small>الحد الأقصى 99 قطعة</small></div>
+              <div class="quantity-control">
+                <button type="button" id="decreaseQuantity" aria-label="تقليل الكمية"><i class="bi bi-dash-lg" aria-hidden="true"></i></button>
+                <output id="quantityValue">1</output>
+                <button type="button" id="increaseQuantity" aria-label="زيادة الكمية"><i class="bi bi-plus-lg" aria-hidden="true"></i></button>
+              </div>
+            </section>
+
+            <fieldset class="preview-option-group print-area-group">
+              <legend><span><i class="bi bi-printer" aria-hidden="true"></i> مناطق الطباعة</span><small>اختر منطقة واحدة على الأقل</small></legend>
+              <div class="print-area-options" id="printAreaOptions"></div>
+              <p class="option-error" id="printAreaError" role="alert"></p>
+            </fieldset>
+          </div>
+
         </aside>
       </div>
+
+      <div class="preview-purchase-row">
+        <section class="price-card price-card--horizontal" aria-labelledby="priceTitle">
+          <div class="price-card-title"><span><i class="bi bi-receipt" aria-hidden="true"></i><strong id="priceTitle">تفاصيل السعر</strong></span><small>لا يشمل التوصيل</small></div>
+          <div class="price-breakdown" id="priceBreakdown"></div>
+          <div class="price-total"><span>الإجمالي</span><strong id="totalPrice" dir="ltr">—</strong></div>
+        </section>
+
+        <div class="preview-bottom-actions">
+          <p class="summary-validation" id="summaryValidation" role="status" aria-live="polite"></p>
+          <div class="preview-bottom-buttons">
+            <button type="button" class="preview-button is-primary" id="addToCartButton"><i class="bi bi-cart-plus" aria-hidden="true"></i><span>إضافة إلى السلة</span></button>
+            <a class="preview-button is-secondary" href="hoodies.html"><i class="bi bi-arrow-right" aria-hidden="true"></i><span>العودة إلى تصاميم الهودي</span></a>
+          </div>
+        </div>
+      </div>
+      <p class="summary-help"><i class="bi bi-headset" aria-hidden="true"></i> تحتاج مساعدة؟ تواصل مع الدعم الفني</p>
     </div>
   </main>
 
@@ -208,6 +234,6 @@
   <script src="assets/js/pages/profile-core.js?v=5"></script>
   <script src="assets/js/pages/storefront.js?v=21"></script>
   <script src="assets/js/pages/interactions.js?v=4"></script>
-  <script src="assets/js/pages/productPreview.js?v=1"></script>
+  <script src="assets/js/pages/productPreview.js?v=3"></script>
 </body>
 </html>
