@@ -41,8 +41,6 @@
     });
   };
 
-  if (!form || !input || !grid || !emptyState) return;
-
   if (notificationsToggle && notificationsPanel && notificationsBadge && notificationsList && notificationsEmpty) {
     const storageKey = "palprints-store-notifications";
     let notifications = [];
@@ -193,6 +191,9 @@
     const mobileScreen = window.matchMedia("(max-width: 991px)");
 
     const isMobile = () => mobileScreen.matches;
+    const isSidebarOpen = () => isMobile()
+      ? storeSidebar.classList.contains("is-open")
+      : !storeSidebar.classList.contains("is-collapsed");
 
     const syncSidebar = () => {
       storeSidebar.hidden = false;
@@ -202,11 +203,21 @@
         storeSidebar.classList.remove("is-open");
         document.body.classList.remove("sidebar-layout-open");
         storeSidebar.setAttribute("aria-hidden", "true");
+        sidebarToggle.setAttribute("aria-expanded", "false");
+        sidebarToggle.querySelector("i")?.classList.replace("bi-x-lg", "bi-list");
       } else {
         storeSidebar.classList.remove("is-open");
-        storeSidebar.classList.add("is-collapsed");
-        document.body.classList.remove("sidebar-layout-open");
-        storeSidebar.setAttribute("aria-hidden", "true");
+        if (document.body.classList.contains("paper-printing-page")) {
+          storeSidebar.classList.remove("is-collapsed");
+          document.body.classList.add("sidebar-layout-open");
+          storeSidebar.setAttribute("aria-hidden", "false");
+          sidebarToggle.setAttribute("aria-expanded", "true");
+          sidebarToggle.querySelector("i")?.classList.replace("bi-list", "bi-x-lg");
+        } else {
+          storeSidebar.classList.add("is-collapsed");
+          document.body.classList.remove("sidebar-layout-open");
+          storeSidebar.setAttribute("aria-hidden", "true");
+        }
       }
     };
 
@@ -228,7 +239,7 @@
     };
 
     sidebarToggle.addEventListener("click", () => {
-      if (storeSidebar.classList.contains("is-open")) {
+      if (isSidebarOpen()) {
         closeSidebar();
         return;
       }
@@ -287,6 +298,10 @@
 
     syncSidebar();
   }
+
+  /* Pages that reuse only the store shell stop here; the catalog below requires
+     the storefront search and product grid. */
+  if (!form || !input || !grid || !emptyState) return;
 
   // Category pages reuse the store shell and provide their own catalog behavior.
   if (document.body.matches(".hoodies-page, .stickers-page")) return;
