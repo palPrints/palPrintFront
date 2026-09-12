@@ -7,11 +7,12 @@
   <meta name="description" content="جهّز ملفاتك للطباعة واختر خصائص الورق والتغليف في PalPrints">
   <title>طباعة الورق | PalPrints</title>
 
+  <link rel="preload" href="assets/fonts/Cairo-Variable.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="stylesheet" href="assets/icons/bootstrap-icons.min.css">
   <link rel="stylesheet" href="assets/css/pages/profile-core.css?v=13">
   <link rel="stylesheet" href="assets/css/pages/storefront.css?v=77">
   <link rel="stylesheet" href="assets/css/pages/interactions.css?v=4">
-  <link rel="stylesheet" href="assets/css/pages/paperPrinting.css?v=2">
+  <link rel="stylesheet" href="assets/css/pages/paperPrinting.css?v=4">
 </head>
 
 <body class="storefront-page paper-printing-page" data-authenticated="true">
@@ -19,28 +20,40 @@
 
   <header class="store-header">
     <div class="container-palprints store-header__inner">
-      <button type="button" class="icon-button sidebar-toggle" id="sidebarToggle" aria-label="فتح القائمة الجانبية" aria-expanded="false" aria-controls="storeSidebar">
+      <button type="button" class="icon-button sidebar-toggle" id="sidebarToggle" aria-label="فتح القائمة الجانبية"
+        aria-expanded="false" aria-controls="storeSidebar">
         <i class="bi bi-list" aria-hidden="true"></i>
       </button>
       <form class="store-search" id="productSearchForm" role="search" action="storefront.html">
         <span class="store-search__icon" aria-hidden="true"><i class="bi bi-search"></i></span>
-        <input type="search" id="productSearch" name="q" placeholder="ابحث عن منتج..." aria-label="ابحث عن منتج" autocomplete="off">
+        <input type="search" id="productSearch" name="q" placeholder="ابحث عن منتج..." aria-label="ابحث عن منتج"
+          autocomplete="off">
       </form>
       <div class="store-header__actions" aria-label="إجراءات الحساب">
-        <a class="icon-button" href="cart.html" aria-label="سلة التسوق"><i class="bi bi-cart3" aria-hidden="true"></i><span class="icon-badge" id="cartBadge" aria-hidden="true">0</span></a>
+        <a class="icon-button" href="cart.html" aria-label="سلة التسوق"><i class="bi bi-cart3"
+            aria-hidden="true"></i><span class="icon-badge" id="cartBadge" aria-hidden="true">0</span></a>
         <div class="notifications-menu">
-          <button type="button" class="icon-button notifications-button" id="notificationsToggle" aria-label="الإشعارات" aria-expanded="false" aria-controls="notificationsPanel"><i class="bi bi-bell" aria-hidden="true"></i><span class="icon-badge notifications-badge" aria-hidden="true" hidden>0</span></button>
+          <button type="button" class="icon-button notifications-button" id="notificationsToggle" aria-label="الإشعارات"
+            aria-expanded="false" aria-controls="notificationsPanel"><i class="bi bi-bell" aria-hidden="true"></i><span
+              class="icon-badge notifications-badge" aria-hidden="true" hidden>0</span></button>
           <div class="notifications-panel" id="notificationsPanel" hidden>
-            <div class="notifications-panel__header"><strong>الإشعارات</strong><button type="button" class="notifications-clear">مسح الكل</button></div>
-            <div class="notifications-list"></div><p class="notifications-empty">لا توجد إشعارات جديدة</p>
+            <div class="notifications-panel__header"><strong>الإشعارات</strong><button type="button"
+                class="notifications-clear">مسح الكل</button></div>
+            <div class="notifications-list"></div>
+            <p class="notifications-empty">لا توجد إشعارات جديدة</p>
           </div>
         </div>
         <div class="profile-menu">
-          <button type="button" class="icon-button" id="profileMenuToggle" aria-label="الملف الشخصي" aria-expanded="false" aria-controls="profileDropdown"><i class="bi bi-person" aria-hidden="true"></i></button>
+          <button type="button" class="icon-button" id="profileMenuToggle" aria-label="الملف الشخصي"
+            aria-expanded="false" aria-controls="profileDropdown"><i class="bi bi-person"
+              aria-hidden="true"></i></button>
           <div class="profile-dropdown" id="profileDropdown" hidden>
-            <a href="custProfile.html" class="profile-dropdown__item"><i class="bi bi-person-circle" aria-hidden="true"></i><span>الملف الشخصي</span></a>
-            <a href="custProfile.html#activitySection" class="profile-dropdown__item"><i class="bi bi-heart" aria-hidden="true"></i><span>المفضلة</span></a>
-            <button type="button" class="profile-dropdown__item profile-dropdown__logout"><i class="bi bi-box-arrow-right" aria-hidden="true"></i><span>تسجيل الخروج</span></button>
+            <a href="custProfile.html" class="profile-dropdown__item"><i class="bi bi-person-circle"
+                aria-hidden="true"></i><span>الملف الشخصي</span></a>
+            <a href="custProfile.html#activitySection" class="profile-dropdown__item"><i class="bi bi-heart"
+                aria-hidden="true"></i><span>المفضلة</span></a>
+            <button type="button" class="profile-dropdown__item profile-dropdown__logout"><i
+                class="bi bi-box-arrow-right" aria-hidden="true"></i><span>تسجيل الخروج</span></button>
           </div>
         </div>
       </div>
@@ -50,188 +63,364 @@
   <div class="sidebar-backdrop" id="sidebarBackdrop" hidden></div>
   <aside class="store-sidebar is-collapsed" id="storeSidebar" aria-label="القائمة الجانبية" aria-hidden="true">
     <div class="store-sidebar__header">
-      <a class="store-brand" href="storefront.html" aria-label="PalPrints"><span class="store-brand__logo-frame" aria-hidden="true"><img class="palprints-approved-logo" src="assets/images/palprints-wordmark-approved.png" alt=""></span></a>
-      <button type="button" class="icon-button sidebar-close" id="sidebarClose" aria-label="إغلاق القائمة الجانبية"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+      <a class="store-brand" href="storefront.html" aria-label="PalPrints"><span class="store-brand__logo-frame"
+          aria-hidden="true"><img class="palprints-approved-logo" src="assets/images/palprints-wordmark-approved.png"
+            alt=""></span></a>
+      <button type="button" class="icon-button sidebar-close" id="sidebarClose" aria-label="إغلاق القائمة الجانبية"><i
+          class="bi bi-x-lg" aria-hidden="true"></i></button>
     </div>
     <nav class="store-sidebar__nav" aria-label="روابط الحساب">
-      <a href="storefront.html" class="store-sidebar__item active pal-pressable" aria-current="page"><i class="bi bi-shop" aria-hidden="true"></i><span>متجر PalPrint</span></a>
-      <a href="custProfile.html" class="store-sidebar__item pal-pressable"><i class="bi bi-person" aria-hidden="true"></i><span>الملف الشخصي</span></a>
-      <a href="custProfile.html#currentOrderSection" class="store-sidebar__item pal-pressable"><i class="bi bi-bag" aria-hidden="true"></i><span>طلباتي</span></a>
-      <a href="custProfile.html#activitySection" class="store-sidebar__item pal-pressable"><i class="bi bi-heart" aria-hidden="true"></i><span>المفضلة</span></a>
-      <a href="custProfile.html#preferencesSection" class="store-sidebar__item pal-pressable"><i class="bi bi-gear" aria-hidden="true"></i><span>الإعدادات</span></a>
-      <a href="custProfile.html#profileMain" class="store-sidebar__item pal-pressable"><i class="bi bi-headset" aria-hidden="true"></i><span>الدعم الفني</span></a>
+      <a href="storefront.html" class="store-sidebar__item active pal-pressable" aria-current="page"><i
+          class="bi bi-shop" aria-hidden="true"></i><span>متجر PalPrint</span></a>
+      <a href="custProfile.html" class="store-sidebar__item pal-pressable"><i class="bi bi-person"
+          aria-hidden="true"></i><span>الملف الشخصي</span></a>
+      <a href="custProfile.html#currentOrderSection" class="store-sidebar__item pal-pressable"><i class="bi bi-bag"
+          aria-hidden="true"></i><span>طلباتي</span></a>
+      <a href="custProfile.html#activitySection" class="store-sidebar__item pal-pressable"><i class="bi bi-heart"
+          aria-hidden="true"></i><span>المفضلة</span></a>
+      <a href="custProfile.html#preferencesSection" class="store-sidebar__item pal-pressable"><i class="bi bi-gear"
+          aria-hidden="true"></i><span>الإعدادات</span></a>
+      <a href="custProfile.html#profileMain" class="store-sidebar__item pal-pressable"><i class="bi bi-headset"
+          aria-hidden="true"></i><span>الدعم الفني</span></a>
     </nav>
     <div class="store-sidebar__divider" aria-hidden="true"></div>
-    <button type="button" class="store-sidebar__logout pal-pressable" id="storeSidebarLogout" data-href="login.html"><i class="bi bi-box-arrow-left" aria-hidden="true"></i><span>تسجيل الخروج</span></button>
+    <button type="button" class="store-sidebar__logout pal-pressable" id="storeSidebarLogout" data-href="login.html"><i
+        class="bi bi-box-arrow-left" aria-hidden="true"></i><span>تسجيل الخروج</span></button>
   </aside>
 
   <main class="store-main paper-main" id="paperMain">
-        <div class="paper-page-heading">
-          <div>
-            <ol class="profile-breadcrumb" aria-label="مسار التنقل" data-i18n-aria="breadcrumbLabel">
-              <li><a href="index.html" data-i18n="home">الرئيسية</a></li>
-              <li><a href="storefront.html#products" data-i18n="products">المنتجات</a></li>
-              <li aria-current="page"><span data-i18n="paperPrinting">طباعة الورق</span></li>
-            </ol>
-            <div class="paper-title-row">
-              <span class="paper-title-icon" aria-hidden="true"><i class="bi bi-file-earmark-text"></i></span>
-              <div>
-                <h1 data-i18n="paperPrinting">طباعة الورق</h1>
-                <p data-i18n="pageSubtitle">ارفع ملفاتك، اضبط خصائصها، ثم اختر طريقة التجميع والتغليف.</p>
+    <div class="paper-page-heading">
+      <div>
+        <ol class="profile-breadcrumb" aria-label="مسار التنقل" data-i18n-aria="breadcrumbLabel">
+          <li><a href="index.html" data-i18n="home">الرئيسية</a></li>
+          <li><a href="storefront.html#products" data-i18n="products">المنتجات</a></li>
+          <li aria-current="page"><span data-i18n="paperPrinting">طباعة الورق</span></li>
+        </ol>
+        <div class="paper-title-row">
+          <span class="paper-title-icon" aria-hidden="true"><i class="bi bi-file-earmark-text"></i></span>
+          <h1 data-i18n="paperPrinting">طباعة الورق</h1>
+          <p data-i18n="pageSubtitle">ارفع ملفاتك، اضبط خصائصها، ثم اختر طريقة التجميع والتغليف.</p>
+        </div>
+      </div>
+    </div>
+
+    <nav class="paper-progress" aria-label="مراحل طلب الطباعة" data-i18n-aria="journeyLabel">
+      <button type="button" class="paper-progress-step is-active" data-progress-step="1" data-no-press
+        aria-current="step">
+        <span class="progress-number">1</span><span class="progress-copy"><strong
+            data-i18n="filesStep">الملفات</strong><small data-i18n="filesStepHint">الرفع والمعالجة</small></span>
+      </button>
+      <span class="progress-line" aria-hidden="true"></span>
+      <button type="button" class="paper-progress-step" data-progress-step="2" data-no-press disabled>
+        <span class="progress-number">2</span><span class="progress-copy"><strong data-i18n="printStep">خصائص
+            الطباعة</strong><small data-i18n="printStepHint">الورق والألوان</small></span>
+      </button>
+      <span class="progress-line" aria-hidden="true"></span>
+      <button type="button" class="paper-progress-step" data-progress-step="3" data-no-press disabled>
+        <span class="progress-number">3</span><span class="progress-copy"><strong data-i18n="bindingStep">التجميع
+            والتغليف</strong><small data-i18n="bindingStepHint">شكل المطبوعات</small></span>
+      </button>
+      <span class="progress-line" aria-hidden="true"></span>
+      <button type="button" class="paper-progress-step" data-progress-step="4" data-no-press disabled>
+        <span class="progress-number">4</span><span class="progress-copy"><strong
+            data-i18n="reviewStep">المراجعة</strong><small data-i18n="reviewStepHint">تأكيد الطلب</small></span>
+      </button>
+    </nav>
+
+    <div class="paper-configurator-layout">
+      <div class="paper-workspace">
+        <section class="journey-stage is-active" data-stage="1" aria-labelledby="stageTitle1">
+          <button type="button" class="stage-mobile-header" data-stage-toggle="1" aria-expanded="true">
+            <span class="stage-mobile-number">1</span><span><strong data-i18n="filesStep">الملفات</strong><small
+                id="stageSummary1" data-i18n="stageCurrent">المرحلة الحالية</small></span><i class="bi bi-chevron-down"
+              aria-hidden="true"></i>
+          </button>
+          <div class="stage-body">
+            <header class="stage-heading">
+              <div><span class="stage-kicker" data-i18n="stepOne">الخطوة 1 من 4</span>
+                <h2 id="stageTitle1" data-i18n="uploadTitle">ابدأ برفع ملفاتك</h2>
+                <p data-i18n="uploadDescription">سنحلل الصفحات أولًا حتى تكون الخصائص والسعر أدق.</p>
+              </div>
+              <span class="stage-heading-icon" aria-hidden="true"><i class="bi bi-cloud-arrow-up"></i></span>
+            </header>
+
+            <div class="upload-zone" id="uploadZone">
+              <input type="file" id="paperFileInput" accept=".pdf,.jpg,.jpeg,.png,.docx,.pptx" multiple hidden>
+              <span class="upload-illustration" aria-hidden="true"><i class="bi bi-cloud-arrow-up"></i></span>
+              <h3 data-i18n="dropFiles">اسحب ملفاتك إلى هنا</h3>
+              <p data-i18n="dropOrChoose">أو اخترها من جهازك لبدء المعالجة</p>
+              <button type="button" class="paper-button is-primary" id="chooseFilesButton"><i class="bi bi-plus-lg"
+                  aria-hidden="true"></i><span data-i18n="chooseFiles">اختيار الملفات</span></button>
+              <div class="upload-rules" aria-label="شروط الرفع">
+                <span><i class="bi bi-file-earmark-check" aria-hidden="true"></i>PDF, JPG, PNG, DOCX, PPTX</span>
+                <span><i class="bi bi-hdd" aria-hidden="true"></i><span data-i18n="sizeLimit">50MB لكل ملف</span></span>
+                <span><i class="bi bi-layers" aria-hidden="true"></i><span data-i18n="filesLimit">10 ملفات / 500
+                    صفحة</span></span>
               </div>
             </div>
+
+            <div class="file-section" id="fileSection" hidden>
+              <div class="file-section-header">
+                <div>
+                  <h3 data-i18n="uploadedFiles">الملفات المرفوعة</h3>
+                  <p id="fileCounter" aria-live="polite"></p>
+                </div>
+                <button type="button" class="paper-button is-soft is-small" id="addMoreFilesButton"><i
+                    class="bi bi-plus-lg" aria-hidden="true"></i><span data-i18n="addMore">إضافة ملفات</span></button>
+              </div>
+              <div class="paper-file-list" id="paperFileList"></div>
+            </div>
+
+            <div class="stage-error" id="stageError1" role="alert" hidden></div>
+            <div class="stage-actions"><span></span><button type="button" class="paper-button is-primary"
+                data-next-step="2"><span data-i18n="continueToPrint">متابعة إلى خصائص الطباعة</span><i
+                  class="bi bi-arrow-left" aria-hidden="true"></i></button></div>
+          </div>
+        </section>
+
+        <section class="journey-stage" data-stage="2" aria-labelledby="stageTitle2">
+          <button type="button" class="stage-mobile-header" data-stage-toggle="2" aria-expanded="false" disabled>
+            <span class="stage-mobile-number">2</span><span><strong data-i18n="printStep">خصائص الطباعة</strong><small
+                id="stageSummary2" data-i18n="stageLocked">أكمل المرحلة السابقة أولًا</small></span><i
+              class="bi bi-chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="stage-body">
+            <header class="stage-heading">
+              <div><span class="stage-kicker" data-i18n="stepTwo">الخطوة 2 من 4</span>
+                <h2 id="stageTitle2" data-i18n="printOptionsTitle">اختر خصائص الطباعة</h2>
+                <p data-i18n="printOptionsDescription">تطبّق هذه الخصائص على جميع الملفات، ويمكنك تخصيص أي ملف لاحقًا.
+                </p>
+              </div>
+              <span class="stage-heading-icon is-violet" aria-hidden="true"><i class="bi bi-sliders"></i></span>
+            </header>
+
+            <div class="settings-banner">
+              <div><i class="bi bi-layers" aria-hidden="true"></i><span><strong data-i18n="generalSettings">الإعداد
+                    العام</strong><small id="overrideCountText" data-i18n="allFilesUseGeneral">سيُطبق على جميع
+                    الملفات</small></span></div>
+              <button type="button" class="paper-text-button" id="applyAllButton" hidden data-i18n="applyToAll">تطبيق
+                العام على الجميع</button>
+            </div>
+
+            <div class="option-groups" id="globalOptions">
+              <fieldset class="option-group" data-option-group="size">
+                <legend><i class="bi bi-file-earmark" aria-hidden="true"></i><span data-i18n="paperSize">حجم
+                    الورق</span><em data-i18n="required">مطلوب</em></legend>
+                <div class="choice-grid is-three"><button type="button" class="choice-card"
+                    data-value="A5"><strong>A5</strong><small>148 × 210 mm</small></button><button type="button"
+                    class="choice-card" data-value="A4"><strong>A4</strong><small>210 × 297 mm</small></button><button
+                    type="button" class="choice-card" data-value="A3"><strong>A3</strong><small>297 × 420
+                      mm</small></button></div>
+              </fieldset>
+              <fieldset class="option-group" data-option-group="paper">
+                <legend><i class="bi bi-stack" aria-hidden="true"></i><span data-i18n="paperType">نوع الورق</span><em
+                    data-i18n="required">مطلوب</em></legend>
+                <div class="choice-grid is-three"><button type="button" class="choice-card" data-value="standard"><i
+                      class="bi bi-file-earmark"></i><strong data-i18n="standardPaper">عادي 80 جم</strong><small
+                      data-i18n="standardPaperHint">للمستندات اليومية</small></button><button type="button"
+                    class="choice-card" data-value="thick"><i class="bi bi-file-earmark-richtext"></i><strong
+                      data-i18n="thickPaper">فاخر 120 جم</strong><small data-i18n="thickPaperHint">أكثر
+                      سماكة</small></button><button type="button" class="choice-card" data-value="coated"><i
+                      class="bi bi-stars"></i><strong data-i18n="coatedPaper">مصقول 150 جم</strong><small
+                      data-i18n="coatedPaperHint">ألوان أوضح</small></button></div>
+              </fieldset>
+              <fieldset class="option-group" data-option-group="color">
+                <legend><i class="bi bi-droplet" aria-hidden="true"></i><span data-i18n="printColor">لون
+                    الطباعة</span><em data-i18n="required">مطلوب</em></legend>
+                <div class="choice-grid is-two"><button type="button" class="choice-card" data-value="bw"><span
+                      class="choice-swatch is-bw"></span><strong data-i18n="blackWhite">أبيض وأسود</strong><small
+                      data-i18n="blackWhiteHint">اقتصادي وواضح</small></button><button type="button" class="choice-card"
+                    data-value="color"><span class="choice-swatch is-color"></span><strong
+                      data-i18n="fullColor">ملون</strong><small data-i18n="fullColorHint">للعروض والصور</small></button>
+                </div>
+              </fieldset>
+              <fieldset class="option-group" data-option-group="sides">
+                <legend><i class="bi bi-files" aria-hidden="true"></i><span data-i18n="printSides">جوانب
+                    الطباعة</span><em data-i18n="required">مطلوب</em></legend>
+                <div class="choice-grid is-two"><button type="button" class="choice-card" data-value="single"><i
+                      class="bi bi-file-earmark"></i><strong data-i18n="singleSided">وجه واحد</strong><small
+                      data-i18n="singleSidedHint">كل صفحة على ورقة</small></button><button type="button"
+                    class="choice-card" data-value="double"><i class="bi bi-front"></i><strong
+                      data-i18n="doubleSided">وجهين</strong><small data-i18n="doubleSidedHint">أوراق
+                      أقل</small></button></div>
+              </fieldset>
+              <fieldset class="option-group" data-option-group="layout">
+                <legend><i class="bi bi-grid" aria-hidden="true"></i><span data-i18n="pageLayout">تخطيط الصفحة</span><em
+                    data-i18n="required">مطلوب</em></legend>
+                <div class="choice-grid is-three"><button type="button" class="choice-card" data-value="1"><i
+                      class="bi bi-square"></i><strong data-i18n="onePage">صفحة واحدة</strong><small
+                      data-i18n="perSheet">لكل وجه</small></button><button type="button" class="choice-card"
+                    data-value="2"><i class="bi bi-layout-split"></i><strong data-i18n="twoPages">صفحتان</strong><small
+                      data-i18n="perSheet">لكل وجه</small></button><button type="button" class="choice-card"
+                    data-value="4"><i class="bi bi-grid"></i><strong data-i18n="fourPages">4 صفحات</strong><small
+                      data-i18n="perSheet">لكل وجه</small></button></div>
+              </fieldset>
+            </div>
+
+            <div class="file-customization-panel">
+              <div class="file-section-header">
+                <div>
+                  <h3 data-i18n="fileCustomization">تخصيص ملفات منفردة</h3>
+                  <p data-i18n="fileCustomizationHint">اختياري — استخدمه فقط إذا احتاج ملف إلى خصائص مختلفة.</p>
+                </div>
+              </div>
+              <div class="customization-list" id="customizationList"></div>
+              <div class="override-editor" id="overrideEditor" hidden></div>
+            </div>
+
+            <div class="stage-error" id="stageError2" role="alert" hidden></div>
+            <div class="stage-actions"><button type="button" class="paper-button is-ghost" data-go-step="1"><i
+                  class="bi bi-arrow-right" aria-hidden="true"></i><span
+                  data-i18n="previous">السابق</span></button><button type="button" class="paper-button is-primary"
+                data-next-step="3"><span data-i18n="confirmPrint">تأكيد خصائص الطباعة</span><i class="bi bi-arrow-left"
+                  aria-hidden="true"></i></button></div>
+          </div>
+        </section>
+
+        <section class="journey-stage" data-stage="3" aria-labelledby="stageTitle3">
+          <button type="button" class="stage-mobile-header" data-stage-toggle="3" aria-expanded="false" disabled>
+            <span class="stage-mobile-number">3</span><span><strong data-i18n="bindingStep">التجميع
+                والتغليف</strong><small id="stageSummary3" data-i18n="stageLocked">أكمل المرحلة السابقة
+                أولًا</small></span><i class="bi bi-chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="stage-body">
+            <header class="stage-heading">
+              <div><span class="stage-kicker" data-i18n="stepThree">الخطوة 3 من 4</span>
+                <h2 id="stageTitle3" data-i18n="bindingTitle">كيف تريد استلام ملفاتك؟</h2>
+                <p data-i18n="bindingDescription">اختر طريقة التجميع، ثم التغليف المناسب للمطبوعات.</p>
+              </div><span class="stage-heading-icon is-cyan" aria-hidden="true"><i
+                  class="bi bi-journal-bookmark"></i></span>
+            </header>
+
+            <fieldset class="option-group grouping-choice" id="groupingChoice">
+              <legend><i class="bi bi-collection" aria-hidden="true"></i><span data-i18n="groupingMethod">طريقة التعامل
+                  مع الملفات</span><em data-i18n="required">مطلوب</em></legend>
+              <div class="choice-grid is-two"><button type="button" class="choice-card grouping-card"
+                  data-grouping="combined"><i class="bi bi-layers"></i><span><strong data-i18n="combineAll">دمج
+                      الجميع</strong><small data-i18n="combineAllHint">ملزمة واحدة حسب
+                      الترتيب</small></span></button><button type="button" class="choice-card grouping-card"
+                  data-grouping="separate"><i class="bi bi-files"></i><span><strong data-i18n="separateAll">فصل
+                      الجميع</strong><small data-i18n="separateAllHint">كل ملف كمطبوعة مستقلة</small></span></button>
+              </div>
+            </fieldset>
+
+            <div class="binding-workspace" id="bindingWorkspace" hidden>
+              <section class="reorder-panel" id="reorderPanel" hidden>
+                <div class="section-label"><span><i class="bi bi-sort-down" aria-hidden="true"></i><strong
+                      data-i18n="bindingOrder">ترتيب الملفات داخل الملزمة</strong></span><small
+                    data-i18n="bindingOrderHint">استخدم الأسهم لتحديد ترتيب الدمج.</small></div>
+                <div class="reorder-list" id="reorderList"></div>
+              </section>
+
+              <section class="binding-panel" id="combinedBindingPanel" hidden>
+                <div class="section-label"><span><i class="bi bi-journal" aria-hidden="true"></i><strong
+                      data-i18n="chooseBinding">اختر التغليف</strong></span><small
+                    data-i18n="disabledOptionsHint">الخيار غير المتاح يوضح سببه.</small></div>
+                <div class="binding-grid" id="bindingGrid"></div>
+              </section>
+
+              <section class="binding-panel" id="separateBindingPanel" hidden>
+                <div class="section-label"><span><i class="bi bi-files" aria-hidden="true"></i><strong
+                      data-i18n="bindingEachFile">تغليف كل ملف</strong></span><small
+                    data-i18n="bindingEachFileHint">يمكن أن يختلف التغليف من ملف لآخر.</small></div>
+                <div class="separate-binding-list" id="separateBindingList"></div>
+              </section>
+
+              <section class="quantity-panel" id="orderQuantityPanel">
+                <div><span class="quantity-icon"><i class="bi bi-copy" aria-hidden="true"></i></span><span><strong
+                      data-i18n="orderQuantity">كمية الطلب</strong><small data-i18n="orderQuantityHint">تطبق الكمية على
+                      الطلب الكامل</small></span></div>
+                <div class="quantity-control"><button type="button" id="decreaseQuantity" aria-label="تقليل الكمية"
+                    data-i18n-aria="decreaseQuantity"><i class="bi bi-dash-lg"></i></button><output
+                    id="quantityOutput">1</output><button type="button" id="increaseQuantity" aria-label="زيادة الكمية"
+                    data-i18n-aria="increaseQuantity"><i class="bi bi-plus-lg"></i></button></div>
+              </section>
+            </div>
+
+            <div class="stage-error" id="stageError3" role="alert" hidden></div>
+            <div class="stage-actions"><button type="button" class="paper-button is-ghost" data-go-step="2"><i
+                  class="bi bi-arrow-right" aria-hidden="true"></i><span
+                  data-i18n="previous">السابق</span></button><button type="button" class="paper-button is-primary"
+                data-next-step="4"><span data-i18n="continueReview">متابعة إلى المراجعة</span><i
+                  class="bi bi-arrow-left" aria-hidden="true"></i></button></div>
+          </div>
+        </section>
+
+        <section class="journey-stage" data-stage="4" aria-labelledby="stageTitle4">
+          <button type="button" class="stage-mobile-header" data-stage-toggle="4" aria-expanded="false" disabled>
+            <span class="stage-mobile-number">4</span><span><strong data-i18n="reviewStep">المراجعة</strong><small
+                id="stageSummary4" data-i18n="stageLocked">أكمل المرحلة السابقة أولًا</small></span><i
+              class="bi bi-chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="stage-body">
+            <header class="stage-heading">
+              <div><span class="stage-kicker" data-i18n="stepFour">الخطوة 4 من 4</span>
+                <h2 id="stageTitle4" data-i18n="reviewTitle">راجع طلبك قبل إضافته للسلة</h2>
+                <p data-i18n="reviewDescription">تأكد من الملفات والخصائص والتغليف. يمكنك تعديل أي مرحلة دون فقدان
+                  اختياراتك.</p>
+              </div><span class="stage-heading-icon is-green" aria-hidden="true"><i
+                  class="bi bi-check2-circle"></i></span>
+            </header>
+            <div class="review-list" id="reviewList"></div>
+            <div class="review-total-card">
+              <div><span data-i18n="printingTotal">إجمالي الطباعة</span><small data-i18n="shippingLater">يُحسب التوصيل
+                  في السلة</small></div><strong id="reviewTotal">—</strong>
+            </div>
+            <div class="stage-actions"><button type="button" class="paper-button is-ghost" data-go-step="3"><i
+                  class="bi bi-arrow-right" aria-hidden="true"></i><span
+                  data-i18n="previous">السابق</span></button><button type="button"
+                class="paper-button is-primary is-cart" id="addToCartButton"><i class="bi bi-cart-plus"
+                  aria-hidden="true"></i><span data-i18n="addToCart">إضافة إلى السلة</span></button></div>
+          </div>
+        </section>
+      </div>
+
+      <aside class="order-summary" aria-labelledby="summaryTitle">
+        <div class="summary-heading">
+          <div><span class="summary-icon"><i class="bi bi-receipt" aria-hidden="true"></i></span>
+            <h2 id="summaryTitle" data-i18n="orderSummary">ملخص الطباعة</h2>
           </div>
         </div>
-
-        <nav class="paper-progress" aria-label="مراحل طلب الطباعة" data-i18n-aria="journeyLabel">
-          <button type="button" class="paper-progress-step is-active" data-progress-step="1" data-no-press aria-current="step">
-            <span class="progress-number">1</span><span class="progress-copy"><strong data-i18n="filesStep">الملفات</strong><small data-i18n="filesStepHint">الرفع والمعالجة</small></span>
-          </button>
-          <span class="progress-line" aria-hidden="true"></span>
-          <button type="button" class="paper-progress-step" data-progress-step="2" data-no-press disabled>
-            <span class="progress-number">2</span><span class="progress-copy"><strong data-i18n="printStep">خصائص الطباعة</strong><small data-i18n="printStepHint">الورق والألوان</small></span>
-          </button>
-          <span class="progress-line" aria-hidden="true"></span>
-          <button type="button" class="paper-progress-step" data-progress-step="3" data-no-press disabled>
-            <span class="progress-number">3</span><span class="progress-copy"><strong data-i18n="bindingStep">التجميع والتغليف</strong><small data-i18n="bindingStepHint">شكل المطبوعات</small></span>
-          </button>
-          <span class="progress-line" aria-hidden="true"></span>
-          <button type="button" class="paper-progress-step" data-progress-step="4" data-no-press disabled>
-            <span class="progress-number">4</span><span class="progress-copy"><strong data-i18n="reviewStep">المراجعة</strong><small data-i18n="reviewStepHint">تأكيد الطلب</small></span>
-          </button>
-        </nav>
-
-        <div class="paper-configurator-layout">
-          <div class="paper-workspace">
-            <section class="journey-stage is-active" data-stage="1" aria-labelledby="stageTitle1">
-              <button type="button" class="stage-mobile-header" data-stage-toggle="1" aria-expanded="true">
-                <span class="stage-mobile-number">1</span><span><strong data-i18n="filesStep">الملفات</strong><small id="stageSummary1" data-i18n="stageCurrent">المرحلة الحالية</small></span><i class="bi bi-chevron-down" aria-hidden="true"></i>
-              </button>
-              <div class="stage-body">
-                <header class="stage-heading">
-                  <div><span class="stage-kicker" data-i18n="stepOne">الخطوة 1 من 4</span><h2 id="stageTitle1" data-i18n="uploadTitle">ابدأ برفع ملفاتك</h2><p data-i18n="uploadDescription">سنحلل الصفحات أولًا حتى تكون الخصائص والسعر أدق.</p></div>
-                  <span class="stage-heading-icon" aria-hidden="true"><i class="bi bi-cloud-arrow-up"></i></span>
-                </header>
-
-                <div class="upload-zone" id="uploadZone">
-                  <input type="file" id="paperFileInput" accept=".pdf,.jpg,.jpeg,.png,.docx,.pptx" multiple hidden>
-                  <span class="upload-illustration" aria-hidden="true"><i class="bi bi-cloud-arrow-up"></i></span>
-                  <h3 data-i18n="dropFiles">اسحب ملفاتك إلى هنا</h3>
-                  <p data-i18n="dropOrChoose">أو اخترها من جهازك لبدء المعالجة</p>
-                  <button type="button" class="paper-button is-primary" id="chooseFilesButton"><i class="bi bi-plus-lg" aria-hidden="true"></i><span data-i18n="chooseFiles">اختيار الملفات</span></button>
-                  <div class="upload-rules" aria-label="شروط الرفع">
-                    <span><i class="bi bi-file-earmark-check" aria-hidden="true"></i>PDF, JPG, PNG, DOCX, PPTX</span>
-                    <span><i class="bi bi-hdd" aria-hidden="true"></i><span data-i18n="sizeLimit">50MB لكل ملف</span></span>
-                    <span><i class="bi bi-layers" aria-hidden="true"></i><span data-i18n="filesLimit">10 ملفات / 500 صفحة</span></span>
-                  </div>
-                </div>
-
-                <div class="file-section" id="fileSection" hidden>
-                  <div class="file-section-header">
-                    <div><h3 data-i18n="uploadedFiles">الملفات المرفوعة</h3><p id="fileCounter" aria-live="polite"></p></div>
-                    <button type="button" class="paper-button is-soft is-small" id="addMoreFilesButton"><i class="bi bi-plus-lg" aria-hidden="true"></i><span data-i18n="addMore">إضافة ملفات</span></button>
-                  </div>
-                  <div class="paper-file-list" id="paperFileList"></div>
-                </div>
-
-                <div class="stage-error" id="stageError1" role="alert" hidden></div>
-                <div class="stage-actions"><span></span><button type="button" class="paper-button is-primary" data-next-step="2"><span data-i18n="continueToPrint">متابعة إلى خصائص الطباعة</span><i class="bi bi-arrow-left" aria-hidden="true"></i></button></div>
-              </div>
-            </section>
-
-            <section class="journey-stage" data-stage="2" aria-labelledby="stageTitle2">
-              <button type="button" class="stage-mobile-header" data-stage-toggle="2" aria-expanded="false" disabled>
-                <span class="stage-mobile-number">2</span><span><strong data-i18n="printStep">خصائص الطباعة</strong><small id="stageSummary2" data-i18n="stageLocked">أكمل المرحلة السابقة أولًا</small></span><i class="bi bi-chevron-down" aria-hidden="true"></i>
-              </button>
-              <div class="stage-body">
-                <header class="stage-heading">
-                  <div><span class="stage-kicker" data-i18n="stepTwo">الخطوة 2 من 4</span><h2 id="stageTitle2" data-i18n="printOptionsTitle">اختر خصائص الطباعة</h2><p data-i18n="printOptionsDescription">تطبّق هذه الخصائص على جميع الملفات، ويمكنك تخصيص أي ملف لاحقًا.</p></div>
-                  <span class="stage-heading-icon is-violet" aria-hidden="true"><i class="bi bi-sliders"></i></span>
-                </header>
-
-                <div class="settings-banner">
-                  <div><i class="bi bi-layers" aria-hidden="true"></i><span><strong data-i18n="generalSettings">الإعداد العام</strong><small id="overrideCountText" data-i18n="allFilesUseGeneral">سيُطبق على جميع الملفات</small></span></div>
-                  <button type="button" class="paper-text-button" id="applyAllButton" hidden data-i18n="applyToAll">تطبيق العام على الجميع</button>
-                </div>
-
-                <div class="option-groups" id="globalOptions">
-                  <fieldset class="option-group" data-option-group="size"><legend><i class="bi bi-file-earmark" aria-hidden="true"></i><span data-i18n="paperSize">حجم الورق</span><em data-i18n="required">مطلوب</em></legend><div class="choice-grid is-three"><button type="button" class="choice-card" data-value="A5"><strong>A5</strong><small>148 × 210 mm</small></button><button type="button" class="choice-card" data-value="A4"><strong>A4</strong><small>210 × 297 mm</small></button><button type="button" class="choice-card" data-value="A3"><strong>A3</strong><small>297 × 420 mm</small></button></div></fieldset>
-                  <fieldset class="option-group" data-option-group="paper"><legend><i class="bi bi-stack" aria-hidden="true"></i><span data-i18n="paperType">نوع الورق</span><em data-i18n="required">مطلوب</em></legend><div class="choice-grid is-three"><button type="button" class="choice-card" data-value="standard"><i class="bi bi-file-earmark"></i><strong data-i18n="standardPaper">عادي 80 جم</strong><small data-i18n="standardPaperHint">للمستندات اليومية</small></button><button type="button" class="choice-card" data-value="thick"><i class="bi bi-file-earmark-richtext"></i><strong data-i18n="thickPaper">فاخر 120 جم</strong><small data-i18n="thickPaperHint">أكثر سماكة</small></button><button type="button" class="choice-card" data-value="coated"><i class="bi bi-stars"></i><strong data-i18n="coatedPaper">مصقول 150 جم</strong><small data-i18n="coatedPaperHint">ألوان أوضح</small></button></div></fieldset>
-                  <fieldset class="option-group" data-option-group="color"><legend><i class="bi bi-droplet" aria-hidden="true"></i><span data-i18n="printColor">لون الطباعة</span><em data-i18n="required">مطلوب</em></legend><div class="choice-grid is-two"><button type="button" class="choice-card" data-value="bw"><span class="choice-swatch is-bw"></span><strong data-i18n="blackWhite">أبيض وأسود</strong><small data-i18n="blackWhiteHint">اقتصادي وواضح</small></button><button type="button" class="choice-card" data-value="color"><span class="choice-swatch is-color"></span><strong data-i18n="fullColor">ملون</strong><small data-i18n="fullColorHint">للعروض والصور</small></button></div></fieldset>
-                  <fieldset class="option-group" data-option-group="sides"><legend><i class="bi bi-files" aria-hidden="true"></i><span data-i18n="printSides">جوانب الطباعة</span><em data-i18n="required">مطلوب</em></legend><div class="choice-grid is-two"><button type="button" class="choice-card" data-value="single"><i class="bi bi-file-earmark"></i><strong data-i18n="singleSided">وجه واحد</strong><small data-i18n="singleSidedHint">كل صفحة على ورقة</small></button><button type="button" class="choice-card" data-value="double"><i class="bi bi-front"></i><strong data-i18n="doubleSided">وجهين</strong><small data-i18n="doubleSidedHint">أوراق أقل</small></button></div></fieldset>
-                  <fieldset class="option-group" data-option-group="layout"><legend><i class="bi bi-grid" aria-hidden="true"></i><span data-i18n="pageLayout">تخطيط الصفحة</span><em data-i18n="required">مطلوب</em></legend><div class="choice-grid is-three"><button type="button" class="choice-card" data-value="1"><i class="bi bi-square"></i><strong data-i18n="onePage">صفحة واحدة</strong><small data-i18n="perSheet">لكل وجه</small></button><button type="button" class="choice-card" data-value="2"><i class="bi bi-layout-split"></i><strong data-i18n="twoPages">صفحتان</strong><small data-i18n="perSheet">لكل وجه</small></button><button type="button" class="choice-card" data-value="4"><i class="bi bi-grid"></i><strong data-i18n="fourPages">4 صفحات</strong><small data-i18n="perSheet">لكل وجه</small></button></div></fieldset>
-                </div>
-
-                <div class="file-customization-panel">
-                  <div class="file-section-header"><div><h3 data-i18n="fileCustomization">تخصيص ملفات منفردة</h3><p data-i18n="fileCustomizationHint">اختياري — استخدمه فقط إذا احتاج ملف إلى خصائص مختلفة.</p></div></div>
-                  <div class="customization-list" id="customizationList"></div>
-                  <div class="override-editor" id="overrideEditor" hidden></div>
-                </div>
-
-                <div class="stage-error" id="stageError2" role="alert" hidden></div>
-                <div class="stage-actions"><button type="button" class="paper-button is-ghost" data-go-step="1"><i class="bi bi-arrow-right" aria-hidden="true"></i><span data-i18n="previous">السابق</span></button><button type="button" class="paper-button is-primary" data-next-step="3"><span data-i18n="confirmPrint">تأكيد خصائص الطباعة</span><i class="bi bi-arrow-left" aria-hidden="true"></i></button></div>
-              </div>
-            </section>
-
-            <section class="journey-stage" data-stage="3" aria-labelledby="stageTitle3">
-              <button type="button" class="stage-mobile-header" data-stage-toggle="3" aria-expanded="false" disabled>
-                <span class="stage-mobile-number">3</span><span><strong data-i18n="bindingStep">التجميع والتغليف</strong><small id="stageSummary3" data-i18n="stageLocked">أكمل المرحلة السابقة أولًا</small></span><i class="bi bi-chevron-down" aria-hidden="true"></i>
-              </button>
-              <div class="stage-body">
-                <header class="stage-heading"><div><span class="stage-kicker" data-i18n="stepThree">الخطوة 3 من 4</span><h2 id="stageTitle3" data-i18n="bindingTitle">كيف تريد استلام ملفاتك؟</h2><p data-i18n="bindingDescription">اختر طريقة التجميع، ثم التغليف المناسب للمطبوعات.</p></div><span class="stage-heading-icon is-cyan" aria-hidden="true"><i class="bi bi-journal-bookmark"></i></span></header>
-
-                <fieldset class="option-group grouping-choice" id="groupingChoice"><legend><i class="bi bi-collection" aria-hidden="true"></i><span data-i18n="groupingMethod">طريقة التعامل مع الملفات</span><em data-i18n="required">مطلوب</em></legend><div class="choice-grid is-two"><button type="button" class="choice-card grouping-card" data-grouping="combined"><i class="bi bi-layers"></i><span><strong data-i18n="combineAll">دمج الجميع</strong><small data-i18n="combineAllHint">ملزمة واحدة حسب الترتيب</small></span></button><button type="button" class="choice-card grouping-card" data-grouping="separate"><i class="bi bi-files"></i><span><strong data-i18n="separateAll">فصل الجميع</strong><small data-i18n="separateAllHint">كل ملف كمطبوعة مستقلة</small></span></button></div></fieldset>
-
-                <div class="binding-workspace" id="bindingWorkspace" hidden>
-                  <section class="reorder-panel" id="reorderPanel" hidden><div class="section-label"><span><i class="bi bi-sort-down" aria-hidden="true"></i><strong data-i18n="bindingOrder">ترتيب الملفات داخل الملزمة</strong></span><small data-i18n="bindingOrderHint">استخدم الأسهم لتحديد ترتيب الدمج.</small></div><div class="reorder-list" id="reorderList"></div></section>
-
-                  <section class="binding-panel" id="combinedBindingPanel" hidden><div class="section-label"><span><i class="bi bi-journal" aria-hidden="true"></i><strong data-i18n="chooseBinding">اختر التغليف</strong></span><small data-i18n="disabledOptionsHint">الخيار غير المتاح يوضح سببه.</small></div><div class="binding-grid" id="bindingGrid"></div></section>
-
-                  <section class="binding-panel" id="separateBindingPanel" hidden><div class="section-label"><span><i class="bi bi-files" aria-hidden="true"></i><strong data-i18n="bindingEachFile">تغليف كل ملف</strong></span><small data-i18n="bindingEachFileHint">يمكن أن يختلف التغليف من ملف لآخر.</small></div><div class="separate-binding-list" id="separateBindingList"></div></section>
-
-                  <section class="quantity-panel" id="orderQuantityPanel"><div><span class="quantity-icon"><i class="bi bi-copy" aria-hidden="true"></i></span><span><strong data-i18n="orderQuantity">كمية الطلب</strong><small data-i18n="orderQuantityHint">تطبق الكمية على الطلب الكامل</small></span></div><div class="quantity-control"><button type="button" id="decreaseQuantity" aria-label="تقليل الكمية" data-i18n-aria="decreaseQuantity"><i class="bi bi-dash-lg"></i></button><output id="quantityOutput">1</output><button type="button" id="increaseQuantity" aria-label="زيادة الكمية" data-i18n-aria="increaseQuantity"><i class="bi bi-plus-lg"></i></button></div></section>
-                </div>
-
-                <div class="stage-error" id="stageError3" role="alert" hidden></div>
-                <div class="stage-actions"><button type="button" class="paper-button is-ghost" data-go-step="2"><i class="bi bi-arrow-right" aria-hidden="true"></i><span data-i18n="previous">السابق</span></button><button type="button" class="paper-button is-primary" data-next-step="4"><span data-i18n="continueReview">متابعة إلى المراجعة</span><i class="bi bi-arrow-left" aria-hidden="true"></i></button></div>
-              </div>
-            </section>
-
-            <section class="journey-stage" data-stage="4" aria-labelledby="stageTitle4">
-              <button type="button" class="stage-mobile-header" data-stage-toggle="4" aria-expanded="false" disabled>
-                <span class="stage-mobile-number">4</span><span><strong data-i18n="reviewStep">المراجعة</strong><small id="stageSummary4" data-i18n="stageLocked">أكمل المرحلة السابقة أولًا</small></span><i class="bi bi-chevron-down" aria-hidden="true"></i>
-              </button>
-              <div class="stage-body">
-                <header class="stage-heading"><div><span class="stage-kicker" data-i18n="stepFour">الخطوة 4 من 4</span><h2 id="stageTitle4" data-i18n="reviewTitle">راجع طلبك قبل إضافته للسلة</h2><p data-i18n="reviewDescription">تأكد من الملفات والخصائص والتغليف. يمكنك تعديل أي مرحلة دون فقدان اختياراتك.</p></div><span class="stage-heading-icon is-green" aria-hidden="true"><i class="bi bi-check2-circle"></i></span></header>
-                <div class="review-list" id="reviewList"></div>
-                <div class="review-total-card"><div><span data-i18n="printingTotal">إجمالي الطباعة</span><small data-i18n="shippingLater">يُحسب التوصيل في السلة</small></div><strong id="reviewTotal">—</strong></div>
-                <div class="stage-actions"><button type="button" class="paper-button is-ghost" data-go-step="3"><i class="bi bi-arrow-right" aria-hidden="true"></i><span data-i18n="previous">السابق</span></button><button type="button" class="paper-button is-primary is-cart" id="addToCartButton"><i class="bi bi-cart-plus" aria-hidden="true"></i><span data-i18n="addToCart">إضافة إلى السلة</span></button></div>
-              </div>
-            </section>
+        <div class="summary-progress"><span id="summaryProgressBar"></span></div>
+        <div class="summary-current"><span data-i18n="currentStep">المرحلة الحالية</span><strong
+            id="summaryCurrentStep">الملفات</strong></div>
+        <dl class="summary-facts">
+          <div>
+            <dt><i class="bi bi-files" aria-hidden="true"></i><span data-i18n="files">الملفات</span></dt>
+            <dd id="summaryFiles">—</dd>
           </div>
-
-          <aside class="order-summary" aria-labelledby="summaryTitle">
-            <div class="summary-heading"><div><span class="summary-icon"><i class="bi bi-receipt" aria-hidden="true"></i></span><span><small data-i18n="yourOrder">طلبك</small><h2 id="summaryTitle" data-i18n="orderSummary">ملخص الطباعة</h2></span></div></div>
-            <div class="summary-progress"><span id="summaryProgressBar"></span></div>
-            <div class="summary-current"><span data-i18n="currentStep">المرحلة الحالية</span><strong id="summaryCurrentStep">الملفات</strong></div>
-            <dl class="summary-facts">
-              <div><dt><i class="bi bi-files" aria-hidden="true"></i><span data-i18n="files">الملفات</span></dt><dd id="summaryFiles">—</dd></div>
-              <div><dt><i class="bi bi-printer" aria-hidden="true"></i><span data-i18n="printing">الطباعة</span></dt><dd id="summaryPrint">—</dd></div>
-              <div><dt><i class="bi bi-journal-bookmark" aria-hidden="true"></i><span data-i18n="binding">التغليف</span></dt><dd id="summaryBinding">—</dd></div>
-              <div><dt><i class="bi bi-copy" aria-hidden="true"></i><span data-i18n="quantity">الكمية</span></dt><dd id="summaryQuantity">1</dd></div>
-            </dl>
-            <details class="price-breakdown"><summary><span data-i18n="priceBreakdown">تفصيل السعر</span><i class="bi bi-chevron-down" aria-hidden="true"></i></summary><div id="priceBreakdown"></div></details>
-            <div class="summary-total"><span><small data-i18n="printingTotal">إجمالي الطباعة</small><strong id="summaryTotal">—</strong></span><small data-i18n="shippingNotIncluded">لا يشمل التوصيل</small></div>
-            <button type="button" class="paper-button is-primary summary-cta" id="summaryCta"><span data-i18n="continue">متابعة</span><i class="bi bi-arrow-left" aria-hidden="true"></i></button>
-            <p class="summary-help"><i class="bi bi-headset" aria-hidden="true"></i><span data-i18n="needHelp">تحتاج مساعدة؟ تواصل مع الدعم الفني</span></p>
-          </aside>
-        </div>
+          <div>
+            <dt><i class="bi bi-printer" aria-hidden="true"></i><span data-i18n="printing">الطباعة</span></dt>
+            <dd id="summaryPrint">—</dd>
+          </div>
+          <div>
+            <dt><i class="bi bi-journal-bookmark" aria-hidden="true"></i><span data-i18n="binding">التغليف</span></dt>
+            <dd id="summaryBinding">—</dd>
+          </div>
+          <div>
+            <dt><i class="bi bi-copy" aria-hidden="true"></i><span data-i18n="quantity">الكمية</span></dt>
+            <dd id="summaryQuantity">1</dd>
+          </div>
+        </dl>
+        <details class="price-breakdown">
+          <summary><span data-i18n="priceBreakdown">تفصيل السعر</span><i class="bi bi-chevron-down"
+              aria-hidden="true"></i></summary>
+          <div id="priceBreakdown"></div>
+        </details>
+        <div class="summary-total"><span><small data-i18n="printingTotal">إجمالي الطباعة</small><strong
+              id="summaryTotal">—</strong></span><small data-i18n="shippingNotIncluded">لا يشمل التوصيل</small></div>
+        <p class="summary-help"><i class="bi bi-headset" aria-hidden="true"></i><span data-i18n="needHelp">تحتاج مساعدة؟
+            تواصل مع الدعم الفني</span></p>
+      </aside>
+    </div>
   </main>
 
   <footer class="store-footer">
     <div class="store-footer__inner">
       <div class="store-footer__brand">
-        <a href="storefront.html" class="store-footer__logo-link" aria-label="PalPrints"><span class="store-footer__logo-frame" aria-hidden="true"><img class="palprints-approved-logo" src="assets/images/palprints-wordmark-approved.png" alt=""></span></a>
+        <a href="storefront.html" class="store-footer__logo-link" aria-label="PalPrints"><span
+            class="store-footer__logo-frame" aria-hidden="true"><img class="palprints-approved-logo"
+              src="assets/images/palprints-wordmark-approved.png" alt=""></span></a>
         <p>منتجات مطبوعة بتصاميم مميزة وجودة تناسب ذوقك.</p>
         <div class="store-footer__social" aria-label="حسابات التواصل الاجتماعي">
           <a href="#" aria-label="Instagram"><i class="bi bi-instagram" aria-hidden="true"></i></a>
@@ -239,34 +428,66 @@
           <a href="#" aria-label="TikTok"><i class="bi bi-tiktok" aria-hidden="true"></i></a>
         </div>
       </div>
-      <div class="store-footer__column"><h2>المتجر</h2><a href="storefront.html">كل المنتجات</a><a href="storefront.html#products">الملابس</a><a href="storefront.html#products">الإكسسوارات</a></div>
-      <div class="store-footer__column"><h2>حسابك</h2><a href="custProfile.html">الملف الشخصي</a><a href="custProfile.html#currentOrderSection">طلباتي</a><a href="custProfile.html#activitySection">المفضلة</a></div>
-      <div class="store-footer__column"><h2>المساعدة</h2><a href="custProfile.html#profileMain">الدعم الفني</a><a href="#">سياسة الخصوصية</a><a href="#">الشروط والأحكام</a></div>
+      <div class="store-footer__column">
+        <h2>المتجر</h2><a href="storefront.html">كل المنتجات</a><a href="storefront.html#products">الملابس</a><a
+          href="storefront.html#products">الإكسسوارات</a>
+      </div>
+      <div class="store-footer__column">
+        <h2>حسابك</h2><a href="custProfile.html">الملف الشخصي</a><a
+          href="custProfile.html#currentOrderSection">طلباتي</a><a href="custProfile.html#activitySection">المفضلة</a>
+      </div>
+      <div class="store-footer__column">
+        <h2>المساعدة</h2><a href="custProfile.html#profileMain">الدعم الفني</a><a href="#">سياسة الخصوصية</a><a
+          href="#">الشروط والأحكام</a>
+      </div>
     </div>
-    <div class="store-footer__bottom"><p>© 2026 PalPrints. جميع الحقوق محفوظة.</p><span>صُنع بحب للطباعة والإبداع</span></div>
+    <div class="store-footer__bottom">
+      <p>© 2026 PalPrints. جميع الحقوق محفوظة.</p><span>صُنع بحب للطباعة والإبداع</span>
+    </div>
   </footer>
 
   <div class="mobile-order-bar" id="mobileOrderBar">
-    <button type="button" class="mobile-total" id="openMobileSummary"><span data-i18n="printingTotal">إجمالي الطباعة</span><strong id="mobileTotal">—</strong></button>
-    <button type="button" class="paper-button is-primary" id="mobileCta"><span data-i18n="continue">متابعة</span><i class="bi bi-arrow-left" aria-hidden="true"></i></button>
+    <button type="button" class="mobile-total" id="openMobileSummary"><span data-i18n="printingTotal">إجمالي
+        الطباعة</span><strong id="mobileTotal">—</strong></button>
+    <button type="button" class="paper-button is-primary" id="mobileCta"><span data-i18n="continue">متابعة</span><i
+        class="bi bi-arrow-left" aria-hidden="true"></i></button>
   </div>
 
   <dialog class="paper-dialog preview-dialog" id="previewDialog">
-    <div class="dialog-header"><div><span class="dialog-icon"><i class="bi bi-eye" aria-hidden="true"></i></span><span><small data-i18n="filePreview">معاينة الملف</small><h2 id="previewTitle"></h2></span></div><button type="button" class="dialog-close" data-close-dialog="previewDialog" aria-label="إغلاق" data-i18n-aria="close"><i class="bi bi-x-lg"></i></button></div>
-    <div class="preview-content"><img id="previewImage" alt="" hidden><iframe id="previewFrame" title="معاينة PDF" hidden></iframe><div class="preview-placeholder" id="previewPlaceholder"><i class="bi bi-file-earmark-text" aria-hidden="true"></i><h3 data-i18n="previewUnavailable">المعاينة المرئية غير متاحة لهذا النوع</h3><p id="previewMeta"></p></div></div>
+    <div class="dialog-header">
+      <div><span class="dialog-icon"><i class="bi bi-eye" aria-hidden="true"></i></span><span><small
+            data-i18n="filePreview">معاينة الملف</small>
+          <h2 id="previewTitle"></h2>
+        </span></div><button type="button" class="dialog-close" data-close-dialog="previewDialog" aria-label="إغلاق"
+        data-i18n-aria="close"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <div class="preview-content"><img id="previewImage" alt="" hidden><iframe id="previewFrame" title="معاينة PDF"
+        hidden></iframe>
+      <div class="preview-placeholder" id="previewPlaceholder"><i class="bi bi-file-earmark-text"
+          aria-hidden="true"></i>
+        <h3 data-i18n="previewUnavailable">المعاينة المرئية غير متاحة لهذا النوع</h3>
+        <p id="previewMeta"></p>
+      </div>
+    </div>
   </dialog>
 
   <dialog class="paper-dialog summary-dialog" id="mobileSummaryDialog">
-    <div class="dialog-header"><div><span class="dialog-icon"><i class="bi bi-receipt" aria-hidden="true"></i></span><h2 data-i18n="orderSummary">ملخص الطباعة</h2></div><button type="button" class="dialog-close" data-close-dialog="mobileSummaryDialog" aria-label="إغلاق" data-i18n-aria="close"><i class="bi bi-x-lg"></i></button></div>
+    <div class="dialog-header">
+      <div><span class="dialog-icon"><i class="bi bi-receipt" aria-hidden="true"></i></span>
+        <h2 data-i18n="orderSummary">ملخص الطباعة</h2>
+      </div><button type="button" class="dialog-close" data-close-dialog="mobileSummaryDialog" aria-label="إغلاق"
+        data-i18n-aria="close"><i class="bi bi-x-lg"></i></button>
+    </div>
     <div class="mobile-summary-content" id="mobileSummaryContent"></div>
   </dialog>
 
-  <div class="paper-toast" id="paperToast" role="status" aria-live="polite"><span class="paper-toast-icon"><i class="bi bi-check2"></i></span><span id="paperToastMessage"></span></div>
+  <div class="paper-toast" id="paperToast" role="status" aria-live="polite"><span class="paper-toast-icon"><i
+        class="bi bi-check2"></i></span><span id="paperToastMessage"></span></div>
 
   <script src="assets/js/pages/profile-core.js?v=5"></script>
   <script src="assets/js/pages/storefront.js?v=20"></script>
   <script src="assets/js/pages/interactions.js?v=4"></script>
-  <script src="assets/js/pages/paperPrinting.js?v=2"></script>
+  <script src="assets/js/pages/paperPrinting.js?v=3"></script>
 </body>
 
 </html>

@@ -1,9 +1,17 @@
 @font-face {
+<<<<<<< Updated upstream
   font-family: "Cairo";
   src: url("../../fonts/Cairo-Variable.ttf") format("truetype");
   font-weight: 200 1000;
   font-style: normal;
   font-display: swap;
+=======
+  font-family: "Cairo Paper";
+  src: url("../../fonts/Cairo-Variable.ttf") format("truetype");
+  font-weight: 200 1000;
+  font-style: normal;
+  font-display: block;
+>>>>>>> Stashed changes
 }
 
 :root {
@@ -73,13 +81,19 @@ html[data-bs-theme="dark"] {
   --store-muted: var(--pp-muted);
   --store-border: var(--pp-border);
   --store-surface-muted: var(--pp-surface-muted);
+  font-family: "Cairo Paper", "Cairo", Arial, sans-serif;
   font-size: 16px;
   line-height: 1.75;
 }
 
+<<<<<<< Updated upstream
 .paper-printing-page .store-sidebar__item,
 .paper-printing-page .store-sidebar__logout {
   font-size: 15px;
+=======
+.paper-printing-page :is(button, input, select, textarea) {
+  font-family: inherit;
+>>>>>>> Stashed changes
 }
 
 .paper-printing-page .store-footer__brand p,
@@ -291,9 +305,11 @@ body.paper-printing-page::after {
 }
 
 .paper-title-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr);
   align-items: center;
-  gap: 16px;
+  column-gap: 16px;
+  row-gap: 6px;
   margin-top: 12px;
 }
 
@@ -321,12 +337,16 @@ body.paper-printing-page::after {
 }
 
 .paper-title-row h1 {
+  min-width: 0;
+  margin: 0;
   font-size: clamp(27px, 3vw, 38px);
   line-height: 1.2;
 }
 
-.paper-title-row p:last-child {
-  margin: 6px 0 0;
+.paper-title-row p {
+  min-width: 0;
+  grid-column: 2;
+  margin: 0;
   color: var(--paper-muted);
   font-size: 16px;
 }
@@ -645,7 +665,7 @@ html[data-bs-theme="dark"] .paper-progress {
 .file-section-header,
 .section-label {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 18px;
   margin-bottom: 12px;
@@ -732,6 +752,11 @@ html[data-bs-theme="dark"] .paper-progress {
   padding-top: 22px;
   margin-top: 24px;
   border-top: 1px solid var(--paper-border);
+}
+
+.stage-actions .paper-button {
+  min-width: 180px;
+  justify-content: center;
 }
 
 .stage-error {
@@ -947,7 +972,180 @@ html[data-bs-theme="dark"] .paper-progress {
 .summary-cta { width: 100%; }
 .summary-help { display: flex; align-items: center; justify-content: center; gap: 6px; margin: 13px 0 0; color: var(--paper-muted); font-size: 10px; }
 
+<<<<<<< Updated upstream
 .mobile-order-bar { display: none; }
+=======
+.summary-heading {
+  justify-content: space-between;
+}
+
+.summary-heading h2 {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+.summary-icon {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: var(--paper-primary);
+  border-radius: 12px;
+  font-size: 19px;
+}
+
+.summary-progress {
+  height: 4px;
+  margin: 16px 0;
+  overflow: hidden;
+  background: var(--profile-border);
+  border-radius: 999px;
+}
+
+.summary-progress span {
+  display: block;
+  width: 25%;
+  height: 100%;
+  background: var(--paper-primary);
+  border-radius: inherit;
+  transition: width 0.25s ease;
+}
+
+.summary-current {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 13px;
+  border-bottom: 1px solid var(--paper-border);
+  font-size: 12px;
+}
+
+.summary-current span {
+  color: var(--paper-muted);
+}
+
+.summary-current strong {
+  color: var(--paper-primary);
+}
+
+.summary-facts {
+  display: grid;
+  gap: 0;
+  margin: 4px 0 0;
+}
+
+.summary-facts>div {
+  display: grid;
+  grid-template-columns: minmax(90px, auto) minmax(0, 1fr);
+  align-items: start;
+  gap: 12px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--paper-border);
+}
+
+.summary-facts dt {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--paper-muted);
+  font-size: 12px;
+}
+
+.summary-facts dt i {
+  color: var(--paper-primary);
+}
+
+.summary-facts dd {
+  min-width: 0;
+  max-width: none;
+  margin: 0;
+  font-size: 12px;
+  font-weight: 800;
+  text-align: end;
+  overflow-wrap: anywhere;
+}
+
+.price-breakdown {
+  border-bottom: 1px solid var(--paper-border);
+}
+
+.price-breakdown summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  color: var(--paper-muted);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+
+.price-breakdown summary::-webkit-details-marker {
+  display: none;
+}
+
+.price-breakdown[open] summary i {
+  transform: rotate(180deg);
+}
+
+#priceBreakdown {
+  display: grid;
+  gap: 7px;
+  padding-bottom: 12px;
+}
+
+.price-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--paper-muted);
+  font-size: 11px;
+}
+
+.price-line strong {
+  color: var(--paper-ink);
+}
+
+.summary-total {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 17px 0 13px;
+}
+
+.summary-total>span {
+  display: grid;
+}
+
+.summary-total small {
+  color: var(--paper-muted);
+  font-size: 10px;
+}
+
+.summary-total strong {
+  color: var(--paper-primary);
+  font-size: 26px;
+}
+
+.summary-help {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 13px 0 0;
+  color: var(--paper-muted);
+  font-size: 10px;
+}
+
+.mobile-order-bar {
+  display: none;
+}
+>>>>>>> Stashed changes
 
 .paper-dialog {
   width: min(940px, calc(100vw - 34px));
@@ -1023,11 +1221,40 @@ html[dir="ltr"] .stage-actions .bi-arrow-right { transform: rotate(180deg); }
 }
 
 @media (max-width: 1099px) and (min-width: 992px) {
+<<<<<<< Updated upstream
   .paper-configurator-layout { grid-template-columns: minmax(0, 1fr); }
   .order-summary { position: static; display: grid; grid-template-columns: 1fr 1fr; gap: 0 18px; }
   .summary-heading, .summary-progress, .summary-current, .summary-help { grid-column: 1 / -1; }
   .summary-facts { grid-column: 1; }
   .price-breakdown, .summary-total, .summary-cta { grid-column: 2; }
+=======
+  .paper-configurator-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .order-summary {
+    position: static;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 18px;
+  }
+
+  .summary-heading,
+  .summary-progress,
+  .summary-current,
+  .summary-help {
+    grid-column: 1 / -1;
+  }
+
+  .summary-facts {
+    grid-column: 1;
+  }
+
+  .price-breakdown,
+  .summary-total {
+    grid-column: 2;
+  }
+>>>>>>> Stashed changes
 }
 
 @media (max-width: 991.98px) {
@@ -1048,6 +1275,7 @@ html[dir="ltr"] .stage-actions .bi-arrow-right { transform: rotate(180deg); }
       opacity 220ms ease,
       visibility 0s linear;
   }
+<<<<<<< Updated upstream
   .paper-main { width: 100%; max-width: 100vw; padding-bottom: 112px; }
   .paper-page-heading { align-items: flex-start; }
   .paper-progress { display: none; }
@@ -1056,6 +1284,46 @@ html[dir="ltr"] .stage-actions .bi-arrow-right { transform: rotate(180deg); }
   .paper-workspace { display: grid; gap: 10px; }
   .journey-stage { display: block; border-radius: 18px; box-shadow: var(--profile-shadow-small); }
   .journey-stage.is-active { animation: none; }
+=======
+
+  .paper-main {
+    width: auto;
+    max-width: none;
+    padding-bottom: 112px;
+  }
+
+  .paper-page-heading {
+    align-items: flex-start;
+  }
+
+  .paper-progress {
+    display: none;
+  }
+
+  .paper-configurator-layout {
+    display: block;
+  }
+
+  .order-summary {
+    display: none;
+  }
+
+  .paper-workspace {
+    display: grid;
+    gap: 10px;
+  }
+
+  .journey-stage {
+    display: block;
+    border-radius: 18px;
+    box-shadow: var(--profile-shadow-small);
+  }
+
+  .journey-stage.is-active {
+    animation: none;
+  }
+
+>>>>>>> Stashed changes
   .stage-mobile-header {
     width: 100%;
     min-height: 70px;
@@ -1112,6 +1380,7 @@ html[dir="ltr"] .stage-actions .bi-arrow-right { transform: rotate(180deg); }
 }
 
 @media (max-width: 767.98px) {
+<<<<<<< Updated upstream
   .paper-printing-page .profile-topbar { min-height: 58px; }
   .paper-mobile-brand { position: absolute; left: 50%; display: block; width: 105px; transform: translateX(-50%); }
   .paper-mobile-brand img { width: 100%; display: block; }
@@ -1163,6 +1432,233 @@ html[dir="ltr"] .stage-actions .bi-arrow-right { transform: rotate(180deg); }
   .quantity-control { align-self: stretch; justify-content: space-between; }
   .review-details { grid-template-columns: minmax(0, 1fr); }
   .mobile-order-bar { grid-template-columns: minmax(0, 0.8fr) minmax(138px, 1.2fr); }
+=======
+  .paper-printing-page .profile-topbar {
+    min-height: 58px;
+  }
+
+  .paper-mobile-brand {
+    position: absolute;
+    left: 50%;
+    display: block;
+    width: 105px;
+    transform: translateX(-50%);
+  }
+
+  .paper-mobile-brand img {
+    width: 100%;
+    display: block;
+  }
+
+  .paper-page-heading {
+    display: block;
+  }
+
+  .paper-secure-note {
+    display: none;
+  }
+
+  .paper-title-icon {
+    width: 50px;
+    height: 50px;
+    flex-basis: 50px;
+    font-size: 22px;
+  }
+
+  .paper-title-row {
+    grid-template-columns: 50px minmax(0, 1fr);
+  }
+
+  .paper-title-row h1 {
+    font-size: 27px;
+  }
+
+  .paper-title-row p {
+    font-size: 14px;
+  }
+
+  .stage-heading-icon {
+    display: none;
+  }
+
+  .upload-zone {
+    min-height: 280px;
+    padding: 28px 17px;
+  }
+
+  .upload-zone h3 {
+    font-size: 19px;
+  }
+
+  .upload-rules {
+    gap: 7px 10px;
+  }
+
+  .file-card {
+    align-items: flex-start;
+  }
+
+  .file-actions {
+    flex-direction: column;
+  }
+
+  .file-section-header {
+    align-items: flex-start;
+  }
+
+  .option-groups {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .option-group:last-child {
+    grid-column: auto;
+  }
+
+  .override-editor .option-groups {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .binding-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .separate-binding-item {
+    flex-wrap: wrap;
+  }
+
+  .separate-binding-controls {
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .binding-select-wrap {
+    width: 100%;
+  }
+
+  .per-file-quantity .quantity-control {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .review-card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .review-card-header {
+    width: 100%;
+    border-inline-end: 0;
+    border-bottom: 1px solid var(--paper-border);
+  }
+
+  .review-edit {
+    justify-self: start;
+    margin: 0 12px 12px;
+  }
+
+  .stage-actions {
+    flex-wrap: wrap;
+  }
+
+  .stage-actions .paper-button {
+    min-width: 0;
+    flex: 1 1 150px;
+    max-width: 100%;
+    padding-inline: 10px;
+    white-space: normal;
+  }
+
+  .preview-dialog {
+    width: 100vw;
+    max-width: none;
+    max-height: 100dvh;
+    height: 100dvh;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .preview-content {
+    min-height: calc(100dvh - 68px);
+  }
+
+  .preview-content iframe {
+    height: calc(100dvh - 100px);
+  }
+}
+
+@media (max-width: 479.98px) {
+  .paper-main {
+    padding-inline: 12px;
+  }
+
+  .paper-title-row {
+    gap: 11px;
+  }
+
+  .paper-title-row p {
+    max-width: 270px;
+  }
+
+  .profile-topbar-actions {
+    gap: 4px;
+  }
+
+  .profile-action-button {
+    width: 37px;
+    height: 37px;
+  }
+
+  .profile-language-code {
+    display: none;
+  }
+
+  .paper-mobile-brand {
+    width: 88px;
+  }
+
+  .stage-body {
+    padding: 15px;
+  }
+
+  .choice-grid.is-three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .choice-card {
+    min-height: 70px;
+    padding: 7px 4px;
+  }
+
+  .choice-card small {
+    font-size: 10px;
+  }
+
+  .grouping-choice .choice-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .binding-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .quantity-panel {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .quantity-control {
+    align-self: stretch;
+    justify-content: space-between;
+  }
+
+  .review-details {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .mobile-order-bar {
+    grid-template-columns: minmax(0, 0.8fr) minmax(138px, 1.2fr);
+  }
+>>>>>>> Stashed changes
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1171,5 +1667,11 @@ html[dir="ltr"] .stage-actions .bi-arrow-right { transform: rotate(180deg); }
   .paper-printing-page .store-sidebar,
   .paper-printing-page .store-header,
   .paper-printing-page .store-main,
+<<<<<<< Updated upstream
   .paper-printing-page .store-footer { transition-duration: 0.01ms !important; }
+=======
+  .paper-printing-page .store-footer {
+    transition-duration: 0.01ms !important;
+  }
+>>>>>>> Stashed changes
 }
