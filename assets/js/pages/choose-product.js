@@ -142,6 +142,10 @@ const backendResponse = {
 
             price: 29,
 
+            editor: {
+                defaultAreaId: "front"
+            },
+
             defaultColor: "white",
 
             colors: [
@@ -227,29 +231,41 @@ const backendResponse = {
                 {
                     id: "front",
                     name: "الأمام",
+                    role: "front",
                     icon: "bi bi-person-standing",
-                    image: "assets/images/printing-areas/tshirt/tshirt-front-removebg-preview.png"
+                    image: "assets/images/printing-areas/tshirt/tshirt-front-removebg-preview.png",
+                    mockup: "assets/images/printing-areas/tshirt/tshirt-front-removebg-preview.png",
+                    printZone: { leftPct: 31, topPct: 28, widthPct: 38, heightPct: 42, widthCm: 28, heightCm: 36 }
                 },
 
                 {
                     id: "back",
                     name: "الخلف",
+                    role: "back",
                     icon: "bi bi-person-standing",
-                    image: "assets/images/printing-areas/tshirt/tshirt-back-removebg-preview.png"
+                    image: "assets/images/printing-areas/tshirt/tshirt-back-removebg-preview.png",
+                    mockup: "assets/images/printing-areas/tshirt/tshirt-back-removebg-preview.png",
+                    printZone: { leftPct: 31, topPct: 28, widthPct: 38, heightPct: 42, widthCm: 28, heightCm: 36 }
                 },
 
                 {
                     id: "right-sleeve",
                     name: "الكم الأيمن",
+                    role: "right-sleeve",
                     icon: "bi bi-arrow-right",
-                    image: "assets/images/printing-areas/tshirt/tshirt-rightSleeve-removebg-preview.png"
+                    image: "assets/images/printing-areas/tshirt/tshirt-rightSleeve-removebg-preview.png",
+                    mockup: "assets/images/printing-areas/tshirt/tshirt-rightSleeve-removebg-preview.png",
+                    printZone: { leftPct: 35, topPct: 34, widthPct: 30, heightPct: 28, widthCm: 10, heightCm: 12 }
                 },
 
                 {
                     id: "left-sleeve",
                     name: "الكم الأيسر",
+                    role: "left-sleeve",
                     icon: "bi bi-arrow-left",
-                    image: "assets/images/printing-areas/tshirt/tshirt-leftSleeve-removebg-preview.png"
+                    image: "assets/images/printing-areas/tshirt/tshirt-leftSleeve-removebg-preview.png",
+                    mockup: "assets/images/printing-areas/tshirt/tshirt-leftSleeve-removebg-preview.png",
+                    printZone: { leftPct: 35, topPct: 34, widthPct: 30, heightPct: 28, widthCm: 10, heightCm: 12 }
                 }
 
             ],
@@ -270,6 +286,10 @@ const backendResponse = {
                 "هودي مريح للاستخدام اليومي",
 
             price: 79,
+
+            editor: {
+                defaultAreaId: "front"
+            },
 
             defaultColor: "white",
 
@@ -322,15 +342,21 @@ const backendResponse = {
                 {
                     id: "front",
                     name: "الأمام",
+                    role: "front",
                     icon: "bi bi-person-standing",
-                    image: "assets/images/printing-areas/hoodie/hoodie-front.png"
+                    image: "assets/images/printing-areas/hoodie/hoodie-front.png",
+                    mockup: "assets/images/printing-areas/hoodie/hoodie-front.png",
+                    printZone: { leftPct: 32, topPct: 29, widthPct: 36, heightPct: 40, widthCm: 28, heightCm: 36 }
                 },
 
                 {
                     id: "back",
                     name: "الخلف",
+                    role: "back",
                     icon: "bi bi-person-standing",
-                    image: "assets/images/printing-areas/hoodie/hoodie-back.png"
+                    image: "assets/images/printing-areas/hoodie/hoodie-back.png",
+                    mockup: "assets/images/printing-areas/hoodie/hoodie-back.png",
+                    printZone: { leftPct: 32, topPct: 29, widthPct: 36, heightPct: 40, widthCm: 28, heightCm: 36 }
                 }
 
             ],
@@ -351,6 +377,10 @@ const backendResponse = {
                 "كوب سيراميك عالي الجودة",
 
             price: 19,
+
+            editor: {
+                defaultAreaId: "front"
+            },
 
             defaultColor: "white",
 
@@ -380,7 +410,10 @@ const backendResponse = {
                 {
                     id: "front",
                     name: "الواجهة",
-                    icon: "bi bi-cup-hot"
+                    role: "primary",
+                    icon: "bi bi-cup-hot",
+                    mockup: "assets/images/cup.webp",
+                    printZone: { leftPct: 20, topPct: 32, widthPct: 60, heightPct: 36, widthCm: 20, heightCm: 9 }
                 }
 
             ],
@@ -401,6 +434,10 @@ const backendResponse = {
                 "حقيبة قماشية عملية ومتينة",
 
             price: 39,
+
+            editor: {
+                defaultAreaId: "front"
+            },
 
             defaultColor: "white",
 
@@ -430,13 +467,19 @@ const backendResponse = {
                 {
                     id: "front",
                     name: "الأمام",
-                    icon: "bi bi-bag"
+                    role: "front",
+                    icon: "bi bi-bag",
+                    mockup: "assets/images/bag.png",
+                    printZone: { leftPct: 24, topPct: 22, widthPct: 52, heightPct: 56, widthCm: 28, heightCm: 30 }
                 },
 
                 {
                     id: "back",
                     name: "الخلف",
-                    icon: "bi bi-bag"
+                    role: "back",
+                    icon: "bi bi-bag",
+                    mockup: "assets/images/bag.png",
+                    printZone: { leftPct: 24, topPct: 22, widthPct: 52, heightPct: 56, widthCm: 28, heightCm: 30 }
                 }
 
             ],
@@ -457,6 +500,10 @@ const backendResponse = {
                 "تي شيرت ثقيل بقصة مريحة وألوان باهتة عصرية",
 
             price: 49,
+
+            editor: {
+                defaultAreaId: "front"
+            },
 
             defaultColor: "faded-black",
 
@@ -501,10 +548,10 @@ const backendResponse = {
             ],
 
             printAreas: [
-                { id: "front", name: "الأمام", icon: "bi bi-person-standing", image: "assets/images/printing-areas/tshirt/tshirt-front-removebg-preview.png" },
-                { id: "back", name: "الخلف", icon: "bi bi-person-standing", image: "assets/images/printing-areas/tshirt/tshirt-back-removebg-preview.png" },
-                { id: "right-sleeve", name: "الكم الأيمن", icon: "bi bi-arrow-right", image: "assets/images/printing-areas/tshirt/tshirt-rightSleeve-removebg-preview.png" },
-                { id: "left-sleeve", name: "الكم الأيسر", icon: "bi bi-arrow-left", image: "assets/images/printing-areas/tshirt/tshirt-leftSleeve-removebg-preview.png" }
+                { id: "front", name: "الأمام", role: "front", icon: "bi bi-person-standing", image: "assets/images/printing-areas/tshirt/tshirt-front-removebg-preview.png", mockup: "assets/images/printing-areas/tshirt/tshirt-front-removebg-preview.png", printZone: { leftPct: 32, topPct: 31, widthPct: 36, heightPct: 36, widthCm: 28, heightCm: 36 } },
+                { id: "back", name: "الخلف", role: "back", icon: "bi bi-person-standing", image: "assets/images/printing-areas/tshirt/tshirt-back-removebg-preview.png", mockup: "assets/images/printing-areas/tshirt/tshirt-back-removebg-preview.png", printZone: { leftPct: 32, topPct: 31, widthPct: 36, heightPct: 36, widthCm: 28, heightCm: 36 } },
+                { id: "right-sleeve", name: "الكم الأيمن", role: "right-sleeve", icon: "bi bi-arrow-right", image: "assets/images/printing-areas/tshirt/tshirt-rightSleeve-removebg-preview.png", mockup: "assets/images/printing-areas/tshirt/tshirt-rightSleeve-removebg-preview.png", printZone: { leftPct: 35, topPct: 34, widthPct: 30, heightPct: 28, widthCm: 10, heightCm: 12 } },
+                { id: "left-sleeve", name: "الكم الأيسر", role: "left-sleeve", icon: "bi bi-arrow-left", image: "assets/images/printing-areas/tshirt/tshirt-leftSleeve-removebg-preview.png", mockup: "assets/images/printing-areas/tshirt/tshirt-leftSleeve-removebg-preview.png", printZone: { leftPct: 35, topPct: 34, widthPct: 30, heightPct: 28, widthCm: 10, heightCm: 12 } }
             ],
 
             thumbnail:
@@ -524,6 +571,10 @@ const backendResponse = {
 
             price: 25,
 
+            editor: {
+                defaultAreaId: "front"
+            },
+
             defaultColor: "black",
 
             colors: [
@@ -538,7 +589,7 @@ const backendResponse = {
             ],
 
             printAreas: [
-                { id: "front", name: "الواجهة", icon: "bi bi-bullseye" }
+                { id: "front", name: "الواجهة", role: "primary", icon: "bi bi-bullseye", mockup: "assets/images/products1/cap/cap-black-removebg-preview.png", printZone: { leftPct: 31, topPct: 29, widthPct: 38, heightPct: 20, widthCm: 18, heightCm: 8 } }
             ],
 
             thumbnail:
@@ -548,6 +599,122 @@ const backendResponse = {
     ]
 
 };
+
+
+/* =============================================================
+   DESIGN STUDIO METADATA
+============================================================= */
+
+function prepareEditorMetadata(product) {
+
+    if (!product || !product.editor) {
+        return product;
+    }
+
+    product.editor.printAreas = (product.printAreas || [])
+        .map(area => ({
+            id: area.id,
+            role: area.role,
+            name: area.name,
+            icon: area.icon,
+            mockup: area.mockup || area.image || product.thumbnail,
+            printZone: area.printZone ? { ...area.printZone } : null
+        }));
+
+    return product;
+
+}
+
+
+function resolveEditorAreaMockup(product, area) {
+
+    if (!product || !area) {
+        return "";
+    }
+
+    return area.mockup || area.image || product.thumbnail || "";
+
+}
+
+
+function validateEditorProduct(product) {
+
+    if (!product || !product.editor) {
+        return {
+            valid: false,
+            message: "هذا المنتج غير مهيأ لاستوديو التصميم بعد."
+        };
+    }
+
+    const areas = Array.isArray(product.editor.printAreas)
+        ? product.editor.printAreas
+        : [];
+
+    if (!areas.length) {
+        return {
+            valid: false,
+            message: "لا توجد مناطق طباعة مهيأة لهذا المنتج."
+        };
+    }
+
+    const defaultAreaExists = areas.some(
+        area => area.id === product.editor.defaultAreaId
+    );
+
+    if (!defaultAreaExists) {
+        return {
+            valid: false,
+            message: "منطقة الطباعة الافتراضية لهذا المنتج غير مهيأة."
+        };
+    }
+
+    const ids = new Set();
+
+    for (const area of areas) {
+
+        if (!area.id || ids.has(area.id) || !resolveEditorAreaMockup(product, area)) {
+            return {
+                valid: false,
+                message: "إحدى مناطق الطباعة تفتقد صورة المنتج أو معرفًا صالحًا."
+            };
+        }
+
+        ids.add(area.id);
+
+        const zone = area.printZone || {};
+        const left = Number(zone.leftPct);
+        const top = Number(zone.topPct);
+        const width = Number(zone.widthPct);
+        const height = Number(zone.heightPct);
+        const physicalWidth = Number(zone.widthCm);
+        const physicalHeight = Number(zone.heightCm);
+
+        const coordinatesAreValid = [left, top, width, height, physicalWidth, physicalHeight]
+            .every(Number.isFinite)
+            && left >= 0
+            && top >= 0
+            && width > 0
+            && height > 0
+            && physicalWidth > 0
+            && physicalHeight > 0
+            && left + width <= 100
+            && top + height <= 100;
+
+        if (!coordinatesAreValid) {
+            return {
+                valid: false,
+                message: "بيانات منطقة الطباعة لهذا المنتج غير مكتملة أو خارج حدود صورة المنتج."
+            };
+        }
+
+    }
+
+    return { valid: true, message: "" };
+
+}
+
+
+backendResponse.products.forEach(prepareEditorMetadata);
 
 
 /* =============================================================
@@ -751,6 +918,19 @@ function createProductCard(product) {
         product.id;
 
 
+    const editorValidation =
+        validateEditorProduct(product);
+
+
+    if (!editorValidation.valid) {
+
+        article.classList.add(
+            "studio-unavailable"
+        );
+
+    }
+
+
     const button =
         document.createElement("button");
 
@@ -761,9 +941,15 @@ function createProductCard(product) {
         "product-card-button";
 
 
+    button.disabled =
+        !editorValidation.valid;
+
+
     button.setAttribute(
         "aria-label",
-        `بدء تصميم ${product.name}`
+        editorValidation.valid
+            ? `بدء تصميم ${product.name}`
+            : `${product.name} غير متاح في استوديو التصميم: ${editorValidation.message}`
     );
 
 
@@ -879,6 +1065,27 @@ function createProductCard(product) {
     information.appendChild(price);
 
 
+    if (!editorValidation.valid) {
+
+        const availability =
+            document.createElement("p");
+
+
+        availability.className =
+            "studio-availability-message";
+
+
+        availability.textContent =
+            "إعدادات الاستوديو غير مكتملة";
+
+
+        information.appendChild(
+            availability
+        );
+
+    }
+
+
     button.appendChild(
         imageWrapper
     );
@@ -952,6 +1159,24 @@ function selectProduct(productId) {
     }
 
 
+    const editorValidation =
+        validateEditorProduct(product);
+
+
+    if (!editorValidation.valid) {
+
+        elements.selectionMessage.textContent =
+            editorValidation.message;
+
+        announce(
+            editorValidation.message
+        );
+
+        return;
+
+    }
+
+
     state.selectedProduct =
         product;
 
@@ -978,7 +1203,7 @@ function selectProduct(productId) {
     state.selectedPrintAreas =
         product.printAreas
             .filter(
-                area => area.id === "front"
+                area => area.id === product.editor.defaultAreaId
             )
             .map(
                 area => area.id
@@ -1552,6 +1777,15 @@ function validateSelection() {
     }
 
 
+    const editorValidation =
+        validateEditorProduct(state.selectedProduct);
+
+
+    if (!editorValidation.valid) {
+        return editorValidation;
+    }
+
+
     if (!state.selectedColor) {
 
         return {
@@ -1635,7 +1869,25 @@ function createDesignerPayload() {
             state.selectedSize.id,
 
         printAreaIds:
-            [...state.selectedPrintAreas]
+            [...state.selectedPrintAreas],
+
+        editorProduct: {
+            id: state.selectedProduct.id,
+            categoryId: state.selectedProduct.categoryId,
+            name: state.selectedProduct.name,
+            description: state.selectedProduct.description,
+            price: state.selectedProduct.price,
+            thumbnail: state.selectedProduct.thumbnail,
+            colors: state.selectedProduct.colors.map(color => ({ ...color })),
+            sizes: state.selectedProduct.sizes.map(size => ({ ...size })),
+            editor: {
+                defaultAreaId: state.selectedProduct.editor.defaultAreaId,
+                printAreas: state.selectedProduct.editor.printAreas.map(area => ({
+                    ...area,
+                    printZone: { ...area.printZone }
+                }))
+            }
+        }
 
     };
 
@@ -1671,8 +1923,8 @@ function startDesign() {
 
 
     /*
-        This is the object that will be sent
-        to the Designer.
+        This object is sent to the Design Studio.
+        The editorProduct snapshot keeps the studio product-agnostic.
 
         Example:
 
@@ -1694,34 +1946,14 @@ function startDesign() {
     );
 
 
-    /*
-        Later, when Designer is implemented:
-
-        sessionStorage.setItem(
-            "palprintsDesignerSelection",
-            JSON.stringify(payload)
-        );
-
-        window.location.href =
-            "/designer.html";
-    */
-
-
     sessionStorage.setItem(
         "palprintsDesignerSelection",
         JSON.stringify(payload)
     );
 
 
-    /*
-        Temporary navigation.
-
-        Replace this with the actual
-        Designer route.
-    */
-
     window.location.href =
-        "designer.html";
+        "design-studio.html";
 
 }
 
