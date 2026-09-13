@@ -84,7 +84,7 @@
       notificationsToggle.setAttribute("aria-label", unreadCount ? `الإشعارات، ${unreadCount} جديدة` : "الإشعارات");
     };
 
-    const showToast = (message) => {
+    const showToast = (message, icon = "bell") => {
       document.querySelector(".store-notification-toast")?.remove();
       window.clearTimeout(toastTimer);
 
@@ -92,7 +92,8 @@
       toast.className = "store-notification-toast";
       toast.setAttribute("role", "status");
       toast.setAttribute("aria-live", "polite");
-      toast.innerHTML = '<i class="bi bi-heart-fill" aria-hidden="true"></i><span></span>';
+      toast.innerHTML = '<i aria-hidden="true"></i><span></span>';
+      toast.querySelector("i").className = `bi bi-${icon}`;
       toast.querySelector("span").textContent = message;
       document.body.append(toast);
       requestAnimationFrame(() => toast.classList.add("is-visible"));
@@ -117,7 +118,7 @@
         saveNotifications();
         renderNotifications();
         ringNotificationBell();
-        showToast(message);
+        showToast(message, icon);
       }
     };
 
@@ -206,7 +207,7 @@
         sidebarToggle.querySelector("i")?.classList.replace("bi-x-lg", "bi-list");
       } else {
         storeSidebar.classList.remove("is-open");
-        if (document.body.classList.contains("paper-printing-page")) {
+        if (document.body.classList.contains("paper-printing-page") || document.body.hasAttribute("data-sidebar-default-open")) {
           storeSidebar.classList.remove("is-collapsed");
           document.body.classList.add("sidebar-layout-open");
           storeSidebar.setAttribute("aria-hidden", "false");
@@ -303,7 +304,7 @@
   if (!form || !input || !grid || !emptyState) return;
 
   // Category pages reuse the store shell and provide their own catalog behavior.
-  if (document.body.classList.contains("hoodies-page")) return;
+  if (document.body.matches(".hoodies-page, .stickers-page")) return;
 
   const normalize = (value) => value
     .toLocaleLowerCase("ar")

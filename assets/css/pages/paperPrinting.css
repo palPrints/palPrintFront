@@ -1,11 +1,3 @@
-@font-face {
-  font-family: "Cairo Paper";
-  src: url("../../fonts/Cairo-Variable.ttf") format("truetype");
-  font-weight: 200 1000;
-  font-style: normal;
-  font-display: block;
-}
-
 :root {
   --pp-primary: #1677ff;
   --pp-primary-hover: #0a68eb;
@@ -76,10 +68,6 @@ html[data-bs-theme="dark"] {
   font-family: "Cairo Paper", "Cairo", Arial, sans-serif;
   font-size: 16px;
   line-height: 1.75;
-}
-
-.paper-printing-page :is(button, input, select, textarea) {
-  font-family: inherit;
 }
 
 .paper-printing-page .store-footer__brand p,
@@ -1565,10 +1553,17 @@ html[data-bs-theme="dark"] .paper-progress {
   justify-content: space-between;
 }
 
+.summary-heading>div>span:last-child {
+  display: grid;
+}
+
+.summary-heading small {
+  color: var(--paper-muted);
+  font-size: 11px;
+}
+
 .summary-heading h2 {
-  margin: 0;
   font-size: 18px;
-  line-height: 1.4;
 }
 
 .summary-icon {
@@ -1624,9 +1619,9 @@ html[data-bs-theme="dark"] .paper-progress {
 }
 
 .summary-facts>div {
-  display: grid;
-  grid-template-columns: minmax(90px, auto) minmax(0, 1fr);
-  align-items: start;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
   gap: 12px;
   padding: 11px 0;
   border-bottom: 1px solid var(--paper-border);
@@ -1645,13 +1640,11 @@ html[data-bs-theme="dark"] .paper-progress {
 }
 
 .summary-facts dd {
-  min-width: 0;
-  max-width: none;
+  max-width: 58%;
   margin: 0;
   font-size: 12px;
   font-weight: 800;
   text-align: end;
-  overflow-wrap: anywhere;
 }
 
 .price-breakdown {
@@ -1716,6 +1709,10 @@ html[data-bs-theme="dark"] .paper-progress {
 .summary-total strong {
   color: var(--paper-primary);
   font-size: 26px;
+}
+
+.summary-cta {
+  width: 100%;
 }
 
 .summary-help {
@@ -1987,7 +1984,8 @@ html[dir="ltr"] .stage-actions .bi-arrow-right {
   }
 
   .price-breakdown,
-  .summary-total {
+  .summary-total,
+  .summary-cta {
     grid-column: 2;
   }
 }
@@ -2018,8 +2016,8 @@ html[dir="ltr"] .stage-actions .bi-arrow-right {
   }
 
   .paper-main {
-    width: auto;
-    max-width: none;
+    width: 100%;
+    max-width: 100vw;
     padding-bottom: 112px;
   }
 
@@ -2256,15 +2254,11 @@ html[dir="ltr"] .stage-actions .bi-arrow-right {
     font-size: 22px;
   }
 
-  .paper-title-row {
-    grid-template-columns: 50px minmax(0, 1fr);
-  }
-
   .paper-title-row h1 {
     font-size: 27px;
   }
 
-  .paper-title-row p {
+  .paper-title-row p:last-child {
     font-size: 14px;
   }
 
@@ -2386,7 +2380,7 @@ html[dir="ltr"] .stage-actions .bi-arrow-right {
     gap: 11px;
   }
 
-  .paper-title-row p {
+  .paper-title-row p:last-child {
     max-width: 270px;
   }
 

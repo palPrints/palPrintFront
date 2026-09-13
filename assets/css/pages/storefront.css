@@ -357,9 +357,16 @@ html[data-bs-theme="dark"] body.storefront-page::before {
 .store-sidebar__item > span {
   min-width: 0;
   flex: 1;
+  padding-block: 2px;
+  line-height: 1.6;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.store-sidebar__logout > span {
+  padding-block: 2px;
+  line-height: 1.6;
 }
 
 .store-sidebar__divider {
