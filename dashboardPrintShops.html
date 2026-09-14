@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ar" dir="rtl" data-bs-theme="light">
+<html lang="ar" dir="rtl">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,121 +13,51 @@
     <link rel="preload" href="assets/fonts/Cairo-Variable.ttf" as="font" type="font/ttf" crossorigin />
     <link rel="preload" href="assets/icons/fonts/bootstrap-icons.woff2?e34853135f9e39acf64315236852cd5a" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="assets/icons/bootstrap-icons.min.css" />
-    <link rel="stylesheet" href="assets/css/pages/profile-core.css?v=12" />
+    <link rel="stylesheet" href="assets/css/pages/printingEarnings.css?v=18" />
     <link rel="stylesheet" href="assets/css/pages/dashboardPrintShops.css" />
-    <link rel="stylesheet" href="assets/css/pages/interactions.css?v=1" />
   </head>
 
-  <body class="profile-page printshop-dashboard-page">
-    <a class="profile-skip-link" href="#printshopDashboardMain" data-i18n="skipToContent">تخطي إلى المحتوى</a>
+  <body class="printshop-dashboard-page sidebar-collapsed">
+    <a class="skip-link" href="#printshopDashboardMain">تخطي إلى المحتوى</a>
 
-    <div class="profile-app">
-      <aside
-        class="profile-sidebar"
-        id="profileSidebar"
-        aria-label="القائمة الجانبية للمطبعة"
-        data-i18n-aria="sidebarLabel"
-      >
-        <div class="profile-sidebar-header">
-          <a class="profile-brand" href="index.html" aria-label="الصفحة الرئيسية" data-i18n-aria="goHome">
-            <img class="profile-brand-image" src="assets/images/lalprints-logo.png" alt="PalPrints" />
-          </a>
+    <aside class="wallet-sidebar" id="walletSidebar" aria-label="القائمة الجانبية للمطبعة">
+      <nav aria-label="روابط حساب المطبعة">
+        <a class="active" href="dashboardPrintShops.html" aria-current="page"><i class="bi bi-grid" aria-hidden="true"></i><span>لوحة التحكم</span></a>
+        <a href="printingProfile.html"><i class="bi bi-person" aria-hidden="true"></i><span>الملف الشخصي</span></a>
+        <a href="printingServices.html"><i class="bi bi-printer" aria-hidden="true"></i><span>خدمات الطباعة</span></a>
+        <a href="printingOrders.html"><i class="bi bi-clipboard-check" aria-hidden="true"></i><span>طلبات الطباعة</span></a>
+        <a href="printingEarnings.html"><i class="bi bi-wallet2" aria-hidden="true"></i><span>الأرباح والمحفظة</span></a>
+        <a href="settings.html"><i class="bi bi-gear" aria-hidden="true"></i><span>الإعدادات</span></a>
+        <a href="support.html"><i class="bi bi-headphones" aria-hidden="true"></i><span>الدعم الفني</span></a>
+      </nav>
+      <button class="logout" id="logoutButton" type="button" data-href="login.html"><i class="bi bi-box-arrow-left" aria-hidden="true"></i><span>تسجيل الخروج</span></button>
+    </aside>
+    <button class="sidebar-backdrop" id="sidebarBackdrop" type="button" aria-label="إغلاق القائمة"></button>
 
-          <button
-            class="profile-sidebar-close"
-            id="sidebarCloseButton"
-            type="button"
-            aria-label="إغلاق القائمة الجانبية"
-            data-i18n-aria="closeSidebar"
-          >
-            <i class="bi bi-x-lg" aria-hidden="true"></i>
-          </button>
+    <div class="wallet-shell">
+      <header class="topbar">
+        <a class="header-logo" href="index.html" aria-label="الصفحة الرئيسية"><img src="assets/images/palprints-wordmark-transparent.png" alt="PalPrints" /></a>
+        <button class="icon-button menu-button" id="menuButton" type="button" aria-label="فتح القائمة" aria-controls="walletSidebar" aria-expanded="false"><i class="bi bi-list" aria-hidden="true"></i></button>
+        <label class="search-box">
+          <input id="dashboardSearch" type="search" placeholder="إبحث عن منتج ..." aria-label="البحث عن منتج أو رقم طلب" autocomplete="off" />
+          <i class="bi bi-search" aria-hidden="true"></i>
+        </label>
+        <div class="header-actions">
+          <div class="account-wrap">
+            <button class="icon-button account-button" id="accountButton" type="button" aria-label="قائمة الحساب" aria-haspopup="true" aria-expanded="false"><i class="bi bi-person" aria-hidden="true"></i></button>
+            <div class="account-dropdown" id="accountDropdown" role="menu" aria-label="قائمة الحساب" hidden>
+              <a href="printingProfile.html" role="menuitem"><i class="bi bi-person" aria-hidden="true"></i><span>الملف الشخصي</span></a>
+              <a href="login.html" class="logout-link" role="menuitem"><i class="bi bi-box-arrow-left" aria-hidden="true"></i><span>تسجيل الخروج</span></a>
+            </div>
+          </div>
+          <div class="notification-wrap">
+            <button class="icon-button notification-button" id="notificationButton" type="button" aria-label="الإشعارات" aria-haspopup="true" aria-expanded="false"><i class="bi bi-bell" aria-hidden="true"></i><span class="counter notification-counter" id="notificationCounter" hidden>0</span></button>
+            <div class="notification-dropdown" id="notificationDropdown" role="menu" aria-label="قائمة الإشعارات" hidden><div class="notification-dropdown-header"><h3>الإشعارات</h3></div><ul class="notification-list" id="notificationList"><li class="notification-empty">لا توجد إشعارات بعد</li></ul></div>
+          </div>
         </div>
+      </header>
 
-        <nav class="profile-sidebar-nav" aria-label="روابط حساب المطبعة" data-i18n-aria="printshopNavLabel">
-          <a class="profile-sidebar-link active" href="dashboardPrintShops.html" aria-current="page">
-            <i class="bi bi-grid" aria-hidden="true"></i>
-            <span data-i18n="dashboard">لوحة التحكم</span>
-          </a>
-          <a class="profile-sidebar-link" href="printingProfile.html">
-            <i class="bi bi-person" aria-hidden="true"></i>
-            <span data-i18n="profile">الملف الشخصي</span>
-          </a>
-          <a class="profile-sidebar-link" href="printingServices.html">
-            <i class="bi bi-printer" aria-hidden="true"></i>
-            <span data-i18n="printingServices">خدمات الطباعة</span>
-          </a>
-          <a class="profile-sidebar-link" href="printingOrders.html">
-            <i class="bi bi-clipboard-check" aria-hidden="true"></i>
-            <span data-i18n="printingOrders">طلبات الطباعة</span>
-          </a>
-          <a class="profile-sidebar-link" href="printingWallet.html">
-            <i class="bi bi-wallet2" aria-hidden="true"></i>
-            <span data-i18n="earningsWallet">الأرباح والمحفظة</span>
-          </a>
-          <div class="profile-sidebar-divider" aria-hidden="true"></div>
-          <a class="profile-sidebar-link" href="settings.html">
-            <i class="bi bi-gear" aria-hidden="true"></i>
-            <span data-i18n="settings">الإعدادات</span>
-          </a>
-          <a class="profile-sidebar-link" href="support.html">
-            <i class="bi bi-headset" aria-hidden="true"></i>
-            <span data-i18n="support">التواصل مع الدعم الفني</span>
-          </a>
-        </nav>
-
-        <button
-          class="profile-sidebar-logout"
-          id="profileLogoutButton"
-          type="button"
-          data-href="login.html"
-        >
-          <i class="bi bi-box-arrow-left" aria-hidden="true"></i>
-          <span data-i18n="logout">تسجيل الخروج</span>
-        </button>
-      </aside>
-
-      <button
-        class="profile-sidebar-backdrop"
-        id="sidebarBackdrop"
-        type="button"
-        aria-label="إغلاق القائمة الجانبية"
-        data-i18n-aria="closeSidebar"
-      ></button>
-
-      <div class="profile-shell">
-        <header class="profile-topbar">
-          <div class="profile-topbar-start">
-            <button
-              class="profile-sidebar-toggle"
-              id="sidebarToggleButton"
-              type="button"
-              aria-label="إغلاق القائمة الجانبية"
-              aria-controls="profileSidebar"
-              aria-expanded="true"
-            >
-              <i class="bi bi-list" id="sidebarToggleIcon" aria-hidden="true"></i>
-            </button>
-          </div>
-
-          <div class="profile-topbar-actions">
-            <button class="profile-action-button" id="themeToggleButton" type="button" aria-label="تغيير المظهر" data-i18n-aria="changeTheme">
-              <i class="bi bi-moon-stars" id="themeToggleIcon" aria-hidden="true"></i>
-            </button>
-
-            <button class="profile-action-button profile-language-button" id="languageToggleButton" type="button" aria-label="تغيير اللغة" data-i18n-aria="changeLanguage">
-              <i class="bi bi-globe2" aria-hidden="true"></i>
-              <span class="profile-language-code" id="languageToggleText" aria-hidden="true">EN</span>
-            </button>
-
-            <a class="profile-action-button" href="printingNotifications.html" aria-label="الإشعارات" data-i18n-aria="notifications">
-              <i class="bi bi-bell" aria-hidden="true"></i>
-              <span class="profile-action-dot" aria-hidden="true"></span>
-            </a>
-          </div>
-        </header>
-
-        <main class="profile-main printshop-main" id="printshopDashboardMain">
+      <main class="printshop-main" id="printshopDashboardMain">
           <section class="printshop-page-heading" aria-labelledby="dashboardTitle">
             <div>
               <h1 id="dashboardTitle">لوحة التحكم</h1>
@@ -162,7 +92,7 @@
               </span>
               <div class="printshop-stat-card__content">
                 <h2>الأرباح المستحقة</h2>
-                <strong dir="ltr">$1,240.00</strong>
+                <strong dir="ltr" data-dashboard-counter="1240" data-counter-currency="true">$1,240.00</strong>
                 <p><span class="printshop-trend"><i class="bi bi-arrow-up" aria-hidden="true"></i> 12%</span> مقارنة بالأسبوع الماضي</p>
               </div>
             </article>
@@ -173,7 +103,7 @@
               </span>
               <div class="printshop-stat-card__content">
                 <h2>الطلبات المكتملة هذا الشهر</h2>
-                <strong>78</strong>
+                <strong data-dashboard-counter="78">78</strong>
                 <p><span class="printshop-trend"><i class="bi bi-arrow-up" aria-hidden="true"></i> 18%</span> مقارنة بالأسبوع الماضي</p>
               </div>
             </article>
@@ -184,7 +114,7 @@
               </span>
               <div class="printshop-stat-card__content">
                 <h2>الطلبات قيد التنفيذ</h2>
-                <strong>12</strong>
+                <strong data-dashboard-counter="12">12</strong>
                 <p><span class="printshop-trend"><i class="bi bi-arrow-up" aria-hidden="true"></i> 20%</span> مقارنة بالأسبوع الماضي</p>
               </div>
             </article>
@@ -195,7 +125,7 @@
               </span>
               <div class="printshop-stat-card__content">
                 <h2>الطلبات الجديدة</h2>
-                <strong>8</strong>
+                <strong data-dashboard-counter="8">8</strong>
                 <p><span class="printshop-trend"><i class="bi bi-arrow-up" aria-hidden="true"></i> 5%</span> مقارنة بالأسبوع الماضي</p>
               </div>
             </article>
@@ -240,17 +170,7 @@
           <section class="printshop-panel printshop-orders-panel" aria-labelledby="ordersTitle">
             <header class="printshop-panel__header">
               <h2 id="ordersTitle"><i class="bi bi-box-seam" aria-hidden="true"></i> آخر الطلبات</h2>
-              <div class="printshop-panel__actions">
-                <form class="printshop-search printshop-orders-search" id="dashboardSearchForm" role="search">
-                  <i class="bi bi-search" aria-hidden="true"></i>
-                  <label class="printshop-visually-hidden" for="dashboardSearch">ابحث في الطلبات</label>
-                  <input id="dashboardSearch" type="search" placeholder="ابحث عن منتج أو رقم طلب..." autocomplete="off" />
-                  <button class="printshop-search__clear" id="clearSearchButton" type="reset" aria-label="مسح البحث" hidden>
-                    <i class="bi bi-x-lg" aria-hidden="true"></i>
-                  </button>
-                </form>
-                <a href="printingOrders.html">عرض الكل <i class="bi bi-arrow-up-left" aria-hidden="true"></i></a>
-              </div>
+              <a href="printingOrders.html">عرض الكل <i class="bi bi-arrow-up-left" aria-hidden="true"></i></a>
             </header>
 
             <div class="printshop-table-wrapper" tabindex="0" aria-label="جدول آخر الطلبات، قابل للتمرير أفقيًا">
@@ -313,12 +233,9 @@
           </section>
         </main>
       </div>
-    </div>
 
     <div class="printshop-toast" id="dashboardToast" role="status" aria-live="polite" aria-atomic="true"></div>
 
-    <script src="assets/js/pages/profile-core.js?v=4"></script>
     <script src="assets/js/pages/dashboardPrintShops.js"></script>
-    <script src="assets/js/pages/interactions.js?v=3"></script>
   </body>
 </html>

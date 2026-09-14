@@ -32,7 +32,7 @@
   --pp-warning: #d97706;
   --pp-danger: #dc2626;
   --pp-surface: #ffffff;
-  --pp-bg: #f5f9fd;
+  --pp-bg: #f7fafd;
   --pp-border: var(--pp-navy-200);
   --pp-radius-sm: 8px;
   --pp-radius: 12px;
@@ -44,7 +44,8 @@
   --pp-shadow-primary: 0 6px 16px rgba(var(--pp-blue-rgb), 0.24);
   --printshop-sidebar-width: 230px;
   --printshop-topbar-height: 64px;
-  --printshop-content-max: 1240px;
+  --printshop-content-max: 1200px;
+  --printshop-content-max-expanded: 1280px;
 }
 
 html[data-bs-theme="dark"] {
@@ -447,9 +448,15 @@ img {
 }
 
 .printshop-main {
-  width: min(100%, calc(var(--printshop-content-max) + 64px));
+  width: 100%;
+  max-width: var(--printshop-content-max);
   margin-inline: auto;
-  padding: 30px 32px 56px;
+  padding: 27px 28px 50px;
+  transition: max-width 0.22s ease;
+}
+
+.printshop-dashboard-page.sidebar-collapsed .printshop-main {
+  max-width: var(--printshop-content-max-expanded);
 }
 
 .printshop-page-heading {
@@ -907,6 +914,57 @@ img {
 .printshop-toast.is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Wallet-page motion language applied to the dashboard content. */
+.printshop-stat-card,
+.printshop-panel,
+.printshop-profile-alert {
+  transition:
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.printshop-stat-card__icon,
+.printshop-stat-card strong {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.printshop-stat-card:hover {
+  z-index: 1;
+  transform: translateY(-2px);
+  border-color: #b9d3f4;
+  box-shadow: 0 7px 16px rgb(11 31 58 / 8%);
+}
+
+.printshop-stat-card:hover .printshop-stat-card__icon {
+  transform: scale(1.03) rotate(-2deg);
+}
+
+.printshop-stat-card:hover strong {
+  transform: translateX(-1px);
+}
+
+.printshop-panel:hover,
+.printshop-profile-alert:hover {
+  border-color: #c8d8eb;
+  box-shadow: 0 7px 16px rgb(11 31 58 / 7%);
+}
+
+.printshop-primary-button:hover {
+  background: #075fd7;
+  border-color: #075fd7;
+  box-shadow: 0 9px 20px rgb(22 119 255 / 32%);
+  transform: translateY(-2px);
+}
+
+.printshop-primary-button:active,
+.printshop-accent-button:active,
+.printshop-secondary-button:active,
+.printshop-view-button:active {
+  box-shadow: none;
+  transform: translateY(0) scale(0.98);
 }
 
 .printshop-app.sidebar-collapsed .printshop-sidebar {
