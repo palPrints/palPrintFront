@@ -13,132 +13,210 @@
 </head>
 
 <body class="design-studio-page">
-  <main class="studio-shell">
-    <header class="studio-header">
-      <a class="studio-brand" href="index.html" aria-label="PALPRINTS — الصفحة الرئيسية">
+  <a class="skip-link" href="#mainContent">تخطَّ إلى المحتوى</a>
+
+  <div class="page-shell">
+    <aside class="sidebar" id="sidebar" aria-label="قائمة الحساب">
+      <a href="index.html" class="sidebar-brand" aria-label="PALPRINTS — الصفحة الرئيسية">
         <img src="assets/images/logo/PalPrints-logo.svg" alt="PALPRINTS">
       </a>
 
-      <div class="studio-heading">
-        <span>استوديو التصميم</span>
-        <h1>صمّم منتجك</h1>
-      </div>
+      <nav class="sidebar-nav" aria-label="روابط الحساب">
+        <a href="index.html" class="nav-link"><i class="bi bi-shop-window" aria-hidden="true"></i><span>متجر PALPRINTS</span></a>
+        <a href="custProfile.html" class="nav-link"><i class="bi bi-person" aria-hidden="true"></i><span>الملف الشخصي</span></a>
+        <a href="orders.html" class="nav-link"><i class="bi bi-bag" aria-hidden="true"></i><span>طلباتي</span></a>
+        <a href="favorites.html" class="nav-link"><i class="bi bi-heart" aria-hidden="true"></i><span>المفضلة</span></a>
+        <span class="nav-divider" aria-hidden="true"></span>
+        <a href="design-studio.html" class="nav-link active" aria-current="page"><i class="bi bi-bezier2" aria-hidden="true"></i><span>استوديو التصميم</span></a>
+        <a href="#" class="nav-link"><i class="bi bi-gear" aria-hidden="true"></i><span>الإعدادات</span></a>
+        <a href="#" class="nav-link"><i class="bi bi-headset" aria-hidden="true"></i><span>الدعم الفني</span></a>
+      </nav>
 
-      <div class="studio-header-actions">
-        <span class="studio-phase-badge"><i class="bi bi-grid-1x2" aria-hidden="true"></i> إعداد مساحة العمل</span>
-        <a class="studio-exit-button" href="choose-product.html">
-          <i class="bi bi-arrow-right" aria-hidden="true"></i>
-          اختيار منتج آخر
-        </a>
-      </div>
-    </header>
+      <button type="button" class="logout-button">
+        <i class="bi bi-box-arrow-left" aria-hidden="true"></i><span>تسجيل الخروج</span>
+      </button>
+    </aside>
 
-    <section class="studio-product-strip" aria-label="المنتج المحدد">
-      <div class="studio-product-identity">
-        <span class="studio-product-thumb"><img id="summaryImage" alt=""></span>
-        <span>
-          <small>المنتج المحدد</small>
-          <strong id="summaryProductName">جارٍ تحميل المنتج…</strong>
-        </span>
-      </div>
-      <dl class="studio-product-meta">
-        <div><dt>اللون</dt><dd id="summaryColor">—</dd></div>
-        <div><dt>المقاس</dt><dd id="summarySize">—</dd></div>
-        <div><dt>السعر الأساسي</dt><dd id="summaryPrice">—</dd></div>
-      </dl>
-    </section>
+    <button class="sidebar-overlay" id="sidebarOverlay" type="button" aria-label="إغلاق القائمة"></button>
 
-    <div class="studio-layout">
-      <aside class="studio-product-panel" aria-labelledby="productPanelTitle">
-        <div class="studio-panel-heading">
-          <span class="studio-panel-icon"><i class="bi bi-box-seam" aria-hidden="true"></i></span>
-          <span><small>إعدادات العرض</small><h2 id="productPanelTitle">المنتج ومنطقة الطباعة</h2></span>
+    <div class="site-content">
+      <header class="topbar">
+        <button class="icon-button menu-button" id="menuButton" type="button" aria-label="طي القائمة" aria-controls="sidebar" aria-expanded="true">
+          <i class="bi bi-list" aria-hidden="true"></i>
+        </button>
+
+        <label class="search-box">
+          <input type="search" placeholder="ابحث عن منتج ..." aria-label="البحث عن منتج">
+          <i class="bi bi-search" aria-hidden="true"></i>
+        </label>
+
+        <div class="header-actions">
+          <a class="icon-button account-button" href="custProfile.html" aria-label="الحساب"><i class="bi bi-person" aria-hidden="true"></i></a>
+          <button class="icon-button notification-button" type="button" aria-label="الإشعارات"><i class="bi bi-bell" aria-hidden="true"></i></button>
+          <a class="icon-button cart-button" href="cart.html" aria-label="سلة المشتريات"><i class="bi bi-cart3" aria-hidden="true"></i><span class="counter">2</span></a>
+        </div>
+      </header>
+
+      <main class="studio-main" id="mainContent">
+        <div class="studio-page-heading">
+          <span>استوديو التصميم</span>
+          <h1>صمّم منتجك</h1>
+          <p>أضف لمستك الإبداعية داخل منطقة الطباعة المعتمدة للمنتج.</p>
         </div>
 
-        <section class="studio-option-group" aria-labelledby="colorTitle">
-          <div class="studio-section-title"><h3 id="colorTitle">اللون</h3><span id="selectedColorName">—</span></div>
-          <div class="studio-swatches" id="colorOptions" aria-label="ألوان المنتج"></div>
-        </section>
-
-        <section class="studio-option-group" aria-labelledby="sizeTitle">
-          <div class="studio-section-title"><h3 id="sizeTitle">المقاس</h3><span>حسب الاختيار السابق</span></div>
-          <div class="studio-sizes" id="sizeOptions" aria-label="مقاسات المنتج"></div>
-        </section>
-
-        <section class="studio-option-group" aria-labelledby="areaTitle">
-          <div class="studio-section-title"><h3 id="areaTitle">جهة التصميم</h3><span id="areaCount">—</span></div>
-          <div class="studio-areas" id="areaOptions" role="tablist" aria-label="مناطق الطباعة"></div>
-        </section>
-
-        <div class="studio-zone-card">
-          <i class="bi bi-bounding-box" aria-hidden="true"></i>
-          <span><strong>منطقة الطباعة</strong><small id="zoneDimensions">—</small></span>
-        </div>
-      </aside>
-
-      <section class="studio-workspace" aria-labelledby="workspaceTitle">
-        <div class="studio-workspace-head">
-          <span>
-            <small id="workspaceEyebrow">مساحة المنتج</small>
-            <strong id="workspaceTitle">معاينة منطقة الطباعة</strong>
-          </span>
-          <span class="studio-shell-status"><i class="bi bi-check-circle" aria-hidden="true"></i> الهيكل جاهز</span>
-        </div>
-
-        <div class="studio-stage" id="studioStage">
-          <div class="studio-stage-glow" aria-hidden="true"></div>
-          <div class="studio-product-canvas" id="productCanvas">
-            <img id="productMockup" alt="">
-            <div class="studio-print-zone" id="printZone" aria-label="منطقة الطباعة">
-              <span class="studio-zone-label"><i class="bi bi-bounding-box" aria-hidden="true"></i> منطقة الطباعة</span>
-              <canvas id="designCanvas" aria-label="لوحة التصميم" hidden></canvas>
-            </div>
+        <section class="studio-product-strip" aria-label="المنتج المحدد">
+          <div class="studio-product-identity">
+            <span class="studio-product-thumb"><img id="summaryImage" alt=""></span>
+            <span>
+              <small>المنتج المحدد</small>
+              <strong id="summaryProductName">جارٍ تحميل المنتج…</strong>
+            </span>
           </div>
+          <dl class="studio-product-meta">
+            <div><dt>اللون</dt><dd id="summaryColor">—</dd></div>
+            <div><dt>المقاس</dt><dd id="summarySize">—</dd></div>
+            <div><dt>السعر الأساسي</dt><dd id="summaryPrice">—</dd></div>
+          </dl>
+        </section>
+
+        <div class="studio-layout">
+          <aside class="studio-product-panel" aria-labelledby="productPanelTitle">
+            <div class="studio-panel-heading">
+              <span class="studio-panel-icon"><i class="bi bi-box-seam" aria-hidden="true"></i></span>
+              <span><small>إعدادات العرض</small><h2 id="productPanelTitle">المنتج ومنطقة الطباعة</h2></span>
+            </div>
+
+            <section class="studio-option-group" aria-labelledby="colorTitle">
+              <div class="studio-section-title"><h3 id="colorTitle">اللون</h3><span id="selectedColorName">—</span></div>
+              <div class="studio-swatches" id="colorOptions" aria-label="ألوان المنتج"></div>
+            </section>
+
+            <section class="studio-option-group" aria-labelledby="sizeTitle">
+              <div class="studio-section-title"><h3 id="sizeTitle">المقاس</h3><span>حسب اختيار المنتج</span></div>
+              <div class="studio-sizes" id="sizeOptions" aria-label="مقاسات المنتج"></div>
+            </section>
+
+            <section class="studio-option-group" aria-labelledby="areaTitle">
+              <div class="studio-section-title"><h3 id="areaTitle">جهة التصميم</h3><span id="areaCount">—</span></div>
+              <div class="studio-areas" id="areaOptions" role="tablist" aria-label="مناطق الطباعة"></div>
+            </section>
+
+            <div class="studio-zone-card">
+              <i class="bi bi-bounding-box" aria-hidden="true"></i>
+              <span><strong>منطقة الطباعة</strong><small>محددة تلقائيًا حسب المنتج والجهة</small></span>
+            </div>
+          </aside>
+
+          <section class="studio-workspace" aria-labelledby="workspaceTitle">
+            <div class="studio-workspace-head">
+              <span>
+                <small id="workspaceEyebrow">مساحة المنتج</small>
+                <strong id="workspaceTitle">معاينة منطقة الطباعة</strong>
+              </span>
+            </div>
+
+            <div class="studio-stage is-loading" id="studioStage" aria-busy="true">
+              <div class="studio-stage-loading" role="status" aria-live="polite">
+                <span class="studio-loading-spinner" aria-hidden="true"></span>
+                <span>جارٍ تجهيز مساحة التصميم…</span>
+              </div>
+              <div class="studio-stage-glow" aria-hidden="true"></div>
+              <div class="studio-stage-coordinate-system" id="stageCoordinateSystem">
+                <div class="studio-product-canvas" id="productCanvas">
+                  <img id="productMockup" alt="">
+                  <div class="studio-print-zone" id="printZone" aria-label="منطقة الطباعة">
+                    <span class="studio-zone-label"><i class="bi bi-bounding-box" aria-hidden="true"></i> منطقة الطباعة</span>
+                  </div>
+                </div>
+                <canvas id="designCanvas" aria-label="لوحة التصميم"></canvas>
+              </div>
+            </div>
+
+            <div class="studio-workspace-foot" aria-label="أدوات العرض">
+              <span class="studio-history-placeholder" aria-label="أدوات السجل غير مفعلة حاليًا">
+                <button type="button" disabled aria-label="تراجع"><i class="bi bi-arrow-counterclockwise" aria-hidden="true"></i></button>
+                <button type="button" disabled aria-label="إعادة"><i class="bi bi-arrow-clockwise" aria-hidden="true"></i></button>
+              </span>
+              <span class="studio-zoom-placeholder" aria-disabled="true"><i class="bi bi-dash" aria-hidden="true"></i><strong>100%</strong><i class="bi bi-plus" aria-hidden="true"></i></span>
+            </div>
+          </section>
+
+          <aside class="studio-tools-panel" aria-labelledby="toolsTitle">
+            <div class="studio-panel-heading studio-tools-heading">
+              <span class="studio-panel-icon"><i class="bi bi-sliders" aria-hidden="true"></i></span>
+              <span><h2 id="toolsTitle">أدوات التصميم</h2><small>اختر أداة للبدء</small></span>
+            </div>
+
+            <div class="studio-tool-tabs" role="tablist" aria-label="أدوات التصميم">
+              <button class="studio-tool-tab is-active" id="uploadTab" type="button" role="tab" aria-selected="true" aria-controls="toolPanel" data-studio-tool="upload">
+                <i class="bi bi-cloud-arrow-up" aria-hidden="true"></i><span>رفع صورة</span>
+              </button>
+              <button class="studio-tool-tab" id="textTab" type="button" role="tab" aria-selected="false" aria-controls="toolPanel" data-studio-tool="text">
+                <i class="bi bi-type" aria-hidden="true"></i><span>إضافة نص</span>
+              </button>
+              <button class="studio-tool-tab" id="graphicsTab" type="button" role="tab" aria-selected="false" aria-controls="toolPanel" data-studio-tool="graphics">
+                <i class="bi bi-images" aria-hidden="true"></i><span>الرسومات والعناصر</span>
+              </button>
+            </div>
+
+            <div class="studio-tool-panel" id="toolPanel" role="tabpanel" aria-live="polite" aria-labelledby="uploadTab">
+              <div id="toolPanelContent"></div>
+            </div>
+          </aside>
         </div>
 
-        <div class="studio-workspace-foot" aria-label="حالة أدوات العرض">
-          <span><i class="bi bi-info-circle" aria-hidden="true"></i> ستُفعّل أدوات التصميم في المرحلة التالية.</span>
-          <span class="studio-zoom-placeholder" aria-disabled="true"><i class="bi bi-dash"></i><strong>100%</strong><i class="bi bi-plus"></i></span>
-        </div>
-      </section>
-
-      <aside class="studio-tools-panel" aria-labelledby="toolsTitle">
-        <div class="studio-panel-heading studio-tools-heading">
-          <span class="studio-panel-icon"><i class="bi bi-stars" aria-hidden="true"></i></span>
-          <span><small>أدوات التصميم</small><h2 id="toolsTitle">أضف محتواك</h2></span>
-        </div>
-
-        <div class="studio-tool-tabs" role="tablist" aria-label="أدوات التصميم">
-          <button class="studio-tool-tab is-active" id="uploadTab" type="button" role="tab" aria-selected="true" aria-controls="toolPanel" data-studio-tool="upload">
-            <i class="bi bi-cloud-arrow-up" aria-hidden="true"></i><span>رفع صورة</span>
+        <div class="studio-bottom-actions">
+          <button class="studio-preview-button" id="previewButton" type="button" disabled>
+            <i class="bi bi-eye" aria-hidden="true"></i>
+            <span>معاينة التصميم</span>
+            <i class="bi bi-arrow-left" aria-hidden="true"></i>
           </button>
-          <button class="studio-tool-tab" id="textTab" type="button" role="tab" aria-selected="false" aria-controls="toolPanel" data-studio-tool="text">
-            <i class="bi bi-type" aria-hidden="true"></i><span>إضافة نص</span>
-          </button>
-          <button class="studio-tool-tab" id="graphicsTab" type="button" role="tab" aria-selected="false" aria-controls="toolPanel" data-studio-tool="graphics">
-            <i class="bi bi-images" aria-hidden="true"></i><span>الرسومات والعناصر</span>
-          </button>
         </div>
 
-        <div class="studio-tool-panel" id="toolPanel" role="tabpanel" aria-live="polite" aria-labelledby="uploadTab">
-          <div class="studio-tool-empty" id="toolPanelContent"></div>
+        <section class="studio-error-state" id="studioError" hidden role="alert">
+          <i class="bi bi-exclamation-triangle" aria-hidden="true"></i>
+          <h2>تعذر فتح استوديو التصميم</h2>
+          <p id="studioErrorMessage"></p>
+          <a href="choose-product.html">العودة إلى اختيار المنتج</a>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <img src="assets/images/logo/PalPrints-logo.svg" alt="PALPRINTS">
+            <p>من فكرة إلى واقع.<br>صنع بكل حب لكم.</p>
+          </div>
+          <div class="footer-column"><h3>المتجر</h3><a href="index.html">كل المنتجات</a><a href="#">التصنيفات</a><a href="#">الأكثر مبيعًا</a></div>
+          <div class="footer-column"><h3>حسابك</h3><a href="custProfile.html">الملف الشخصي</a><a href="orders.html">طلباتي</a><a href="favorites.html">المفضلة</a></div>
+          <div class="footer-column"><h3>المساعدة</h3><a href="#">الدعم الفني</a><a href="#">الأسئلة الشائعة</a><a href="#">سياسة الخصوصية</a></div>
+          <div class="footer-column footer-contact"><h3>تواصل معنا</h3><a href="mailto:support@palprints.com"><i class="bi bi-envelope" aria-hidden="true"></i> support@palprints.com</a><span><i class="bi bi-geo-alt" aria-hidden="true"></i> فلسطين</span></div>
         </div>
-      </aside>
+        <div class="footer-bottom">
+          <p>© 2026 PALPRINTS جميع الحقوق محفوظة.</p>
+          <div class="footer-social"><a href="#" aria-label="إنستغرام"><i class="bi bi-instagram"></i></a><a href="#" aria-label="فيسبوك"><i class="bi bi-facebook"></i></a><a href="#" aria-label="واتساب"><i class="bi bi-whatsapp"></i></a></div>
+        </div>
+      </footer>
     </div>
+  </div>
 
-    <button class="studio-preview-button" id="previewButton" type="button" disabled>
-      <i class="bi bi-eye" aria-hidden="true"></i>
-      <span>متابعة للمعاينة</span>
-      <i class="bi bi-arrow-left" aria-hidden="true"></i>
-    </button>
+  <dialog class="studio-confirm-dialog" id="deleteAssetDialog" aria-labelledby="deleteAssetTitle" aria-describedby="deleteAssetMessage">
+    <div class="studio-confirm-content">
+      <div class="studio-confirm-thumbnail"><img id="deleteAssetThumbnail" alt=""></div>
+      <div class="studio-confirm-copy">
+        <h2 id="deleteAssetTitle">حذف الصورة؟</h2>
+        <p id="deleteAssetMessage"></p>
+      </div>
+    </div>
+    <div class="studio-confirm-actions">
+      <button class="studio-confirm-cancel" id="cancelAssetDelete" type="button">إلغاء</button>
+      <button class="studio-confirm-delete" id="confirmAssetDelete" type="button"><i class="bi bi-trash3" aria-hidden="true"></i> حذف الصورة</button>
+    </div>
+  </dialog>
 
-    <section class="studio-error-state" id="studioError" hidden role="alert">
-      <i class="bi bi-exclamation-triangle" aria-hidden="true"></i>
-      <h2>تعذر فتح استوديو التصميم</h2>
-      <p id="studioErrorMessage"></p>
-      <a href="choose-product.html">العودة إلى اختيار المنتج</a>
-    </section>
-  </main>
+  <div class="studio-notice" id="studioNotice" role="status" aria-live="polite" hidden>
+    <i class="bi bi-info-circle" aria-hidden="true"></i><span id="studioNoticeText"></span>
+  </div>
 
   <div class="sr-only" id="studioLiveRegion" aria-live="polite" aria-atomic="true"></div>
 

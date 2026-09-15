@@ -137,6 +137,8 @@ const backendResponse = {
 
             name: "تي شيرت كلاسيكي",
 
+            studioTitle: "تيشيرت Unisex قطن كلاسيكي",
+
             description:
                 "تي شيرت كلاسيكي عالي الجودة 100% قطن",
 
@@ -282,6 +284,8 @@ const backendResponse = {
 
             name: "هودي بسيط",
 
+            studioTitle: "هودي Unisex قطني",
+
             description:
                 "هودي مريح للاستخدام اليومي",
 
@@ -373,6 +377,8 @@ const backendResponse = {
 
             name: "كوب سيراميك",
 
+            studioTitle: "كوب سيراميك",
+
             description:
                 "كوب سيراميك عالي الجودة",
 
@@ -429,6 +435,8 @@ const backendResponse = {
             categoryId: "bags",
 
             name: "حقيبة قماشية",
+
+            studioTitle: "حقيبة قماشية قطنية",
 
             description:
                 "حقيبة قماشية عملية ومتينة",
@@ -495,6 +503,8 @@ const backendResponse = {
             categoryId: "tshirts",
 
             name: "تي شيرت ثقيل باهت",
+
+            studioTitle: "تيشيرت Oversize قطن فاخر",
 
             description:
                 "تي شيرت ثقيل بقصة مريحة وألوان باهتة عصرية",
@@ -565,6 +575,8 @@ const backendResponse = {
             categoryId: "caps",
 
             name: "قبعة كلاسيكية",
+
+            studioTitle: "قبعة Unisex كلاسيكية",
 
             description:
                 "قبعة كلاسيكية قابلة للتعديل ومناسبة للطباعة الأمامية",
@@ -1859,6 +1871,11 @@ function createDesignerPayload() {
 
     return {
 
+        designId:
+            typeof crypto !== "undefined" && typeof crypto.randomUUID === "function"
+                ? crypto.randomUUID()
+                : `design-${Date.now()}-${Math.random().toString(16).slice(2)}`,
+
         productId:
             state.selectedProduct.id,
 
@@ -1875,6 +1892,7 @@ function createDesignerPayload() {
             id: state.selectedProduct.id,
             categoryId: state.selectedProduct.categoryId,
             name: state.selectedProduct.name,
+            studioTitle: state.selectedProduct.studioTitle || state.selectedProduct.name,
             description: state.selectedProduct.description,
             price: state.selectedProduct.price,
             thumbnail: state.selectedProduct.thumbnail,
