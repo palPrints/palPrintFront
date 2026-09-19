@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="لوحة تحكم إدارة منصة PalPrints" />
+    <title>لوحة تحكم الإدارة | PalPrints</title>
+
+    <link rel="icon" type="image/png" href="assets/images/logoWithoutBackGround.png" />
+    <link rel="preload" href="assets/fonts/Cairo-Variable.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href="assets/icons/fonts/bootstrap-icons.woff2?e34853135f9e39acf64315236852cd5a" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="assets/icons/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="assets/css/pages/printingEarnings.css?v=18" />
+    <link rel="stylesheet" href="assets/css/pages/adminDashboard.css" />
+  </head>
+
+  <body class="admin-dashboard-page">
+    <a class="skip-link" href="#adminDashboardMain">تخطي إلى المحتوى</a>
+
+    <aside class="wallet-sidebar admin-sidebar" id="adminSidebar" aria-label="القائمة الجانبية للإدارة">
+      <nav aria-label="روابط لوحة الإدارة">
+        <a class="active" href="#overview" aria-current="page" data-tooltip="لوحة التحكم">
+          <i class="bi bi-grid" aria-hidden="true"></i>
+          <span>لوحة التحكم</span>
+        </a>
+
+        <div class="admin-nav-group is-open" id="usersNavGroup">
+          <button
+            class="admin-nav-toggle"
+            id="usersNavToggle"
+            type="button"
+            aria-expanded="true"
+            aria-controls="usersSubmenu"
+            data-tooltip="إدارة المستخدمين"
+          >
+            <i class="bi bi-people" aria-hidden="true"></i>
+            <span>إدارة المستخدمين</span>
+            <i class="bi bi-chevron-down admin-nav-chevron" aria-hidden="true"></i>
+          </button>
+          <div class="admin-submenu" id="usersSubmenu">
+            <a href="#recentUsers" data-tooltip="العملاء">
+              <i class="bi bi-person" aria-hidden="true"></i>
+              <span>العملاء</span>
+            </a>
+            <a href="#recentUsers" data-tooltip="المصممون">
+              <i class="bi bi-palette" aria-hidden="true"></i>
+              <span>المصممون</span>
+            </a>
+            <a href="#recentUsers" data-tooltip="المطابع">
+              <i class="bi bi-printer" aria-hidden="true"></i>
+              <span>المطابع</span>
+            </a>
+          </div>
+        </div>
+
+        <a href="#pendingTasks" data-tooltip="إدارة التصاميم">
+          <i class="bi bi-palette" aria-hidden="true"></i>
+          <span>إدارة التصاميم</span>
+          <b class="admin-nav-badge" aria-label="8 عناصر تحتاج إلى مراجعة">8</b>
+        </a>
+        <a href="#pendingTasks" data-tooltip="إدارة المنتجات">
+          <i class="bi bi-shop-window" aria-hidden="true"></i>
+          <span>إدارة المنتجات</span>
+        </a>
+        <a href="orders.html" data-tooltip="إدارة الطلبات">
+          <i class="bi bi-cart3" aria-hidden="true"></i>
+          <span>إدارة الطلبات</span>
+        </a>
+        <a href="#financialOverview" data-tooltip="المدفوعات والأرباح">
+          <i class="bi bi-wallet2" aria-hidden="true"></i>
+          <span>المدفوعات والأرباح</span>
+        </a>
+        <a href="#shippingOverview" data-tooltip="إدارة الشحن">
+          <i class="bi bi-truck" aria-hidden="true"></i>
+          <span>إدارة الشحن</span>
+        </a>
+        <a href="#reportsOverview" data-tooltip="التقارير والإحصائيات">
+          <i class="bi bi-bar-chart-line" aria-hidden="true"></i>
+          <span>التقارير والإحصائيات</span>
+        </a>
+        <a href="#systemSettings" data-tooltip="إعدادات النظام">
+          <i class="bi bi-gear" aria-hidden="true"></i>
+          <span>إعدادات النظام</span>
+        </a>
+
+        <div class="admin-nav-separator" aria-hidden="true"></div>
+
+        <a href="#helpCenter" data-tooltip="مركز المساعدة">
+          <i class="bi bi-question-circle" aria-hidden="true"></i>
+          <span>مركز المساعدة</span>
+        </a>
+      </nav>
+
+      <button class="logout" id="logoutButton" type="button" data-href="login.html" data-tooltip="تسجيل الخروج">
+        <i class="bi bi-box-arrow-left" aria-hidden="true"></i>
+        <span>تسجيل الخروج</span>
+      </button>
+    </aside>
+
+    <button class="sidebar-backdrop" id="sidebarBackdrop" type="button" aria-label="إغلاق القائمة"></button>
+
+    <div class="wallet-shell">
+      <header class="topbar admin-topbar">
+        <a class="header-logo" href="index.html" aria-label="الصفحة الرئيسية">
+          <span class="admin-logo-full">
+            <img src="assets/images/palprints-wordmark-transparent.png" alt="PalPrints" />
+          </span>
+          <span class="admin-logo-compact" aria-hidden="true">
+            <img src="assets/images/logoWithoutBackGround.png" alt="" />
+          </span>
+        </a>
+
+        <button
+          class="icon-button menu-button"
+          id="menuButton"
+          type="button"
+          aria-label="إغلاق القائمة"
+          aria-controls="adminSidebar"
+          aria-expanded="true"
+        >
+          <i class="bi bi-x-lg" aria-hidden="true"></i>
+        </button>
+
+        <label class="search-box admin-search-box">
+          <input
+            id="dashboardSearch"
+            type="search"
+            placeholder="ابحث عن مستخدم أو طلب..."
+            aria-label="البحث في لوحة الإدارة"
+            autocomplete="off"
+          />
+          <i class="bi bi-search" aria-hidden="true"></i>
+        </label>
+
+        <div class="header-actions">
+          <div class="account-wrap">
+            <button
+              class="icon-button account-button"
+              id="accountButton"
+              type="button"
+              aria-label="قائمة حساب المدير"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <i class="bi bi-person" aria-hidden="true"></i>
+            </button>
+            <div class="account-dropdown" id="accountDropdown" role="menu" aria-label="قائمة حساب المدير" hidden>
+              <a href="#adminProfile" role="menuitem"><i class="bi bi-person" aria-hidden="true"></i><span>الملف الشخصي</span></a>
+              <a href="#systemSettings" role="menuitem"><i class="bi bi-gear" aria-hidden="true"></i><span>إعدادات الحساب</span></a>
+              <a href="login.html" class="logout-link" role="menuitem"><i class="bi bi-box-arrow-left" aria-hidden="true"></i><span>تسجيل الخروج</span></a>
+            </div>
+          </div>
+
+          <div class="notification-wrap">
+            <button
+              class="icon-button notification-button"
+              id="notificationButton"
+              type="button"
+              aria-label="الإشعارات، 3 إشعارات جديدة"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <i class="bi bi-bell" aria-hidden="true"></i>
+              <span class="counter notification-counter" id="notificationCounter">3</span>
+            </button>
+            <div class="notification-dropdown admin-notification-dropdown" id="notificationDropdown" role="menu" aria-label="قائمة الإشعارات" hidden>
+              <div class="notification-dropdown-header">
+                <h3>الإشعارات</h3>
+                <button type="button" id="markNotificationsRead">تحديد الكل كمقروء</button>
+              </div>
+              <ul class="notification-list" id="notificationList">
+                <li>
+                  <span class="notification-item-icon is-blue"><i class="bi bi-person-plus" aria-hidden="true"></i></span>
+                  <div><strong>طلب انضمام مصمم جديد</strong><small>منذ 5 دقائق</small></div>
+                </li>
+                <li>
+                  <span class="notification-item-icon is-amber"><i class="bi bi-palette" aria-hidden="true"></i></span>
+                  <div><strong>8 تصاميم بانتظار المراجعة</strong><small>منذ 18 دقيقة</small></div>
+                </li>
+                <li>
+                  <span class="notification-item-icon is-green"><i class="bi bi-check-circle" aria-hidden="true"></i></span>
+                  <div><strong>تمت تسوية دفعات هذا الأسبوع</strong><small>منذ ساعة</small></div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="admin-main admin-reference-main" id="adminDashboardMain">
+        <section class="admin-reference-heading" id="overview" aria-labelledby="dashboardTitle">
+          <div>
+            <h1 id="dashboardTitle">لوحة التحكم</h1>
+            <p><time datetime="2026-09-18">الجمعة، 18 سبتمبر 2026</time></p>
+          </div>
+          <button class="admin-add-product" type="button" data-action="add-product">
+            <i class="bi bi-plus-lg" aria-hidden="true"></i>
+            <span>إضافة منتج جديد</span>
+          </button>
+        </section>
+
+        <section class="admin-metric-grid" aria-label="ملخص أداء المنصة">
+          <article class="admin-metric-card">
+            <span class="admin-metric-icon is-blue" aria-hidden="true"><i class="bi bi-people"></i></span>
+            <strong data-admin-counter="4281">4,281</strong>
+            <h2>إجمالي المستخدمين</h2>
+            <p class="is-positive"><i class="bi bi-caret-up-fill" aria-hidden="true"></i> 12%+ مقارنة بالشهر الماضي</p>
+          </article>
+          <article class="admin-metric-card">
+            <span class="admin-metric-icon is-orange" aria-hidden="true"><i class="bi bi-cart3"></i></span>
+            <strong data-admin-counter="138">138</strong>
+            <h2>طلبات اليوم</h2>
+            <p class="is-positive"><i class="bi bi-caret-up-fill" aria-hidden="true"></i> 5%+ مقارنة بالشهر الماضي</p>
+          </article>
+          <article class="admin-metric-card">
+            <span class="admin-metric-icon is-green" aria-hidden="true"><i class="bi bi-currency-dollar"></i></span>
+            <strong dir="ltr">₪<span data-admin-counter="38420">38,420</span></strong>
+            <h2>الإيرادات الشهرية</h2>
+            <p class="is-positive"><i class="bi bi-caret-up-fill" aria-hidden="true"></i> 18%+ مقارنة بالشهر الماضي</p>
+          </article>
+          <article class="admin-metric-card">
+            <span class="admin-metric-icon is-red" aria-hidden="true"><i class="bi bi-clock"></i></span>
+            <strong data-admin-counter="23">23</strong>
+            <h2>بانتظار الاعتماد</h2>
+            <p class="is-negative"><i class="bi bi-caret-down-fill" aria-hidden="true"></i> 3- مقارنة بالشهر الماضي</p>
+          </article>
+        </section>
+
+        <div class="admin-analytics-grid">
+          <section class="admin-reference-card admin-sales-card" id="reportsOverview" aria-labelledby="salesChartTitle">
+            <header class="admin-reference-card__header">
+              <div><h2 id="salesChartTitle">مبيعات آخر 12 شهر</h2><p>إجمالي الطلبات المكتملة شهرياً</p></div>
+              <span class="admin-growth-pill"><i class="bi bi-arrow-up" aria-hidden="true"></i> +18%</span>
+            </header>
+            <div class="admin-line-chart" role="img" aria-label="ارتفعت المبيعات من 42 طلباً في أكتوبر إلى 138 طلباً في سبتمبر">
+              <svg viewBox="0 0 960 250" aria-hidden="true" focusable="false">
+                <g class="admin-line-chart__grid">
+                  <line x1="30" y1="28" x2="930" y2="28"></line>
+                  <line x1="30" y1="72" x2="930" y2="72"></line>
+                  <line x1="30" y1="116" x2="930" y2="116"></line>
+                  <line x1="30" y1="160" x2="930" y2="160"></line>
+                  <line x1="30" y1="205" x2="930" y2="205"></line>
+                </g>
+                <g class="admin-line-chart__axis">
+                  <text x="4" y="33">138</text><text x="4" y="77">114</text><text x="8" y="121">90</text><text x="8" y="165">66</text><text x="8" y="210">42</text>
+                </g>
+                <path class="admin-line-chart__area" d="M30 205 C58 205 81 173 112 173 S161 202 194 202 S242 141 276 141 S325 167 358 167 S407 112 440 112 S489 102 522 102 S570 137 604 137 S652 82 686 82 S735 96 768 96 S817 55 850 55 S900 28 930 28 L930 225 L30 225 Z"></path>
+                <path class="admin-line-chart__line" d="M30 205 C58 205 81 173 112 173 S161 202 194 202 S242 141 276 141 S325 167 358 167 S407 112 440 112 S489 102 522 102 S570 137 604 137 S652 82 686 82 S735 96 768 96 S817 55 850 55 S900 28 930 28"></path>
+                <g class="admin-line-chart__points">
+                  <circle cx="30" cy="205" r="5"></circle><circle cx="112" cy="173" r="5"></circle><circle cx="194" cy="202" r="5"></circle><circle cx="276" cy="141" r="5"></circle><circle cx="358" cy="167" r="5"></circle><circle cx="440" cy="112" r="5"></circle><circle cx="522" cy="102" r="5"></circle><circle cx="604" cy="137" r="5"></circle><circle cx="686" cy="82" r="5"></circle><circle cx="768" cy="96" r="5"></circle><circle cx="850" cy="55" r="5"></circle><circle class="is-last" cx="930" cy="28" r="7"></circle>
+                </g>
+                <g class="admin-line-chart__value"><rect x="893" y="-2" width="74" height="32" rx="7"></rect><text x="930" y="19">138</text></g>
+              </svg>
+              <div class="admin-line-chart__months" aria-hidden="true"><span>أكتوبر</span><span>نوفمبر</span><span>ديسمبر</span><span>يناير</span><span>فبراير</span><span>مارس</span><span>أبريل</span><span>مايو</span><span>يونيو</span><span>يوليو</span><span>أغسطس</span><span>سبتمبر</span></div>
+            </div>
+          </section>
+
+          <section class="admin-reference-card admin-users-distribution" id="recentUsers" aria-labelledby="usersDistributionTitle">
+            <header class="admin-reference-card__header"><h2 id="usersDistributionTitle">توزيع المستخدمين</h2></header>
+            <div class="admin-distribution-list">
+              <div class="admin-distribution-item"><div><span>عملاء</span><b>3,120</b></div><div class="admin-progress"><span class="is-blue" style="--progress: 73%"></span></div></div>
+              <div class="admin-distribution-item"><div><span>مصممون</span><b>842</b></div><div class="admin-progress"><span class="is-orange" style="--progress: 20%"></span></div></div>
+              <div class="admin-distribution-item"><div><span>مطابع</span><b>319</b></div><div class="admin-progress"><span class="is-green" style="--progress: 7%"></span></div></div>
+            </div>
+          </section>
+        </div>
+
+        <div class="admin-review-grid" id="pendingTasks">
+          <section class="admin-reference-card admin-review-panel" aria-labelledby="approvalRequestsTitle">
+            <header class="admin-reference-card__header"><h2 id="approvalRequestsTitle">طلبات الاعتماد</h2><span class="admin-count-pill is-red">4 معلق</span></header>
+            <div class="admin-review-list">
+              <article class="admin-approval-item"><span class="admin-review-avatar">خ</span><div><strong>خالد عبد النور</strong><p><span class="admin-type-pill is-designer">مصمم</span> اليوم، 9:14 ص</p></div><button type="button" data-review="طلب خالد عبد النور">مراجعة الطلب <i class="bi bi-chevron-left" aria-hidden="true"></i></button></article>
+              <article class="admin-approval-item"><span class="admin-review-avatar">م</span><div><strong>مطبعة النور</strong><p><span class="admin-type-pill is-printshop">مطبعة</span> اليوم، 8:02 ص</p></div><button type="button" data-review="طلب مطبعة النور">مراجعة الطلب <i class="bi bi-chevron-left" aria-hidden="true"></i></button></article>
+              <article class="admin-approval-item"><span class="admin-review-avatar">ر</span><div><strong>ريم الحسن</strong><p><span class="admin-type-pill is-designer">مصمم</span> أمس، 11:50 م</p></div><button type="button" data-review="طلب ريم الحسن">مراجعة الطلب <i class="bi bi-chevron-left" aria-hidden="true"></i></button></article>
+              <article class="admin-approval-item"><span class="admin-review-avatar">إ</span><div><strong>مطبعة الإبداع</strong><p><span class="admin-type-pill is-printshop">مطبعة</span> أمس، 6:33 م</p></div><button type="button" data-review="طلب مطبعة الإبداع">مراجعة الطلب <i class="bi bi-chevron-left" aria-hidden="true"></i></button></article>
+            </div>
+          </section>
+
+          <section class="admin-reference-card admin-review-panel" aria-labelledby="designReviewTitle">
+            <header class="admin-reference-card__header"><h2 id="designReviewTitle">تصاميم بانتظار المراجعة</h2><span class="admin-count-pill is-orange">3 تصميم</span></header>
+            <div class="admin-review-list">
+              <article class="admin-design-item"><span class="admin-design-icon is-blue"><i class="bi bi-geo-alt" aria-hidden="true"></i></span><div><strong>تصميم القدس الحرة</strong><p>رياح ناصر · وطني</p></div><button type="button" data-review="تصميم القدس الحرة">مراجعة <i class="bi bi-chevron-left" aria-hidden="true"></i></button></article>
+              <article class="admin-design-item"><span class="admin-design-icon is-orange"><i class="bi bi-star" aria-hidden="true"></i></span><div><strong>نقش زخرفي عربي</strong><p>سامر علي · فنون</p></div><button type="button" data-review="نقش زخرفي عربي">مراجعة <i class="bi bi-chevron-left" aria-hidden="true"></i></button></article>
+              <article class="admin-design-item"><span class="admin-design-icon is-green"><i class="bi bi-vector-pen" aria-hidden="true"></i></span><div><strong>خط كوفي تجريدي</strong><p>هند محمود · خط عربي</p></div><button type="button" data-review="خط كوفي تجريدي">مراجعة <i class="bi bi-chevron-left" aria-hidden="true"></i></button></article>
+            </div>
+          </section>
+        </div>
+
+        <section class="admin-reference-card admin-orders-card" id="financialOverview" aria-labelledby="latestOrdersTitle">
+          <header class="admin-reference-card__header"><h2 id="latestOrdersTitle">أحدث الطلبات</h2><button class="admin-view-all" type="button" data-action="view-all-orders">عرض الكل <i class="bi bi-chevron-left" aria-hidden="true"></i></button></header>
+          <div class="admin-orders-table-wrap" tabindex="0" aria-label="جدول أحدث الطلبات، قابل للتمرير أفقياً">
+            <table class="admin-orders-table">
+              <thead><tr><th scope="col">رقم الطلب</th><th scope="col">العميل</th><th scope="col">المنتج</th><th scope="col">المبلغ</th><th scope="col">الحالة</th><th scope="col">التاريخ</th></tr></thead>
+              <tbody id="ordersTableBody">
+                <tr data-order-row data-search="ORD-9821 محمد الكحلوت تيشيرت تصميم فلسطين قيد التنفيذ"><td><a href="#order-9821" dir="ltr">#ORD-9821</a></td><td>محمد الكحلوت</td><td>تيشيرت - تصميم فلسطين</td><td><b dir="ltr">₪85</b></td><td><span class="admin-order-status is-progress">قيد التنفيذ</span></td><td><time datetime="2026-09-18">18 سبتمبر 2026</time></td></tr>
+                <tr data-order-row data-search="ORD-9820 علا المصري كوب تصميم زيتون تم الشحن"><td><a href="#order-9820" dir="ltr">#ORD-9820</a></td><td>علا المصري</td><td>كوب - تصميم زيتون</td><td><b dir="ltr">₪45</b></td><td><span class="admin-order-status is-shipped">تم الشحن</span></td><td><time datetime="2026-09-18">18 سبتمبر 2026</time></td></tr>
+                <tr data-order-row data-search="ORD-9819 يامن أبو شاويش دفتر خط عربي تم التسليم"><td><a href="#order-9819" dir="ltr">#ORD-9819</a></td><td>يامن أبو شاويش</td><td>دفتر - خط عربي</td><td><b dir="ltr">₪60</b></td><td><span class="admin-order-status is-delivered">تم التسليم</span></td><td><time datetime="2026-09-17">17 سبتمبر 2026</time></td></tr>
+                <tr data-order-row data-search="ORD-9818 نوال أبو رزق تيشيرت تصميم قدس بانتظار التأكيد"><td><a href="#order-9818" dir="ltr">#ORD-9818</a></td><td>نوال أبو رزق</td><td>تيشيرت - تصميم قدس</td><td><b dir="ltr">₪85</b></td><td><span class="admin-order-status is-waiting">بانتظار التأكيد</span></td><td><time datetime="2026-09-17">17 سبتمبر 2026</time></td></tr>
+                <tr data-order-row data-search="ORD-9817 جمانة الدحدوح حقيبة نقشة تراثية ملغي"><td><a href="#order-9817" dir="ltr">#ORD-9817</a></td><td>جمانة الدحدوح</td><td>حقيبة - نقشة تراثية</td><td><b dir="ltr">₪120</b></td><td><span class="admin-order-status is-cancelled">ملغي</span></td><td><time datetime="2026-09-16">16 سبتمبر 2026</time></td></tr>
+                <tr data-order-row data-search="ORD-9816 أحمد سالم كوب لوغو مخصص تم التسليم"><td><a href="#order-9816" dir="ltr">#ORD-9816</a></td><td>أحمد سالم</td><td>كوب - لوغو مخصص</td><td><b dir="ltr">₪45</b></td><td><span class="admin-order-status is-delivered">تم التسليم</span></td><td><time datetime="2026-09-16">16 سبتمبر 2026</time></td></tr>
+                <tr class="admin-orders-empty" id="emptyOrdersRow" hidden><td colspan="6"><i class="bi bi-search" aria-hidden="true"></i><strong>لا توجد طلبات مطابقة</strong><span>جرّب البحث باسم عميل أو رقم طلب آخر.</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="admin-toast" id="adminToast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <script src="assets/js/pages/adminDashboard.js"></script>
+  </body>
+</html>
