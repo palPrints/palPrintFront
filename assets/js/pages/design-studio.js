@@ -4,9 +4,15 @@
   const SELECTION_KEY = "palprintsDesignerSelection";
   const DESIGN_PREFIX = "palprintsDesign:";
   const FALLBACK_ASSET_PREFIX = "palprintsDesignAsset:";
-  const DESKTOP_PRODUCT_HEIGHT_RATIO = 0.94;
-  const COMPACT_PRODUCT_HEIGHT_RATIO = 0.7;
+  // const DESKTOP_PRODUCT_HEIGHT_RATIO = 0.94;
+  const DESKTOP_PRODUCT_HEIGHT_RATIO = 1.0;
+  const COMPACT_PRODUCT_HEIGHT_RATIO = 1;
   const ALLOWED_UPLOADS = new Set(["image/png", "image/jpeg", "image/svg+xml"]);
+  const GRAPHICS = window.PALPRINTS_STUDIO_GRAPHICS || { categories: [], items: [] };
+  const APPROVED_GRAPHICS = new Map(GRAPHICS.items.filter(item => item.reviewStatus === "approved").map(item => [item.id, item]));
+  const GRAPHICS_BY_CATEGORY = new Map(GRAPHICS.categories.map(category => [category,
+    [...APPROVED_GRAPHICS.values()].filter(item => item.category === category)]));
+  const GRAPHICS_PAGE_SIZE = 24;
   const FONT_FAMILIES = [
     "Cairo", "Tajawal", "Almarai", "Changa", "El Messiri", "Reem Kufi", "Noto Kufi Arabic", "Noto Naskh Arabic",
     "Amiri", "Lateef", "Scheherazade New", "Markazi Text", "Mada", "IBM Plex Sans Arabic", "Harmattan", "Katibeh",
@@ -25,15 +31,17 @@
     toolPanel: $("toolPanel"), toolPanelContent: $("toolPanelContent"), error: $("studioError"),
     errorMessage: $("studioErrorMessage"), liveRegion: $("studioLiveRegion"), notice: $("studioNotice"), noticeText: $("studioNoticeText"),
     deleteDialog: $("deleteAssetDialog"), deleteThumbnail: $("deleteAssetThumbnail"), deleteMessage: $("deleteAssetMessage"),
-    cancelAssetDelete: $("cancelAssetDelete"), confirmAssetDelete: $("confirmAssetDelete")
+    cancelAssetDelete: $("cancelAssetDelete"), confirmAssetDelete: $("confirmAssetDelete"),
+    selectedObjectControls: $("selectedObjectControls"), selectedObjectName: $("selectedObjectName"),
+    snapGuideVertical: $("snapGuideVertical"), snapGuideHorizontal: $("snapGuideHorizontal")
   };
 
   const app = {
     selection: null, product: null, color: null, size: null, area: null, design: null, canvas: null, assetStore: null,
     activeTool: "upload", objectUrls: new Map(), fontPromises: new Map(), suppressCanvasEvents: false,
-    geometryReady: false, viewportZone: null, logicalStage: null, stageScale: 1, areaSwitchToken: 0,
+    geometryReady: false, viewportZone: null, logicalStage: null, stageScale: 1, areaSwitchToken: 0, snapDrag: null,
     persistTimer: null, resizeObserver: null, resizeFrame: null, noticeTimer: null, panelRenderToken: 0,
-    pendingAssetFingerprints: new Set()
+    pendingAssetFingerprints: new Set(), graphicsCategory: GRAPHICS.categories[0] || "", graphicsSearch: "", graphicsLimit: GRAPHICS_PAGE_SIZE
   };
 
   class DesignAssetStore {
@@ -181,6 +189,8 @@
     const common = { id: object.studioId, kind: object.studioKind, x: (object.left - zone.left) / zone.width, y: (object.top - zone.top) / zone.height,
       angle: Number(object.angle) || 0, flipX: Boolean(object.flipX), flipY: Boolean(object.flipY) };
     if (object.studioKind === "image") return { ...common, assetId: object.assetId, width: object.getScaledWidth() / zone.width, height: object.getScaledHeight() / zone.height };
+    if (object.studioKind === "graphic") return { ...common, graphicId: object.graphicId, color: object.graphicColor || null,
+      width: object.getScaledWidth() / zone.width, height: object.getScaledHeight() / zone.height };
     return { ...common, text: object.text || "", width: object.width / zone.width, fontSize: object.fontSize / zone.height, scaleX: object.scaleX, scaleY: object.scaleY,
       fontFamily: object.fontFamily, fill: object.fill, fontWeight: object.fontWeight, fontStyle: object.fontStyle, textAlign: object.textAlign,
       charSpacing: object.charSpacing, lineHeight: object.lineHeight };
@@ -192,7 +202,32 @@
   }
   function configureObject(object, model) {
     object.set({ originX: "center", originY: "center", studioId: model.id, studioKind: model.kind, transparentCorners: false,
-      cornerStyle: "circle", cornerColor: "#1677ff", borderColor: "#1677ff", cornerSize: 10 }); object.setCoords(); return object;
+      cornerStyle: "circle", cornerColor: "#1677ff", borderColor: "#1677ff", cornerSize: 10 });
+    if (model.kind === "graphic") {
+      object.set({ lockScalingFlip: true });
+      // Fabric's Shift key normally toggles proportional scaling. Graphics stay proportional.
+      const equalScale = (event, transform, x, y) => {
+        const canvas = transform.target.canvas, previous = canvas.uniformScaling;
+        canvas.uniformScaling = true;
+        try {
+          const scaleEvent = { ...event, [canvas.uniScaleKey || "shiftKey"]: false };
+          return fabric.controlsUtils.scalingEqually(scaleEvent, transform, x, y);
+        } finally { canvas.uniformScaling = previous; }
+      };
+      object.controls = { ...object.controls };
+      ["tl", "tr", "bl", "br"].forEach(key => {
+        object.controls[key] = new fabric.Control({ ...object.controls[key], actionHandler: equalScale });
+      });
+      object.setControlsVisibility({ mt: false, mb: false, ml: false, mr: false });
+    }
+    object.setCoords(); return object;
+  }
+
+  function recolorGraphic(image, color) {
+    const Filter = fabric.filters?.BlendColor || fabric.Image?.filters?.BlendColor;
+    if (!Filter) throw new Error("Fabric one-color filter is unavailable");
+    image.filters = [new Filter({ color, mode: "tint", alpha: 1 })];
+    image.applyFilters(); image.graphicColor = color;
   }
 
   async function assetUrl(assetId) {
@@ -218,6 +253,15 @@
       image.set({ scaleX: (model.width * zone.width) / image.width, scaleY: (model.height * zone.height) / image.height, assetId: model.assetId });
       return configureObject(image, model);
     }
+    if (model.kind === "graphic") {
+      const record = APPROVED_GRAPHICS.get(model.graphicId); if (!record) return null;
+      const image = await window.PALPRINTS_STUDIO_SVG.create(record, common);
+      if (!image.width || !image.height) return null;
+      const scale = (model.width * zone.width) / image.width;
+      image.set({ scaleX: scale, scaleY: scale, graphicId: record.id });
+      if (record.recolorable) recolorGraphic(image, model.color || record.defaultColor);
+      return configureObject(image, model);
+    }
     await loadFont(model.fontFamily || "Cairo");
     return configureObject(new fabric.Textbox(model.text || "", { ...common, width: Math.max(30, model.width * zone.width), fontSize: Math.max(8, model.fontSize * zone.height),
       scaleX: model.scaleX || 1, scaleY: model.scaleY || 1, fontFamily: model.fontFamily || "Cairo", fill: model.fill || "#0b1f3a",
@@ -230,6 +274,7 @@
     const zone = getZoneRect(), objects = (await Promise.all(models.map(model => modelToObject(model, zone)))).filter(Boolean);
     if (token !== app.areaSwitchToken) return;
     app.suppressCanvasEvents = true; app.canvas.clear(); objects.forEach(object => app.canvas.add(object)); app.canvas.discardActiveObject(); app.canvas.requestRenderAll(); app.suppressCanvasEvents = false;
+    clearSnapGuides(); updateSelectedObjectControls();
     app.viewportZone = { ...zone };
   }
   function reflowObjects(models) {
@@ -238,6 +283,7 @@
       const model = byId.get(object.studioId); if (!model) return;
       const values = { left: zone.left + model.x * zone.width, top: zone.top + model.y * zone.height, angle: model.angle };
       if (model.kind === "image") Object.assign(values, { scaleX: (model.width * zone.width) / object.width, scaleY: (model.height * zone.height) / object.height });
+      else if (model.kind === "graphic") Object.assign(values, { scaleX: (model.width * zone.width) / object.width, scaleY: (model.width * zone.width) / object.width });
       else Object.assign(values, { width: Math.max(30, model.width * zone.width), fontSize: Math.max(8, model.fontSize * zone.height), scaleX: model.scaleX, scaleY: model.scaleY });
       object.set(values); object.setCoords();
     }); app.canvas.requestRenderAll(); app.viewportZone = { ...zone };
@@ -268,7 +314,17 @@
     const offsetX = (width - app.logicalStage.width * scale) / 2, offsetY = (height - app.logicalStage.height * scale) / 2;
     app.stageScale = scale;
     elements.coordinateSystem.style.transform = `translate3d(${offsetX}px, ${offsetY}px, 0) scale(${scale})`;
+    refreshCanvasResolution();
     app.canvas?.calcOffset();
+  }
+  function refreshCanvasResolution() {
+    if (!app.canvas) return;
+    const ratio = Math.max(1, (window.devicePixelRatio || 1) * (app.stageScale || 1));
+    if (Math.abs((app.renderPixelRatio || 0) - ratio) < 0.01) return;
+    app.renderPixelRatio = ratio;
+    app.canvas.setDimensions(app.logicalStage);
+    app.canvas.getObjects().forEach(object => object.set({ dirty: true }));
+    app.canvas.requestRenderAll();
   }
   function measureVisibleBounds() {
     const image = elements.productMockup, scale = Math.min(1, 512 / Math.max(image.naturalWidth, image.naturalHeight));
@@ -372,6 +428,52 @@
       || (!asset.fingerprint && asset.name === file.name && asset.size === file.size && asset.mimeType === mimeType));
   }
 
+  async function sanitizeUploadedSvg(file) {
+    const input = await file.text();
+    if (input.length > 2000000 || /<!DOCTYPE|<!ENTITY/i.test(input)) throw new Error("Unsafe SVG declaration");
+    const parsed = new DOMParser().parseFromString(input, "image/svg+xml");
+    const root = parsed.documentElement;
+    if (root.localName !== "svg" || root.namespaceURI !== "http://www.w3.org/2000/svg" || parsed.querySelector("parsererror")) {
+      throw new Error("Invalid SVG upload");
+    }
+    const forbidden = new Set(["foreignObject", "iframe", "object", "embed", "audio", "video", "image", "animate", "animateMotion", "animateTransform", "set"]);
+    const safeReference = value => {
+      if (/javascript:|data:|https?:|file:|@import|expression\s*\(/i.test(value)) return false;
+      for (const match of value.matchAll(/url\s*\(\s*([^)]*)\)/gi)) {
+        if (!/^#[A-Za-z_][\w.-]*$/.test(match[1].trim().replace(/^['"]|['"]$/g, ""))) return false;
+      }
+      return true;
+    };
+    const walk = node => {
+      for (const child of [...node.childNodes]) {
+        if (child.nodeType === Node.PROCESSING_INSTRUCTION_NODE) throw new Error("SVG processing instruction rejected");
+        if (child.nodeType !== Node.ELEMENT_NODE) continue;
+        if (child.localName === "script" || child.localName === "metadata" || child.localName === "namedview") { child.remove(); continue; }
+        if (child.namespaceURI !== "http://www.w3.org/2000/svg" || forbidden.has(child.localName)) {
+          throw new Error(`Unsafe SVG element: ${child.localName}`);
+        }
+        for (const attribute of [...child.attributes]) {
+          if (attribute.namespaceURI === "http://www.w3.org/2000/xmlns/") continue;
+          if (/^on/i.test(attribute.localName) || attribute.localName === "base") { child.removeAttributeNode(attribute); continue; }
+          if (!safeReference(attribute.value) || (["href", "src"].includes(attribute.localName) && !/^#[A-Za-z_][\w.-]*$/.test(attribute.value.trim()))) {
+            throw new Error("Unsafe SVG resource reference");
+          }
+        }
+        if (child.localName === "style" && !safeReference(child.textContent)) throw new Error("Unsafe SVG style");
+        walk(child);
+      }
+    };
+    walk(parsed);
+    for (const attribute of [...root.attributes]) {
+      if (attribute.namespaceURI === "http://www.w3.org/2000/xmlns/") continue;
+      if (/^on/i.test(attribute.localName) || attribute.localName === "base") root.removeAttributeNode(attribute);
+      else if (!safeReference(attribute.value)) throw new Error("Unsafe SVG root attribute");
+    }
+    const cleaned = new XMLSerializer().serializeToString(parsed);
+    if (/<\s*script\b|\s+on[a-z]+\s*=|javascript:|data:/i.test(cleaned)) throw new Error("SVG did not sanitize cleanly");
+    return new Blob([cleaned], { type: "image/svg+xml" });
+  }
+
   async function handleUploads(files) {
     let changed = false;
     for (const file of files) {
@@ -381,7 +483,12 @@
       if (app.pendingAssetFingerprints.has(fingerprint) || hasUploadedFile(file, mime, fingerprint)) continue;
       app.pendingAssetFingerprints.add(fingerprint);
       try {
-        const assetId = uid("asset"); await app.assetStore.put(assetId, file);
+        let blob = file;
+        if (extension === "svg" || mime === "image/svg+xml") {
+          try { blob = await sanitizeUploadedSvg(file); }
+          catch (error) { showNotice(`ملف SVG «${file.name}» يحتوي على محتوى غير آمن.`, "error"); continue; }
+        }
+        const assetId = uid("asset"); await app.assetStore.put(assetId, blob);
         if (!hasUploadedFile(file, mime, fingerprint)) {
           app.design.assets.push({ assetId, name: file.name, mimeType: mime, size: file.size, lastModified: file.lastModified || 0, fingerprint, createdAt: new Date().toISOString() });
           changed = true;
@@ -515,22 +622,223 @@
     if (!selected) form.querySelectorAll("[data-prop], [data-toggle], [data-align]").forEach(control => { control.disabled = true; control.classList.add("is-disabled"); });
     elements.toolPanelContent.appendChild(form);
   }
+  function activeGraphic() { const object = app.canvas?.getActiveObject(); return object?.studioKind === "graphic" ? object : null; }
+  async function addGraphicToCanvas(record) {
+    if (!app.canvas || !app.geometryReady || !APPROVED_GRAPHICS.has(record.id)) return;
+    const areaId = app.area.id, areaToken = app.areaSwitchToken;
+    const model = { id: uid("object"), kind: "graphic", graphicId: record.id, color: record.recolorable ? record.defaultColor : null,
+      x: 0.5, y: 0.5, width: 0.3, height: 0.4, angle: 0, flipX: false, flipY: false };
+    try {
+      const image = await window.PALPRINTS_STUDIO_SVG.create(record);
+      if (app.area.id !== areaId || app.areaSwitchToken !== areaToken || !app.geometryReady) return;
+      if (!image.width || !image.height) throw new Error("Empty graphic");
+      const zone = getZoneRect();
+      const scale = Math.min((zone.width * 0.45) / image.width, (zone.height * 0.55) / image.height);
+      image.set({ left: zone.left + zone.width / 2, top: zone.top + zone.height / 2, scaleX: scale, scaleY: scale,
+        graphicId: record.id });
+      if (record.recolorable) recolorGraphic(image, record.defaultColor);
+      configureObject(image, model); app.canvas.add(image); app.canvas.setActiveObject(image); image.setCoords();
+      app.canvas.requestRenderAll(); scheduleCommit(); announce(`${record.nameAr} أضيف إلى التصميم`);
+    } catch (error) { console.error(error); showNotice(error.message === "SVG_RASTER_CONTENT"
+      ? "هذا الملف يحتوي صورة نقطية غير قابلة للتكبير بجودة عالية ويحتاج مراجعة."
+      : "تعذر إضافة الرسم المختار.", "error"); }
+  }
+  function renderGraphicsPanel() {
+    const panel = document.createElement("div"); panel.className = "studio-graphics-panel";
+    const selected = activeGraphic(), selectedRecord = selected && APPROVED_GRAPHICS.get(selected.graphicId);
+    if (selectedRecord?.recolorable) {
+      const colorControl = document.createElement("label"); colorControl.className = "studio-graphic-color-control";
+      colorControl.innerHTML = '<span><i class="bi bi-palette" aria-hidden="true"></i> لون الرسم</span><input type="color" aria-label="لون الرسم المحدد">';
+      const input = colorControl.querySelector("input"); input.value = selected.graphicColor || selectedRecord.defaultColor || "#000000";
+      input.addEventListener("input", () => {
+        if (activeGraphic() !== selected) return;
+        recolorGraphic(selected, input.value); app.canvas.requestRenderAll(); scheduleCommit();
+      });
+      panel.appendChild(colorControl);
+    }
+    const search = document.createElement("label"); search.className = "studio-graphics-search";
+    search.innerHTML = '<i class="bi bi-search" aria-hidden="true"></i><input type="search" placeholder="ابحث عن رسم…" aria-label="ابحث في الرسومات">';
+    const searchInput = search.querySelector("input"); searchInput.value = app.graphicsSearch; panel.appendChild(search);
+    const categories = document.createElement("div"); categories.className = "studio-graphics-categories"; categories.setAttribute("role", "group"); categories.setAttribute("aria-label", "تصنيفات الرسومات");
+    const grid = document.createElement("div"); grid.className = "studio-graphics-grid"; grid.setAttribute("aria-live", "polite");
+    const more = document.createElement("button"); more.type = "button"; more.className = "studio-graphics-more"; more.textContent = "عرض المزيد";
+    const renderGrid = (append = false) => {
+      const query = app.graphicsSearch.trim().toLocaleLowerCase();
+      const matches = (GRAPHICS_BY_CATEGORY.get(app.graphicsCategory) || []).filter(item =>
+        !query || `${item.nameAr} ${item.nameEn}`.toLocaleLowerCase().includes(query));
+      const start = append ? grid.querySelectorAll(".studio-graphic-card").length : 0;
+      if (!append) grid.replaceChildren();
+      for (const record of matches.slice(start, app.graphicsLimit)) {
+        const card = document.createElement("button"); card.type = "button"; card.className = "studio-graphic-card";
+        card.setAttribute("aria-label", `إضافة ${record.nameAr} إلى التصميم`);
+        const thumb = document.createElement("img"); thumb.loading = "lazy"; thumb.decoding = "async"; thumb.src = record.assetPath; thumb.alt = "";
+        const caption = document.createElement("span"); caption.textContent = record.nameAr;
+        card.append(thumb, caption); card.addEventListener("click", () => { void addGraphicToCanvas(record); }); grid.appendChild(card);
+      }
+      if (!matches.length) { const empty = document.createElement("p"); empty.className = "studio-graphics-no-results"; empty.textContent = "لا توجد رسومات مطابقة"; grid.appendChild(empty); }
+      more.hidden = matches.length <= app.graphicsLimit;
+    };
+    const renderCategories = () => {
+      categories.replaceChildren();
+      GRAPHICS.categories.map(category => [category, category]).forEach(([value, label]) => {
+        const button = document.createElement("button"); button.type = "button"; button.textContent = label;
+        button.className = `studio-graphics-category${app.graphicsCategory === value ? " is-active" : ""}`;
+        button.setAttribute("aria-pressed", String(app.graphicsCategory === value));
+        button.dataset.category = value;
+        button.addEventListener("click", () => {
+          app.graphicsCategory = value; app.graphicsLimit = GRAPHICS_PAGE_SIZE;
+          categories.querySelectorAll("button").forEach(control => {
+            const active = control.dataset.category === value;
+            control.classList.toggle("is-active", active); control.setAttribute("aria-pressed", String(active));
+          });
+          renderGrid();
+        }); categories.appendChild(button);
+      });
+    };
+    searchInput.addEventListener("input", () => { app.graphicsSearch = searchInput.value; app.graphicsLimit = GRAPHICS_PAGE_SIZE; renderGrid(); });
+    more.addEventListener("click", () => { app.graphicsLimit += GRAPHICS_PAGE_SIZE; renderGrid(true); });
+    panel.append(categories, grid, more); renderCategories(); renderGrid();
+    elements.toolPanelContent.className = "studio-graphics-content"; elements.toolPanelContent.replaceChildren(panel);
+  }
   function renderToolPanel(name) {
     if (!app.design) return;
     const renderToken = ++app.panelRenderToken;
     if (name === "upload") void renderUploadPanel(renderToken); else if (name === "text") renderTextPanel();
-    else { elements.toolPanelContent.className = ""; elements.toolPanelContent.replaceChildren(createEmptyState("bi-images", "الرسومات والعناصر", "لا توجد عناصر متاحة حاليًا.")); }
+    else renderGraphicsPanel();
+  }
+
+  function updateSelectedObjectControls() {
+    const object = app.canvas?.getActiveObject(), visible = object && object.studioId;
+    const buttons = elements.selectedObjectControls.querySelectorAll("[data-object-action]");
+    elements.selectedObjectControls.hidden = false;
+    if (!visible) {
+      elements.selectedObjectName.textContent = "حدد عنصرًا";
+      buttons.forEach(button => { button.disabled = true; });
+      return;
+    }
+    const record = object.studioKind === "graphic" && APPROVED_GRAPHICS.get(object.graphicId);
+    elements.selectedObjectName.textContent = record?.nameAr || (object.studioKind === "text" ? "نص" : "صورة");
+    const stack = app.canvas.getObjects(), index = stack.indexOf(object);
+    buttons.forEach(button => { button.disabled = false; });
+    elements.selectedObjectControls.querySelector('[data-object-action="forward"]').disabled = index >= stack.length - 1;
+    elements.selectedObjectControls.querySelector('[data-object-action="backward"]').disabled = index <= 0;
+  }
+  async function actOnSelectedObject(action) {
+    const object = app.canvas?.getActiveObject(); if (!object?.studioId) return;
+    if (action === "forward") app.canvas.bringObjectForward(object);
+    if (action === "backward") app.canvas.sendObjectBackwards(object);
+    if (action === "delete") { app.canvas.remove(object); app.canvas.discardActiveObject(); }
+    if (action === "duplicate") {
+      const zone = getZoneRect(), areaId = app.area.id, model = objectToModel(object, zone);
+      model.id = uid("object"); model.x += 12 / zone.width; model.y += 12 / zone.height;
+      try {
+        const copy = await modelToObject(model, zone); if (!copy) throw new Error("Missing source");
+        if (app.area.id !== areaId) return;
+        app.canvas.add(copy); app.canvas.setActiveObject(copy); copy.setCoords();
+      } catch (error) { console.error(error); showNotice("تعذر تكرار العنصر.", "error"); return; }
+    }
+    app.canvas.requestRenderAll(); scheduleCommit(); updateSelectedObjectControls();
+    if (action === "delete" && app.activeTool === "graphics") renderGraphicsPanel();
+  }
+  function setupSelectedObjectActions() {
+    elements.selectedObjectControls.querySelectorAll("[data-object-action]").forEach(button => {
+      button.addEventListener("click", () => { void actOnSelectedObject(button.dataset.objectAction); });
+    });
+  }
+  function clearSnapGuides() { elements.snapGuideVertical.hidden = true; elements.snapGuideHorizontal.hidden = true; }
+  function scenePointer(event) {
+    if (event?.scenePoint) return event.scenePoint;
+    if (!event?.e) return null;
+    return app.canvas.getScenePoint?.(event.e) || app.canvas.getPointer?.(event.e, false) || null;
+  }
+  function beginSnapDrag(event) {
+    const object = event?.target, pointer = scenePointer(event);
+    if (!object?.studioId || !pointer || !app.geometryReady) { app.snapDrag = null; return; }
+    app.snapDrag = { object, pointerStart: { x: pointer.x, y: pointer.y }, objectStart: { left: object.left, top: object.top }, xTarget: null, yTarget: null };
+  }
+  function finishSnapDrag() { app.snapDrag = null; clearSnapGuides(); }
+  function snapMovingObject(event) {
+    const object = event?.target, pointer = scenePointer(event);
+    if (!object?.studioId || !pointer || !app.geometryReady) return;
+    if (!app.snapDrag || app.snapDrag.object !== object) beginSnapDrag(event);
+    const drag = app.snapDrag; if (!drag) return;
+    const rawLeft = drag.objectStart.left + pointer.x - drag.pointerStart.x;
+    const rawTop = drag.objectStart.top + pointer.y - drag.pointerStart.y;
+    object.set({ left: rawLeft, top: rawTop }); object.setCoords();
+
+    const zone = getZoneRect(), bounds = object.getBoundingRect();
+    const screenScale = Math.max((app.stageScale || 1) * (app.canvas.getZoom?.() || 1), 0.01);
+    const engageThreshold = 6 / screenScale, releaseThreshold = 11 / screenScale;
+    const xCandidates = [
+      { id: "left-left", objectLine: bounds.left, zoneLine: zone.left },
+      { id: "left-right", objectLine: bounds.left, zoneLine: zone.left + zone.width },
+      { id: "right-left", objectLine: bounds.left + bounds.width, zoneLine: zone.left },
+      { id: "right-right", objectLine: bounds.left + bounds.width, zoneLine: zone.left + zone.width },
+      { id: "center-center", objectLine: bounds.left + bounds.width / 2, zoneLine: zone.left + zone.width / 2 }
+    ];
+    const yCandidates = [
+      { id: "top-top", objectLine: bounds.top, zoneLine: zone.top },
+      { id: "top-bottom", objectLine: bounds.top, zoneLine: zone.top + zone.height },
+      { id: "bottom-top", objectLine: bounds.top + bounds.height, zoneLine: zone.top },
+      { id: "bottom-bottom", objectLine: bounds.top + bounds.height, zoneLine: zone.top + zone.height },
+      { id: "center-center", objectLine: bounds.top + bounds.height / 2, zoneLine: zone.top + zone.height / 2 }
+    ];
+    const resolveAxis = (candidates, targetKey) => {
+      const activeId = drag[targetKey];
+      if (activeId) {
+        const active = candidates.find(candidate => candidate.id === activeId);
+        if (active) {
+          const delta = active.zoneLine - active.objectLine;
+          if (Math.abs(delta) <= releaseThreshold) return { ...active, delta };
+        }
+        drag[targetKey] = null;
+        return null;
+      }
+      const nearest = candidates.reduce((best, candidate) => {
+        const delta = candidate.zoneLine - candidate.objectLine;
+        return Math.abs(delta) <= engageThreshold && (!best || Math.abs(delta) < Math.abs(best.delta))
+          ? { ...candidate, delta } : best;
+      }, null);
+      if (nearest) drag[targetKey] = nearest.id;
+      return nearest;
+    };
+    const vertical = resolveAxis(xCandidates, "xTarget"), horizontal = resolveAxis(yCandidates, "yTarget");
+    object.set({ left: rawLeft + (vertical?.delta || 0), top: rawTop + (horizontal?.delta || 0) }); object.setCoords();
+    elements.snapGuideVertical.hidden = !vertical; elements.snapGuideHorizontal.hidden = !horizontal;
+    if (vertical) Object.assign(elements.snapGuideVertical.style, { left: `${vertical.zoneLine}px`, top: `${zone.top}px`, height: `${zone.height}px` });
+    if (horizontal) Object.assign(elements.snapGuideHorizontal.style, { left: `${zone.left}px`, top: `${horizontal.zoneLine}px`, width: `${zone.width}px` });
   }
 
   function setupCanvasEvents() {
-    const select = event => { const object = event.selected?.[0] || app.canvas.getActiveObject(); if (object) setActiveTool(object.studioKind === "text" ? "text" : "upload"); };
-    app.canvas.on("selection:created", select); app.canvas.on("selection:updated", select); app.canvas.on("selection:cleared", () => { if (app.activeTool === "text") renderTextPanel(); });
-    ["object:added", "object:removed", "object:modified", "text:changed"].forEach(name => app.canvas.on(name, () => { if (!app.suppressCanvasEvents) scheduleCommit(); }));
+    const select = event => { if (app.suppressCanvasEvents) return; const object = event.selected?.[0] || app.canvas.getActiveObject();
+      if (object) setActiveTool(object.studioKind === "text" ? "text" : object.studioKind === "graphic" ? "graphics" : "upload");
+      updateSelectedObjectControls(); };
+    app.canvas.on("selection:created", select); app.canvas.on("selection:updated", select);
+    app.canvas.on("selection:cleared", () => { clearSnapGuides(); updateSelectedObjectControls();
+      if (app.activeTool === "text") renderTextPanel(); if (app.activeTool === "graphics") renderGraphicsPanel(); });
+    app.canvas.on("mouse:down", beginSnapDrag);
+    app.canvas.on("object:moving", snapMovingObject);
+    app.canvas.on("object:scaling", event => {
+      const object = event.target; if (object?.studioKind !== "graphic") return;
+      object.set({ scaleY: object.scaleX }); object.setCoords(); app.canvas.requestRenderAll();
+    });
+    app.canvas.on("mouse:up", finishSnapDrag);
+    ["object:added", "object:removed", "object:modified", "text:changed"].forEach(name => app.canvas.on(name, () => {
+      if (!app.suppressCanvasEvents) { clearSnapGuides(); scheduleCommit(); updateSelectedObjectControls(); }
+    }));
   }
   function initCanvas() {
     initializeLogicalStage();
     app.canvas = new fabric.Canvas(elements.designCanvas, { preserveObjectStacking: true, selection: true, uniformScaling: true, controlsAboveOverlay: true, backgroundColor: "transparent" });
-    app.canvas.setDimensions(app.logicalStage); updateStageTransform(); setupCanvasEvents();
+    // Browser/CSS zoom changes backing-store resolution, not document geometry.
+    app.canvas.getRetinaScaling = () => Math.max(1, (window.devicePixelRatio || 1) * (app.stageScale || 1));
+    app.canvas.on("before:render", () => {
+      refreshCanvasResolution();
+      app.canvas.getObjects().forEach(object => window.PALPRINTS_STUDIO_SVG.refresh(object, app.canvas));
+    });
+    window.addEventListener("resize", refreshCanvasResolution);
+    window.visualViewport?.addEventListener("resize", refreshCanvasResolution);
+    app.canvas.setDimensions(app.logicalStage); updateStageTransform(); setupCanvasEvents(); setupSelectedObjectActions();
   }
   function renderProductSummary() {
     const title = app.product.studioTitle || app.product.name, mockup = resolveMockup(app.area, app.color);

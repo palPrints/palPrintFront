@@ -22,12 +22,15 @@
       </a>
 
       <nav class="sidebar-nav" aria-label="روابط الحساب">
-        <a href="index.html" class="nav-link"><i class="bi bi-shop-window" aria-hidden="true"></i><span>متجر PALPRINTS</span></a>
-        <a href="custProfile.html" class="nav-link"><i class="bi bi-person" aria-hidden="true"></i><span>الملف الشخصي</span></a>
+        <a href="index.html" class="nav-link"><i class="bi bi-shop-window" aria-hidden="true"></i><span>متجر
+            PALPRINTS</span></a>
+        <a href="custProfile.html" class="nav-link"><i class="bi bi-person" aria-hidden="true"></i><span>الملف
+            الشخصي</span></a>
         <a href="orders.html" class="nav-link"><i class="bi bi-bag" aria-hidden="true"></i><span>طلباتي</span></a>
         <a href="favorites.html" class="nav-link"><i class="bi bi-heart" aria-hidden="true"></i><span>المفضلة</span></a>
         <span class="nav-divider" aria-hidden="true"></span>
-        <a href="design-studio.html" class="nav-link active" aria-current="page"><i class="bi bi-bezier2" aria-hidden="true"></i><span>استوديو التصميم</span></a>
+        <a href="design-studio.html" class="nav-link active" aria-current="page"><i class="bi bi-bezier2"
+            aria-hidden="true"></i><span>استوديو التصميم</span></a>
         <a href="#" class="nav-link"><i class="bi bi-gear" aria-hidden="true"></i><span>الإعدادات</span></a>
         <a href="#" class="nav-link"><i class="bi bi-headset" aria-hidden="true"></i><span>الدعم الفني</span></a>
       </nav>
@@ -41,7 +44,8 @@
 
     <div class="site-content">
       <header class="topbar">
-        <button class="icon-button menu-button" id="menuButton" type="button" aria-label="طي القائمة" aria-controls="sidebar" aria-expanded="true">
+        <button class="icon-button menu-button" id="menuButton" type="button" aria-label="طي القائمة"
+          aria-controls="sidebar" aria-expanded="true">
           <i class="bi bi-list" aria-hidden="true"></i>
         </button>
 
@@ -51,9 +55,12 @@
         </label>
 
         <div class="header-actions">
-          <a class="icon-button account-button" href="custProfile.html" aria-label="الحساب"><i class="bi bi-person" aria-hidden="true"></i></a>
-          <button class="icon-button notification-button" type="button" aria-label="الإشعارات"><i class="bi bi-bell" aria-hidden="true"></i></button>
-          <a class="icon-button cart-button" href="cart.html" aria-label="سلة المشتريات"><i class="bi bi-cart3" aria-hidden="true"></i><span class="counter">2</span></a>
+          <a class="icon-button account-button" href="custProfile.html" aria-label="الحساب"><i class="bi bi-person"
+              aria-hidden="true"></i></a>
+          <button class="icon-button notification-button" type="button" aria-label="الإشعارات"><i class="bi bi-bell"
+              aria-hidden="true"></i></button>
+          <a class="icon-button cart-button" href="cart.html" aria-label="سلة المشتريات"><i class="bi bi-cart3"
+              aria-hidden="true"></i><span class="counter">2</span></a>
         </div>
       </header>
 
@@ -73,38 +80,69 @@
             </span>
           </div>
           <dl class="studio-product-meta">
-            <div><dt>اللون</dt><dd id="summaryColor">—</dd></div>
-            <div><dt>المقاس</dt><dd id="summarySize">—</dd></div>
-            <div><dt>السعر الأساسي</dt><dd id="summaryPrice">—</dd></div>
+            <div>
+              <dt>اللون</dt>
+              <dd id="summaryColor">—</dd>
+            </div>
+            <div>
+              <dt>المقاس</dt>
+              <dd id="summarySize">—</dd>
+            </div>
+            <div>
+              <dt>السعر الأساسي</dt>
+              <dd id="summaryPrice">—</dd>
+            </div>
           </dl>
         </section>
 
         <div class="studio-layout">
           <aside class="studio-product-panel" aria-labelledby="productPanelTitle">
+            <div class="studio-product-options-scroll">
             <div class="studio-panel-heading">
               <span class="studio-panel-icon"><i class="bi bi-box-seam" aria-hidden="true"></i></span>
-              <span><small>إعدادات العرض</small><h2 id="productPanelTitle">المنتج ومنطقة الطباعة</h2></span>
+              <span><small>إعدادات العرض</small>
+                <h2 id="productPanelTitle">المنتج ومنطقة الطباعة</h2>
+              </span>
             </div>
 
             <section class="studio-option-group" aria-labelledby="colorTitle">
-              <div class="studio-section-title"><h3 id="colorTitle">اللون</h3><span id="selectedColorName">—</span></div>
+              <div class="studio-section-title">
+                <h3 id="colorTitle">اللون</h3><span id="selectedColorName">—</span>
+              </div>
               <div class="studio-swatches" id="colorOptions" aria-label="ألوان المنتج"></div>
             </section>
 
             <section class="studio-option-group" aria-labelledby="sizeTitle">
-              <div class="studio-section-title"><h3 id="sizeTitle">المقاس</h3><span>حسب اختيار المنتج</span></div>
+              <div class="studio-section-title">
+                <h3 id="sizeTitle">المقاس</h3><span>حسب اختيار المنتج</span>
+              </div>
               <div class="studio-sizes" id="sizeOptions" aria-label="مقاسات المنتج"></div>
             </section>
 
             <section class="studio-option-group" aria-labelledby="areaTitle">
-              <div class="studio-section-title"><h3 id="areaTitle">جهة التصميم</h3><span id="areaCount">—</span></div>
+              <div class="studio-section-title">
+                <h3 id="areaTitle">جهة التصميم</h3><span id="areaCount">—</span>
+              </div>
               <div class="studio-areas" id="areaOptions" role="tablist" aria-label="مناطق الطباعة"></div>
             </section>
-
-            <div class="studio-zone-card">
-              <i class="bi bi-bounding-box" aria-hidden="true"></i>
-              <span><strong>منطقة الطباعة</strong><small>محددة تلقائيًا حسب المنتج والجهة</small></span>
             </div>
+
+            <section class="studio-selection-actions" id="selectedObjectControls" aria-labelledby="selectedObjectTitle">
+              <div class="studio-section-title">
+                <h3 id="selectedObjectTitle">العنصر المحدد</h3><span id="selectedObjectName" aria-live="polite">حدد عنصرًا</span>
+              </div>
+              <div class="studio-object-actions" role="group" aria-label="ترتيب العنصر وتحريره">
+                <button type="button" data-object-action="forward" title="تقديم للأمام" aria-label="تقديم للأمام" disabled><i
+                    class="bi bi-front" aria-hidden="true"></i></button>
+                <button type="button" data-object-action="backward" title="إرسال للخلف" aria-label="إرسال للخلف" disabled><i
+                    class="bi bi-back" aria-hidden="true"></i></button>
+                <button type="button" data-object-action="duplicate" title="تكرار" aria-label="تكرار" disabled><i
+                    class="bi bi-copy" aria-hidden="true"></i></button>
+                <button type="button" data-object-action="delete" title="حذف" aria-label="حذف" disabled><i class="bi bi-trash"
+                    aria-hidden="true"></i></button>
+              </div>
+            </section>
+
           </aside>
 
           <section class="studio-workspace" aria-labelledby="workspaceTitle">
@@ -125,41 +163,55 @@
                 <div class="studio-product-canvas" id="productCanvas">
                   <img id="productMockup" alt="">
                   <div class="studio-print-zone" id="printZone" aria-label="منطقة الطباعة">
-                    <span class="studio-zone-label"><i class="bi bi-bounding-box" aria-hidden="true"></i> منطقة الطباعة</span>
+                    <span class="studio-zone-label"><i class="bi bi-bounding-box" aria-hidden="true"></i> منطقة
+                      الطباعة</span>
                   </div>
                 </div>
                 <canvas id="designCanvas" aria-label="لوحة التصميم"></canvas>
+                <div class="studio-snap-guide studio-snap-guide-vertical" id="snapGuideVertical" aria-hidden="true"
+                  hidden></div>
+                <div class="studio-snap-guide studio-snap-guide-horizontal" id="snapGuideHorizontal" aria-hidden="true"
+                  hidden></div>
               </div>
             </div>
 
             <div class="studio-workspace-foot" aria-label="أدوات العرض">
               <span class="studio-history-placeholder" aria-label="أدوات السجل غير مفعلة حاليًا">
-                <button type="button" disabled aria-label="تراجع"><i class="bi bi-arrow-counterclockwise" aria-hidden="true"></i></button>
-                <button type="button" disabled aria-label="إعادة"><i class="bi bi-arrow-clockwise" aria-hidden="true"></i></button>
+                <button type="button" disabled aria-label="تراجع"><i class="bi bi-arrow-counterclockwise"
+                    aria-hidden="true"></i></button>
+                <button type="button" disabled aria-label="إعادة"><i class="bi bi-arrow-clockwise"
+                    aria-hidden="true"></i></button>
               </span>
-              <span class="studio-zoom-placeholder" aria-disabled="true"><i class="bi bi-dash" aria-hidden="true"></i><strong>100%</strong><i class="bi bi-plus" aria-hidden="true"></i></span>
+              <span class="studio-zoom-placeholder" aria-disabled="true"><i class="bi bi-dash"
+                  aria-hidden="true"></i><strong>100%</strong><i class="bi bi-plus" aria-hidden="true"></i></span>
             </div>
           </section>
 
           <aside class="studio-tools-panel" aria-labelledby="toolsTitle">
             <div class="studio-panel-heading studio-tools-heading">
               <span class="studio-panel-icon"><i class="bi bi-sliders" aria-hidden="true"></i></span>
-              <span><h2 id="toolsTitle">أدوات التصميم</h2><small>اختر أداة للبدء</small></span>
+              <span>
+                <h2 id="toolsTitle">أدوات التصميم</h2><small>اختر أداة للبدء</small>
+              </span>
             </div>
 
             <div class="studio-tool-tabs" role="tablist" aria-label="أدوات التصميم">
-              <button class="studio-tool-tab is-active" id="uploadTab" type="button" role="tab" aria-selected="true" aria-controls="toolPanel" data-studio-tool="upload">
+              <button class="studio-tool-tab is-active" id="uploadTab" type="button" role="tab" aria-selected="true"
+                aria-controls="toolPanel" data-studio-tool="upload">
                 <i class="bi bi-cloud-arrow-up" aria-hidden="true"></i><span>رفع صورة</span>
               </button>
-              <button class="studio-tool-tab" id="textTab" type="button" role="tab" aria-selected="false" aria-controls="toolPanel" data-studio-tool="text">
+              <button class="studio-tool-tab" id="textTab" type="button" role="tab" aria-selected="false"
+                aria-controls="toolPanel" data-studio-tool="text">
                 <i class="bi bi-type" aria-hidden="true"></i><span>إضافة نص</span>
               </button>
-              <button class="studio-tool-tab" id="graphicsTab" type="button" role="tab" aria-selected="false" aria-controls="toolPanel" data-studio-tool="graphics">
+              <button class="studio-tool-tab" id="graphicsTab" type="button" role="tab" aria-selected="false"
+                aria-controls="toolPanel" data-studio-tool="graphics">
                 <i class="bi bi-images" aria-hidden="true"></i><span>الرسومات والعناصر</span>
               </button>
             </div>
 
-            <div class="studio-tool-panel" id="toolPanel" role="tabpanel" aria-live="polite" aria-labelledby="uploadTab">
+            <div class="studio-tool-panel" id="toolPanel" role="tabpanel" aria-live="polite"
+              aria-labelledby="uploadTab">
               <div id="toolPanelContent"></div>
             </div>
           </aside>
@@ -187,20 +239,33 @@
             <img src="assets/images/logo/PalPrints-logo.svg" alt="PALPRINTS">
             <p>من فكرة إلى واقع.<br>صنع بكل حب لكم.</p>
           </div>
-          <div class="footer-column"><h3>المتجر</h3><a href="index.html">كل المنتجات</a><a href="#">التصنيفات</a><a href="#">الأكثر مبيعًا</a></div>
-          <div class="footer-column"><h3>حسابك</h3><a href="custProfile.html">الملف الشخصي</a><a href="orders.html">طلباتي</a><a href="favorites.html">المفضلة</a></div>
-          <div class="footer-column"><h3>المساعدة</h3><a href="#">الدعم الفني</a><a href="#">الأسئلة الشائعة</a><a href="#">سياسة الخصوصية</a></div>
-          <div class="footer-column footer-contact"><h3>تواصل معنا</h3><a href="mailto:support@palprints.com"><i class="bi bi-envelope" aria-hidden="true"></i> support@palprints.com</a><span><i class="bi bi-geo-alt" aria-hidden="true"></i> فلسطين</span></div>
+          <div class="footer-column">
+            <h3>المتجر</h3><a href="index.html">كل المنتجات</a><a href="#">التصنيفات</a><a href="#">الأكثر مبيعًا</a>
+          </div>
+          <div class="footer-column">
+            <h3>حسابك</h3><a href="custProfile.html">الملف الشخصي</a><a href="orders.html">طلباتي</a><a
+              href="favorites.html">المفضلة</a>
+          </div>
+          <div class="footer-column">
+            <h3>المساعدة</h3><a href="#">الدعم الفني</a><a href="#">الأسئلة الشائعة</a><a href="#">سياسة الخصوصية</a>
+          </div>
+          <div class="footer-column footer-contact">
+            <h3>تواصل معنا</h3><a href="mailto:support@palprints.com"><i class="bi bi-envelope" aria-hidden="true"></i>
+              support@palprints.com</a><span><i class="bi bi-geo-alt" aria-hidden="true"></i> فلسطين</span>
+          </div>
         </div>
         <div class="footer-bottom">
           <p>© 2026 PALPRINTS جميع الحقوق محفوظة.</p>
-          <div class="footer-social"><a href="#" aria-label="إنستغرام"><i class="bi bi-instagram"></i></a><a href="#" aria-label="فيسبوك"><i class="bi bi-facebook"></i></a><a href="#" aria-label="واتساب"><i class="bi bi-whatsapp"></i></a></div>
+          <div class="footer-social"><a href="#" aria-label="إنستغرام"><i class="bi bi-instagram"></i></a><a href="#"
+              aria-label="فيسبوك"><i class="bi bi-facebook"></i></a><a href="#" aria-label="واتساب"><i
+                class="bi bi-whatsapp"></i></a></div>
         </div>
       </footer>
     </div>
   </div>
 
-  <dialog class="studio-confirm-dialog" id="deleteAssetDialog" aria-labelledby="deleteAssetTitle" aria-describedby="deleteAssetMessage">
+  <dialog class="studio-confirm-dialog" id="deleteAssetDialog" aria-labelledby="deleteAssetTitle"
+    aria-describedby="deleteAssetMessage">
     <div class="studio-confirm-content">
       <div class="studio-confirm-thumbnail"><img id="deleteAssetThumbnail" alt=""></div>
       <div class="studio-confirm-copy">
@@ -210,7 +275,8 @@
     </div>
     <div class="studio-confirm-actions">
       <button class="studio-confirm-cancel" id="cancelAssetDelete" type="button">إلغاء</button>
-      <button class="studio-confirm-delete" id="confirmAssetDelete" type="button"><i class="bi bi-trash3" aria-hidden="true"></i> حذف الصورة</button>
+      <button class="studio-confirm-delete" id="confirmAssetDelete" type="button"><i class="bi bi-trash3"
+          aria-hidden="true"></i> حذف الصورة</button>
     </div>
   </dialog>
 
@@ -224,6 +290,7 @@
   <script src="assets/js/pages/canvas-history-manager.js"></script>
   <script src="assets/js/pages/interactions.js"></script>
   <script src="assets/js/pages/design-studio-graphics.js"></script>
+  <script src="assets/js/pages/design-studio-svg-renderer.js?v=4"></script>
   <script src="assets/js/pages/design-studio.js"></script>
 </body>
 
