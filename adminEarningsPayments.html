@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="صفحة الأرباح والمدفوعات للأدمن في PalPrints">
+  <title>الأرباح والمدفوعات | PalPrints</title>
+  <link rel="preload" href="assets/fonts/Cairo-Variable.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="assets/icons/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="assets/css/pages/adminEarningsPayments.css">
+</head>
+<body class="sidebar-collapsed">
+  <a class="skip-link" href="#adminMain">تخطي إلى المحتوى</a>
+
+  <aside class="admin-sidebar" id="adminSidebar">
+    <nav aria-label="القائمة الرئيسية">
+      <a href="#"><i class="bi bi-grid"></i><span>لوحة التحكم</span></a>
+      <div class="nav-group open">
+        <button class="nav-group-toggle" type="button" aria-expanded="true" aria-controls="usersSubmenu">
+          <i class="bi bi-people"></i>
+          <span>إدارة المستخدمين</span>
+          <i class="bi bi-chevron-down group-arrow"></i>
+        </button>
+        <div class="nav-submenu" id="usersSubmenu">
+          <a href="#"><span>العملاء</span></a>
+          <a href="#"><span>المصممون</span></a>
+          <a href="#"><span>المطابع</span></a>
+        </div>
+      </div>
+      <a href="#"><i class="bi bi-palette"></i><span>إدارة التصاميم</span><span class="nav-badge" aria-label="8 عناصر">8</span></a>
+      <a href="#"><i class="bi bi-shop-window"></i><span>إدارة المنتجات</span></a>
+      <a href="#"><i class="bi bi-cart3"></i><span>إدارة الطلبات</span></a>
+      <a href="adminEarningsPayments.html" class="active" aria-current="page"><i class="bi bi-wallet2"></i><span>المدفوعات والأرباح</span></a>
+      <a href="#"><i class="bi bi-truck"></i><span>إدارة الشحن</span></a>
+      <a href="#"><i class="bi bi-bar-chart-line"></i><span>التقارير والإحصائيات</span></a>
+      <a href="#"><i class="bi bi-gear"></i><span>إعدادات النظام</span></a>
+      <a href="#"><i class="bi bi-question-circle"></i><span>مركز المساعدة</span></a>
+    </nav>
+    <button class="logout" type="button"><i class="bi bi-box-arrow-left"></i><span>تسجيل الخروج</span></button>
+  </aside>
+
+  <button class="sidebar-backdrop" id="sidebarBackdrop" type="button" aria-label="إغلاق القائمة"></button>
+
+  <div class="admin-shell">
+    <header class="topbar">
+      <a class="header-logo" href="index.html" aria-label="الصفحة الرئيسية">
+        <img src="assets/images/palprints-wordmark-transparent.png" alt="PalPrints">
+      </a>
+
+      <button class="icon-button menu-button" id="menuButton" type="button" aria-label="فتح القائمة" aria-controls="adminSidebar" aria-expanded="false">
+        <i class="bi bi-list"></i>
+      </button>
+
+      <label class="search-box">
+        <input type="search" placeholder="ابحث ..." aria-label="البحث">
+        <i class="bi bi-search"></i>
+      </label>
+
+      <div class="header-actions">
+        <div class="account-wrap">
+          <button class="icon-button account-button" id="accountButton" type="button" aria-label="قائمة الحساب" aria-haspopup="true" aria-expanded="false">
+            <i class="bi bi-person"></i>
+          </button>
+          <div class="account-dropdown" id="accountDropdown" role="menu" aria-label="قائمة الحساب" hidden>
+            <a href="#" role="menuitem"><i class="bi bi-person"></i><span>الملف الشخصي</span></a>
+            <a href="login.html" class="logout-link" role="menuitem"><i class="bi bi-box-arrow-left"></i><span>تسجيل الخروج</span></a>
+          </div>
+        </div>
+
+        <div class="notification-wrap">
+          <button class="icon-button notification-button" id="notificationButton" type="button" aria-label="الإشعارات" aria-haspopup="true" aria-expanded="false">
+            <i class="bi bi-bell"></i>
+            <span class="counter notification-counter" id="notificationCounter" hidden>0</span>
+          </button>
+          <div class="notification-dropdown" id="notificationDropdown" role="menu" aria-label="قائمة الإشعارات" hidden>
+            <div class="notification-dropdown-header"><h3>الإشعارات</h3></div>
+            <ul class="notification-list" id="notificationList"><li class="notification-empty">لا توجد إشعارات بعد</li></ul>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="adminMain">
+      <section class="payments-overview" aria-labelledby="paymentsTitle">
+        <nav class="breadcrumb" aria-label="مسار التنقل">
+          <a href="index.html">الرئيسية</a>
+          <i class="bi bi-chevron-left" aria-hidden="true"></i>
+          <span aria-current="page">المدفوعات والأرباح</span>
+        </nav>
+
+        <header class="page-heading">
+          <span class="heading-icon" aria-hidden="true"><i class="bi bi-wallet2"></i></span>
+          <div>
+            <h1 id="paymentsTitle">المدفوعات والأرباح</h1>
+            <p>تابع المدفوعات والأرباح وراقب طلبات السحب من خلال هذه الصفحة.</p>
+          </div>
+        </header>
+
+        <div class="finance-summary" aria-label="ملخص المدفوعات والأرباح">
+          <article class="finance-card revenue-card">
+            <div class="finance-card-copy">
+              <h2>إجمالي المعاملات المالية</h2>
+              <strong><bdi data-counter="82933">٨٢٬٩٣٣</bdi> <span>₪</span></strong>
+            </div>
+            <span class="finance-icon"><i class="bi bi-currency-dollar"></i></span>
+          </article>
+
+          <article class="finance-card commission-card">
+            <div class="finance-card-copy">
+              <h2>عمولة المنصة</h2>
+              <strong><bdi data-counter="14549.1" data-counter-decimals="1">١٤٬٥٤٩٫١</bdi> <span>₪</span></strong>
+            </div>
+            <span class="finance-icon"><i class="bi bi-wallet2"></i></span>
+          </article>
+
+          <article class="finance-card designers-card">
+            <div class="finance-card-copy">
+              <h2>طلبات السحب المعلقة</h2>
+              <strong><bdi data-counter="12">١٢</bdi> <span>طلبًا</span></strong>
+            </div>
+            <span class="finance-icon"><i class="bi bi-file-earmark-text"></i></span>
+          </article>
+
+          <article class="finance-card printers-card">
+            <div class="finance-card-copy">
+              <h2>إجمالي المبالغ المصروفة</h2>
+              <strong><bdi data-counter="64230">٦٤٬٢٣٠</bdi> <span>₪</span></strong>
+            </div>
+            <span class="finance-icon"><i class="bi bi-gear"></i></span>
+          </article>
+        </div>
+
+        <div class="finance-tabs" role="tablist" aria-label="أقسام المدفوعات والأرباح">
+          <button id="transactionsTab" type="button" role="tab" aria-selected="false" aria-controls="transactionsPanel" tabindex="-1" data-finance-filter="transactions">سجل المعاملات المالية</button>
+          <button id="withdrawalsTab" class="active" type="button" role="tab" aria-selected="true" aria-controls="withdrawalsPanel" tabindex="0" data-finance-filter="withdrawals">طلبات السحب</button>
+        </div>
+
+        <section class="earnings-table-card finance-panel" id="withdrawalsPanel" role="tabpanel" aria-labelledby="withdrawalsTab" data-finance-panel="withdrawals">
+          <div class="earnings-table-wrap">
+            <table class="earnings-table">
+              <thead>
+                <tr>
+                  <th scope="col">التفاصيل</th>
+                  <th scope="col">الحالة</th>
+                  <th scope="col">طريقة السحب</th>
+                  <th scope="col">تاريخ الطلب</th>
+                  <th scope="col">المبلغ</th>
+                  <th scope="col">نوع الحساب</th>
+                  <th scope="col">صاحب الطلب</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><button class="details-button" type="button" data-detail-kind="withdrawal" aria-label="عرض تفاصيل طلب أريج ناصر">عرض التفاصيل</button></td>
+                  <td><span class="payment-status pending">قيد المراجعة</span></td>
+                  <td><span class="payment-method"><i class="bi bi-bank"></i> تحويل بنكي</span></td>
+                  <td><time datetime="2026-09-18">18 سبتمبر 2026</time></td>
+                  <td class="money due"><bdi>٢٬٤٧٣ ₪</bdi></td>
+                  <td><span class="account-type designer-type">مصمم</span></td>
+                  <td><div class="designer-cell"><span class="designer-avatar">أ</span><span><b>أريج ناصر</b><small>بيت لحم</small></span></div></td>
+                </tr>
+                <tr>
+                  <td><button class="details-button" type="button" data-detail-kind="withdrawal" aria-label="عرض تفاصيل طلب مطبعة الإبداع">عرض التفاصيل</button></td>
+                  <td><span class="payment-status pending">قيد المراجعة</span></td>
+                  <td><span class="payment-method"><i class="bi bi-phone"></i> PalPay</span></td>
+                  <td><time datetime="2026-09-17">17 سبتمبر 2026</time></td>
+                  <td class="money due"><bdi>١٬٨٧٠ ₪</bdi></td>
+                  <td><span class="account-type printer-type">مطبعة</span></td>
+                  <td><div class="designer-cell"><span class="designer-avatar printer-avatar"><i class="bi bi-printer"></i></span><span><b>مطبعة الإبداع</b><small>نابلس</small></span></div></td>
+                </tr>
+                <tr>
+                  <td><button class="details-button" type="button" data-detail-kind="withdrawal" aria-label="عرض تفاصيل طلب خالد عبدالنور">عرض التفاصيل</button></td>
+                  <td><span class="payment-status completed">تم الاعتماد</span></td>
+                  <td><span class="payment-method"><i class="bi bi-bank"></i> تحويل بنكي</span></td>
+                  <td><time datetime="2026-09-15">15 سبتمبر 2026</time></td>
+                  <td class="money net"><bdi>٧٬١٦٨ ₪</bdi></td>
+                  <td><span class="account-type designer-type">مصمم</span></td>
+                  <td><div class="designer-cell"><span class="designer-avatar">خ</span><span><b>خالد عبدالنور</b><small>رام الله</small></span></div></td>
+                </tr>
+                <tr>
+                  <td><button class="details-button" type="button" data-detail-kind="withdrawal" aria-label="عرض تفاصيل طلب ريم الحسن">عرض التفاصيل</button></td>
+                  <td><span class="payment-status failed">مرفوض</span></td>
+                  <td><span class="payment-method"><i class="bi bi-phone"></i> PalPay</span></td>
+                  <td><time datetime="2026-09-14">14 سبتمبر 2026</time></td>
+                  <td class="money due"><bdi>١٬٤٧٣ ₪</bdi></td>
+                  <td><span class="account-type designer-type">مصمم</span></td>
+                  <td><div class="designer-cell"><span class="designer-avatar">ر</span><span><b>ريم الحسن</b><small>غزة</small></span></div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="earnings-table-card finance-panel" id="printersPanel" role="tabpanel" aria-labelledby="printersTab" data-finance-panel="printers" hidden>
+          <div class="earnings-table-wrap">
+            <table class="earnings-table">
+              <thead>
+                <tr>
+                  <th scope="col"><span class="visually-hidden">الإجراء</span></th>
+                  <th scope="col">الحالة</th>
+                  <th scope="col">المستحق</th>
+                  <th scope="col">تم صرفه</th>
+                  <th scope="col">صافي الأرباح</th>
+                  <th scope="col">عمولة المنصة</th>
+                  <th scope="col">الإجمالي</th>
+                  <th scope="col">الطلبات</th>
+                  <th scope="col">المطبعة</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><button class="payout-button" type="button">صرف الآن</button></td>
+                  <td><span class="payment-status pending">معلق</span></td>
+                  <td class="money due"><bdi>٣٬٢٥٠ ₪</bdi></td>
+                  <td class="money paid"><bdi>١٢٬٠٠٠ ₪</bdi></td>
+                  <td class="money net"><bdi>١٥٬٢٥٠ ₪</bdi></td>
+                  <td><span class="commission"><bdi>٣٬٨١٢٫٥ ₪ — 20%</bdi></span></td>
+                  <td class="money total"><bdi>١٩٬٠٦٢٫٥ ₪</bdi></td>
+                  <td>184</td>
+                  <td><div class="designer-cell"><span class="designer-avatar printer-avatar"><i class="bi bi-printer"></i></span><span><b>مطبعة الألوان</b><small>رام الله</small></span></div></td>
+                </tr>
+                <tr>
+                  <td><button class="payout-button" type="button">صرف الآن</button></td>
+                  <td><span class="payment-status pending">معلق</span></td>
+                  <td class="money due"><bdi>١٬٨٧٠ ₪</bdi></td>
+                  <td class="money paid"><bdi>٩٬٥٠٠ ₪</bdi></td>
+                  <td class="money net"><bdi>١١٬٣٧٠ ₪</bdi></td>
+                  <td><span class="commission"><bdi>٢٬٨٤٢٫٥ ₪ — 20%</bdi></span></td>
+                  <td class="money total"><bdi>١٤٬٢١٢٫٥ ₪</bdi></td>
+                  <td>139</td>
+                  <td><div class="designer-cell"><span class="designer-avatar printer-avatar"><i class="bi bi-printer"></i></span><span><b>مطبعة الإبداع</b><small>نابلس</small></span></div></td>
+                </tr>
+                <tr>
+                  <td><button class="text-action" type="button">جارٍ...</button></td>
+                  <td><span class="payment-status processing">قيد التحويل</span></td>
+                  <td class="money due"><bdi>٩٦٠ ₪</bdi></td>
+                  <td class="money paid"><bdi>٧٬٣٠٠ ₪</bdi></td>
+                  <td class="money net"><bdi>٨٬٢٦٠ ₪</bdi></td>
+                  <td><span class="commission"><bdi>٢٬٠٦٥ ₪ — 20%</bdi></span></td>
+                  <td class="money total"><bdi>١٠٬٣٢٥ ₪</bdi></td>
+                  <td>102</td>
+                  <td><div class="designer-cell"><span class="designer-avatar printer-avatar"><i class="bi bi-printer"></i></span><span><b>مطبعة القدس</b><small>القدس</small></span></div></td>
+                </tr>
+                <tr>
+                  <td><span class="text-action muted">مكتمل</span></td>
+                  <td><span class="payment-status completed">تم الدفع</span></td>
+                  <td class="money due"><bdi>٠ ₪</bdi></td>
+                  <td class="money paid"><bdi>٦٬٨٤٠ ₪</bdi></td>
+                  <td class="money net"><bdi>٦٬٨٤٠ ₪</bdi></td>
+                  <td><span class="commission"><bdi>١٬٧١٠ ₪ — 20%</bdi></span></td>
+                  <td class="money total"><bdi>٨٬٥٥٠ ₪</bdi></td>
+                  <td>88</td>
+                  <td><div class="designer-cell"><span class="designer-avatar printer-avatar"><i class="bi bi-printer"></i></span><span><b>مطبعة المستقبل</b><small>الخليل</small></span></div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="earnings-table-card finance-panel" id="transactionsPanel" role="tabpanel" aria-labelledby="transactionsTab" data-finance-panel="transactions" hidden>
+          <div class="earnings-table-wrap">
+            <table class="earnings-table transactions-table">
+              <thead>
+                <tr>
+                  <th scope="col">التفاصيل</th>
+                  <th scope="col">الحالة</th>
+                  <th scope="col">المبلغ</th>
+                  <th scope="col">طريقة الدفع</th>
+                  <th scope="col">المستفيد</th>
+                  <th scope="col">نوع المعاملة</th>
+                  <th scope="col">التاريخ</th>
+                  <th scope="col">رقم المعاملة</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><button class="details-button" type="button" data-detail-kind="transaction" aria-label="عرض تفاصيل المعاملة TRX-10584">عرض التفاصيل</button></td>
+                  <td><span class="payment-status completed">مكتملة</span></td>
+                  <td class="money net"><bdi>٢٬٤٧٣ ₪</bdi></td>
+                  <td><span class="payment-method"><i class="bi bi-bank"></i> تحويل بنكي</span></td>
+                  <td>أريج ناصر</td>
+                  <td><span class="transaction-type sale-type">عملية بيع</span></td>
+                  <td><time datetime="2026-09-18">18 سبتمبر 2026</time></td>
+                  <td class="transaction-id"><bdi>TRX-10584</bdi></td>
+                </tr>
+                <tr>
+                  <td><button class="details-button" type="button" data-detail-kind="transaction" aria-label="عرض تفاصيل المعاملة TRX-10583">عرض التفاصيل</button></td>
+                  <td><span class="payment-status processing">قيد التحويل</span></td>
+                  <td class="money net"><bdi>٩٦٠ ₪</bdi></td>
+                  <td><span class="payment-method"><i class="bi bi-phone"></i> محفظة إلكترونية</span></td>
+                  <td>مطبعة القدس</td>
+                  <td><span class="transaction-type payout-type">صرف مستحقات</span></td>
+                  <td><time datetime="2026-09-17">17 سبتمبر 2026</time></td>
+                  <td class="transaction-id"><bdi>TRX-10583</bdi></td>
+                </tr>
+                <tr>
+                  <td><button class="details-button" type="button" data-detail-kind="transaction" aria-label="عرض تفاصيل المعاملة TRX-10582">عرض التفاصيل</button></td>
+                  <td><span class="payment-status pending">معلقة</span></td>
+                  <td class="money due"><bdi>١٬٨٧٠ ₪</bdi></td>
+                  <td><span class="payment-method"><i class="bi bi-bank"></i> تحويل بنكي</span></td>
+                  <td>مطبعة الإبداع</td>
+                  <td><span class="transaction-type payout-type">طلب سحب</span></td>
+                  <td><time datetime="2026-09-16">16 سبتمبر 2026</time></td>
+                  <td class="transaction-id"><bdi>TRX-10582</bdi></td>
+                </tr>
+                <tr>
+                  <td><button class="details-button" type="button" data-detail-kind="transaction" aria-label="عرض تفاصيل المعاملة TRX-10581">عرض التفاصيل</button></td>
+                  <td><span class="payment-status completed">مكتملة</span></td>
+                  <td class="money net"><bdi>٧٬١٦٨ ₪</bdi></td>
+                  <td><span class="payment-method"><i class="bi bi-wallet2"></i> PalPay</span></td>
+                  <td>خالد عبدالنور</td>
+                  <td><span class="transaction-type commission-type">عمولة منصة</span></td>
+                  <td><time datetime="2026-09-15">15 سبتمبر 2026</time></td>
+                  <td class="transaction-id"><bdi>TRX-10581</bdi></td>
+                </tr>
+                <tr>
+                  <td><button class="details-button" type="button" data-detail-kind="transaction" aria-label="عرض تفاصيل المعاملة TRX-10580">عرض التفاصيل</button></td>
+                  <td><span class="payment-status failed">مرفوضة</span></td>
+                  <td class="money due"><bdi>١٬٤٧٣ ₪</bdi></td>
+                  <td><span class="payment-method"><i class="bi bi-phone"></i> جوال باي</span></td>
+                  <td>ريم الحسن</td>
+                  <td><span class="transaction-type refund-type">عملية مرفوضة</span></td>
+                  <td><time datetime="2026-09-14">14 سبتمبر 2026</time></td>
+                  <td class="transaction-id"><bdi>TRX-10580</bdi></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <dialog class="details-dialog" id="detailsDialog" aria-labelledby="detailsDialogTitle">
+    <div class="details-dialog-content">
+      <header>
+        <div>
+          <span class="dialog-heading-icon"><i class="bi bi-receipt"></i></span>
+          <div><h2 id="detailsDialogTitle">تفاصيل العملية</h2><p id="detailsDialogSubtitle"></p></div>
+        </div>
+        <button class="dialog-close" type="button" data-dialog-close aria-label="إغلاق النافذة"><i class="bi bi-x-lg"></i></button>
+      </header>
+      <dl class="details-list" id="detailsList"></dl>
+      <footer id="detailsDialogFooter" hidden>
+        <div class="dialog-review-actions" id="dialogReviewActions" hidden>
+          <button class="approve-button" id="dialogApprove" type="button">اعتماد الطلب</button>
+          <button class="reject-button" id="dialogReject" type="button">رفض الطلب</button>
+        </div>
+      </footer>
+    </div>
+  </dialog>
+
+  <script src="assets/js/pages/adminEarningsPayments.js"></script>
+</body>
+</html>

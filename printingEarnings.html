@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="إدارة أرباح ومحفظة PalPrints وطلبات السحب">
+  <title>الأرباح والمحفظة | PalPrints</title>
+  <link rel="preload" href="assets/fonts/Cairo-Variable.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="assets/icons/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="assets/css/pages/printingEarnings.css?v=19">
+</head>
+<body class="sidebar-collapsed">
+  <a class="skip-link" href="#walletMain">تخطي إلى المحتوى</a>
+  <aside class="wallet-sidebar" id="walletSidebar">
+    <nav aria-label="القائمة الرئيسية">
+      <a href="dashboardDesigner.html"><i class="bi bi-grid"></i><span>لوحة التحكم</span></a>
+      <a href="designerProfile.html"><i class="bi bi-person"></i><span>الملف الشخصي</span></a>
+      <a href="printShopsServeses.html"><i class="bi bi-printer"></i><span>خدمات الطباعة</span></a>
+      <a href="orders.html"><i class="bi bi-clipboard-check"></i><span>طلبات الطباعة</span></a>
+      <a href="printingEarnings.html" class="active" aria-current="page"><i class="bi bi-wallet2"></i><span>الأرباح والمحفظة</span></a>
+      <a href="#"><i class="bi bi-gear"></i><span>الإعدادات</span></a>
+      <a href="#"><i class="bi bi-headphones"></i><span>الدعم الفني</span></a>
+    </nav>
+    <button class="logout" type="button"><i class="bi bi-box-arrow-left"></i><span>تسجيل الخروج</span></button>
+  </aside>
+  <button class="sidebar-backdrop" id="sidebarBackdrop" type="button" aria-label="إغلاق القائمة"></button>
+
+  <div class="wallet-shell">
+    <header class="topbar">
+      <a class="header-logo" href="index.html" aria-label="الصفحة الرئيسية"><img src="assets/images/palprints-wordmark-transparent.png" alt="PalPrints"></a>
+      <button class="icon-button menu-button" id="menuButton" type="button" aria-label="فتح القائمة" aria-controls="walletSidebar" aria-expanded="false"><i class="bi bi-list"></i></button>
+      <label class="search-box"><input type="search" placeholder="إبحث عن منتج ..." aria-label="البحث عن منتج"><i class="bi bi-search"></i></label>
+      <div class="header-actions">
+        <div class="account-wrap">
+          <button class="icon-button account-button" id="accountButton" type="button" aria-label="قائمة الحساب" aria-haspopup="true" aria-expanded="false"><i class="bi bi-person"></i></button>
+          <div class="account-dropdown" id="accountDropdown" role="menu" aria-label="قائمة الحساب" hidden>
+            <a href="designerProfile.html" role="menuitem"><i class="bi bi-person"></i><span>الملف الشخصي</span></a>
+            <a href="login.html" class="logout-link" role="menuitem"><i class="bi bi-box-arrow-left"></i><span>تسجيل الخروج</span></a>
+          </div>
+        </div>
+        <div class="notification-wrap">
+          <button class="icon-button notification-button" id="notificationButton" type="button" aria-label="الإشعارات" aria-haspopup="true" aria-expanded="false"><i class="bi bi-bell"></i><span class="counter notification-counter" id="notificationCounter" hidden>0</span></button>
+          <div class="notification-dropdown" id="notificationDropdown" role="menu" aria-label="قائمة الإشعارات" hidden><div class="notification-dropdown-header"><h3>الإشعارات</h3></div><ul class="notification-list" id="notificationList"><li class="notification-empty">لا توجد إشعارات بعد</li></ul></div>
+        </div>
+      </div>
+    </header>
+
+    <main id="walletMain">
+      <section class="wallet-overview">
+        <div class="breadcrumb"><a href="index.html">الرئيسية</a><i class="bi bi-chevron-left"></i><span>الأرباح والمحفظة</span></div>
+        <header class="page-heading"><span class="heading-icon"><i class="bi bi-wallet2"></i></span><div><h1>الأرباح والمحفظة</h1><p>تابع أرباحك وراقب طلبات السحب الخاصة بك من خلال هذه الصفحة.</p></div></header>
+        <div class="summary-grid" aria-label="ملخص الأرباح">
+          <article class="summary-card total"><span class="card-icon"><i class="bi bi-currency-dollar"></i></span><div><h2>إجمالي الأرباح</h2><strong dir="ltr" data-counter="12850">$12,850.00</strong><small>منذ بداية الحساب</small></div></article>
+          <article class="summary-card available"><span class="card-icon"><i class="bi bi-wallet2"></i></span><div><h2>الأرباح القابلة للسحب</h2><strong dir="ltr" data-counter="2430">$2,430.00</strong><small><i class="bi bi-graph-up-arrow"></i> متاح للسحب الآن</small></div></article>
+          <article class="summary-card pending"><span class="card-icon"><i class="bi bi-clock"></i></span><div><h2>الأرباح المعلقة</h2><strong dir="ltr" data-counter="680">$680.00</strong><small>بانتظار إتمام الطلبات</small></div></article>
+        </div>
+      </section>
+
+      <section class="wallet-controls">
+        <div class="period-filter"><h2><i class="bi bi-calendar3"></i> الفترة الزمنية</h2><div class="period-options" role="group" aria-label="اختيار الفترة"><button type="button" data-period="today">اليوم</button><button type="button" data-period="7">آخر 7 أيام</button><button type="button" class="active" data-period="30">آخر 30 يوم</button><button type="button" data-period="90">آخر 3 أشهر</button><button type="button" data-period="custom">فترة مخصصة</button></div><p><i class="bi bi-info-circle"></i> تؤثر هذه الفترة على سجل الأرباح والبيانات المعروضة في الجدول أدناه.</p></div>
+        <div class="withdraw-action"><button id="openWithdraw" type="button"><i class="bi bi-plus-lg"></i> طلب سحب</button><small>الحد الأدنى للسحب: <b dir="ltr">$100</b></small></div>
+      </section>
+
+      <section class="data-card">
+        <header><i class="bi bi-currency-dollar"></i><h2>سجل الأرباح</h2></header>
+        <div class="table-wrap"><table><thead><tr><th>رقم الطلب</th><th>المنتج / الخدمة</th><th>العميل</th><th>التاريخ</th><th>المبلغ</th><th>الحالة</th></tr></thead><tbody id="earningsRows">
+          <tr data-days="2"><td><a href="#">#10358</a></td><td><b>تيشيرت مطبوع</b></td><td>أحمد ناصر</td><td>12 سبتمبر 2026</td><td class="money">$250.00</td><td><span class="status pending">معلق</span></td></tr>
+          <tr data-days="3"><td><a href="#">#10357</a></td><td><b>أكواب مخصصة</b></td><td>سارة خالد</td><td>11 سبتمبر 2026</td><td class="money">$320.00</td><td><span class="status available">متاح للسحب</span></td></tr>
+          <tr data-days="4"><td><a href="#">#10356</a></td><td><b>ستيكرات</b></td><td>محمد علي</td><td>10 سبتمبر 2026</td><td class="money">$180.00</td><td><span class="status withdrawn">تم سحبه</span></td></tr>
+          <tr data-days="5"><td><a href="#">#10355</a></td><td><b>طباعة ورق</b></td><td>ريم حسن</td><td>9 سبتمبر 2026</td><td class="money">$140.00</td><td><span class="status available">متاح للسحب</span></td></tr>
+          <tr data-days="6"><td><a href="#">#10354</a></td><td><b>كروت شخصية</b></td><td>خالد إبراهيم</td><td>8 سبتمبر 2026</td><td class="money">$90.00</td><td><span class="status pending">معلق</span></td></tr>
+          <tr data-days="7"><td><a href="#">#10353</a></td><td><b>هودي مطبوع</b></td><td>نورة صالح</td><td>7 سبتمبر 2026</td><td class="money">$270.00</td><td><span class="status withdrawn">تم سحبه</span></td></tr>
+          <tr data-days="8"><td><a href="#">#10352</a></td><td><b>أكواب مخصصة</b></td><td>فاطمة حسين</td><td>6 سبتمبر 2026</td><td class="money">$110.00</td><td><span class="status available">متاح للسحب</span></td></tr>
+        </tbody></table></div>
+      </section>
+
+      <section class="data-card withdrawals-card">
+        <header><i class="bi bi-wallet2"></i><h2>طلبات السحب السابقة</h2></header>
+        <div class="table-wrap"><table><thead><tr><th>التاريخ</th><th>المبلغ</th><th>طريقة السحب</th><th>رقم المعاملة</th><th>الحالة</th><th>التفاصيل</th></tr></thead><tbody>
+          <tr><td>10 سبتمبر 2026</td><td class="money dark">$500.00</td><td>تحويل بنكي</td><td dir="ltr">TRX789456123</td><td><span class="status review">قيد المراجعة</span></td><td class="withdrawal-detail is-empty">—</td></tr>
+          <tr><td>1 سبتمبر 2026</td><td class="money dark">$750.00</td><td>محفظة إلكترونية</td><td dir="ltr">PP456123789</td><td><span class="status accepted">مقبول</span></td><td class="withdrawal-detail is-empty">—</td></tr>
+          <tr><td>20 أغسطس 2026</td><td class="money dark">$320.00</td><td>تحويل بنكي</td><td dir="ltr">TRX321654987</td><td><span class="status transferred">تم التحويل</span></td><td class="withdrawal-detail">تم التحويل في 22 أغسطس 2026</td></tr>
+          <tr><td>10 أغسطس 2026</td><td class="money dark">$200.00</td><td>محفظة إلكترونية</td><td dir="ltr">PP987654321</td><td><span class="status rejected">مرفوض</span></td><td class="withdrawal-detail is-rejected">سبب الرفض: بيانات الحساب غير مكتملة</td></tr>
+        </tbody></table></div>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="withdrawDialog" class="withdraw-dialog">
+    <form id="withdrawForm"><header><div><span class="dialog-icon"><i class="bi bi-wallet2"></i></span><div><h2>طلب سحب الأرباح</h2><p>الرصيد المتاح: <b dir="ltr">$2,430.00</b></p></div></div><button type="button" data-close aria-label="إغلاق"><i class="bi bi-x-lg"></i></button></header>
+      <div class="dialog-body"><label>المبلغ المراد سحبه <span class="amount-field"><b>$</b><input id="withdrawAmount" type="number" min="100" max="2430" step="1" placeholder="100" required dir="ltr"></span><small>الحد الأدنى $100، والحد الأعلى هو رصيدك المتاح.</small></label>
+        <fieldset class="withdraw-methods"><legend>طريقة السحب</legend>
+          <label class="method"><input type="radio" name="method" value="bank-of-palestine"><span class="method-card"><img src="assets/images/payment-methods/bank-of-palestine.png" alt=""><span class="method-copy"><b>بنك فلسطين</b><small>الدفع عبر تطبيق بنك فلسطين</small></span></span></label>
+          <label class="method"><input type="radio" name="method" value="palpay" checked><span class="method-card"><img src="assets/images/payment-methods/palpay.png" alt=""><span class="method-copy"><b>PalPay</b><small>الدفع عبر محفظة PalPay</small></span></span></label>
+          <label class="method"><input type="radio" name="method" value="jawwal-pay"><span class="method-card"><img src="assets/images/payment-methods/jawwal-pay.png" alt=""><span class="method-copy"><b>جوال بي</b><small>الدفع عبر محفظة جوال بي</small></span></span></label>
+        </fieldset>
+        <label class="payout-account-label" for="payoutAccount"><span id="payoutAccountLabel">رقم حساب PalPay</span><span class="payout-account-field"><i class="bi bi-credit-card-2-front"></i><input id="payoutAccount" name="payoutAccount" type="text" inputmode="numeric" autocomplete="off" pattern="[0-9]{9,10}" placeholder="أدخل رقم حساب PalPay" required dir="rtl"></span><small id="payoutAccountHint">أدخل رقم الحساب المرتبط بمحفظة PalPay.</small></label>
+      </div><footer><button type="button" class="cancel" data-close>إلغاء</button><button type="submit" class="submit">تأكيد طلب السحب</button></footer></form>
+  </dialog>
+  <div class="toast" id="walletToast" role="status" aria-live="polite"><i class="bi bi-check-circle-fill"></i><span>تم إرسال طلب السحب بنجاح</span></div>
+  <script src="assets/js/pages/printingEarnings.js?v=11"></script>
+</body>
+</html>
