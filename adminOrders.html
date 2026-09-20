@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="صفحة إدارة الطلبات للأدمن في PalPrints">
+  <title>إدارة الطلبات | PalPrints</title>
+  <link rel="preload" href="assets/fonts/Cairo-Variable.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="assets/icons/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="assets/css/pages/adminOrders.css">
+</head>
+<body class="sidebar-collapsed">
+  <a class="skip-link" href="#adminMain">تخطي إلى المحتوى</a>
+
+  <aside class="admin-sidebar" id="adminSidebar">
+    <nav aria-label="القائمة الرئيسية">
+      <a href="adminDashboard.html"><i class="bi bi-grid"></i><span>لوحة التحكم</span></a>
+      <div class="nav-group open">
+        <button class="nav-group-toggle" type="button" aria-expanded="true" aria-controls="usersSubmenu">
+          <i class="bi bi-people"></i>
+          <span>إدارة المستخدمين</span>
+          <i class="bi bi-chevron-down group-arrow"></i>
+        </button>
+        <div class="nav-submenu" id="usersSubmenu">
+          <a href="#"><span>العملاء</span></a>
+          <a href="#"><span>المصممون</span></a>
+          <a href="#"><span>المطابع</span></a>
+        </div>
+      </div>
+      <a href="#"><i class="bi bi-palette"></i><span>إدارة التصاميم</span><span class="nav-badge" aria-label="8 عناصر">8</span></a>
+      <a href="#"><i class="bi bi-shop-window"></i><span>إدارة المنتجات</span></a>
+      <a href="adminOrders.html" class="active" aria-current="page"><i class="bi bi-cart3"></i><span>إدارة الطلبات</span></a>
+      <a href="adminEarningsPayments.html"><i class="bi bi-wallet2"></i><span>المدفوعات والأرباح</span></a>
+      <a href="#"><i class="bi bi-truck"></i><span>إدارة الشحن</span></a>
+      <a href="#"><i class="bi bi-bar-chart-line"></i><span>التقارير والإحصائيات</span></a>
+      <a href="#"><i class="bi bi-gear"></i><span>إعدادات النظام</span></a>
+      <a href="#"><i class="bi bi-question-circle"></i><span>مركز المساعدة</span></a>
+    </nav>
+    <button class="logout" type="button"><i class="bi bi-box-arrow-left"></i><span>تسجيل الخروج</span></button>
+  </aside>
+
+  <button class="sidebar-backdrop" id="sidebarBackdrop" type="button" aria-label="إغلاق القائمة"></button>
+
+  <div class="admin-shell">
+    <header class="topbar">
+      <a class="header-logo" href="index.html" aria-label="الصفحة الرئيسية">
+        <img src="assets/images/palprints-wordmark-transparent.png" alt="PalPrints">
+      </a>
+
+      <button class="icon-button menu-button" id="menuButton" type="button" aria-label="فتح القائمة" aria-controls="adminSidebar" aria-expanded="false">
+        <i class="bi bi-list"></i>
+      </button>
+
+      <label class="search-box">
+        <input type="search" placeholder="ابحث ..." aria-label="البحث">
+        <i class="bi bi-search"></i>
+      </label>
+
+      <div class="header-actions">
+        <div class="account-wrap">
+          <button class="icon-button account-button" id="accountButton" type="button" aria-label="قائمة الحساب" aria-haspopup="true" aria-expanded="false">
+            <i class="bi bi-person"></i>
+          </button>
+          <div class="account-dropdown" id="accountDropdown" role="menu" aria-label="قائمة الحساب" hidden>
+            <a href="#" role="menuitem"><i class="bi bi-person"></i><span>الملف الشخصي</span></a>
+            <a href="login.html" class="logout-link" role="menuitem"><i class="bi bi-box-arrow-left"></i><span>تسجيل الخروج</span></a>
+          </div>
+        </div>
+
+        <div class="notification-wrap">
+          <button class="icon-button notification-button" id="notificationButton" type="button" aria-label="الإشعارات" aria-haspopup="true" aria-expanded="false">
+            <i class="bi bi-bell"></i>
+            <span class="counter notification-counter" id="notificationCounter" hidden>0</span>
+          </button>
+          <div class="notification-dropdown" id="notificationDropdown" role="menu" aria-label="قائمة الإشعارات" hidden>
+            <div class="notification-dropdown-header"><h3>الإشعارات</h3></div>
+            <ul class="notification-list" id="notificationList"><li class="notification-empty">لا توجد إشعارات بعد</li></ul>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="adminMain">
+      <section class="orders-overview" aria-labelledby="ordersTitle">
+        <h1 id="ordersTitle">إدارة الطلبات</h1>
+
+        <div class="orders-summary" aria-label="ملخص الطلبات">
+          <article class="order-stat-card">
+            <span class="order-stat-icon is-blue" aria-hidden="true"><i class="bi bi-cart3"></i></span>
+            <div class="order-stat-copy">
+              <span>إجمالي الطلبات</span>
+              <strong><span data-stat-counter="12">0</span></strong>
+            </div>
+          </article>
+
+          <article class="order-stat-card">
+            <span class="order-stat-icon is-orange" aria-hidden="true"><i class="bi bi-clock"></i></span>
+            <div class="order-stat-copy">
+              <span>قيد التنفيذ</span>
+              <strong><span data-stat-counter="4">0</span></strong>
+            </div>
+          </article>
+
+          <article class="order-stat-card">
+            <span class="order-stat-icon is-green" aria-hidden="true"><i class="bi bi-check-circle"></i></span>
+            <div class="order-stat-copy">
+              <span>تم التسليم</span>
+              <strong><span data-stat-counter="4">0</span></strong>
+            </div>
+          </article>
+
+          <article class="order-stat-card">
+            <span class="order-stat-icon is-gold" aria-hidden="true"><i class="bi bi-currency-dollar"></i></span>
+            <div class="order-stat-copy">
+              <span>إيرادات محصلة</span>
+              <strong><bdi><span data-stat-counter="299">0</span> ₪</bdi></strong>
+            </div>
+          </article>
+        </div>
+
+        <section class="orders-table-card" aria-label="قائمة الطلبات">
+          <div class="orders-toolbar">
+            <label class="orders-search">
+              <i class="bi bi-search" aria-hidden="true"></i>
+              <input id="ordersSearch" type="search" placeholder="البحث برقم الطلب أو اسم العميل أو المنتج..." aria-label="البحث في الطلبات">
+            </label>
+
+            <div class="orders-filters" role="group" aria-label="تصفية الطلبات حسب الحالة">
+              <button class="active" type="button" data-order-filter="all">الكل <span>12</span></button>
+              <button type="button" data-order-filter="processing">قيد التنفيذ <span>3</span></button>
+              <button type="button" data-order-filter="shipped">تم الشحن <span>3</span></button>
+              <button type="button" data-order-filter="completed">مكتمل <span>3</span></button>
+              <button type="button" data-order-filter="pending">معلق <span>2</span></button>
+              <button type="button" data-order-filter="cancelled">ملغي <span>1</span></button>
+            </div>
+          </div>
+
+          <div class="orders-table-wrap" tabindex="0" aria-label="جدول الطلبات، قابل للتمرير أفقياً">
+            <table class="orders-table">
+              <thead>
+                <tr>
+                  <th scope="col">الإجراء</th>
+                  <th scope="col">الحالة</th>
+                  <th scope="col">التاريخ</th>
+                  <th scope="col">المبلغ</th>
+                  <th scope="col">المطبعة</th>
+                  <th scope="col">المصمم</th>
+                  <th scope="col">المنتج</th>
+                  <th scope="col">العميل</th>
+                  <th scope="col">رقم الطلب</th>
+                </tr>
+              </thead>
+              <tbody id="ordersTableBody">
+                <tr data-order-row data-status="processing" data-search="ORD-9821 محمد الكحلوت تيشيرت تصميم فلسطين">
+                  <td><button class="order-details" type="button">عرض التفاصيل</button></td><td><span class="order-status is-processing">قيد التنفيذ</span></td><td><time datetime="2026-09-18">18 سبتمبر 2026</time></td><td><bdi class="order-price">85 ₪</bdi></td><td>مطبعة النور</td><td>آية ناصر</td><td>تيشيرت - تصميم فلسطين</td><td><strong>محمد الكحلوت</strong><small>غزة</small></td><td><a href="#order-9821" dir="ltr">#ORD-9821</a></td>
+                </tr>
+                <tr data-order-row data-status="shipped" data-search="ORD-9820 علا المصري كوب تصميم زيتون">
+                  <td><button class="order-details" type="button">عرض التفاصيل</button></td><td><span class="order-status is-completed">تم الشحن</span></td><td><time datetime="2026-09-18">18 سبتمبر 2026</time></td><td><bdi class="order-price">45 ₪</bdi></td><td>مطبعة الإبداع</td><td>سامر علي</td><td>كوب - تصميم زيتون</td><td><strong>علا المصري</strong><small>رام الله</small></td><td><a href="#order-9820" dir="ltr">#ORD-9820</a></td>
+                </tr>
+                <tr data-order-row data-status="completed" data-search="ORD-9819 يامن أبو شاويش دفتر خط عربي">
+                  <td><button class="order-details" type="button">عرض التفاصيل</button></td><td><span class="order-status is-completed">مكتمل</span></td><td><time datetime="2026-09-17">17 سبتمبر 2026</time></td><td><bdi class="order-price">60 ₪</bdi></td><td>مطبعة النور</td><td>هند محمود</td><td>دفتر - خط عربي</td><td><strong>يامن أبو شاويش</strong><small>نابلس</small></td><td><a href="#order-9819" dir="ltr">#ORD-9819</a></td>
+                </tr>
+                <tr data-order-row data-status="pending" data-search="ORD-9818 نوال أبو رزق تيشيرت تصميم قدس">
+                  <td><button class="order-details" type="button">عرض التفاصيل</button></td><td><span class="order-status is-pending">معلق</span></td><td><time datetime="2026-09-17">17 سبتمبر 2026</time></td><td><bdi class="order-price">85 ₪</bdi></td><td>مطبعة الإبداع</td><td>آية ناصر</td><td>تيشيرت - تصميم قدس</td><td><strong>نوال أبو رزق</strong><small>الخليل</small></td><td><a href="#order-9818" dir="ltr">#ORD-9818</a></td>
+                </tr>
+                <tr data-order-row data-status="cancelled" data-search="ORD-9817 جمانة الدحدوح حقيبة نقشة تراثية">
+                  <td><button class="order-details" type="button">عرض التفاصيل</button></td><td><span class="order-status is-cancelled">ملغي</span></td><td><time datetime="2026-09-16">16 سبتمبر 2026</time></td><td><bdi class="order-price">120 ₪</bdi></td><td>مطبعة النور</td><td>خالد عبدالنور</td><td>حقيبة - نقشة تراثية</td><td><strong>جمانة الدحدوح</strong><small>طولكرم</small></td><td><a href="#order-9817" dir="ltr">#ORD-9817</a></td>
+                </tr>
+                <tr data-order-row data-status="completed" data-search="ORD-9816 أحمد سالم كوب لوغو مخصص">
+                  <td><button class="order-details" type="button">عرض التفاصيل</button></td><td><span class="order-status is-completed">مكتمل</span></td><td><time datetime="2026-09-16">16 سبتمبر 2026</time></td><td><bdi class="order-price">45 ₪</bdi></td><td>مطبعة الإبداع</td><td>سامر علي</td><td>كوب - لوغو مخصص</td><td><strong>أحمد سالم</strong><small>جنين</small></td><td><a href="#order-9816" dir="ltr">#ORD-9816</a></td>
+                </tr>
+                <tr data-order-row data-status="processing" data-search="ORD-9815 ريم الحسن هودي زخرفة فلسطينية">
+                  <td><button class="order-details" type="button">عرض التفاصيل</button></td><td><span class="order-status is-processing">قيد التنفيذ</span></td><td><time datetime="2026-09-15">15 سبتمبر 2026</time></td><td><bdi class="order-price">150 ₪</bdi></td><td>مطبعة النور</td><td>ريم الحسن</td><td>هودي - زخرفة فلسطينية</td><td><strong>ريم الحسن</strong><small>بيت لحم</small></td><td><a href="#order-9815" dir="ltr">#ORD-9815</a></td>
+                </tr>
+                <tr data-order-row data-status="shipped" data-search="ORD-9814 خضر الرجوب ستيكر خريطة فلسطين">
+                  <td><button class="order-details" type="button">عرض التفاصيل</button></td><td><span class="order-status is-shipped">تم الشحن</span></td><td><time datetime="2026-09-15">15 سبتمبر 2026</time></td><td><bdi class="order-price">25 ₪</bdi></td><td>مطبعة الإبداع</td><td>خالد عبدالنور</td><td>ستيكر - خريطة فلسطين</td><td><strong>خضر الرجوب</strong><small>الخليل</small></td><td><a href="#order-9814" dir="ltr">#ORD-9814</a></td>
+                </tr>
+                <tr data-order-row data-status="completed" data-search="ORD-9813 سوسن عوض وسادة تطريز تراثي">
+                  <td><button class="order-details" type="button">عرض التفاصيل</button></td><td><span class="order-status is-completed">مكتمل</span></td><td><time datetime="2026-09-14">14 سبتمبر 2026</time></td><td><bdi class="order-price">99 ₪</bdi></td><td>مطبعة النور</td><td>ريم الحسن</td><td>وسادة - تطريز تراثي</td><td><strong>سوسن عوض</strong><small>نابلس</small></td><td><a href="#order-9813" dir="ltr">#ORD-9813</a></td>
+                </tr>
+                <tr data-order-row data-status="pending" data-search="ORD-9812 محمد الكحلوت كتاب سيرة فلسطين">
+                  <td><button class="order-details" type="button">عرض التفاصيل</button></td><td><span class="order-status is-pending">معلق</span></td><td><time datetime="2026-09-14">14 سبتمبر 2026</time></td><td><bdi class="order-price">55 ₪</bdi></td><td>مطبعة الإبداع</td><td>آية ناصر</td><td>كتاب - سيرة فلسطين</td><td><strong>محمد الكحلوت</strong><small>غزة</small></td><td><a href="#order-9812" dir="ltr">#ORD-9812</a></td>
+                </tr>
+                <tr data-order-row data-status="processing" data-search="ORD-9811 لينا قاسم تيشيرت السلام لنا">
+                  <td><button class="order-details" type="button">عرض التفاصيل</button></td><td><span class="order-status is-processing">قيد التنفيذ</span></td><td><time datetime="2026-09-13">13 سبتمبر 2026</time></td><td><bdi class="order-price">95 ₪</bdi></td><td>مطبعة النور</td><td>هند محمود</td><td>تيشيرت - السلام لنا</td><td><strong>لينا قاسم</strong><small>رام الله</small></td><td><a href="#order-9811" dir="ltr">#ORD-9811</a></td>
+                </tr>
+                <tr data-order-row data-status="shipped" data-search="ORD-9810 طارق نمر دفتر وطني مميز">
+                  <td><button class="order-details" type="button">عرض التفاصيل</button></td><td><span class="order-status is-shipped">تم الشحن</span></td><td><time datetime="2026-09-13">13 سبتمبر 2026</time></td><td><bdi class="order-price">42 ₪</bdi></td><td>مطبعة الإبداع</td><td>خالد عبدالنور</td><td>دفتر - وطني مميز</td><td><strong>طارق نمر</strong><small>جنين</small></td><td><a href="#order-9810" dir="ltr">#ORD-9810</a></td>
+                </tr>
+                <tr class="orders-empty-row" id="ordersEmptyRow" hidden><td colspan="9">لا توجد طلبات مطابقة للبحث أو الفلتر.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="orders-result-count" id="ordersResultCount" aria-live="polite">عرض 12 من أصل 12 طلبًا</p>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <dialog class="order-dialog" id="orderDetailsDialog" aria-labelledby="orderDialogTitle">
+    <div class="order-dialog-header">
+      <div>
+        <h2 id="orderDialogTitle">تفاصيل الطلب</h2>
+        <p id="orderDialogSubtitle"></p>
+      </div>
+      <button class="order-dialog-close" type="button" data-order-dialog-close aria-label="إغلاق النافذة">
+        <i class="bi bi-x-lg" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div class="order-dialog-body">
+      <section class="order-dialog-section" aria-labelledby="orderInfoTitle">
+        <h3 id="orderInfoTitle"><i class="bi bi-receipt"></i> معلومات الطلب</h3>
+        <dl class="order-details-list" id="orderDetailsList"></dl>
+      </section>
+
+      <section class="order-dialog-section" aria-labelledby="productInfoTitle">
+        <h3 id="productInfoTitle"><i class="bi bi-box-seam"></i> المنتج والتكلفة</h3>
+        <div class="dialog-product-card">
+          <figure class="dialog-product-image">
+            <img id="dialogProductImage" src="assets/images/tshirt.webp" alt="">
+          </figure>
+          <div class="dialog-product-meta">
+            <div class="dialog-product-name"><span>المنتج</span><strong id="dialogProduct"></strong></div>
+            <div><span>الكمية</span><strong id="dialogQuantity">1</strong></div>
+            <div><span>السعر</span><strong id="dialogSubtotal"></strong></div>
+            <div><span>التوصيل</span><strong id="dialogDeliveryFee">15 ₪</strong></div>
+            <div class="dialog-total"><span>الإجمالي</span><strong id="dialogTotal"></strong></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="order-dialog-section" aria-labelledby="deliveryInfoTitle">
+        <h3 id="deliveryInfoTitle"><i class="bi bi-geo-alt"></i> العميل والتوصيل والدفع</h3>
+        <dl class="order-details-list dialog-customer-details">
+          <div><dt>رقم الهاتف</dt><dd id="dialogPhone"></dd></div>
+          <div><dt>عنوان التوصيل</dt><dd id="dialogAddress"></dd></div>
+          <div><dt>طريقة الدفع</dt><dd id="dialogPayment"></dd></div>
+          <div><dt>حالة الدفع</dt><dd class="payment-success">مدفوع</dd></div>
+          <div><dt>شركة التوصيل</dt><dd>شركة Pal Delivery</dd></div>
+          <div><dt>حالة الشحنة</dt><dd id="dialogShipment"></dd></div>
+        </dl>
+        <div class="dialog-note"><span>ملاحظات العميل</span><p id="dialogNotes"></p></div>
+      </section>
+
+      <section class="order-dialog-section order-management" aria-labelledby="orderManagementTitle">
+        <h3 id="orderManagementTitle"><i class="bi bi-sliders"></i> إدارة الطلب</h3>
+        <div class="order-management-fields">
+          <label>حالة الطلب
+            <select id="dialogStatusSelect">
+              <option value="processing">قيد التنفيذ</option>
+              <option value="shipped">تم الشحن</option>
+              <option value="completed">مكتمل</option>
+              <option value="pending">معلق</option>
+              <option value="cancelled">ملغي</option>
+            </select>
+          </label>
+          <label>المطبعة المنفذة
+            <select id="dialogPrinterSelect">
+              <option>مطبعة النور</option>
+              <option>مطبعة الإبداع</option>
+              <option>مطبعة الألوان</option>
+            </select>
+          </label>
+        </div>
+        <p class="order-management-hint" id="orderManagementHint"></p>
+        <p class="order-dialog-feedback" id="orderDialogFeedback" role="status" aria-live="polite"></p>
+      </section>
+    </div>
+    <div class="order-dialog-footer">
+      <button class="dialog-secondary-button" type="button" data-order-dialog-close>إغلاق</button>
+      <button class="dialog-save-button" id="saveOrderChanges" type="button"><i class="bi bi-check2"></i> حفظ التعديلات</button>
+    </div>
+  </dialog>
+
+  <script src="assets/js/pages/adminOrders.js"></script>
+</body>
+</html>
