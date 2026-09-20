@@ -495,8 +495,9 @@ button, input { font: inherit; }
   line-height: 1.1;
 }
 
+.orders-section { margin-top: 22px; }
+
 .orders-table-card {
-  margin-top: 22px;
   overflow: hidden;
   background: #fff;
   border: 1px solid var(--border);
@@ -504,7 +505,11 @@ button, input { font: inherit; }
   box-shadow: 0 2px 7px rgb(11 31 58 / 4%);
 }
 
-.orders-toolbar { padding: 18px 20px 12px; border-bottom: 1px solid var(--border); }
+.orders-toolbar {
+  padding: 0 0 14px;
+  background: transparent;
+  border: 0;
+}
 
 .orders-search {
   width: min(390px, 100%);
@@ -513,7 +518,7 @@ button, input { font: inherit; }
   align-items: center;
   gap: 10px;
   padding-inline: 13px;
-  background: var(--soft);
+  background: #fff;
   border: 1px solid var(--border);
   border-radius: 7px;
 }
@@ -785,7 +790,7 @@ button, input { font: inherit; }
   .header-logo { width: 96px; border-left: 0; }
   .header-logo img { width: 106px; }
   #adminMain { padding: 22px 16px 40px; }
-  .orders-toolbar { padding: 15px; }
+  .orders-toolbar { padding: 0 0 12px; }
 }
 
 @media (max-width: 620px) {

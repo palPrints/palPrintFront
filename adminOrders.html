@@ -118,7 +118,7 @@
           </article>
         </div>
 
-        <section class="orders-table-card" aria-label="قائمة الطلبات">
+        <section class="orders-section" aria-label="قائمة الطلبات">
           <div class="orders-toolbar">
             <label class="orders-search">
               <i class="bi bi-search" aria-hidden="true"></i>
@@ -135,8 +135,9 @@
             </div>
           </div>
 
-          <div class="orders-table-wrap" tabindex="0" aria-label="جدول الطلبات، قابل للتمرير أفقياً">
-            <table class="orders-table">
+          <div class="orders-table-card">
+            <div class="orders-table-wrap" tabindex="0" aria-label="جدول الطلبات، قابل للتمرير أفقياً">
+              <table class="orders-table">
               <thead>
                 <tr>
                   <th scope="col">الإجراء</th>
@@ -189,9 +190,10 @@
                 </tr>
                 <tr class="orders-empty-row" id="ordersEmptyRow" hidden><td colspan="9">لا توجد طلبات مطابقة للبحث أو الفلتر.</td></tr>
               </tbody>
-            </table>
+              </table>
+            </div>
+            <p class="orders-result-count" id="ordersResultCount" aria-live="polite">عرض 12 من أصل 12 طلبًا</p>
           </div>
-          <p class="orders-result-count" id="ordersResultCount" aria-live="polite">عرض 12 من أصل 12 طلبًا</p>
         </section>
       </section>
     </main>
