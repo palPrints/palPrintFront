@@ -60,12 +60,15 @@
         return;
       }
       try {
+        const storedPreference = window.localStorage.getItem(sidebarStorageKey);
         body.classList.toggle(
           "sidebar-collapsed",
-          window.localStorage.getItem(sidebarStorageKey) === "true"
+          storedPreference === null
+            ? body.classList.contains("sidebar-collapsed")
+            : storedPreference === "true"
         );
       } catch (error) {
-        body.classList.remove("sidebar-collapsed");
+        // Keep the markup default when storage is unavailable.
       }
     }
 
