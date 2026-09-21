@@ -534,6 +534,16 @@ document.addEventListener("DOMContentLoaded", function () {
     Core.setState(portfolioSection, "ready");
   }
 
+  const portfolioRemoveButton = document.getElementById("portfolioRemoveButton");
+
+  if (portfolioRemoveButton) {
+    portfolioRemoveButton.addEventListener("click", function () {
+      designer.portfolioUrl = "";
+      renderPortfolio();
+      Core.toast(Core.translate("saveSuccess"), "success");
+    });
+  }
+
   /* =======================================================
      النماذج
      ======================================================= */
@@ -611,6 +621,8 @@ document.addEventListener("DOMContentLoaded", function () {
     email: document.getElementById("designerEmail"),
     phone: document.getElementById("designerPhone"),
     location: document.getElementById("designerLocation"),
+    infoFullName: document.getElementById("infoFullName"),
+    infoRole: document.getElementById("infoRole"),
     infoEmail: document.getElementById("infoEmail"),
     infoPhone: document.getElementById("infoPhone"),
     infoSpecialization: document.getElementById("infoSpecialization"),
@@ -743,6 +755,8 @@ document.addEventListener("DOMContentLoaded", function () {
         keepUserValue(displayFields.email, email.value.trim());
         keepUserValue(displayFields.phone, phone.value.trim());
         keepUserValue(displayFields.location, location.value.trim());
+        keepUserValue(displayFields.infoFullName, fullName.value.trim());
+        keepUserValue(displayFields.infoRole, role.value.trim());
         keepUserValue(displayFields.infoEmail, email.value.trim());
         keepUserValue(displayFields.infoPhone, phone.value.trim());
 
@@ -784,62 +798,17 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  /* طلب سحب */
-
-  const withdrawButton = document.getElementById("withdrawButton");
-
-  if (withdrawButton) {
-    withdrawButton.addEventListener("click", function () {
-      withdrawButton.disabled = true;
-
-      fakeRequest(true, 600).then(function () {
-        withdrawButton.disabled = false;
-
-        Core.toast(Core.translate("withdrawalRequested"), "success");
-      });
-    });
-  }
-
   /* =======================================================
      تحميل الأقسام
      ======================================================= */
 
   const heroSection = document.getElementById("profileHero");
-  const designsSection = document.getElementById("designsStatusSection");
-  const performanceSection = document.getElementById("performanceSection");
-  const walletSection = document.getElementById("walletSection");
 
   function loadHero() {
     Core.loadSection(heroSection, function () {
       return fakeRequest(designer, 450);
     }).then(function () {
       renderApprovalStatus();
-    });
-  }
-
-  function loadDesigns() {
-    Core.loadSection(
-      designsSection,
-      function () {
-        return fakeRequest({ published: 12 }, 600);
-      },
-      {
-        isEmpty: function (result) {
-          return !result;
-        }
-      }
-    );
-  }
-
-  function loadPerformance() {
-    Core.loadSection(performanceSection, function () {
-      return fakeRequest({ rating: 4.8 }, 550);
-    });
-  }
-
-  function loadWallet() {
-    Core.loadSection(walletSection, function () {
-      return fakeRequest({ total: 1090 }, 700);
     });
   }
 
@@ -852,19 +821,36 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   Core.onRetry(heroSection, loadHero);
-  Core.onRetry(designsSection, loadDesigns);
-  Core.onRetry(performanceSection, loadPerformance);
-  Core.onRetry(walletSection, loadWallet);
   Core.onRetry(portfolioSection, loadPortfolio);
 
   renderSkills();
   renderAbout();
 
   loadHero();
-  loadDesigns();
-  loadPerformance();
-  loadWallet();
   loadPortfolio();
+
+  const designerProfileForm = document.getElementById("designerProfileForm");
+  const portfolioField = document.getElementById("profilePortfolio");
+  const portfolioClearButton = document.getElementById("portfolioClearButton");
+
+  if (portfolioClearButton && portfolioField) {
+    portfolioClearButton.addEventListener("click", function () {
+      portfolioField.value = "";
+      portfolioField.focus();
+    });
+  }
+
+  if (designerProfileForm) {
+    designerProfileForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      if (!designerProfileForm.reportValidity()) {
+        return;
+      }
+
+      Core.toast(Core.translate("saveSuccess"), "success");
+    });
+  }
 
   /* =======================================================
      إعادة الرسم عند تغيير اللغة
