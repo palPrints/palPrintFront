@@ -630,7 +630,10 @@ function prepareEditorMetadata(product) {
             name: area.name,
             icon: area.icon,
             mockup: area.mockup || area.image || product.thumbnail,
-            printZone: area.printZone ? { ...area.printZone } : null
+            printZone: area.printZone ? { ...area.printZone } : null,
+            sizePrintZones: area.sizePrintZones
+                ? Object.fromEntries(Object.entries(area.sizePrintZones).map(([id, zone]) => [id, { ...zone }]))
+                : undefined
         }));
 
     return product;
@@ -725,6 +728,12 @@ function validateEditorProduct(product) {
 
 }
 
+
+if (Array.isArray(window.PALPRINTS_PRODUCT_CATALOG?.products)) {
+    backendResponse.products = window.PALPRINTS_PRODUCT_CATALOG.products.map(product =>
+        JSON.parse(JSON.stringify(product))
+    );
+}
 
 backendResponse.products.forEach(prepareEditorMetadata);
 
@@ -1867,6 +1876,36 @@ function updateStartButton() {
    CREATE DESIGNER PAYLOAD
 ============================================================= */
 
+function createEditorProductSnapshot(product) {
+
+    return {
+        id: product.id,
+        categoryId: product.categoryId,
+        name: product.name,
+        studioTitle: product.studioTitle || product.name,
+        description: product.description,
+        price: product.price,
+        thumbnail: product.thumbnail,
+        colors: product.colors.map(color => ({
+            ...color,
+            areaMockups: color.areaMockups ? { ...color.areaMockups } : undefined
+        })),
+        sizes: product.sizes.map(size => ({ ...size })),
+        editor: {
+            defaultAreaId: product.editor.defaultAreaId,
+            printAreas: product.editor.printAreas.map(area => ({
+                ...area,
+                printZone: { ...area.printZone },
+                sizePrintZones: area.sizePrintZones
+                    ? Object.fromEntries(Object.entries(area.sizePrintZones).map(([id, zone]) => [id, { ...zone }]))
+                    : undefined
+            }))
+        }
+    };
+
+}
+
+
 function createDesignerPayload() {
 
     return {
@@ -1888,24 +1927,11 @@ function createDesignerPayload() {
         printAreaIds:
             [...state.selectedPrintAreas],
 
-        editorProduct: {
-            id: state.selectedProduct.id,
-            categoryId: state.selectedProduct.categoryId,
-            name: state.selectedProduct.name,
-            studioTitle: state.selectedProduct.studioTitle || state.selectedProduct.name,
-            description: state.selectedProduct.description,
-            price: state.selectedProduct.price,
-            thumbnail: state.selectedProduct.thumbnail,
-            colors: state.selectedProduct.colors.map(color => ({ ...color })),
-            sizes: state.selectedProduct.sizes.map(size => ({ ...size })),
-            editor: {
-                defaultAreaId: state.selectedProduct.editor.defaultAreaId,
-                printAreas: state.selectedProduct.editor.printAreas.map(area => ({
-                    ...area,
-                    printZone: { ...area.printZone }
-                }))
-            }
-        }
+        editorProduct: createEditorProductSnapshot(state.selectedProduct),
+
+        editorProducts: state.products
+            .filter(product => validateEditorProduct(product).valid)
+            .map(createEditorProductSnapshot)
 
     };
 

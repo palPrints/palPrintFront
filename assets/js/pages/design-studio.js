@@ -13,6 +13,10 @@
   const GRAPHICS_BY_CATEGORY = new Map(GRAPHICS.categories.map(category => [category,
     [...APPROVED_GRAPHICS.values()].filter(item => item.category === category)]));
   const GRAPHICS_PAGE_SIZE = 24;
+  const VIEW_ZOOM = Object.freeze({ min: 0.5, max: 2, step: 0.1 });
+  // Provisional V1 defaults. Printshop-specific thresholds can replace these
+  // without changing the quality calculation or UI states.
+  const IMAGE_QUALITY_THRESHOLDS = Object.freeze({ excellent: 300, good: 150, provisional: true });
   const FONT_FAMILIES = [
     "Cairo", "Tajawal", "Almarai", "Changa", "El Messiri", "Reem Kufi", "Noto Kufi Arabic", "Noto Naskh Arabic",
     "Amiri", "Lateef", "Scheherazade New", "Markazi Text", "Mada", "IBM Plex Sans Arabic", "Harmattan", "Katibeh",
@@ -33,15 +37,21 @@
     deleteDialog: $("deleteAssetDialog"), deleteThumbnail: $("deleteAssetThumbnail"), deleteMessage: $("deleteAssetMessage"),
     cancelAssetDelete: $("cancelAssetDelete"), confirmAssetDelete: $("confirmAssetDelete"),
     selectedObjectControls: $("selectedObjectControls"), selectedObjectName: $("selectedObjectName"),
-    snapGuideVertical: $("snapGuideVertical"), snapGuideHorizontal: $("snapGuideHorizontal")
+    snapGuideVertical: $("snapGuideVertical"), snapGuideHorizontal: $("snapGuideHorizontal"),
+    areaCopyGroup: $("areaCopyGroup"), areaCopyActions: $("areaCopyActions"),
+    swapProductToggle: $("swapProductToggle"), productSwapPanel: $("productSwapPanel"), closeProductSwap: $("closeProductSwap"), productSwapOptions: $("productSwapOptions"),
+    undo: $("studioUndo"), redo: $("studioRedo"),
+    zoomOut: $("studioZoomOut"), zoomFit: $("studioZoomFit"), zoomIn: $("studioZoomIn"), zoomValue: $("studioZoomValue"),
+    replaceAreaDialog: $("replaceAreaDialog"), replaceAreaMessage: $("replaceAreaMessage"), cancelAreaReplace: $("cancelAreaReplace"), confirmAreaReplace: $("confirmAreaReplace")
   };
 
   const app = {
     selection: null, product: null, color: null, size: null, area: null, design: null, canvas: null, assetStore: null,
     activeTool: "upload", objectUrls: new Map(), fontPromises: new Map(), suppressCanvasEvents: false,
-    geometryReady: false, viewportZone: null, logicalStage: null, stageScale: 1, areaSwitchToken: 0, snapDrag: null,
+    geometryReady: false, viewportZone: null, logicalStage: null, baseStageScale: 1, stageScale: 1, viewZoom: 1, areaSwitchToken: 0, snapDrag: null,
     persistTimer: null, resizeObserver: null, resizeFrame: null, noticeTimer: null, panelRenderToken: 0,
-    pendingAssetFingerprints: new Set(), graphicsCategory: GRAPHICS.categories[0] || "", graphicsSearch: "", graphicsLimit: GRAPHICS_PAGE_SIZE
+    pendingAssetFingerprints: new Set(), graphicsCategory: GRAPHICS.categories[0] || "", graphicsSearch: "", graphicsLimit: GRAPHICS_PAGE_SIZE,
+    products: new Map(), drafts: {}, history: [], historyIndex: -1, historyTimer: null, historyRestoring: false
   };
 
   class DesignAssetStore {
@@ -138,6 +148,17 @@
     return { valid: true, message: "" };
   }
 
+  function resolveEligibleProducts(selection) {
+    const shared = Array.isArray(window.PALPRINTS_PRODUCT_CATALOG?.products) ? window.PALPRINTS_PRODUCT_CATALOG.products : [];
+    const payload = Array.isArray(selection?.editorProducts) ? selection.editorProducts : [];
+    const byId = new Map();
+    [...shared, ...payload, selection?.editorProduct].forEach(product => {
+      if (!product?.id || !validateProduct(product).valid) return;
+      byId.set(product.id, product);
+    });
+    return [...byId.values()];
+  }
+
   function setupSiteShell() {
     const menu = $("menuButton"), overlay = $("sidebarOverlay"), mobile = matchMedia("(max-width: 900px)");
     if (!menu || !overlay) return;
@@ -151,34 +172,223 @@
   function ensureDesignId(selection) {
     if (!selection.designId) { selection.designId = uid("design"); sessionStorage.setItem(SELECTION_KEY, JSON.stringify(selection)); }
   }
-  function createDesign(selection) {
-    const areas = {}; selection.editorProduct.editor.printAreas.forEach(area => { areas[area.id] = { objects: [] }; });
-    return { schemaVersion: 1, designId: selection.designId, productId: selection.productId, colorId: selection.colorId, sizeId: selection.sizeId,
-      activeAreaId: selection.printAreaIds?.[0] || selection.editorProduct.editor.defaultAreaId, assets: [], areas, updatedAt: new Date().toISOString() };
+  function clone(value) { return JSON.parse(JSON.stringify(value)); }
+  function createDraft(product, options = {}) {
+    const areas = {}; product.editor.printAreas.forEach(area => { areas[area.id] = { objects: [] }; });
+    return { productId: product.id, colorId: options.colorId || product.defaultColor || product.colors?.[0]?.id,
+      sizeId: options.sizeId || product.sizes?.[0]?.id,
+      activeAreaId: options.activeAreaId || product.editor.defaultAreaId, areas };
+  }
+  function activeDraftSnapshot() {
+    return { productId: app.product.id, colorId: app.color?.id, sizeId: app.size?.id, activeAreaId: app.area?.id,
+      areas: clone(app.design.areas) };
+  }
+  function storeActiveDraft({ saveCanvas = true } = {}) {
+    if (!app.design || !app.product) return;
+    if (saveCanvas) saveActiveArea();
+    app.drafts[app.product.id] = activeDraftSnapshot();
+  }
+  function activateDraft(product, draft) {
+    app.product = product;
+    app.design = { schemaVersion: 2, designId: app.selection.designId, assets: app.assets, ...clone(draft) };
+    app.color = selectedItem(product.colors, draft.colorId);
+    app.size = selectedItem(product.sizes, draft.sizeId);
+    app.area = product.editor.printAreas.find(area => area.id === draft.activeAreaId)
+      || product.editor.printAreas.find(area => area.id === product.editor.defaultAreaId) || product.editor.printAreas[0];
   }
   function uniqueAssetRecords(records) {
     const seen = new Set();
     return (Array.isArray(records) ? records : []).filter(asset => asset?.assetId && !seen.has(asset.assetId) && seen.add(asset.assetId));
   }
-  function loadDesign(selection) {
+  function loadDesignDocument(selection) {
     try {
       const saved = JSON.parse(localStorage.getItem(`${DESIGN_PREFIX}${selection.designId}`) || "null");
+      if (saved?.schemaVersion === 2 && saved.drafts) {
+        return { assets: uniqueAssetRecords(saved.assets), drafts: saved.drafts, activeProductId: saved.activeProductId || selection.productId };
+      }
       if (saved?.schemaVersion === 1 && saved.productId === selection.productId) {
-        saved.assets = uniqueAssetRecords(saved.assets);
-        app.product.editor.printAreas.forEach(area => { if (!saved.areas[area.id]) saved.areas[area.id] = { objects: [] }; }); return saved;
+        const draft = { productId: saved.productId, colorId: saved.colorId, sizeId: saved.sizeId, activeAreaId: saved.activeAreaId, areas: saved.areas };
+        return { assets: uniqueAssetRecords(saved.assets), drafts: { [saved.productId]: draft }, activeProductId: saved.productId };
       }
     } catch (error) { /* fresh document */ }
-    return createDesign(selection);
+    return { assets: [], drafts: { [selection.productId]: createDraft(selection.editorProduct, {
+      colorId: selection.colorId, sizeId: selection.sizeId,
+      activeAreaId: selection.printAreaIds?.[0] || selection.editorProduct.editor.defaultAreaId
+    }) }, activeProductId: selection.productId };
   }
   function commitDesign() {
     if (!app.design) return;
-    Object.assign(app.design, { colorId: app.color?.id, sizeId: app.size?.id, activeAreaId: app.area?.id, updatedAt: new Date().toISOString() });
-    localStorage.setItem(`${DESIGN_PREFIX}${app.design.designId}`, JSON.stringify(app.design));
+    storeActiveDraft({ saveCanvas: false });
+    const documentState = { schemaVersion: 2, designId: app.selection.designId, activeProductId: app.product.id,
+      assets: app.assets, drafts: app.drafts, updatedAt: new Date().toISOString() };
+    localStorage.setItem(`${DESIGN_PREFIX}${app.selection.designId}`, JSON.stringify(documentState));
   }
   function scheduleCommit() {
     saveActiveArea();
     clearTimeout(app.persistTimer);
     app.persistTimer = setTimeout(commitDesign, 120);
+    scheduleHistoryCapture();
+  }
+
+  function historySnapshot() {
+    storeActiveDraft();
+    return JSON.stringify({ activeProductId: app.product.id, drafts: app.drafts });
+  }
+  function updateHistoryControls() {
+    if (!elements.undo || !elements.redo) return;
+    elements.undo.disabled = app.historyRestoring || app.historyIndex <= 0;
+    elements.redo.disabled = app.historyRestoring || app.historyIndex >= app.history.length - 1;
+  }
+  function captureHistory() {
+    if (app.historyRestoring || !app.design) return false;
+    clearTimeout(app.historyTimer); app.historyTimer = null;
+    const snapshot = historySnapshot();
+    if (snapshot === app.history[app.historyIndex]) return false;
+    if (app.historyIndex < app.history.length - 1) app.history.splice(app.historyIndex + 1);
+    app.history.push(snapshot); if (app.history.length > 100) app.history.shift();
+    app.historyIndex = app.history.length - 1; updateHistoryControls(); return true;
+  }
+  function scheduleHistoryCapture(delay = 180) {
+    if (app.historyRestoring) return;
+    clearTimeout(app.historyTimer); app.historyTimer = setTimeout(captureHistory, delay);
+  }
+  async function restoreHistory(index) {
+    if (app.historyRestoring || index < 0 || index >= app.history.length) return;
+    clearTimeout(app.historyTimer); app.historyTimer = null; app.historyRestoring = true; updateHistoryControls();
+    try {
+      const snapshot = JSON.parse(app.history[index]), product = app.products.get(snapshot.activeProductId);
+      if (!product || !snapshot.drafts?.[product.id]) return;
+      app.drafts = clone(snapshot.drafts); activateDraft(product, app.drafts[product.id]);
+      await renderActiveProduct(); app.historyIndex = index; commitDesign();
+    } finally { app.historyRestoring = false; updateHistoryControls(); }
+  }
+  function setupHistory() {
+    elements.undo?.addEventListener("click", () => { if (app.historyTimer) captureHistory(); void restoreHistory(app.historyIndex - 1); });
+    elements.redo?.addEventListener("click", () => { if (app.historyTimer) captureHistory(); void restoreHistory(app.historyIndex + 1); });
+    document.addEventListener("keydown", event => {
+      if (event.defaultPrevented || event.altKey || !(event.ctrlKey || event.metaKey) || event.target.closest?.("input,textarea,select,[contenteditable='true']")) return;
+      const key = String(event.key).toLowerCase(), redo = key === "y" || (key === "z" && event.shiftKey), undo = key === "z" && !event.shiftKey;
+      if (undo && app.historyIndex > 0) { event.preventDefault(); if (app.historyTimer) captureHistory(); void restoreHistory(app.historyIndex - 1); }
+      else if (redo && app.historyIndex < app.history.length - 1) { event.preventDefault(); void restoreHistory(app.historyIndex + 1); }
+    }, true);
+  }
+
+  function transferredModels(models, sourceArea, sourceSize, targetArea, targetSize) {
+    const sourceZone = resolveZone(sourceArea, sourceSize), targetZone = resolveZone(targetArea, targetSize);
+    const sourceWidth = Number(sourceZone?.widthCm), sourceHeight = Number(sourceZone?.heightCm);
+    const targetWidth = Number(targetZone?.widthCm), targetHeight = Number(targetZone?.heightCm);
+    let xFactor = 1, yFactor = 1;
+    if ([sourceWidth, sourceHeight, targetWidth, targetHeight].every(value => Number.isFinite(value) && value > 0)) {
+      const fit = Math.min(targetWidth / sourceWidth, targetHeight / sourceHeight);
+      xFactor = sourceWidth * fit / targetWidth; yFactor = sourceHeight * fit / targetHeight;
+    }
+    return models.map(source => {
+      const model = clone(source); model.id = uid("object");
+      model.x = 0.5 + (Number(model.x) - 0.5) * xFactor; model.y = 0.5 + (Number(model.y) - 0.5) * yFactor;
+      if (Number.isFinite(Number(model.width))) model.width *= xFactor;
+      if (Number.isFinite(Number(model.height))) model.height *= yFactor;
+      if (model.kind === "text" && Number.isFinite(Number(model.fontSize))) model.fontSize *= yFactor;
+      return model;
+    });
+  }
+  function confirmAreaReplacement(area) {
+    const dialog = elements.replaceAreaDialog;
+    if (!dialog || !area) return Promise.resolve(false);
+    elements.replaceAreaMessage.textContent = `تحتوي جهة «${area.name}» على تصميم. سيُستبدل محتواها بالكامل بالنسخة الجديدة.`;
+    return new Promise(resolve => {
+      let settled = false;
+      const finish = value => { if (settled) return; settled = true; cleanup(); if (dialog.open) dialog.close(); resolve(value); };
+      const cancel = event => { event?.preventDefault?.(); finish(false); }, confirm = () => finish(true);
+      const backdrop = event => { if (event.target === dialog) cancel(event); };
+      const cleanup = () => { elements.cancelAreaReplace.removeEventListener("click", cancel); elements.confirmAreaReplace.removeEventListener("click", confirm); dialog.removeEventListener("cancel", cancel); dialog.removeEventListener("click", backdrop); };
+      elements.cancelAreaReplace.addEventListener("click", cancel); elements.confirmAreaReplace.addEventListener("click", confirm);
+      dialog.addEventListener("cancel", cancel); dialog.addEventListener("click", backdrop); dialog.showModal(); elements.cancelAreaReplace.focus();
+    });
+  }
+  async function copyActiveAreaTo(targetId) {
+    saveActiveArea(); const sourceArea = app.area, targetArea = app.product.editor.printAreas.find(area => area.id === targetId);
+    if (!targetArea || targetArea.id === sourceArea.id) return;
+    const destination = app.design.areas[targetId];
+    if (destination.objects.length && !await confirmAreaReplacement(targetArea)) return;
+    destination.objects = transferredModels(app.design.areas[sourceArea.id].objects, sourceArea, app.size, targetArea, app.size);
+    storeActiveDraft({ saveCanvas: false }); commitDesign(); captureHistory();
+    showNotice(`تم نسخ التصميم إلى «${targetArea.name}».`, "success"); renderAreaCopyActions();
+  }
+  function renderAreaCopyActions() {
+    if (!elements.areaCopyActions) return;
+    const destinations = app.product.editor.printAreas.filter(area => area.id !== app.area.id);
+    elements.areaCopyGroup.hidden = !destinations.length; elements.areaCopyActions.replaceChildren();
+    destinations.forEach(area => {
+      const button = document.createElement("button"); button.type = "button"; button.className = "studio-copy-action";
+      button.innerHTML = '<i class="bi bi-copy" aria-hidden="true"></i><span></span>'; button.querySelector("span").textContent = `نسخ التصميم إلى ${area.name}`;
+      button.disabled = !app.design.areas[app.area.id]?.objects.length; button.addEventListener("click", () => { void copyActiveAreaTo(area.id); });
+      elements.areaCopyActions.appendChild(button);
+    });
+  }
+
+  function areaMapping(sourceProduct, targetProduct) {
+    const mapping = new Map(), used = new Set(), sources = sourceProduct.editor.printAreas, targets = targetProduct.editor.printAreas;
+    sources.forEach(source => { const target = targets.find(area => area.id === source.id && !used.has(area.id)); if (target) { mapping.set(source.id, target.id); used.add(target.id); } });
+    sources.filter(source => !mapping.has(source.id)).forEach(source => { const target = targets.find(area => area.role && area.role === source.role && !used.has(area.id)); if (target) { mapping.set(source.id, target.id); used.add(target.id); } });
+    if (sources.length === 1 && targets.length === 1 && !mapping.has(sources[0].id)) mapping.set(sources[0].id, targets[0].id);
+    if (!mapping.has(app.area.id)) mapping.set(app.area.id, targetProduct.editor.defaultAreaId);
+    return mapping;
+  }
+  function transferredDraft(targetProduct) {
+    const sourceProduct = app.product, sourceSize = app.size, targetSize = selectedItem(targetProduct.sizes, targetProduct.sizes?.[0]?.id);
+    const draft = createDraft(targetProduct), mapping = areaMapping(sourceProduct, targetProduct);
+    mapping.forEach((targetId, sourceId) => {
+      const sourceArea = sourceProduct.editor.printAreas.find(area => area.id === sourceId), targetArea = targetProduct.editor.printAreas.find(area => area.id === targetId);
+      if (!sourceArea || !targetArea) return;
+      draft.areas[targetId].objects = transferredModels(app.design.areas[sourceId]?.objects || [], sourceArea, sourceSize, targetArea, targetSize);
+    });
+    draft.activeAreaId = mapping.get(app.area.id) || targetProduct.editor.defaultAreaId; return draft;
+  }
+  function productNeedsManualReview(sourceProduct, targetProduct) {
+    if (sourceProduct.editor.printAreas.length !== targetProduct.editor.printAreas.length) return true;
+    const mapping = areaMapping(sourceProduct, targetProduct);
+    if (mapping.size !== sourceProduct.editor.printAreas.length) return true;
+    return [...mapping].some(([sourceId, targetId]) => {
+      const sourceArea = sourceProduct.editor.printAreas.find(area => area.id === sourceId), targetArea = targetProduct.editor.printAreas.find(area => area.id === targetId);
+      const sourceZone = resolveZone(sourceArea, app.size), targetSize = selectedItem(targetProduct.sizes, targetProduct.sizes?.[0]?.id), targetZone = resolveZone(targetArea, targetSize);
+      const sourceRatio = Number(sourceZone?.widthCm) / Number(sourceZone?.heightCm), targetRatio = Number(targetZone?.widthCm) / Number(targetZone?.heightCm);
+      const widthChange = Number(targetZone?.widthCm) / Number(sourceZone?.widthCm), heightChange = Number(targetZone?.heightCm) / Number(sourceZone?.heightCm);
+      return ![sourceRatio, targetRatio, widthChange, heightChange].every(Number.isFinite)
+        || Math.abs((targetRatio / sourceRatio) - 1) > 0.15 || widthChange < 0.75 || widthChange > 1.25 || heightChange < 0.75 || heightChange > 1.25;
+    });
+  }
+  async function renderActiveProduct() {
+    renderProductSummary(); renderColors(); renderSizes(); renderAreas(); renderAreaCopyActions(); renderProductSelector();
+    await loadMockup(app.area, app.color); await restoreArea(app.area.id); revealStage(); renderToolPanel(app.activeTool);
+  }
+  async function swapProduct(productId) {
+    const target = app.products.get(productId); if (!target || target.id === app.product.id || app.historyRestoring) return;
+    const source = app.product, needsReview = productNeedsManualReview(source, target); storeActiveDraft(); const existing = app.drafts[target.id];
+    const nextDraft = existing ? clone(existing) : transferredDraft(target);
+    app.drafts[source.id] = activeDraftSnapshot(); app.drafts[target.id] = nextDraft; activateDraft(target, nextDraft);
+    await renderActiveProduct(); commitDesign(); captureHistory();
+    if (needsReview) showNotice("تختلف مناطق الطباعة في المنتج الجديد. راجع موضع التصميم واضبطه يدويًا عند الحاجة.", "warning");
+    elements.productSwapPanel.hidden = true; elements.swapProductToggle.setAttribute("aria-expanded", "false");
+  }
+  function renderProductSelector() {
+    if (!elements.productSwapOptions) return; elements.productSwapOptions.replaceChildren();
+    elements.productSwapPanel.classList.toggle("is-limited", app.products.size <= 1);
+    app.products.forEach(product => {
+      const button = document.createElement("button"); button.type = "button"; button.className = `studio-product-choice${product.id === app.product.id ? " is-active" : ""}`;
+      button.disabled = product.id === app.product.id; button.setAttribute("role", "listitem");
+      const image = document.createElement("img"); image.src = product.thumbnail; image.alt = "";
+      const label = document.createElement("span"); label.textContent = product.name; button.append(image, label);
+      button.addEventListener("click", () => { void swapProduct(product.id); }); elements.productSwapOptions.appendChild(button);
+    });
+    if (app.products.size <= 1) {
+      const state = document.createElement("p"); state.className = "studio-product-limited";
+      state.innerHTML = '<i class="bi bi-info-circle" aria-hidden="true"></i><span>لا تتوفر منتجات أخرى مهيأة للاستوديو حاليًا.</span>';
+      elements.productSwapOptions.appendChild(state);
+    }
+  }
+  function setupProductSwap() {
+    elements.swapProductToggle?.addEventListener("click", () => { const opening = elements.productSwapPanel.hidden; elements.productSwapPanel.hidden = !opening; elements.swapProductToggle.setAttribute("aria-expanded", String(opening)); });
+    elements.closeProductSwap?.addEventListener("click", () => { elements.productSwapPanel.hidden = true; elements.swapProductToggle.setAttribute("aria-expanded", "false"); elements.swapProductToggle.focus(); });
   }
 
   function getZoneRect() {
@@ -310,12 +520,32 @@
   function updateStageTransform() {
     if (!app.logicalStage) return;
     const width = elements.stage.clientWidth, height = elements.stage.clientHeight;
-    const scale = Math.min(width / app.logicalStage.width, height / app.logicalStage.height);
+    const baseScale = Math.min(width / app.logicalStage.width, height / app.logicalStage.height);
+    const scale = baseScale * app.viewZoom;
     const offsetX = (width - app.logicalStage.width * scale) / 2, offsetY = (height - app.logicalStage.height * scale) / 2;
-    app.stageScale = scale;
+    app.baseStageScale = baseScale; app.stageScale = scale;
     elements.coordinateSystem.style.transform = `translate3d(${offsetX}px, ${offsetY}px, 0) scale(${scale})`;
     refreshCanvasResolution();
     app.canvas?.calcOffset();
+  }
+  function updateZoomControls() {
+    if (!elements.zoomValue) return;
+    elements.zoomValue.textContent = `${Math.round(app.viewZoom * 100)}%`;
+    elements.zoomOut.disabled = app.viewZoom <= VIEW_ZOOM.min + 0.001;
+    elements.zoomIn.disabled = app.viewZoom >= VIEW_ZOOM.max - 0.001;
+    elements.zoomFit.disabled = Math.abs(app.viewZoom - 1) < 0.001;
+  }
+  function setViewZoom(value, shouldAnnounce = true) {
+    const clamped = Math.min(VIEW_ZOOM.max, Math.max(VIEW_ZOOM.min, Number(value) || 1));
+    app.viewZoom = Math.round(clamped * 10) / 10;
+    updateStageTransform(); updateZoomControls(); clearSnapGuides();
+    if (shouldAnnounce) announce(`نسبة عرض مساحة التصميم ${Math.round(app.viewZoom * 100)} بالمئة`);
+  }
+  function setupZoomControls() {
+    elements.zoomOut?.addEventListener("click", () => setViewZoom(app.viewZoom - VIEW_ZOOM.step));
+    elements.zoomIn?.addEventListener("click", () => setViewZoom(app.viewZoom + VIEW_ZOOM.step));
+    elements.zoomFit?.addEventListener("click", () => setViewZoom(1));
+    updateZoomControls();
   }
   function refreshCanvasResolution() {
     if (!app.canvas) return;
@@ -374,7 +604,7 @@
     if (!initial) { saveActiveArea(); commitDesign(); }
     app.canvas.discardActiveObject(); app.area = next; app.design.activeAreaId = next.id; elements.workspaceEyebrow.textContent = next.name;
     document.querySelectorAll("[data-area-id]").forEach(button => { const active = button.dataset.areaId === next.id; button.classList.toggle("is-active", active); button.setAttribute("aria-selected", String(active)); });
-    await loadMockup(next, app.color); await restoreArea(next.id); revealStage(); renderToolPanel(app.activeTool); announce(`منطقة الطباعة الحالية: ${next.name}`);
+    await loadMockup(next, app.color); await restoreArea(next.id); revealStage(); renderToolPanel(app.activeTool); renderAreaCopyActions(); announce(`منطقة الطباعة الحالية: ${next.name}`);
   }
 
   function renderColors() {
@@ -384,7 +614,7 @@
       button.addEventListener("click", async () => {
         if (color.id === app.color.id) return; saveActiveArea(); const models = app.design.areas[app.area.id].objects;
         app.color = color; elements.summaryColor.textContent = color.name; elements.selectedColorName.textContent = color.name; renderColors();
-        await loadMockup(app.area, color); reflowObjects(models); saveActiveArea(); commitDesign(); revealStage();
+        await loadMockup(app.area, color); reflowObjects(models); saveActiveArea(); commitDesign(); captureHistory(); revealStage();
       }); elements.colorOptions.appendChild(button);
     });
   }
@@ -397,7 +627,7 @@
         app.size = size; elements.summarySize.textContent = size.name; renderSizes();
         if (needsFit) showNotice("تغيّر مقاس منطقة الطباعة لهذا المقاس، وتمت ملاءمة التصميم تناسبيًا دون تشويه.", "warning");
         ["left", "top", "width", "height"].forEach(key => elements.printZone.style.setProperty(`--zone-${key}`, `${nextZone[`${key}Pct`]}%`));
-        if (needsFit) uniformFitObjects(models, oldZoneRect); else reflowObjects(models); saveActiveArea(); commitDesign();
+        if (needsFit) uniformFitObjects(models, oldZoneRect); else reflowObjects(models); saveActiveArea(); commitDesign(); captureHistory(); renderToolPanel(app.activeTool);
       }); elements.sizeOptions.appendChild(button);
     });
   }
@@ -424,7 +654,7 @@
     return [file.name, file.size, file.lastModified || 0, mimeType].join("::");
   }
   function hasUploadedFile(file, mimeType, fingerprint) {
-    return app.design.assets.some(asset => asset.fingerprint === fingerprint
+    return app.assets.some(asset => asset.fingerprint === fingerprint
       || (!asset.fingerprint && asset.name === file.name && asset.size === file.size && asset.mimeType === mimeType));
   }
 
@@ -474,6 +704,21 @@
     return new Blob([cleaned], { type: "image/svg+xml" });
   }
 
+  async function readRasterDimensions(blob) {
+    try {
+      if (typeof createImageBitmap === "function") {
+        const bitmap = await createImageBitmap(blob);
+        const result = { pixelWidth: bitmap.width, pixelHeight: bitmap.height, sourceType: "raster" };
+        bitmap.close?.(); return result;
+      }
+      const url = URL.createObjectURL(blob), image = new Image();
+      try {
+        await new Promise((resolve, reject) => { image.onload = resolve; image.onerror = reject; image.src = url; });
+        return { pixelWidth: image.naturalWidth, pixelHeight: image.naturalHeight, sourceType: "raster" };
+      } finally { URL.revokeObjectURL(url); }
+    } catch (error) { return { pixelWidth: null, pixelHeight: null, sourceType: "raster" }; }
+  }
+
   async function handleUploads(files) {
     let changed = false;
     for (const file of files) {
@@ -490,7 +735,9 @@
         }
         const assetId = uid("asset"); await app.assetStore.put(assetId, blob);
         if (!hasUploadedFile(file, mime, fingerprint)) {
-          app.design.assets.push({ assetId, name: file.name, mimeType: mime, size: file.size, lastModified: file.lastModified || 0, fingerprint, createdAt: new Date().toISOString() });
+          const dimensions = mime === "image/svg+xml" ? { sourceType: "vector" } : await readRasterDimensions(blob);
+          app.assets.push({ assetId, name: file.name, mimeType: mime, size: file.size, lastModified: file.lastModified || 0, fingerprint,
+            pixelWidth: dimensions.pixelWidth || null, pixelHeight: dimensions.pixelHeight || null, sourceType: dimensions.sourceType, createdAt: new Date().toISOString() });
           changed = true;
         }
       } finally {
@@ -500,7 +747,8 @@
     if (changed) commitDesign();
     if (app.activeTool === "upload") renderToolPanel("upload");
   }
-  function assetUsageCount(assetId) { return Object.values(app.design.areas).reduce((total, area) => total + area.objects.filter(object => object.kind === "image" && object.assetId === assetId).length, 0); }
+  function assetUsageCount(assetId) { storeActiveDraft(); return Object.values(app.drafts).reduce((total, draft) => total
+    + Object.values(draft.areas).reduce((count, area) => count + area.objects.filter(object => object.kind === "image" && object.assetId === assetId).length, 0), 0); }
   function confirmReferencedAssetDeletion(asset, usage, trigger) {
     if (elements.deleteDialog.open) return Promise.resolve(false);
     return new Promise(resolve => {
@@ -529,21 +777,50 @@
   async function deleteAsset(asset, trigger) {
     saveActiveArea(); const usage = assetUsageCount(asset.assetId);
     if (usage && !await confirmReferencedAssetDeletion(asset, usage, trigger)) return;
+    Object.values(app.drafts).forEach(draft => Object.values(draft.areas).forEach(area => { area.objects = area.objects.filter(object => object.assetId !== asset.assetId); }));
     Object.values(app.design.areas).forEach(area => { area.objects = area.objects.filter(object => object.assetId !== asset.assetId); });
-    app.canvas.getObjects().filter(object => object.assetId === asset.assetId).forEach(object => app.canvas.remove(object)); app.design.assets = app.design.assets.filter(item => item.assetId !== asset.assetId);
+    app.canvas.getObjects().filter(object => object.assetId === asset.assetId).forEach(object => app.canvas.remove(object)); app.assets = app.assets.filter(item => item.assetId !== asset.assetId); app.design.assets = app.assets;
     await app.assetStore.delete(asset.assetId); const url = app.objectUrls.get(asset.assetId); if (url) URL.revokeObjectURL(url); app.objectUrls.delete(asset.assetId); commitDesign();
     if (app.activeTool === "upload") renderToolPanel("upload");
   }
   async function addAssetToCanvas(asset) {
     const url = await assetUrl(asset.assetId); if (!url) { showNotice("تعذر استعادة ملف الصورة.", "error"); return; }
     const ImageClass = fabric.FabricImage || fabric.Image, image = await ImageClass.fromURL(url), zone = getZoneRect();
+    if (asset.sourceType !== "vector" && (!asset.pixelWidth || !asset.pixelHeight)) {
+      asset.pixelWidth = image.getElement?.()?.naturalWidth || image.width || null;
+      asset.pixelHeight = image.getElement?.()?.naturalHeight || image.height || null;
+      asset.sourceType = "raster"; commitDesign();
+    }
     const scale = Math.min((zone.width * 0.55) / image.width, (zone.height * 0.55) / image.height);
     configureObject(image, { id: uid("object"), kind: "image" }); image.set({ left: zone.left + zone.width / 2, top: zone.top + zone.height / 2, scaleX: scale, scaleY: scale, assetId: asset.assetId });
     app.canvas.add(image); app.canvas.setActiveObject(image); image.setCoords(); app.canvas.requestRenderAll(); scheduleCommit();
     if (app.activeTool !== "upload") setActiveTool("upload");
   }
+  function imageQuality(object) {
+    if (!object || object.studioKind !== "image") return null;
+    const asset = app.assets.find(item => item.assetId === object.assetId);
+    if (!asset || asset.sourceType === "vector" || !asset.pixelWidth || !asset.pixelHeight) return null;
+    const zone = resolveZone(app.area, app.size), viewport = app.viewportZone || getZoneRect();
+    if (!zone?.widthCm || !zone?.heightCm || !viewport.width || !viewport.height) return null;
+    const widthCm = Math.abs(object.getScaledWidth() / viewport.width) * zone.widthCm;
+    const heightCm = Math.abs(object.getScaledHeight() / viewport.height) * zone.heightCm;
+    if (!widthCm || !heightCm) return null;
+    const dpiX = asset.pixelWidth / (widthCm / 2.54), dpiY = asset.pixelHeight / (heightCm / 2.54), dpi = Math.min(dpiX, dpiY);
+    const state = dpi >= IMAGE_QUALITY_THRESHOLDS.excellent ? "excellent" : dpi >= IMAGE_QUALITY_THRESHOLDS.good ? "good" : "low";
+    return { dpiX, dpiY, dpi, state, asset };
+  }
+  function qualityNotice(object) {
+    const quality = imageQuality(object); if (!quality) return null;
+    const labels = { excellent: "ممتازة", good: "جيدة", low: "جودة منخفضة" };
+    const box = document.createElement("div"); box.className = `studio-quality is-${quality.state}`;
+    box.innerHTML = `<i class="bi ${quality.state === "low" ? "bi-exclamation-triangle" : "bi-check-circle"}" aria-hidden="true"></i><span><strong>${labels[quality.state]}</strong><small></small></span>`;
+    box.querySelector("small").textContent = `${Math.round(quality.dpi)} DPI فعّالة — حدود تقييم مؤقتة`;
+    if (quality.state === "low") box.setAttribute("role", "status");
+    return box;
+  }
   function renderUploadPanel(renderToken) {
-    const content = document.createDocumentFragment(), assets = uniqueAssetRecords(app.design.assets);
+    const content = document.createDocumentFragment(), assets = uniqueAssetRecords(app.assets);
+    const notice = qualityNotice(app.canvas?.getActiveObject()); if (notice) content.appendChild(notice);
     const uploader = document.createElement("label"); uploader.className = "studio-upload-drop";
     uploader.innerHTML = `<input type="file" accept=".png,.jpg,.jpeg,.svg,image/png,image/jpeg,image/svg+xml" multiple><i class="bi bi-cloud-arrow-up" aria-hidden="true"></i><strong>رفع صورة</strong><span>PNG، JPG، SVG</span>`;
     const input = uploader.querySelector("input"); input.addEventListener("change", () => { void handleUploads([...input.files]); input.value = ""; });
@@ -768,7 +1045,7 @@
 
     const zone = getZoneRect(), bounds = object.getBoundingRect();
     const screenScale = Math.max((app.stageScale || 1) * (app.canvas.getZoom?.() || 1), 0.01);
-    const engageThreshold = 6 / screenScale, releaseThreshold = 11 / screenScale;
+    const engageThreshold = 3 / screenScale, releaseThreshold = 5 / screenScale;
     const xCandidates = [
       { id: "left-left", objectLine: bounds.left, zoneLine: zone.left },
       { id: "left-right", objectLine: bounds.left, zoneLine: zone.left + zone.width },
@@ -824,7 +1101,10 @@
     });
     app.canvas.on("mouse:up", finishSnapDrag);
     ["object:added", "object:removed", "object:modified", "text:changed"].forEach(name => app.canvas.on(name, () => {
-      if (!app.suppressCanvasEvents) { clearSnapGuides(); scheduleCommit(); updateSelectedObjectControls(); }
+      if (!app.suppressCanvasEvents) {
+        clearSnapGuides(); scheduleCommit(); updateSelectedObjectControls(); renderAreaCopyActions();
+        if (app.activeTool === "upload" && (name === "object:modified" || name === "object:added")) renderToolPanel("upload");
+      }
     }));
   }
   function initCanvas() {
@@ -857,13 +1137,17 @@
     setupSiteShell(); setupToolTabs(); if (!elements.designCanvas || !elements.printZone || !window.fabric?.Canvas) return showError("تعذر تجهيز مساحة التصميم. أعد تحميل الصفحة وحاول مرة أخرى.");
     app.selection = readSelection(); if (!app.selection) return showError("اختر منتجًا مهيأ من صفحة اختيار المنتجات أولًا.");
     const validation = validateProduct(app.selection.editorProduct); if (!validation.valid) return showError(validation.message);
-    ensureDesignId(app.selection); app.product = app.selection.editorProduct; app.design = loadDesign(app.selection);
-    app.color = selectedItem(app.product.colors, app.design.colorId || app.selection.colorId); app.size = selectedItem(app.product.sizes, app.design.sizeId || app.selection.sizeId);
-    app.area = app.product.editor.printAreas.find(area => area.id === app.design.activeAreaId) || app.product.editor.printAreas[0]; app.assetStore = new DesignAssetStore(app.design.designId);
-    renderProductSummary(); renderColors(); renderSizes(); renderAreas(); setActiveTool("upload");
-    initCanvas();
+    ensureDesignId(app.selection);
+    const catalog = resolveEligibleProducts(app.selection);
+    catalog.forEach(product => app.products.set(product.id, product)); if (!app.products.has(app.selection.editorProduct.id)) app.products.set(app.selection.editorProduct.id, app.selection.editorProduct);
+    const documentState = loadDesignDocument(app.selection); app.assets = documentState.assets; app.drafts = documentState.drafts || {};
+    const initialProduct = app.products.get(documentState.activeProductId) || app.selection.editorProduct;
+    if (!app.drafts[initialProduct.id]) app.drafts[initialProduct.id] = createDraft(initialProduct, { colorId: app.selection.colorId, sizeId: app.selection.sizeId });
+    activateDraft(initialProduct, app.drafts[initialProduct.id]); app.assetStore = new DesignAssetStore(app.selection.designId);
+    renderProductSummary(); renderColors(); renderSizes(); renderAreas(); renderAreaCopyActions(); renderProductSelector(); setActiveTool("upload");
+    initCanvas(); setupZoomControls();
     try {
-      await switchArea(app.area.id, true); setupResizeObserver(); commitDesign();
+      await switchArea(app.area.id, true); setupResizeObserver(); setupHistory(); setupProductSwap(); commitDesign(); captureHistory();
     }
     catch (error) { console.error(error); showError("تعذر تحميل مساحة المنتج المحدد."); }
   }

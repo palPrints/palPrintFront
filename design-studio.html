@@ -93,6 +93,18 @@
               <dd id="summaryPrice">—</dd>
             </div>
           </dl>
+          <button class="studio-swap-toggle" id="swapProductToggle" type="button" aria-expanded="false"
+            aria-controls="productSwapPanel">
+            <i class="bi bi-arrow-left-right" aria-hidden="true"></i><span>تبديل المنتج</span>
+          </button>
+        </section>
+
+        <section class="studio-product-swap" id="productSwapPanel" aria-labelledby="productSwapTitle" hidden>
+          <div class="studio-product-swap-head">
+            <span><strong id="productSwapTitle">اختر منتجًا آخر</strong><small>سيُحفظ تصميم كل منتج بشكل مستقل.</small></span>
+            <button id="closeProductSwap" type="button" aria-label="إغلاق اختيار المنتج"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+          </div>
+          <div class="studio-product-rail" id="productSwapOptions" role="list"></div>
         </section>
 
         <div class="studio-layout">
@@ -124,6 +136,13 @@
                 <h3 id="areaTitle">جهة التصميم</h3><span id="areaCount">—</span>
               </div>
               <div class="studio-areas" id="areaOptions" role="tablist" aria-label="مناطق الطباعة"></div>
+            </section>
+
+            <section class="studio-option-group studio-copy-group" id="areaCopyGroup" aria-labelledby="areaCopyTitle" hidden>
+              <div class="studio-section-title">
+                <h3 id="areaCopyTitle">نسخ التصميم</h3><span>إلى جهة أخرى</span>
+              </div>
+              <div class="studio-copy-actions" id="areaCopyActions"></div>
             </section>
             </div>
 
@@ -176,14 +195,20 @@
             </div>
 
             <div class="studio-workspace-foot" aria-label="أدوات العرض">
-              <span class="studio-history-placeholder" aria-label="أدوات السجل غير مفعلة حاليًا">
-                <button type="button" disabled aria-label="تراجع"><i class="bi bi-arrow-counterclockwise"
+              <span class="studio-history-placeholder" aria-label="أدوات التراجع والإعادة">
+                <button id="studioUndo" type="button" disabled aria-label="تراجع"><i class="bi bi-arrow-counterclockwise"
                     aria-hidden="true"></i></button>
-                <button type="button" disabled aria-label="إعادة"><i class="bi bi-arrow-clockwise"
+                <button id="studioRedo" type="button" disabled aria-label="إعادة"><i class="bi bi-arrow-clockwise"
                     aria-hidden="true"></i></button>
               </span>
-              <span class="studio-zoom-placeholder" aria-disabled="true"><i class="bi bi-dash"
-                  aria-hidden="true"></i><strong>100%</strong><i class="bi bi-plus" aria-hidden="true"></i></span>
+              <span class="studio-zoom-placeholder" role="group" aria-label="أدوات تكبير مساحة التصميم">
+                <button id="studioZoomOut" type="button" aria-label="تصغير العرض" title="تصغير العرض"><i class="bi bi-dash"
+                    aria-hidden="true"></i></button>
+                <button class="studio-zoom-value" id="studioZoomFit" type="button" aria-label="ملاءمة التصميم للعرض"
+                  title="ملاءمة التصميم للعرض"><strong id="studioZoomValue">100%</strong></button>
+                <button id="studioZoomIn" type="button" aria-label="تكبير العرض" title="تكبير العرض"><i class="bi bi-plus"
+                    aria-hidden="true"></i></button>
+              </span>
             </div>
           </section>
 
@@ -280,6 +305,22 @@
     </div>
   </dialog>
 
+  <dialog class="studio-confirm-dialog" id="replaceAreaDialog" aria-labelledby="replaceAreaTitle"
+    aria-describedby="replaceAreaMessage">
+    <div class="studio-confirm-content">
+      <div class="studio-confirm-thumbnail"><i class="bi bi-copy" aria-hidden="true"></i></div>
+      <div class="studio-confirm-copy">
+        <h2 id="replaceAreaTitle">استبدال تصميم الجهة؟</h2>
+        <p id="replaceAreaMessage"></p>
+      </div>
+    </div>
+    <div class="studio-confirm-actions">
+      <button class="studio-confirm-cancel" id="cancelAreaReplace" type="button">إلغاء</button>
+      <button class="studio-confirm-delete studio-confirm-primary" id="confirmAreaReplace" type="button"><i class="bi bi-copy"
+          aria-hidden="true"></i> استبدال ونسخ</button>
+    </div>
+  </dialog>
+
   <div class="studio-notice" id="studioNotice" role="status" aria-live="polite" hidden>
     <i class="bi bi-info-circle" aria-hidden="true"></i><span id="studioNoticeText"></span>
   </div>
@@ -289,6 +330,7 @@
   <script src="https://cdn.jsdelivr.net/npm/fabric@7.4.0/dist/index.min.js"></script>
   <script src="assets/js/pages/canvas-history-manager.js"></script>
   <script src="assets/js/pages/interactions.js"></script>
+  <script src="assets/js/pages/design-studio-product-catalog.js"></script>
   <script src="assets/js/pages/design-studio-graphics.js"></script>
   <script src="assets/js/pages/design-studio-svg-renderer.js?v=4"></script>
   <script src="assets/js/pages/design-studio.js"></script>
