@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const menuButton = document.getElementById("menuButton");
   const mobileLayout = window.matchMedia("(max-width: 760px)");
   const rows = () => Array.from(document.querySelectorAll("[data-design-row]"));
-  const designSearch = document.getElementById("designSearch");
   const headerSearch = document.getElementById("headerSearch");
   const tableEmpty = document.getElementById("tableEmpty");
   const dialog = document.getElementById("designDialog");
@@ -19,6 +18,18 @@ document.addEventListener("DOMContentLoaded", () => {
   let toastTimer;
 
   const normalize = (value) => String(value || "").trim().toLocaleLowerCase("ar").replace(/[أإآ]/g, "ا").replace(/ة/g, "ه").replace(/ى/g, "ي");
+  const previewPositions = {
+    "DSN-046": "100% 0%",
+    "DSN-045": "75% 0%",
+    "DSN-044": "50% 0%",
+    "DSN-042": "25% 0%",
+    "DSN-041": "0% 0%",
+    "DSN-040": "0% 100%",
+    "DSN-039": "25% 100%",
+    "DSN-038": "50% 100%",
+    "DSN-036": "75% 100%",
+    "DSN-035": "100% 100%",
+  };
 
   const showToast = (message) => {
     window.clearTimeout(toastTimer);
@@ -50,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const filterRows = () => {
-    const query = normalize(designSearch.value);
+    const query = normalize(headerSearch.value);
     let visible = 0;
     rows().forEach((row) => {
       const searchable = normalize(`${row.dataset.id} ${row.dataset.title} ${row.dataset.designer} ${row.dataset.city} ${row.dataset.categoryLabel}`);
@@ -113,12 +124,14 @@ document.addEventListener("DOMContentLoaded", () => {
     filterRows();
   }));
 
-  designSearch.addEventListener("input", () => { headerSearch.value = designSearch.value; filterRows(); });
-  headerSearch.addEventListener("input", () => { designSearch.value = headerSearch.value; filterRows(); });
+  headerSearch.addEventListener("input", filterRows);
 
   const categoryClasses = ["arts", "national", "calligraphy", "heritage"];
   const openDetails = (row) => {
     activeRow = row;
+    const preview = document.getElementById("dialogDesignPreview");
+    preview.style.setProperty("--preview-position", previewPositions[row.dataset.id] || "100% 0%");
+    preview.setAttribute("aria-label", `معاينة تصميم ${row.dataset.title}`);
     document.getElementById("dialogDesignTitle").textContent = row.dataset.title;
     document.getElementById("dialogDesignId").textContent = row.dataset.id;
     document.getElementById("dialogCategoryPreview").textContent = row.dataset.categoryLabel;
