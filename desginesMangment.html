@@ -66,21 +66,20 @@
 
         <div class="design-toolbar">
           <div class="category-filters" role="group" aria-label="فلترة التصاميم حسب الفئة">
-            <button type="button" data-category-filter="heritage" aria-pressed="false">تراث</button>
-            <button type="button" data-category-filter="national" aria-pressed="false">وطني</button>
-            <button type="button" data-category-filter="calligraphy" aria-pressed="false">خط عربي</button>
-            <button type="button" data-category-filter="arts" aria-pressed="false">فنون</button>
             <button type="button" data-category-filter="all" aria-pressed="true">كل الفئات</button>
+            <button type="button" data-category-filter="arts" aria-pressed="false">فنون</button>
+            <button type="button" data-category-filter="calligraphy" aria-pressed="false">خط عربي</button>
+            <button type="button" data-category-filter="national" aria-pressed="false">وطني</button>
+            <button type="button" data-category-filter="heritage" aria-pressed="false">تراث</button>
           </div>
-          <label class="design-search"><input id="designSearch" type="search" placeholder="بحث بالعنوان، أو المصمم أو الرقم..." aria-label="البحث في جدول التصاميم" autocomplete="off"><i class="bi bi-search"></i></label>
         </div>
 
         <section class="design-table-card" aria-label="قائمة التصاميم">
           <div class="status-filters" role="group" aria-label="فلترة التصاميم حسب الحالة">
-            <button type="button" data-status-filter="rejected" aria-pressed="false">مرفوضة <span id="rejectedTabCount">1</span></button>
-            <button type="button" data-status-filter="approved" aria-pressed="false">معتمدة <span id="approvedTabCount">6</span></button>
-            <button type="button" data-status-filter="pending" aria-pressed="false">بانتظار المراجعة <span id="pendingTabCount">3</span></button>
             <button type="button" data-status-filter="all" aria-pressed="true">الكل <span id="totalTabCount">10</span></button>
+            <button type="button" data-status-filter="pending" aria-pressed="false">بانتظار المراجعة <span id="pendingTabCount">3</span></button>
+            <button type="button" data-status-filter="approved" aria-pressed="false">معتمدة <span id="approvedTabCount">6</span></button>
+            <button type="button" data-status-filter="rejected" aria-pressed="false">مرفوضة <span id="rejectedTabCount">1</span></button>
           </div>
           <div class="design-table-wrap">
             <table class="design-table">
@@ -108,7 +107,7 @@
   <dialog class="design-dialog" id="designDialog" aria-labelledby="designDialogTitle">
     <div class="design-dialog-content">
       <header><h2 id="designDialogTitle">تفاصيل الطلب</h2><button type="button" class="dialog-close" data-dialog-close aria-label="إغلاق"><i class="bi bi-x-lg"></i></button></header>
-      <div class="design-preview"><i class="bi bi-file-earmark-text"></i><strong id="dialogCategoryPreview">فنون</strong></div>
+      <div class="design-preview" id="dialogDesignPreview" role="img" aria-label="معاينة تصميم فيسيفساء قدس"><span class="design-preview-art" aria-hidden="true"></span><strong id="dialogCategoryPreview">فنون</strong></div>
       <div class="dialog-design-heading"><div><h3 id="dialogDesignTitle">فيسيفساء قدس</h3><div><span class="category arts" id="dialogCategory">فنون</span><code id="dialogDesignId">DSN-046</code></div></div><span class="design-status pending" id="dialogStatus">قيد المراجعة</span></div>
       <dl class="dialog-metadata"><div><dt>المصمم</dt><dd id="dialogDesigner">هند محمود</dd></div><div><dt>المدينة</dt><dd id="dialogCity">الخليل</dd></div><div><dt>تاريخ الرفع</dt><dd id="dialogDate">18 سبتمبر 2026</dd></div></dl>
       <footer id="dialogActions"><button class="approve-design" id="approveDesign" type="button"><i class="bi bi-check-circle"></i>اعتماد التصميم</button><button class="reject-design" id="rejectDesign" type="button">رفض التصميم</button></footer>
