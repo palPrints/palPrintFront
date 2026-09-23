@@ -14,8 +14,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const dialogTitle = document.getElementById("productDialogTitle");
   const nameInput = document.getElementById("productNameInput");
   const codeInput = document.getElementById("productCodeInput");
+  const imageInput = document.getElementById("productImageInput");
+  const imageUpload = document.getElementById("productImageUpload");
+  const imagePreview = document.getElementById("productImagePreviewImg");
+  const imageUploadTitle = document.getElementById("productImageUploadTitle");
+  const imageError = document.getElementById("productImageError");
   const toast = document.getElementById("toast");
   let editingCard = null;
+  let selectedImageData = "";
   let activeFilter = "all";
   let toastTimer;
 
@@ -26,6 +32,51 @@ document.addEventListener("DOMContentLoaded", () => {
     toast.textContent = message;
     toast.classList.add("show");
     toastTimer = window.setTimeout(() => toast.classList.remove("show"), 2400);
+  };
+
+  const resetImageField = () => {
+    selectedImageData = "";
+    imagePreview.src = "";
+    imagePreview.hidden = true;
+    imagePreview.previousElementSibling.hidden = false;
+    imageUploadTitle.textContent = "اختر صورة للمنتج";
+    imageError.hidden = true;
+    imageError.textContent = "";
+    imageUpload.classList.remove("has-error", "is-dragging");
+  };
+
+  const showImageError = (message) => {
+    imageError.textContent = message;
+    imageError.hidden = false;
+    imageUpload.classList.add("has-error");
+  };
+
+  const previewImage = (source, label) => {
+    selectedImageData = source;
+    imagePreview.src = source;
+    imagePreview.hidden = false;
+    imagePreview.previousElementSibling.hidden = true;
+    imageUploadTitle.textContent = label;
+    imageError.hidden = true;
+    imageUpload.classList.remove("has-error");
+  };
+
+  const useImageFile = (file) => {
+    if (!file) return;
+    if (!["image/png", "image/jpeg", "image/webp"].includes(file.type)) {
+      imageInput.value = "";
+      showImageError("اختر صورة بصيغة PNG أو JPG أو WEBP.");
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      imageInput.value = "";
+      showImageError("حجم الصورة أكبر من 5MB. اختر صورة أصغر.");
+      return;
+    }
+    const reader = new FileReader();
+    reader.addEventListener("load", () => previewImage(reader.result, file.name));
+    reader.addEventListener("error", () => showImageError("تعذّر قراءة الصورة. حاول اختيار ملف آخر."));
+    reader.readAsDataURL(file);
   };
 
   const updateSummary = () => {
@@ -112,10 +163,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const openDialog = (card = null) => {
     editingCard = card;
     form.reset();
+    resetImageField();
+    imageInput.required = !card;
     dialogTitle.textContent = card ? "تعديل المنتج" : "إضافة منتج";
     if (card) {
       nameInput.value = card.dataset.productName;
       codeInput.value = card.dataset.productId;
+      const currentImage = card.querySelector(".product-image");
+      if (currentImage) previewImage(currentImage.src, "الصورة الحالية — اضغط لاستبدالها");
     } else {
       const nextId = Math.max(0, ...Array.from(productsGrid.querySelectorAll(".product-card"), (item) => Number(item.dataset.productId.replace(/\D/g, "")))) + 1;
       codeInput.value = `PPR-${String(nextId).padStart(3, "0")}`;
@@ -125,16 +180,34 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   document.getElementById("addProductButton").addEventListener("click", () => openDialog());
+  imageInput.addEventListener("change", () => useImageFile(imageInput.files[0]));
+  ["dragenter", "dragover"].forEach((eventName) => imageUpload.addEventListener(eventName, (event) => {
+    event.preventDefault();
+    imageUpload.classList.add("is-dragging");
+  }));
+  ["dragleave", "drop"].forEach((eventName) => imageUpload.addEventListener(eventName, (event) => {
+    event.preventDefault();
+    imageUpload.classList.remove("is-dragging");
+  }));
+  imageUpload.addEventListener("drop", (event) => {
+    const file = event.dataTransfer.files[0];
+    if (file) {
+      imageInput.files = event.dataTransfer.files;
+      useImageFile(file);
+    }
+  });
   dialog.querySelectorAll("[data-dialog-close]").forEach((button) => button.addEventListener("click", () => dialog.close()));
   dialog.addEventListener("click", (event) => { if (event.target === dialog) dialog.close(); });
 
-  const createCard = ({ name, code }) => {
+  const createCard = ({ name, code, image }) => {
     const card = document.createElement("article");
     card.className = "product-card";
     card.dataset.productId = code;
     card.dataset.productName = name;
     card.dataset.status = "active";
-    card.innerHTML = `<div class="product-visual"><i class="bi bi-camera" aria-hidden="true"></i><span>لا توجد صورة</span><code></code></div><div class="product-info"><h3></h3><p>أُضيف اليوم</p></div><div class="product-actions"><button class="danger-action" type="button" data-action="toggle">إيقاف</button><button class="edit-action" type="button" data-action="edit">تعديل</button><button class="delete-action" type="button" data-action="delete"><i class="bi bi-trash3"></i></button></div>`;
+    card.innerHTML = `<div class="product-visual"><img class="product-image" alt="" loading="lazy"><code></code></div><div class="product-info"><h3></h3><p>أُضيف اليوم</p></div><div class="product-actions"><button class="danger-action" type="button" data-action="toggle">إيقاف</button><button class="edit-action" type="button" data-action="edit">تعديل</button><button class="delete-action" type="button" data-action="delete"><i class="bi bi-trash3"></i></button></div>`;
+    card.querySelector(".product-image").src = image;
+    card.querySelector(".product-image").alt = `صورة ${name}`;
     card.querySelector("code").textContent = code;
     card.querySelector("h3").textContent = name;
     card.querySelector("[data-action='delete']").setAttribute("aria-label", `حذف ${name}`);
@@ -146,6 +219,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!form.reportValidity()) return;
     const name = nameInput.value.trim();
     const code = codeInput.value.trim().toUpperCase();
+    if (!selectedImageData) {
+      showImageError("صورة المنتج مطلوبة.");
+      imageInput.focus();
+      return;
+    }
     const duplicate = Array.from(productsGrid.querySelectorAll(".product-card")).some((card) => card !== editingCard && card.dataset.productId.toUpperCase() === code);
     if (duplicate) { showToast("رقم المنتج مستخدم مسبقًا."); codeInput.focus(); return; }
 
@@ -154,13 +232,18 @@ document.addEventListener("DOMContentLoaded", () => {
       editingCard.dataset.productId = code;
       editingCard.querySelector("h3").textContent = name;
       editingCard.querySelector("code").textContent = code;
+      const productImage = editingCard.querySelector(".product-image");
+      if (productImage) {
+        productImage.src = selectedImageData;
+        productImage.alt = `صورة ${name}`;
+      }
       const visual = editingCard.querySelector(".product-visual");
       if (editingCard.dataset.status === "paused" && !visual.querySelector(".paused-label")) {
         visual.insertAdjacentHTML("afterbegin", '<span class="paused-label">موقوف</span>');
       }
       showToast("تم تحديث بيانات المنتج بنجاح.");
     } else {
-      productsGrid.append(createCard({ name, code }));
+      productsGrid.append(createCard({ name, code, image: selectedImageData }));
       showToast("تمت إضافة المنتج بنجاح.");
     }
     dialog.close();

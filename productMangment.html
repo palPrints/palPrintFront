@@ -150,6 +150,22 @@
     <form class="product-form" id="productForm" method="dialog">
       <header><div><span class="dialog-icon"><i class="bi bi-box-seam"></i></span><div><h2 id="productDialogTitle">إضافة منتج</h2><p>أدخل بيانات المنتج المتاح للطباعة</p></div></div><button class="dialog-close" type="button" data-dialog-close aria-label="إغلاق"><i class="bi bi-x-lg"></i></button></header>
       <div class="form-body">
+        <div class="product-image-field">
+          <span class="field-label">صورة المنتج</span>
+          <label class="image-upload" id="productImageUpload" for="productImageInput">
+            <input id="productImageInput" name="productImage" type="file" accept="image/png,image/jpeg,image/webp" required>
+            <span class="image-preview" id="productImagePreview" aria-hidden="true">
+              <i class="bi bi-cloud-arrow-up"></i>
+              <img id="productImagePreviewImg" alt="معاينة صورة المنتج" hidden>
+            </span>
+            <span class="upload-copy">
+              <strong id="productImageUploadTitle">اختر صورة للمنتج</strong>
+              <small id="productImageHelp">PNG أو JPG أو WEBP، بحد أقصى 5MB</small>
+            </span>
+            <span class="upload-button"><i class="bi bi-image"></i><span>اختيار صورة</span></span>
+          </label>
+          <p class="image-upload-error" id="productImageError" role="alert" hidden></p>
+        </div>
         <label><span>اسم المنتج</span><input id="productNameInput" name="productName" type="text" required maxlength="40" placeholder="مثال: قميص رياضي"></label>
         <label><span>رقم المنتج</span><input id="productCodeInput" name="productCode" type="text" required maxlength="12" dir="ltr" placeholder="PPR-009"></label>
       </div>
