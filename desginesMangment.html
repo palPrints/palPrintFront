@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="إدارة ومراجعة التصاميم في منصة PalPrints">
+  <title>إدارة التصاميم | PalPrints</title>
+  <link rel="icon" type="image/png" href="assets/images/logoWithoutBackGround.png">
+  <link rel="preload" href="assets/fonts/Cairo-Variable.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="assets/icons/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="assets/css/pages/desginesMangment.css">
+</head>
+<body class="sidebar-collapsed">
+  <a class="skip-link" href="#adminMain">تخطي إلى المحتوى</a>
+
+  <aside class="admin-sidebar" id="adminSidebar" aria-label="القائمة الجانبية للإدارة">
+    <nav aria-label="القائمة الرئيسية">
+      <a href="adminDashboard.html"><i class="bi bi-grid" aria-hidden="true"></i><span>لوحة التحكم</span></a>
+      <div class="nav-group open">
+        <button class="nav-group-toggle" type="button" aria-expanded="true" aria-controls="usersSubmenu">
+          <i class="bi bi-people" aria-hidden="true"></i><span>إدارة المستخدمين</span><i class="bi bi-chevron-down group-arrow" aria-hidden="true"></i>
+        </button>
+        <div class="nav-submenu" id="usersSubmenu"><a href="#"><span>العملاء</span></a><a href="#"><span>المصممون</span></a><a href="#"><span>المطابع</span></a></div>
+      </div>
+      <a href="desginesMangment.html" class="active" aria-current="page"><i class="bi bi-palette" aria-hidden="true"></i><span>إدارة التصاميم</span><span class="nav-badge" id="sidebarPendingBadge" aria-label="3 تصاميم بانتظار المراجعة">3</span></a>
+      <a href="productMangment.html"><i class="bi bi-shop-window" aria-hidden="true"></i><span>إدارة المنتجات</span></a>
+      <a href="adminOrders.html"><i class="bi bi-cart3" aria-hidden="true"></i><span>إدارة الطلبات</span></a>
+      <a href="adminEarningsPayments.html"><i class="bi bi-wallet2" aria-hidden="true"></i><span>المدفوعات والأرباح</span></a>
+      <a href="#"><i class="bi bi-truck" aria-hidden="true"></i><span>إدارة الشحن</span></a>
+      <a href="#"><i class="bi bi-bar-chart-line" aria-hidden="true"></i><span>التقارير والإحصائيات</span></a>
+      <a href="#"><i class="bi bi-gear" aria-hidden="true"></i><span>إعدادات النظام</span></a>
+      <a href="#"><i class="bi bi-question-circle" aria-hidden="true"></i><span>مركز المساعدة</span></a>
+    </nav>
+    <button class="logout" id="logoutButton" type="button"><i class="bi bi-box-arrow-left" aria-hidden="true"></i><span>تسجيل الخروج</span></button>
+  </aside>
+
+  <button class="sidebar-backdrop" id="sidebarBackdrop" type="button" aria-label="إغلاق القائمة"></button>
+
+  <div class="admin-shell">
+    <header class="topbar">
+      <a class="header-logo" href="index.html" aria-label="الصفحة الرئيسية"><img src="assets/images/palprints-wordmark-transparent.png" alt="PalPrints"></a>
+      <button class="icon-button menu-button" id="menuButton" type="button" aria-label="فتح القائمة" aria-controls="adminSidebar" aria-expanded="false"><i class="bi bi-list" aria-hidden="true"></i></button>
+      <label class="search-box"><input id="headerSearch" type="search" placeholder="ابحث عن تصميم..." aria-label="البحث في التصاميم" autocomplete="off"><i class="bi bi-search" aria-hidden="true"></i></label>
+      <div class="header-actions">
+        <div class="account-wrap">
+          <button class="icon-button account-button" id="accountButton" type="button" aria-label="قائمة الحساب" aria-haspopup="true" aria-expanded="false"><i class="bi bi-person" aria-hidden="true"></i></button>
+          <div class="account-dropdown" id="accountDropdown" role="menu" aria-label="قائمة الحساب" hidden><a href="#" role="menuitem"><i class="bi bi-person"></i><span>الملف الشخصي</span></a><a href="login.html" class="logout-link" role="menuitem"><i class="bi bi-box-arrow-left"></i><span>تسجيل الخروج</span></a></div>
+        </div>
+        <div class="notification-wrap">
+          <button class="icon-button notification-button" id="notificationButton" type="button" aria-label="الإشعارات، 3 إشعارات جديدة" aria-haspopup="true" aria-expanded="false"><i class="bi bi-bell" aria-hidden="true"></i><span class="counter notification-counter" id="notificationCounter">3</span></button>
+          <div class="notification-dropdown" id="notificationDropdown" role="menu" aria-label="قائمة الإشعارات" hidden><div class="notification-dropdown-header"><h3>الإشعارات</h3></div><ul class="notification-list"><li><span class="notification-dot"></span><div><strong>3 تصاميم بانتظار المراجعة</strong><small>راجعها لاتخاذ القرار</small></div></li></ul></div>
+        </div>
+      </div>
+    </header>
+
+    <main id="adminMain">
+      <section class="designs-page" aria-labelledby="designsTitle">
+        <h1 id="designsTitle">إدارة التصاميم</h1>
+
+        <div class="design-summary" aria-label="ملخص التصاميم">
+          <article><span class="summary-icon is-blue"><i class="bi bi-file-earmark-text"></i></span><div><strong id="totalDesigns">10</strong><p>إجمالي التصاميم</p></div></article>
+          <article><span class="summary-icon is-orange"><i class="bi bi-clock"></i></span><div><strong id="pendingDesigns">3</strong><p>بانتظار المراجعة</p></div></article>
+          <article><span class="summary-icon is-green"><i class="bi bi-check-circle"></i></span><div><strong id="approvedDesigns">6</strong><p>تصاميم معتمدة</p></div></article>
+          <article><span class="summary-icon is-red"><i class="bi bi-palette"></i></span><div><strong id="rejectedDesigns">1</strong><p>تصاميم مرفوضة</p></div></article>
+        </div>
+
+        <div class="design-toolbar">
+          <div class="category-filters" role="group" aria-label="فلترة التصاميم حسب الفئة">
+            <button type="button" data-category-filter="heritage" aria-pressed="false">تراث</button>
+            <button type="button" data-category-filter="national" aria-pressed="false">وطني</button>
+            <button type="button" data-category-filter="calligraphy" aria-pressed="false">خط عربي</button>
+            <button type="button" data-category-filter="arts" aria-pressed="false">فنون</button>
+            <button type="button" data-category-filter="all" aria-pressed="true">كل الفئات</button>
+          </div>
+          <label class="design-search"><input id="designSearch" type="search" placeholder="بحث بالعنوان، أو المصمم أو الرقم..." aria-label="البحث في جدول التصاميم" autocomplete="off"><i class="bi bi-search"></i></label>
+        </div>
+
+        <section class="design-table-card" aria-label="قائمة التصاميم">
+          <div class="status-filters" role="group" aria-label="فلترة التصاميم حسب الحالة">
+            <button type="button" data-status-filter="rejected" aria-pressed="false">مرفوضة <span id="rejectedTabCount">1</span></button>
+            <button type="button" data-status-filter="approved" aria-pressed="false">معتمدة <span id="approvedTabCount">6</span></button>
+            <button type="button" data-status-filter="pending" aria-pressed="false">بانتظار المراجعة <span id="pendingTabCount">3</span></button>
+            <button type="button" data-status-filter="all" aria-pressed="true">الكل <span id="totalTabCount">10</span></button>
+          </div>
+          <div class="design-table-wrap">
+            <table class="design-table">
+              <thead><tr><th>الرقم</th><th>التصميم</th><th>الفئة</th><th>المصمم</th><th>تاريخ الرفع</th><th>الحالة</th><th><span class="visually-hidden">الإجراء</span></th></tr></thead>
+              <tbody id="designTableBody">
+                <tr data-design-row data-id="DSN-046" data-title="فيسيفساء قدس" data-category="arts" data-category-label="فنون" data-status="pending" data-designer="هند محمود" data-city="الخليل" data-date="18 سبتمبر 2026"><td><code>DSN-046</code></td><td><strong>فيسيفساء قدس</strong></td><td><span class="category arts">فنون</span></td><td><span class="designer"><b>هـ</b>هند محمود</span></td><td>18 سبتمبر 2026</td><td><span class="design-status pending">قيد المراجعة</span></td><td><button class="details-button" type="button" data-details>عرض التفاصيل</button></td></tr>
+                <tr data-design-row data-id="DSN-045" data-title="بسملة خط ديواني" data-category="calligraphy" data-category-label="خط عربي" data-status="pending" data-designer="سامر علي" data-city="رام الله" data-date="17 سبتمبر 2026"><td><code>DSN-045</code></td><td><strong>بسملة خط ديواني</strong></td><td><span class="category calligraphy">خط عربي</span></td><td><span class="designer"><b>س</b>سامر علي</span></td><td>17 سبتمبر 2026</td><td><span class="design-status pending">قيد المراجعة</span></td><td><button class="details-button" type="button" data-details>عرض التفاصيل</button></td></tr>
+                <tr data-design-row data-id="DSN-044" data-title="خريطة فلسطين" data-category="national" data-category-label="وطني" data-status="pending" data-designer="أريج ناصر" data-city="بيت لحم" data-date="16 سبتمبر 2026"><td><code>DSN-044</code></td><td><strong>خريطة فلسطين</strong></td><td><span class="category national">وطني</span></td><td><span class="designer"><b>أ</b>أريج ناصر</span></td><td>16 سبتمبر 2026</td><td><span class="design-status pending">قيد المراجعة</span></td><td><button class="details-button" type="button" data-details>عرض التفاصيل</button></td></tr>
+                <tr data-design-row data-id="DSN-042" data-title="كلمة حرية" data-category="national" data-category-label="وطني" data-status="rejected" data-designer="هند محمود" data-city="الخليل" data-date="7 سبتمبر 2026"><td><code>DSN-042</code></td><td><strong>كلمة حرية</strong></td><td><span class="category national">وطني</span></td><td><span class="designer"><b>هـ</b>هند محمود</span></td><td>7 سبتمبر 2026</td><td><span class="design-status rejected">مرفوض</span></td><td><button class="details-button" type="button" data-details>عرض التفاصيل</button></td></tr>
+                <tr data-design-row data-id="DSN-041" data-title="تصميم القدس الحرة" data-category="national" data-category-label="وطني" data-status="approved" data-designer="أريج ناصر" data-city="بيت لحم" data-date="5 سبتمبر 2026"><td><code>DSN-041</code></td><td><strong>تصميم القدس الحرة</strong></td><td><span class="category national">وطني</span></td><td><span class="designer"><b>أ</b>أريج ناصر</span></td><td>5 سبتمبر 2026</td><td><span class="design-status approved">معتمد</span></td><td><button class="details-button" type="button" data-details>عرض التفاصيل</button></td></tr>
+                <tr data-design-row data-id="DSN-040" data-title="خط كوفي تجريدي" data-category="calligraphy" data-category-label="خط عربي" data-status="approved" data-designer="هند محمود" data-city="الخليل" data-date="30 أغسطس 2026"><td><code>DSN-040</code></td><td><strong>خط كوفي تجريدي</strong></td><td><span class="category calligraphy">خط عربي</span></td><td><span class="designer"><b>هـ</b>هند محمود</span></td><td>30 أغسطس 2026</td><td><span class="design-status approved">معتمد</span></td><td><button class="details-button" type="button" data-details>عرض التفاصيل</button></td></tr>
+                <tr data-design-row data-id="DSN-039" data-title="نقش زخرفي عربي" data-category="arts" data-category-label="فنون" data-status="approved" data-designer="سامر علي" data-city="رام الله" data-date="22 أغسطس 2026"><td><code>DSN-039</code></td><td><strong>نقش زخرفي عربي</strong></td><td><span class="category arts">فنون</span></td><td><span class="designer"><b>س</b>سامر علي</span></td><td>22 أغسطس 2026</td><td><span class="design-status approved">معتمد</span></td><td><button class="details-button" type="button" data-details>عرض التفاصيل</button></td></tr>
+                <tr data-design-row data-id="DSN-038" data-title="نقش الزيتونة" data-category="heritage" data-category-label="تراث" data-status="approved" data-designer="أريج ناصر" data-city="بيت لحم" data-date="20 أغسطس 2026"><td><code>DSN-038</code></td><td><strong>نقش الزيتونة</strong></td><td><span class="category heritage">تراث</span></td><td><span class="designer"><b>أ</b>أريج ناصر</span></td><td>20 أغسطس 2026</td><td><span class="design-status approved">معتمد</span></td><td><button class="details-button" type="button" data-details>عرض التفاصيل</button></td></tr>
+                <tr data-design-row data-id="DSN-036" data-title="كوفية ديجيتال" data-category="heritage" data-category-label="تراث" data-status="approved" data-designer="سامر علي" data-city="رام الله" data-date="8 أغسطس 2026"><td><code>DSN-036</code></td><td><strong>كوفية ديجيتال</strong></td><td><span class="category heritage">تراث</span></td><td><span class="designer"><b>س</b>سامر علي</span></td><td>8 أغسطس 2026</td><td><span class="design-status approved">معتمد</span></td><td><button class="details-button" type="button" data-details>عرض التفاصيل</button></td></tr>
+                <tr data-design-row data-id="DSN-035" data-title="القدس في القلب" data-category="national" data-category-label="وطني" data-status="approved" data-designer="أريج ناصر" data-city="بيت لحم" data-date="3 أغسطس 2026"><td><code>DSN-035</code></td><td><strong>القدس في القلب</strong></td><td><span class="category national">وطني</span></td><td><span class="designer"><b>أ</b>أريج ناصر</span></td><td>3 أغسطس 2026</td><td><span class="design-status approved">معتمد</span></td><td><button class="details-button" type="button" data-details>عرض التفاصيل</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-empty" id="tableEmpty" hidden><i class="bi bi-search"></i><strong>لا توجد تصاميم مطابقة</strong><span>جرّب تغيير البحث أو الفلاتر المحددة.</span></div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <dialog class="design-dialog" id="designDialog" aria-labelledby="designDialogTitle">
+    <div class="design-dialog-content">
+      <header><h2 id="designDialogTitle">تفاصيل الطلب</h2><button type="button" class="dialog-close" data-dialog-close aria-label="إغلاق"><i class="bi bi-x-lg"></i></button></header>
+      <div class="design-preview"><i class="bi bi-file-earmark-text"></i><strong id="dialogCategoryPreview">فنون</strong></div>
+      <div class="dialog-design-heading"><div><h3 id="dialogDesignTitle">فيسيفساء قدس</h3><div><span class="category arts" id="dialogCategory">فنون</span><code id="dialogDesignId">DSN-046</code></div></div><span class="design-status pending" id="dialogStatus">قيد المراجعة</span></div>
+      <dl class="dialog-metadata"><div><dt>المصمم</dt><dd id="dialogDesigner">هند محمود</dd></div><div><dt>المدينة</dt><dd id="dialogCity">الخليل</dd></div><div><dt>تاريخ الرفع</dt><dd id="dialogDate">18 سبتمبر 2026</dd></div></dl>
+      <footer id="dialogActions"><button class="approve-design" id="approveDesign" type="button"><i class="bi bi-check-circle"></i>اعتماد التصميم</button><button class="reject-design" id="rejectDesign" type="button">رفض التصميم</button></footer>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="assets/js/pages/desginesMangment.js"></script>
+</body>
+</html>
