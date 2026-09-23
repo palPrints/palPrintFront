@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="إدارة المنتجات المتاحة للطباعة في منصة PalPrints">
+  <title>إدارة المنتجات | PalPrints</title>
+  <link rel="icon" type="image/png" href="assets/images/logoWithoutBackGround.png">
+  <link rel="preload" href="assets/fonts/Cairo-Variable.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="assets/icons/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="assets/css/pages/productMangment.css">
+</head>
+<body class="sidebar-collapsed">
+  <a class="skip-link" href="#adminMain">تخطي إلى المحتوى</a>
+
+  <aside class="admin-sidebar" id="adminSidebar" aria-label="القائمة الجانبية للإدارة">
+    <nav aria-label="القائمة الرئيسية">
+      <a href="adminDashboard.html"><i class="bi bi-grid" aria-hidden="true"></i><span>لوحة التحكم</span></a>
+      <div class="nav-group open">
+        <button class="nav-group-toggle" type="button" aria-expanded="true" aria-controls="usersSubmenu">
+          <i class="bi bi-people" aria-hidden="true"></i>
+          <span>إدارة المستخدمين</span>
+          <i class="bi bi-chevron-down group-arrow" aria-hidden="true"></i>
+        </button>
+        <div class="nav-submenu" id="usersSubmenu">
+          <a href="#"><span>العملاء</span></a>
+          <a href="#"><span>المصممون</span></a>
+          <a href="#"><span>المطابع</span></a>
+        </div>
+      </div>
+      <a href="#"><i class="bi bi-palette" aria-hidden="true"></i><span>إدارة التصاميم</span><span class="nav-badge" aria-label="8 عناصر">8</span></a>
+      <a href="productMangment.html" class="active" aria-current="page"><i class="bi bi-shop-window" aria-hidden="true"></i><span>إدارة المنتجات</span></a>
+      <a href="adminOrders.html"><i class="bi bi-cart3" aria-hidden="true"></i><span>إدارة الطلبات</span></a>
+      <a href="adminEarningsPayments.html"><i class="bi bi-wallet2" aria-hidden="true"></i><span>المدفوعات والأرباح</span></a>
+      <a href="#"><i class="bi bi-truck" aria-hidden="true"></i><span>إدارة الشحن</span></a>
+      <a href="#"><i class="bi bi-bar-chart-line" aria-hidden="true"></i><span>التقارير والإحصائيات</span></a>
+      <a href="#"><i class="bi bi-gear" aria-hidden="true"></i><span>إعدادات النظام</span></a>
+      <a href="#"><i class="bi bi-question-circle" aria-hidden="true"></i><span>مركز المساعدة</span></a>
+    </nav>
+    <button class="logout" id="logoutButton" type="button"><i class="bi bi-box-arrow-left" aria-hidden="true"></i><span>تسجيل الخروج</span></button>
+  </aside>
+
+  <button class="sidebar-backdrop" id="sidebarBackdrop" type="button" aria-label="إغلاق القائمة"></button>
+
+  <div class="admin-shell">
+    <header class="topbar">
+      <a class="header-logo" href="index.html" aria-label="الصفحة الرئيسية">
+        <img src="assets/images/palprints-wordmark-transparent.png" alt="PalPrints">
+      </a>
+
+      <button class="icon-button menu-button" id="menuButton" type="button" aria-label="فتح القائمة" aria-controls="adminSidebar" aria-expanded="false">
+        <i class="bi bi-list" aria-hidden="true"></i>
+      </button>
+
+      <label class="search-box">
+        <input id="productSearch" type="search" placeholder="ابحث عن منتج..." aria-label="البحث في المنتجات" autocomplete="off">
+        <i class="bi bi-search" aria-hidden="true"></i>
+      </label>
+
+      <div class="header-actions">
+        <div class="account-wrap">
+          <button class="icon-button account-button" id="accountButton" type="button" aria-label="قائمة الحساب" aria-haspopup="true" aria-expanded="false">
+            <i class="bi bi-person" aria-hidden="true"></i>
+          </button>
+          <div class="account-dropdown" id="accountDropdown" role="menu" aria-label="قائمة الحساب" hidden>
+            <a href="#" role="menuitem"><i class="bi bi-person" aria-hidden="true"></i><span>الملف الشخصي</span></a>
+            <a href="login.html" class="logout-link" role="menuitem"><i class="bi bi-box-arrow-left" aria-hidden="true"></i><span>تسجيل الخروج</span></a>
+          </div>
+        </div>
+
+        <div class="notification-wrap">
+          <button class="icon-button notification-button" id="notificationButton" type="button" aria-label="الإشعارات، إشعار واحد جديد" aria-haspopup="true" aria-expanded="false">
+            <i class="bi bi-bell" aria-hidden="true"></i>
+            <span class="counter notification-counter" id="notificationCounter">1</span>
+          </button>
+          <div class="notification-dropdown" id="notificationDropdown" role="menu" aria-label="قائمة الإشعارات" hidden>
+            <div class="notification-dropdown-header"><h3>الإشعارات</h3></div>
+            <ul class="notification-list"><li><span class="notification-dot"></span><div><strong>منتج بانتظار المراجعة</strong><small>منذ 10 دقائق</small></div></li></ul>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="adminMain">
+      <section class="products-page" aria-labelledby="productsTitle">
+        <header class="products-header">
+          <div>
+            <h1 id="productsTitle">إدارة المنتجات</h1>
+            <h2>المنتجات المتاحة للطباعة</h2>
+            <p>المنتجات التي يمكن للعملاء الطباعة عليها في الموقع</p>
+          </div>
+          <button class="primary-button" id="addProductButton" type="button"><i class="bi bi-plus-lg" aria-hidden="true"></i><span>إضافة منتج</span></button>
+        </header>
+
+        <div class="products-summary" role="group" aria-label="فلترة المنتجات حسب الحالة">
+          <button class="summary-pill" type="button" data-product-filter="all" aria-pressed="true"><b id="totalProducts">8</b> إجمالي المنتجات</button>
+          <button class="summary-pill" type="button" data-product-filter="active" aria-pressed="false"><b id="activeProducts">7</b> متاح للطباعة</button>
+          <button class="summary-pill" type="button" data-product-filter="paused" aria-pressed="false"><b id="pausedProducts">1</b> موقوف مؤقتًا</button>
+        </div>
+
+        <div class="products-grid" id="productsGrid">
+          <article class="product-card" data-product-id="PPR-001" data-product-name="تيشيرت" data-status="active">
+            <div class="product-visual"><img class="product-image" src="assets/images/products/tshirt.png" alt="" loading="lazy"><code>PPR-001</code></div>
+            <div class="product-info"><h3>تيشيرت</h3><p>أُضيف 01-06-2026</p></div>
+            <div class="product-actions"><button class="danger-action" type="button" data-action="toggle">إيقاف</button><button class="edit-action" type="button" data-action="edit">تعديل</button><button class="delete-action" type="button" data-action="delete" aria-label="حذف تيشيرت"><i class="bi bi-trash3"></i></button></div>
+          </article>
+          <article class="product-card" data-product-id="PPR-002" data-product-name="هودي" data-status="active">
+            <div class="product-visual"><img class="product-image" src="assets/images/products/hoodie.png" alt="" loading="lazy"><code>PPR-002</code></div>
+            <div class="product-info"><h3>هودي</h3><p>أُضيف 01-06-2026</p></div>
+            <div class="product-actions"><button class="danger-action" type="button" data-action="toggle">إيقاف</button><button class="edit-action" type="button" data-action="edit">تعديل</button><button class="delete-action" type="button" data-action="delete" aria-label="حذف هودي"><i class="bi bi-trash3"></i></button></div>
+          </article>
+          <article class="product-card" data-product-id="PPR-003" data-product-name="مج" data-status="active">
+            <div class="product-visual"><img class="product-image" src="assets/images/products/mug.png" alt="" loading="lazy"><code>PPR-003</code></div>
+            <div class="product-info"><h3>مج</h3><p>أُضيف 05-06-2026</p></div>
+            <div class="product-actions"><button class="danger-action" type="button" data-action="toggle">إيقاف</button><button class="edit-action" type="button" data-action="edit">تعديل</button><button class="delete-action" type="button" data-action="delete" aria-label="حذف مج"><i class="bi bi-trash3"></i></button></div>
+          </article>
+          <article class="product-card" data-product-id="PPR-004" data-product-name="حقيبة قماش" data-status="active">
+            <div class="product-visual"><img class="product-image" src="assets/images/products/tote-bag.png" alt="" loading="lazy"><code>PPR-004</code></div>
+            <div class="product-info"><h3>حقيبة قماش</h3><p>أُضيف 10-06-2026</p></div>
+            <div class="product-actions"><button class="danger-action" type="button" data-action="toggle">إيقاف</button><button class="edit-action" type="button" data-action="edit">تعديل</button><button class="delete-action" type="button" data-action="delete" aria-label="حذف حقيبة قماش"><i class="bi bi-trash3"></i></button></div>
+          </article>
+          <article class="product-card" data-product-id="PPR-005" data-product-name="ستيكر" data-status="active">
+            <div class="product-visual"><img class="product-image" src="assets/images/products/stickers.png" alt="" loading="lazy"><code>PPR-005</code></div>
+            <div class="product-info"><h3>ستيكر</h3><p>أُضيف 15-06-2026</p></div>
+            <div class="product-actions"><button class="danger-action" type="button" data-action="toggle">إيقاف</button><button class="edit-action" type="button" data-action="edit">تعديل</button><button class="delete-action" type="button" data-action="delete" aria-label="حذف ستيكر"><i class="bi bi-trash3"></i></button></div>
+          </article>
+          <article class="product-card is-paused" data-product-id="PPR-006" data-product-name="كاب" data-status="paused">
+            <div class="product-visual"><span class="paused-label">موقوف</span><img class="product-image" src="assets/images/products/cap.png" alt="" loading="lazy"><code>PPR-006</code></div>
+            <div class="product-info"><h3>كاب</h3><p>أُضيف 01-07-2026</p></div>
+            <div class="product-actions"><button class="success-action" type="button" data-action="toggle">تفعيل</button><button class="edit-action" type="button" data-action="edit">تعديل</button><button class="delete-action" type="button" data-action="delete" aria-label="حذف كاب"><i class="bi bi-trash3"></i></button></div>
+          </article>
+          <article class="product-card" data-product-id="PPR-007" data-product-name="وسادة" data-status="active">
+            <div class="product-visual"><img class="product-image" src="assets/images/products/pillow.png" alt="" loading="lazy"><code>PPR-007</code></div>
+            <div class="product-info"><h3>وسادة</h3><p>أُضيف 10-07-2026</p></div>
+            <div class="product-actions"><button class="danger-action" type="button" data-action="toggle">إيقاف</button><button class="edit-action" type="button" data-action="edit">تعديل</button><button class="delete-action" type="button" data-action="delete" aria-label="حذف وسادة"><i class="bi bi-trash3"></i></button></div>
+          </article>
+          <article class="product-card" data-product-id="PPR-008" data-product-name="دفتر" data-status="active">
+            <div class="product-visual"><img class="product-image" src="assets/images/products/notebook.png" alt="" loading="lazy"><code>PPR-008</code></div>
+            <div class="product-info"><h3>دفتر</h3><p>أُضيف 15-07-2026</p></div>
+            <div class="product-actions"><button class="danger-action" type="button" data-action="toggle">إيقاف</button><button class="edit-action" type="button" data-action="edit">تعديل</button><button class="delete-action" type="button" data-action="delete" aria-label="حذف دفتر"><i class="bi bi-trash3"></i></button></div>
+          </article>
+        </div>
+
+        <div class="empty-state" id="emptyState" hidden><i class="bi bi-search"></i><h2>لا توجد نتائج مطابقة</h2><p>جرّب البحث باسم منتج أو رقمه.</p></div>
+      </section>
+    </main>
+  </div>
+
+  <dialog class="product-dialog" id="productDialog" aria-labelledby="productDialogTitle">
+    <form class="product-form" id="productForm" method="dialog">
+      <header><div><span class="dialog-icon"><i class="bi bi-box-seam"></i></span><div><h2 id="productDialogTitle">إضافة منتج</h2><p>أدخل بيانات المنتج المتاح للطباعة</p></div></div><button class="dialog-close" type="button" data-dialog-close aria-label="إغلاق"><i class="bi bi-x-lg"></i></button></header>
+      <div class="form-body">
+        <label><span>اسم المنتج</span><input id="productNameInput" name="productName" type="text" required maxlength="40" placeholder="مثال: قميص رياضي"></label>
+        <label><span>رقم المنتج</span><input id="productCodeInput" name="productCode" type="text" required maxlength="12" dir="ltr" placeholder="PPR-009"></label>
+      </div>
+      <footer><button class="secondary-button" type="button" data-dialog-close>إلغاء</button><button class="primary-button" type="submit">حفظ المنتج</button></footer>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="assets/js/pages/productMangment.js"></script>
+</body>
+</html>
