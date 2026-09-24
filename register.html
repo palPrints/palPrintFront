@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="إنشاء حساب جديد في منصة PalPrints كعميل أو مصمم أو مطبعة">
+  <title>إنشاء حساب | PalPrints</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="./assets/css/pages/register.css">
+</head>
+<body>
+  <main class="register-layout">
+    <section class="register-visual" aria-label="منتجات مطبوعة من PalPrints">
+      <img src="./public/images/pal-print-login-products.png" alt="مجموعة منتجات مطبوعة ومخصصة" class="register-visual__image">
+      <div class="register-visual__overlay" aria-hidden="true"></div>
+      <div class="register-visual__content">
+        <h2>مكان واحد يجمع <span>الفكرة والطباعة</span></h2>
+        <p>ابدأ كعميل، شارك إبداعك كمصمم، أو وسّع أعمال مطبعتك.</p>
+        <div class="visual-points" aria-hidden="true">
+          <span><i class="bi bi-check2"></i> حساب آمن</span>
+          <span><i class="bi bi-check2"></i> خطوات بسيطة</span>
+          <span><i class="bi bi-check2"></i> فرص أكثر</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="register-panel" aria-labelledby="registerTitle">
+      <a href="./index.html" class="register-wordmark" aria-label="العودة إلى الصفحة الرئيسية">
+        <img src="./assets/images/palprints-wordmark-approved.png" alt="PalPrints">
+      </a>
+
+      <div class="register-card">
+        <header class="register-heading">
+          <span class="eyebrow">انضم إلى مجتمعنا</span>
+          <h1 id="registerTitle">أنشئ حسابك <span>الجديد</span></h1>
+          <p>اختر نوع الحساب أولًا، وسنطلب منك المعلومات المناسبة فقط.</p>
+        </header>
+
+        <form id="registerForm" novalidate>
+          <div class="form-progress" aria-label="خطوات إنشاء الحساب">
+            <span class="progress-step is-active" data-progress="1"><b>1</b> الحساب</span>
+            <i aria-hidden="true"></i>
+            <span class="progress-step" data-progress="2"><b>2</b> التفاصيل</span>
+          </div>
+
+          <div class="form-step is-active" data-step="1">
+          <fieldset class="role-selector">
+            <legend>كيف تريد استخدام PalPrints؟</legend>
+            <div class="role-grid">
+              <label class="role-option">
+                <input type="radio" name="accountType" value="customer" checked>
+                <span class="role-card">
+                  <i class="bi bi-person" aria-hidden="true"></i>
+                  <strong>عميل</strong>
+                  <small>اطلب وخصص منتجاتك</small>
+                  <span class="role-check"><i class="bi bi-check-lg"></i></span>
+                </span>
+              </label>
+              <label class="role-option">
+                <input type="radio" name="accountType" value="designer">
+                <span class="role-card">
+                  <i class="bi bi-pen" aria-hidden="true"></i>
+                  <strong>مصمم</strong>
+                  <small>اعرض تصاميمك وبِعها</small>
+                  <span class="role-check"><i class="bi bi-check-lg"></i></span>
+                </span>
+              </label>
+              <label class="role-option">
+                <input type="radio" name="accountType" value="printshop">
+                <span class="role-card">
+                  <i class="bi bi-printer" aria-hidden="true"></i>
+                  <strong>مطبعة</strong>
+                  <small>استقبل طلبات الطباعة</small>
+                  <span class="role-check"><i class="bi bi-check-lg"></i></span>
+                </span>
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="form-section">
+            <div class="section-title">
+              <span>1</span>
+              <div><h2>المعلومات الأساسية</h2><p>بيانات الدخول والتواصل الخاصة بك</p></div>
+            </div>
+            <div class="fields-grid">
+              <div class="form-field">
+                <label for="fullName">الاسم الكامل <em>*</em></label>
+                <div class="input-control"><i class="bi bi-person"></i><input id="fullName" name="fullName" type="text" autocomplete="name" placeholder="أدخل اسمك الكامل" required></div>
+                <span class="field-error"></span>
+              </div>
+              <div class="form-field">
+                <label for="email">البريد الإلكتروني <em>*</em></label>
+                <div class="input-control"><i class="bi bi-envelope"></i><input id="email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="name@example.com" required></div>
+                <span class="field-error"></span>
+              </div>
+              <div class="form-field">
+                <label for="password">كلمة المرور <em>*</em></label>
+                <div class="input-control"><i class="bi bi-lock"></i><input id="password" name="password" type="password" autocomplete="new-password" minlength="8" placeholder="8 أحرف على الأقل" required><button class="password-toggle" type="button" data-target="password" aria-label="إظهار كلمة المرور"><i class="bi bi-eye"></i></button></div>
+                <span class="field-error"></span>
+              </div>
+              <div class="form-field">
+                <label for="passwordConfirm">تأكيد كلمة المرور <em>*</em></label>
+                <div class="input-control"><i class="bi bi-shield-lock"></i><input id="passwordConfirm" name="passwordConfirm" type="password" autocomplete="new-password" placeholder="أعد كتابة كلمة المرور" required><button class="password-toggle" type="button" data-target="passwordConfirm" aria-label="إظهار كلمة المرور"><i class="bi bi-eye"></i></button></div>
+                <span class="field-error"></span>
+              </div>
+            </div>
+          </div>
+
+          <button class="submit-button next-button" type="button" id="nextStep"><span>متابعة إلى التفاصيل</span><i class="bi bi-arrow-left"></i></button>
+          <p class="login-prompt">لديك حساب بالفعل؟ <a href="./login.html">تسجيل الدخول</a></p>
+          </div>
+
+          <div class="form-step" data-step="2" hidden>
+
+          <div class="form-section role-fields" data-role="customer">
+            <div class="section-title"><span>2</span><div><h2>بيانات العميل</h2><p>لنساعدك في توصيل طلباتك بسهولة</p></div></div>
+            <div class="fields-grid">
+              <div class="form-field"><label for="customerCity">المدينة <em>*</em></label><div class="input-control"><i class="bi bi-geo-alt"></i><select id="customerCity" name="city" required><option value="">اختر المدينة</option><option>القدس</option><option>رام الله والبيرة</option><option>نابلس</option><option>الخليل</option><option>بيت لحم</option><option>جنين</option><option>طولكرم</option><option>قلقيلية</option><option>أريحا</option><option>غزة</option></select><i class="bi bi-chevron-down select-arrow"></i></div><span class="field-error"></span></div>
+              <div class="form-field"><label for="customerInterest">أكثر ما يهمك</label><div class="input-control"><i class="bi bi-bag-heart"></i><select id="customerInterest" name="interest"><option value="">اختر اهتمامك</option><option>منتجات مخصصة</option><option>طباعة ورقية</option><option>هدايا ومناسبات</option><option>ملابس مطبوعة</option></select><i class="bi bi-chevron-down select-arrow"></i></div><span class="field-error"></span></div>
+            </div>
+          </div>
+
+          <div class="form-section role-fields" data-role="designer" hidden>
+            <div class="section-title"><span>2</span><div><h2>بيانات المصمم</h2><p>عرّفنا بمجالك وأعمالك الإبداعية</p></div></div>
+            <div class="fields-grid">
+              <div class="form-field"><label for="designerSpecialty">مجال التصميم <em>*</em></label><div class="input-control"><i class="bi bi-palette"></i><select id="designerSpecialty" name="specialty" required disabled><option value="">اختر تخصصك</option><option>تصميم جرافيك</option><option>رسوم توضيحية</option><option>تصميم شعارات وهوية</option><option>تصميم أزياء ومطبوعات</option><option>تصوير فوتوغرافي</option></select><i class="bi bi-chevron-down select-arrow"></i></div><span class="field-error"></span></div>
+              <div class="form-field"><label for="experienceYears">سنوات الخبرة <em>*</em></label><div class="input-control"><i class="bi bi-award"></i><input id="experienceYears" name="experienceYears" type="number" min="0" max="50" placeholder="مثال: 3" required disabled></div><span class="field-error"></span></div>
+              <div class="form-field full-width"><label for="portfolioUrl">رابط معرض الأعمال</label><div class="input-control"><i class="bi bi-link-45deg"></i><input id="portfolioUrl" name="portfolioUrl" type="url" inputmode="url" placeholder="https://behance.net/username" disabled></div><span class="field-error"></span></div>
+              <div class="form-field full-width"><label for="designerBio">نبذة قصيرة <em>*</em></label><div class="input-control textarea-control"><i class="bi bi-card-text"></i><textarea id="designerBio" name="bio" rows="3" maxlength="300" placeholder="أخبرنا عن أسلوبك وخبرتك..." required disabled></textarea></div><span class="field-error"></span></div>
+            </div>
+          </div>
+
+          <div class="form-section role-fields" data-role="printshop" hidden>
+            <div class="section-title"><span>2</span><div><h2>بيانات المطبعة</h2><p>معلومات نشاطك وخدمات الطباعة المتوفرة</p></div></div>
+            <div class="fields-grid">
+              <div class="form-field"><label for="shopName">اسم المطبعة <em>*</em></label><div class="input-control"><i class="bi bi-building"></i><input id="shopName" name="shopName" type="text" placeholder="اسم المطبعة التجاري" required disabled></div><span class="field-error"></span></div>
+              <div class="form-field"><label for="shopCity">المدينة <em>*</em></label><div class="input-control"><i class="bi bi-geo-alt"></i><select id="shopCity" name="shopCity" required disabled><option value="">اختر المدينة</option><option>القدس</option><option>رام الله والبيرة</option><option>نابلس</option><option>الخليل</option><option>بيت لحم</option><option>جنين</option><option>طولكرم</option><option>قلقيلية</option><option>أريحا</option><option>غزة</option></select><i class="bi bi-chevron-down select-arrow"></i></div><span class="field-error"></span></div>
+              <div class="form-field"><label for="commercialNumber">رقم السجل التجاري <em>*</em></label><div class="input-control"><i class="bi bi-file-earmark-text"></i><input id="commercialNumber" name="commercialNumber" type="text" placeholder="رقم التسجيل" required disabled></div><span class="field-error"></span></div>
+              <div class="form-field"><label for="establishedYear">سنة التأسيس</label><div class="input-control"><i class="bi bi-calendar3"></i><input id="establishedYear" name="establishedYear" type="number" min="1950" max="2026" placeholder="مثال: 2020" disabled></div><span class="field-error"></span></div>
+              <div class="form-field full-width"><label>خدمات الطباعة <em>*</em></label><div class="service-options" role="group" aria-label="خدمات الطباعة"><label><input type="checkbox" name="services" value="paper" required disabled><span>طباعة ورقية</span></label><label><input type="checkbox" name="services" value="clothing" disabled><span>طباعة ملابس</span></label><label><input type="checkbox" name="services" value="gifts" disabled><span>هدايا ومنتجات</span></label><label><input type="checkbox" name="services" value="large" disabled><span>طباعة كبيرة</span></label></div><span class="field-error"></span></div>
+            </div>
+          </div>
+
+          <label class="terms-option"><input type="checkbox" id="terms" name="terms" required><span>أوافق على <a href="#">الشروط والأحكام</a> و<a href="#">سياسة الخصوصية</a></span></label>
+          <p class="terms-error" id="termsError" aria-live="polite"></p>
+          <button class="submit-button" type="submit"><span>إنشاء حساب عميل</span><i class="bi bi-arrow-left"></i></button>
+          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+          <button class="back-button" type="button" id="previousStep"><i class="bi bi-arrow-right"></i> الرجوع إلى البيانات الأساسية</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+  <script src="./assets/js/pages/register.js"></script>
+</body>
+</html>
