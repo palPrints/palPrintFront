@@ -809,12 +809,26 @@
 
     elements.search.addEventListener("input", function () {
       query = elements.search.value.trim();
+      if (elements.headerSearch) {
+        elements.headerSearch.value = elements.search.value;
+      }
       render();
     });
+
+    if (elements.headerSearch) {
+      elements.headerSearch.addEventListener("input", function () {
+        query = elements.headerSearch.value.trim();
+        elements.search.value = elements.headerSearch.value;
+        render();
+      });
+    }
 
     elements.clearSearch.addEventListener("click", function () {
       query = "";
       elements.search.value = "";
+      if (elements.headerSearch) {
+        elements.headerSearch.value = "";
+      }
       elements.search.focus();
       render();
     });
@@ -948,6 +962,9 @@
       "clearSearchButton"
     );
     elements.search = document.getElementById("designSearch");
+    elements.headerSearch = document.getElementById(
+      "designerDashboardSearch"
+    );
     elements.filterButton = document.getElementById("filterButton");
     elements.filterMenu = document.getElementById("filterMenu");
 

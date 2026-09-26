@@ -43,9 +43,9 @@
     />
     <link rel="stylesheet" href="./assets/icons/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="./assets/css/pages/mainDisgner.css" />
-    <link rel="stylesheet" href="./assets/css/pages/designerDesigns.css?v=2" />
+    <link rel="stylesheet" href="./assets/css/pages/designerDesigns.css?v=4" />
   </head>
-  <body class="dashboard-page designer-designs-page">
+  <body class="dashboard-page designer-dashboard-shell designer-designs-page">
     <a href="#designsMain" class="designs-skip-link" data-i18n="skipToContent"
       >تخطي إلى المحتوى</a
     >
@@ -129,88 +129,173 @@
       </aside>
       <button
         type="button"
-        class="sidebar-backdrop"
+        class="sidebar-backdrop profile-sidebar-backdrop"
         id="sidebarBackdrop"
         aria-label="إغلاق القائمة"
         data-i18n-aria="closeSidebar"
       ></button>
       <div class="page-shell">
         <header
-          class="top-utility-bar"
+          class="top-utility-bar designer-printshop-topbar"
           aria-label="أدوات الصفحة"
           data-i18n-aria="pageTools"
         >
+          <a
+            class="designer-header-logo designer-printshop-brand"
+            href="index.html"
+            aria-label="الصفحة الرئيسية"
+            data-i18n-aria="goHome"
+          >
+            <span class="designer-logo-full">
+              <img
+                src="./assets/images/palprints-wordmark-transparent.png"
+                alt="PalPrints"
+              />
+            </span>
+            <span class="designer-logo-compact" aria-hidden="true">
+              <img src="./assets/images/logoWithoutBackGround.png" alt="" />
+            </span>
+          </a>
           <div class="top-bar-start">
             <button
               type="button"
-              class="utility-btn sidebar-toggle-btn"
+              class="utility-btn sidebar-toggle-btn designer-printshop-icon designer-menu-button"
               id="sidebarToggleButton"
               aria-controls="profileSidebar"
               aria-label="إغلاق القائمة الجانبية"
               aria-expanded="true"
               data-i18n-aria="closeSidebar"
             >
-              <i
-                class="bi bi-x-lg"
-                id="sidebarToggleIcon"
-                aria-hidden="true"
-              ></i>
+              <i class="bi bi-list" id="sidebarToggleIcon" aria-hidden="true"></i>
             </button>
           </div>
-          <div class="top-bar-end">
-            <button
-              type="button"
-              class="utility-btn"
-              id="themeToggleButton"
-              aria-label="تفعيل الوضع الليلي"
-              data-i18n-aria="switchToDark"
-            >
-              <i
-                class="bi bi-moon-stars"
-                id="themeToggleIcon"
-                aria-hidden="true"
-              ></i>
-            </button>
-            <button
-              type="button"
-              class="utility-btn language-toggle-btn"
-              id="languageToggleButton"
-              aria-label="تغيير اللغة"
-              data-i18n-aria="changeLanguage"
-            >
-              <i class="bi bi-globe2" aria-hidden="true"></i
-              ><span id="languageToggleText" aria-hidden="true">EN</span>
-            </button>
-            <a
-              href="notifications.html"
-              class="utility-btn notif-btn"
-              aria-label="الإشعارات"
-              data-i18n-aria="notifications"
-              ><i class="bi bi-bell" aria-hidden="true"></i
-              ><span class="notif-dot" aria-hidden="true"></span
-            ></a>
+
+          <label class="designer-dashboard-search" for="designerDashboardSearch">
+            <i class="bi bi-search" aria-hidden="true"></i>
+            <input
+              id="designerDashboardSearch"
+              type="search"
+              placeholder="ابحث في تصاميمك..."
+              data-i18n-placeholder="searchDesigns"
+              aria-label="البحث في تصاميم المصمم"
+              autocomplete="off"
+            />
+          </label>
+
+          <div class="top-bar-end designer-printshop-actions">
+            <div class="designer-header-dropdown-wrap">
+              <button
+                type="button"
+                class="utility-btn designer-printshop-icon designer-dropdown-toggle"
+                id="designerProfileMenuButton"
+                aria-label="الحساب"
+                aria-haspopup="true"
+                aria-expanded="false"
+                aria-controls="designerProfileMenu"
+              >
+                <i class="bi bi-person" aria-hidden="true"></i>
+              </button>
+              <div
+                class="designer-header-dropdown"
+                id="designerProfileMenu"
+                role="menu"
+                hidden
+              >
+                <a href="designerProfile.html" role="menuitem"
+                  ><i class="bi bi-person" aria-hidden="true"></i
+                  ><span>الملف الشخصي</span></a
+                >
+                <a href="settings.html?role=designer" role="menuitem"
+                  ><i class="bi bi-gear" aria-hidden="true"></i
+                  ><span>الإعدادات</span></a
+                >
+                <span class="designer-dropdown-divider" aria-hidden="true"></span>
+                <a
+                  class="designer-dropdown-danger"
+                  href="login.html"
+                  role="menuitem"
+                  ><i class="bi bi-box-arrow-left" aria-hidden="true"></i
+                  ><span>تسجيل الخروج</span></a
+                >
+              </div>
+            </div>
+
+            <div class="designer-header-dropdown-wrap">
+              <button
+                type="button"
+                class="utility-btn designer-printshop-icon designer-dropdown-toggle designer-notification-button"
+                id="designerNotificationMenuButton"
+                aria-label="الإشعارات"
+                aria-haspopup="true"
+                aria-expanded="false"
+                aria-controls="designerNotificationMenu"
+              >
+                <span class="designer-bell-icon"
+                  ><i class="bi bi-bell" aria-hidden="true"></i
+                  ><span
+                    class="notif-dot designer-notification-dot"
+                    aria-hidden="true"
+                  ></span
+                ></span>
+              </button>
+              <div
+                class="designer-header-dropdown designer-notifications-dropdown"
+                id="designerNotificationMenu"
+                role="menu"
+                hidden
+              >
+                <strong class="designer-dropdown-title">الإشعارات</strong>
+                <a href="notifications.html" role="menuitem"
+                  ><i class="bi bi-patch-check" aria-hidden="true"></i
+                  ><span><b>تم اعتماد حسابك</b><small>يمكنك الآن نشر تصاميمك وبيعها.</small></span></a
+                >
+                <a href="notifications.html" role="menuitem"
+                  ><i class="bi bi-palette" aria-hidden="true"></i
+                  ><span><b>تم اعتماد تصميم جديد</b><small>تصميم «روح فلسطين» أصبح منشورًا.</small></span></a
+                >
+                <a
+                  class="designer-dropdown-footer"
+                  href="notifications.html"
+                  role="menuitem"
+                  >عرض جميع الإشعارات</a
+                >
+              </div>
+            </div>
           </div>
         </header>
         <main class="main-content designs-main" id="designsMain">
-          <section
-            class="section-header designs-heading"
+          <div class="dashboard-srs-content">
+          <nav class="designer-breadcrumb" aria-label="مسار التنقل">
+            <a href="index.html">الرئيسية</a>
+            <i class="bi bi-chevron-left" aria-hidden="true"></i>
+            <a href="dashboardDesigner.html">لوحة المصمم</a>
+            <i class="bi bi-chevron-left" aria-hidden="true"></i>
+            <span aria-current="page" data-i18n="myDesigns">تصاميمي</span>
+          </nav>
+          <header
+            class="dashboard-page-heading designs-heading"
             aria-labelledby="designsTitle"
           >
-            <div>
+            <div class="dashboard-heading-group">
+              <span class="dashboard-heading-icon" aria-hidden="true">
+                <i class="bi bi-images"></i>
+              </span>
+              <div>
               <h1 class="section-title" id="designsTitle" data-i18n="myDesigns">
                 تصاميمي
               </h1>
               <p class="section-subtitle" data-i18n="designsSubtitle">
                 إدارة تصاميمك ومتابعة حالتها من مكان واحد.
               </p>
+              </div>
             </div>
             <a
-              class="designer-intro-action designs-new-button"
+              class="dashboard-primary-action designs-new-button"
               href="uploadDesign.html"
               ><i class="bi bi-plus-lg" aria-hidden="true"></i
               ><span data-i18n="newDesign">تصميم جديد</span></a
             >
-          </section>
+          </header>
           <section
             class="activity-section designs-toolbar"
             aria-label="البحث وتصفية التصاميم"
@@ -357,10 +442,11 @@
             </button>
           </section>
           <div id="designGroups" aria-live="polite"></div>
+          </div>
         </main>
       </div>
     </div>
     <script src="assets/js/pages/masterDisgner.js"></script>
-    <script src="./assets/js/pages/designerDesigns.js?v=2"></script>
+    <script src="./assets/js/pages/designerDesigns.js?v=3"></script>
   </body>
 </html>
