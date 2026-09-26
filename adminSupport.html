@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="إدارة مشاكل مستخدمي منصة PalPrints">
+  <title>الدعم الفني | PalPrints</title>
+  <link rel="icon" type="image/png" href="assets/images/logoWithoutBackGround.png">
+  <link rel="preload" href="assets/fonts/Cairo-Variable.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="assets/icons/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="assets/css/pages/printingEarnings.css?v=18">
+  <link rel="stylesheet" href="assets/css/pages/adminDashboard.css">
+  <link rel="stylesheet" href="assets/css/pages/adminTools.css?v=26">
+</head>
+<body class="admin-dashboard-page admin-tools-page admin-support-inbox-page sidebar-collapsed">
+  <a class="skip-link" href="#adminSupportMain">تخطي إلى المحتوى</a>
+
+  <aside class="wallet-sidebar admin-sidebar" id="adminSidebar" aria-label="القائمة الجانبية للإدارة">
+    <nav aria-label="روابط لوحة الإدارة">
+      <a href="adminDashboard.html" data-tooltip="لوحة التحكم"><i class="bi bi-grid"></i><span>لوحة التحكم</span></a>
+      <a href="adminUsersManagement.html" data-tooltip="إدارة المستخدمين"><i class="bi bi-people"></i><span>إدارة المستخدمين</span></a>
+      <a href="desginesMangment.html" data-tooltip="إدارة التصاميم"><i class="bi bi-palette"></i><span>إدارة التصاميم</span><b class="admin-nav-badge">8</b></a>
+      <a href="productMangment.html" data-tooltip="إدارة المنتجات"><i class="bi bi-shop-window"></i><span>إدارة المنتجات</span></a>
+      <a href="adminOrders.html" data-tooltip="إدارة الطلبات"><i class="bi bi-cart3"></i><span>إدارة الطلبات</span></a>
+      <a href="adminEarningsPayments.html" data-tooltip="المدفوعات والأرباح"><i class="bi bi-wallet2"></i><span>المدفوعات والأرباح</span></a>
+      <a href="adminShippingManagement.html" data-tooltip="إدارة الشحن"><i class="bi bi-truck"></i><span>إدارة الشحن</span></a>
+      <a href="adminReportsStatistics.html" data-tooltip="التقارير والإحصائيات"><i class="bi bi-bar-chart-line"></i><span>التقارير والإحصائيات</span></a>
+      <a href="adminSettings.html" data-tooltip="إعدادات النظام"><i class="bi bi-gear"></i><span>إعدادات النظام</span></a>
+      <div class="admin-nav-separator" aria-hidden="true"></div>
+      <a class="active" href="adminSupport.html" aria-current="page" data-tooltip="الدعم الفني"><i class="bi bi-headset"></i><span>الدعم الفني</span><b class="admin-nav-badge is-blue" id="supportNavCount">4</b></a>
+    </nav>
+    <button class="logout" id="logoutButton" type="button" data-href="login.html"><i class="bi bi-box-arrow-left"></i><span>تسجيل الخروج</span></button>
+  </aside>
+
+  <button class="sidebar-backdrop" id="sidebarBackdrop" type="button" aria-label="إغلاق القائمة"></button>
+
+  <div class="wallet-shell">
+    <header class="topbar admin-topbar">
+      <a class="header-logo" href="adminDashboard.html" aria-label="لوحة التحكم"><span class="admin-logo-full"><img src="assets/images/palprints-wordmark-transparent.png" alt="PalPrints"></span><span class="admin-logo-compact"><img src="assets/images/logoWithoutBackGround.png" alt=""></span></a>
+      <button class="icon-button menu-button" id="menuButton" type="button" aria-label="فتح القائمة" aria-controls="adminSidebar" aria-expanded="false"><i class="bi bi-list"></i></button>
+      <label class="search-box admin-search-box"><input id="dashboardSearch" type="search" placeholder="ابحث باسم المستخدم أو المشكلة..." aria-label="البحث في مشاكل المستخدمين"><i class="bi bi-search"></i></label>
+      <div class="header-actions">
+        <div class="account-wrap"><button class="icon-button account-button" id="accountButton" type="button" aria-label="حساب المدير" aria-expanded="false"><i class="bi bi-person"></i></button><div class="account-dropdown" id="accountDropdown" hidden><a href="adminSettings.html"><i class="bi bi-gear"></i><span>إعدادات الحساب</span></a><a href="login.html" class="logout-link"><i class="bi bi-box-arrow-left"></i><span>تسجيل الخروج</span></a></div></div>
+        <div class="notification-wrap"><button class="icon-button notification-button" id="notificationButton" type="button" aria-label="الإشعارات" aria-expanded="false"><i class="bi bi-bell"></i><span class="counter notification-counter" id="notificationCounter">4</span></button><div class="notification-dropdown admin-notification-dropdown" id="notificationDropdown" hidden><div class="notification-dropdown-header"><h3>الإشعارات</h3><button id="markNotificationsRead" type="button">تحديد الكل كمقروء</button></div><ul class="notification-list"><li><span class="notification-item-icon is-amber"><i class="bi bi-chat-dots"></i></span><div><strong>4 مشاكل جديدة</strong><small>من العملاء والمصممين والمطابع</small></div></li></ul></div></div>
+      </div>
+    </header>
+
+    <main class="admin-main admin-tools-main support-clean-main" id="adminSupportMain">
+      <nav class="admin-settings-breadcrumb" aria-label="مسار التنقل"><a href="adminDashboard.html">لوحة التحكم</a><i class="bi bi-chevron-left"></i><span>الدعم الفني</span></nav>
+      <header class="support-clean-title"><div><h1>الدعم الفني</h1><p>إدارة مشاكل العملاء والمصممين والمطابع.</p></div><span><i class="bi bi-chat-dots"></i><b id="supportNewCount">4</b> مشاكل جديدة</span></header>
+
+      <section class="support-clean-card support-clean-list" aria-labelledby="incomingProblemsTitle">
+        <header><div><h2 id="incomingProblemsTitle">المشاكل الواردة</h2></div></header>
+        <div class="support-clean-table" role="table" aria-label="جدول المشاكل الواردة">
+        <div class="support-clean-table-head" role="row" aria-hidden="true"><span>المستخدم</span><span>المشكلة</span><span>التصنيف</span><span>الحالة</span><span>وقت الإرسال</span><span>الإجراء</span></div>
+        <div id="supportRequestList" role="rowgroup">
+          <button class="support-clean-row active" type="button" data-support-request data-role="customer" data-status="new" data-id="REQ-108" data-name="ريم خليل" data-role-label="عميل" data-initials="رخ" data-email="reem.khalil@gmail.com" data-subject="تم الخصم ولم يصلني الاسترداد" data-category="الدفع والاسترداد" data-time="منذ 12 دقيقة" data-message="ألغيت الطلب بعد دقائق من إنشائه، وتم خصم المبلغ من محفظتي لكن لم يرجع حتى الآن. أرجو التحقق من عملية الاسترداد."><span class="support-clean-user"><b>رخ</b><span><strong>ريم خليل</strong><small>عميل</small></span></span><strong>تم الخصم ولم يصلني الاسترداد</strong><span>الدفع والاسترداد</span><span class="support-clean-status is-new">جديدة</span><time>منذ 12 دقيقة</time><i class="bi bi-chevron-left"></i></button>
+          <button class="support-clean-row" type="button" data-support-request data-role="designer" data-status="new" data-id="REQ-107" data-name="سارة أحمد" data-role-label="مصمم" data-initials="سأ" data-email="sara.design@gmail.com" data-subject="التصميم ما زال قيد المراجعة" data-category="مراجعة التصاميم" data-time="منذ 35 دقيقة" data-message="رفعت التصميم منذ ثلاثة أيام وما زالت حالته قيد المراجعة. أريد معرفة سبب التأخير وهل توجد تعديلات مطلوبة مني."><span class="support-clean-user"><b class="is-purple">سأ</b><span><strong>سارة أحمد</strong><small>مصمم</small></span></span><strong>التصميم ما زال قيد المراجعة</strong><span>مراجعة التصاميم</span><span class="support-clean-status is-new">جديدة</span><time>منذ 35 دقيقة</time><i class="bi bi-chevron-left"></i></button>
+          <button class="support-clean-row" type="button" data-support-request data-role="printer" data-status="new" data-id="REQ-106" data-name="مطبعة الإبداع" data-role-label="مطبعة" data-initials="مط" data-email="info@creativeprint.ps" data-subject="طلب الطباعة الجديد لا يظهر" data-category="طلبات الطباعة" data-time="منذ ساعة" data-message="وصلنا إشعار بوجود طلب طباعة جديد، لكن الطلب لا يظهر داخل لوحة التحكم ولا نستطيع تحميل ملفات الطباعة."><span class="support-clean-user"><b class="is-orange">مط</b><span><strong>مطبعة الإبداع</strong><small>مطبعة</small></span></span><strong>طلب الطباعة الجديد لا يظهر</strong><span>طلبات الطباعة</span><span class="support-clean-status is-new">جديدة</span><time>منذ ساعة</time><i class="bi bi-chevron-left"></i></button>
+          <button class="support-clean-row" type="button" data-support-request data-role="customer" data-status="open" data-id="REQ-105" data-name="أحمد محمد" data-role-label="عميل" data-initials="أم" data-email="ahmad.m@example.com" data-subject="أريد تعديل عنوان الطلب" data-category="الطلبات والتوصيل" data-time="منذ ساعتين" data-message="اخترت عنوانًا قديمًا بالخطأ وأريد تعديل عنوان التوصيل قبل أن يبدأ تجهيز الطلب."><span class="support-clean-user"><b class="is-green">أم</b><span><strong>أحمد محمد</strong><small>عميل</small></span></span><strong>أريد تعديل عنوان الطلب</strong><span>الطلبات والتوصيل</span><span class="support-clean-status is-open">قيد المعالجة</span><time>منذ ساعتين</time><i class="bi bi-chevron-left"></i></button>
+          <button class="support-clean-row" type="button" data-support-request data-role="designer" data-status="resolved" data-id="REQ-104" data-name="ليان سمير" data-role-label="مصمم" data-initials="لس" data-email="layan@example.com" data-subject="استفسار عن تحويل الأرباح" data-category="الأرباح والسحب" data-time="أمس" data-message="قدمت طلب سحب أرباح ولم أكن أعرف موعد التحويل. تم توضيح موعد الدفعة وحل المشكلة."><span class="support-clean-user"><b class="is-navy">لس</b><span><strong>ليان سمير</strong><small>مصمم</small></span></span><strong>استفسار عن تحويل الأرباح</strong><span>الأرباح والسحب</span><span class="support-clean-status is-resolved">تم الحل</span><time>أمس</time><i class="bi bi-chevron-left"></i></button>
+        </div></div>
+        <p class="support-list-empty" id="supportRequestsEmpty" hidden>لا توجد مشاكل مطابقة.</p>
+      </section>
+
+      <dialog class="support-reference-dialog" id="supportProblemDialog" aria-labelledby="problemDetailsTitle">
+        <div class="support-reference-content">
+          <header><h2 id="problemDetailsTitle">تفاصيل المشكلة</h2><button type="button" id="closeSupportDialog" aria-label="إغلاق"><i class="bi bi-x-lg"></i></button></header>
+          <section class="support-reference-heading"><div><h3 id="supportDetailSubject">تم الخصم ولم يصلني الاسترداد</h3><div><span id="supportDetailCategory">الدفع والاسترداد</span><code id="supportDetailId">REQ-108</code></div></div><span id="supportDialogStatus" class="is-new">جديدة</span></section>
+          <dl class="support-reference-metadata">
+            <div><dt>المستخدم</dt><dd><span id="supportDetailAvatar">رخ</span><b id="supportDetailName">ريم خليل</b><em id="supportDetailRole" class="request-role is-customer">عميل</em></dd></div>
+            <div><dt>البريد الإلكتروني</dt><dd><a id="supportDetailEmail" href="mailto:reem.khalil@gmail.com">reem.khalil@gmail.com</a></dd></div>
+            <div><dt>وقت الإرسال</dt><dd id="supportDetailTime">منذ 12 دقيقة</dd></div>
+            <div><dt>تحويل إلى</dt><dd><select id="supportAssignTo"><option>إدارة المنصة</option><option>قسم الطلبات</option><option>القسم المالي</option><option>الفريق التقني</option><option>إدارة الشحن</option></select></dd></div>
+          </dl>
+          <section class="support-reference-message"><h3>وصف المشكلة</h3><p id="supportDetailMessage">ألغيت الطلب بعد دقائق من إنشائه، وتم خصم المبلغ من محفظتي لكن لم يرجع حتى الآن. أرجو التحقق من عملية الاسترداد.</p><span id="supportMessageSender" hidden>ريم خليل</span></section>
+          <div class="support-reference-attachment"><i class="bi bi-file-earmark-image"></i><div><strong>صورة عملية الدفع.png</strong><small>PNG · 840 KB</small></div><button type="button" data-toast="تم فتح المرفق للمعاينة."><i class="bi bi-eye"></i>عرض</button></div>
+          <div class="support-reply-history" id="supportReplyHistory" hidden><span><i class="bi bi-headset"></i></span><div><strong>إدارة PalPrints</strong><p id="supportPreviousReply"></p><time>الآن</time></div></div>
+          <form class="support-reference-reply" id="supportReplyForm" hidden><label for="supportReplyText">الرد على المستخدم</label><textarea id="supportReplyText" rows="4" placeholder="اكتب الرد هنا..." required></textarea><div><button type="button" id="cancelSupportReply">إلغاء</button><button type="submit"><i class="bi bi-send"></i>إرسال الرد</button></div></form>
+          <footer><button class="support-resolve-button" id="resolveSupportRequest" type="button"><i class="bi bi-check-circle"></i>تحديد كمحلولة</button><button class="support-reply-button" id="showSupportReply" type="button"><i class="bi bi-reply"></i>الرد على المستخدم</button></footer>
+          <select id="supportRequestStatus" hidden><option value="new">جديدة</option><option value="open">قيد المعالجة</option><option value="resolved">تم الحل</option></select>
+        </div>
+      </dialog>
+    </main>
+  </div>
+
+  <div class="admin-toast" id="adminToast" role="status" aria-live="polite"></div>
+  <script src="assets/js/pages/adminDashboard.js"></script>
+  <script src="assets/js/pages/adminTools.js?v=26"></script>
+</body>
+</html>
