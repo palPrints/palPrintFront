@@ -42,12 +42,15 @@ document.addEventListener("DOMContentLoaded", function () {
       notifications: "الإشعارات",
 
       home: "الرئيسية",
+      dashboard: "لوحة التحكم",
       profileTitle: "الملف الشخصي",
       myDesigns: "تصاميمي",
       uploadDesign: "رفع تصميم جديد",
       ordersAndSales: "الطلبات والمبيعات",
       walletAndEarnings: "الأرباح والمحفظة",
       withdrawals: "طلبات السحب",
+      earnings: "الأرباح",
+      settings: "الإعدادات",
       settingsSecurity: "الإعدادات والأمان",
       support: "التواصل مع الدعم الفني",
       logout: "تسجيل الخروج",
@@ -205,12 +208,15 @@ document.addEventListener("DOMContentLoaded", function () {
       notifications: "Notifications",
 
       home: "Home",
+      dashboard: "Dashboard",
       profileTitle: "Profile",
       myDesigns: "My designs",
       uploadDesign: "Upload new design",
       ordersAndSales: "Orders & sales",
       walletAndEarnings: "Wallet & earnings",
       withdrawals: "Withdrawal requests",
+      earnings: "Earnings",
+      settings: "Settings",
       settingsSecurity: "Settings & security",
       support: "Contact support",
       logout: "Log out",
@@ -832,6 +838,81 @@ document.addEventListener("DOMContentLoaded", function () {
   const designerProfileForm = document.getElementById("designerProfileForm");
   const portfolioField = document.getElementById("profilePortfolio");
   const portfolioClearButton = document.getElementById("portfolioClearButton");
+  const profileView = document.getElementById("designerProfileView");
+  const profileEdit = document.getElementById("designerProfileEdit");
+  const editProfileButton = document.getElementById("editDesignerProfile");
+  const cancelEditButton = document.getElementById("cancelDesignerEdit");
+  const formActions = document.getElementById("designerFormActions");
+  const pageDescription = document.getElementById("designerPageDescription");
+  const portfolioViewLink = document.getElementById("portfolioViewLink");
+  let profileSnapshot = null;
+
+  function profileInputs() {
+    return Array.from(designerProfileForm.querySelectorAll("input, textarea"));
+  }
+
+  function syncProfileView() {
+    document.querySelectorAll("[data-profile-value]").forEach(function (element) {
+      const input = document.getElementById(element.dataset.profileValue);
+      if (input) {
+        element.textContent = input.value.trim() || "غير مضاف";
+      }
+    });
+
+    document.querySelectorAll("[data-profile-skills]").forEach(function (element) {
+      const input = document.getElementById(element.dataset.profileSkills);
+      const values = input ? input.value.split(/[،,]/).map(function (value) {
+        return value.trim();
+      }).filter(Boolean) : [];
+
+      element.replaceChildren();
+      (values.length ? values : ["غير مضاف"]).forEach(function (value) {
+        const chip = document.createElement("span");
+        chip.className = "designer-skill-chip";
+        chip.textContent = value;
+        element.appendChild(chip);
+      });
+    });
+
+    if (portfolioViewLink && portfolioField) {
+      const portfolioUrl = portfolioField.value.trim();
+      portfolioViewLink.href = portfolioUrl || "#";
+      portfolioViewLink.hidden = !portfolioUrl;
+    }
+  }
+
+  function setProfileEditing(isEditing) {
+    profileView.hidden = isEditing;
+    profileEdit.hidden = !isEditing;
+    formActions.hidden = !isEditing;
+    editProfileButton.hidden = isEditing;
+    editProfileButton.setAttribute("aria-expanded", String(isEditing));
+    pageDescription.textContent = isEditing
+      ? "عدّلي بياناتك الشخصية والمهنية، ثم احفظي التغييرات."
+      : "بياناتك الشخصية والمهنية كما تظهر في حسابك.";
+
+    if (isEditing) {
+      profileSnapshot = profileInputs().map(function (input) {
+        return { input: input, value: input.value };
+      });
+      document.getElementById("profileFullName").focus();
+    }
+  }
+
+  if (editProfileButton) {
+    editProfileButton.addEventListener("click", function () {
+      setProfileEditing(true);
+    });
+  }
+
+  if (cancelEditButton) {
+    cancelEditButton.addEventListener("click", function () {
+      (profileSnapshot || []).forEach(function (item) {
+        item.input.value = item.value;
+      });
+      setProfileEditing(false);
+    });
+  }
 
   if (portfolioClearButton && portfolioField) {
     portfolioClearButton.addEventListener("click", function () {
@@ -848,13 +929,77 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
+      syncProfileView();
+      setProfileEditing(false);
       Core.toast(Core.translate("saveSuccess"), "success");
     });
   }
 
+  syncProfileView();
+  setProfileEditing(false);
+
   /* =======================================================
      إعادة الرسم عند تغيير اللغة
      ======================================================= */
+
+  const headerDropdowns = [
+    ["designerProfileMenuButton", "designerProfileMenu"],
+    ["designerNotificationMenuButton", "designerNotificationMenu"]
+  ].map(function (ids) {
+    return {
+      button: document.getElementById(ids[0]),
+      menu: document.getElementById(ids[1])
+    };
+  }).filter(function (dropdown) {
+    return dropdown.button && dropdown.menu;
+  });
+
+  function closeHeaderDropdown(dropdown) {
+    dropdown.button.setAttribute("aria-expanded", "false");
+    dropdown.menu.classList.remove("is-open");
+    dropdown.menu.hidden = true;
+  }
+
+  function openHeaderDropdown(dropdown) {
+    headerDropdowns.forEach(function (item) {
+      if (item !== dropdown) {
+        closeHeaderDropdown(item);
+      }
+    });
+
+    dropdown.button.setAttribute("aria-expanded", "true");
+    dropdown.menu.hidden = false;
+
+    window.requestAnimationFrame(function () {
+      dropdown.menu.classList.add("is-open");
+    });
+  }
+
+  headerDropdowns.forEach(function (dropdown) {
+    dropdown.button.addEventListener("click", function (event) {
+      event.stopPropagation();
+
+      if (dropdown.button.getAttribute("aria-expanded") === "true") {
+        closeHeaderDropdown(dropdown);
+      } else {
+        openHeaderDropdown(dropdown);
+      }
+    });
+
+    dropdown.menu.addEventListener("click", function (event) {
+      event.stopPropagation();
+    });
+  });
+
+  document.addEventListener("click", function () {
+    headerDropdowns.forEach(closeHeaderDropdown);
+  });
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+      headerDropdowns.forEach(closeHeaderDropdown);
+    }
+  });
 
   Core.onLanguageChange(function () {
     renderApprovalStatus();

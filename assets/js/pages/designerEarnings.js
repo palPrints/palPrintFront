@@ -7,27 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
     return;
   }
 
-  const loadingSections = Array.from(document.querySelectorAll(".earnings-stat"));
-  const historySection = document.querySelector(".earnings-history");
-
-  function fakeRequest(payload, delay) {
-    return new Promise(function (resolve) {
-      window.setTimeout(function () {
-        resolve(payload);
-      }, delay);
-    });
-  }
-
-  loadingSections.forEach(function (section, index) {
-    Core.loadSection(section, function () {
-      return fakeRequest({ loaded: true }, 500 + index * 100);
-    });
-  });
-
-  Core.loadSection(historySection, function () {
-    return fakeRequest({ loaded: true }, 800);
-  });
-
   const dictionary = {
     ar: {
       documentTitle: "الأرباح | PalPrints",
@@ -246,71 +225,25 @@ document.addEventListener("DOMContentLoaded", function () {
     counters.forEach(function (counter) { counterObserver.observe(counter); });
   }
 
-  const earningsCards = document.querySelectorAll(".earnings-stat");
-  const liftTimers = new WeakMap();
-
-  function liftCard(card) {
-      window.clearTimeout(liftTimers.get(card));
-      card.classList.remove("is-lifted");
-
-      window.requestAnimationFrame(function () {
-        card.classList.add("is-lifted");
-        liftTimers.set(card, window.setTimeout(function () {
-          card.classList.remove("is-lifted");
-        }, 320));
-      });
-  }
-
-  earningsCards.forEach(function (card) {
-    card.tabIndex = 0;
-    card.setAttribute("role", "button");
-    card.addEventListener("click", function () {
-      liftCard(card);
-    });
-    card.addEventListener("keydown", function (event) {
-      if (event.key !== "Enter" && event.key !== " ") return;
-      event.preventDefault();
-      liftCard(card);
-    });
-  });
-
   const filterToggle = document.getElementById("filterToggle");
   const filterDialog = document.getElementById("filterDialog");
   const filters = document.getElementById("earningsFilters");
   const rows = Array.from(document.querySelectorAll("#earningsRows tr"));
   const empty = document.getElementById("earningsEmpty");
-  const rowLiftTimers = new WeakMap();
-
-  function liftRow(row) {
-    window.clearTimeout(rowLiftTimers.get(row));
-    row.classList.remove("is-row-lifted");
-
-    window.requestAnimationFrame(function () {
-      row.classList.add("is-row-lifted");
-      rowLiftTimers.set(row, window.setTimeout(function () {
-        row.classList.remove("is-row-lifted");
-      }, 300));
-    });
-  }
-
-  rows.forEach(function (row) {
-    row.tabIndex = 0;
-    row.addEventListener("click", function () { liftRow(row); });
-    row.addEventListener("keydown", function (event) {
-      if (event.key !== "Enter" && event.key !== " ") return;
-      event.preventDefault();
-      liftRow(row);
-    });
-  });
 
   if (filterToggle && filterDialog && filters) {
     filterToggle.addEventListener("click", function () {
+      filterToggle.setAttribute("aria-expanded", "true");
       filterDialog.showModal();
       window.setTimeout(function () { filters.querySelector("input, select").focus(); }, 0);
     });
 
     filterDialog.querySelector("[data-filter-close]").addEventListener("click", function () { filterDialog.close(); });
     filterDialog.addEventListener("click", function (event) { if (event.target === filterDialog) filterDialog.close(); });
+    filterDialog.addEventListener("close", function () {
+      filterToggle.setAttribute("aria-expanded", "false");
+      filterToggle.focus();
+    });
   }
 
   function applyFilters() {
@@ -352,9 +285,22 @@ document.addEventListener("DOMContentLoaded", function () {
   const method = document.getElementById("payoutMethod");
 
   function closeDialog() { if (dialog && dialog.open) dialog.close(); }
-  if (openDialog && dialog) openDialog.addEventListener("click", function () { dialog.showModal(); window.setTimeout(function () { amount.focus(); }, 0); });
+  if (openDialog && dialog) openDialog.addEventListener("click", function () {
+    openDialog.setAttribute("aria-expanded", "true");
+    withdrawForm.querySelectorAll(".profile-field").forEach(function (field) { field.classList.remove("has-error"); });
+    amount.removeAttribute("aria-invalid");
+    method.removeAttribute("aria-invalid");
+    dialog.showModal();
+    window.setTimeout(function () { amount.focus(); }, 0);
+  });
   document.querySelectorAll("[data-dialog-close]").forEach(function (button) { button.addEventListener("click", closeDialog); });
   if (dialog) dialog.addEventListener("click", function (event) { if (event.target === dialog) closeDialog(); });
+  if (dialog) dialog.addEventListener("close", function () {
+    if (openDialog) {
+      openDialog.setAttribute("aria-expanded", "false");
+      openDialog.focus();
+    }
+  });
 
   if (withdrawForm) {
     withdrawForm.addEventListener("submit", function (event) {
@@ -372,4 +318,57 @@ document.addEventListener("DOMContentLoaded", function () {
       Core.toast(Core.translate("withdrawalSuccess"), "success");
     });
   }
+
+  const headerDropdowns = [
+    ["designerProfileMenuButton", "designerProfileMenu"],
+    ["designerNotificationMenuButton", "designerNotificationMenu"]
+  ].map(function (ids) {
+    return {
+      button: document.getElementById(ids[0]),
+      menu: document.getElementById(ids[1])
+    };
+  }).filter(function (dropdown) {
+    return dropdown.button && dropdown.menu;
+  });
+
+  function closeHeaderDropdown(dropdown) {
+    dropdown.button.setAttribute("aria-expanded", "false");
+    dropdown.menu.classList.remove("is-open");
+    dropdown.menu.hidden = true;
+  }
+
+  function openHeaderDropdown(dropdown) {
+    headerDropdowns.forEach(function (item) {
+      if (item !== dropdown) closeHeaderDropdown(item);
+    });
+
+    dropdown.button.setAttribute("aria-expanded", "true");
+    dropdown.menu.hidden = false;
+    window.requestAnimationFrame(function () {
+      dropdown.menu.classList.add("is-open");
+    });
+  }
+
+  headerDropdowns.forEach(function (dropdown) {
+    dropdown.button.addEventListener("click", function (event) {
+      event.stopPropagation();
+      if (dropdown.button.getAttribute("aria-expanded") === "true") {
+        closeHeaderDropdown(dropdown);
+      } else {
+        openHeaderDropdown(dropdown);
+      }
+    });
+
+    dropdown.menu.addEventListener("click", function (event) {
+      event.stopPropagation();
+    });
+  });
+
+  document.addEventListener("click", function () {
+    headerDropdowns.forEach(closeHeaderDropdown);
+  });
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") headerDropdowns.forEach(closeHeaderDropdown);
+  });
 });

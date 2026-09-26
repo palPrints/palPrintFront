@@ -8,73 +8,96 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap">
   <link rel="stylesheet" href="assets/css/pages/profile-core.css?v=12">
-  <link rel="stylesheet" href="assets/css/pages/designerEarnings.css?v=8">
+  <link rel="stylesheet" href="assets/css/pages/designerProfile.css?v=87">
+  <link rel="stylesheet" href="assets/css/pages/designerEarnings.css?v=17">
   <link rel="stylesheet" href="assets/css/pages/interactions.css?v=1">
 </head>
-<body class="profile-page earnings-page">
+<body class="profile-page designer-profile-page earnings-page">
   <a href="#earningsMain" class="profile-skip-link" data-i18n="skipToContent">تخطي إلى المحتوى</a>
   <div class="profile-app">
     <aside class="profile-sidebar" id="profileSidebar" aria-label="القائمة الجانبية للمصمم" data-i18n-aria="sidebarLabel">
-      <div class="profile-sidebar-header">
-        <a href="index.html" class="profile-brand" aria-label="الصفحة الرئيسية" data-i18n-aria="goHome"><img src="assets/images/lalprints-logo.png" class="profile-brand-image" alt="PalPrints"></a>
-        <button type="button" class="profile-sidebar-close" id="sidebarCloseButton" aria-label="إغلاق القائمة" data-i18n-aria="closeSidebar"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
-      </div>
       <nav class="profile-sidebar-nav" aria-label="روابط حساب المصمم" data-i18n-aria="designerNavLabel">
-        <a href="index.html" class="profile-sidebar-link"><i class="bi bi-grid" aria-hidden="true"></i><span data-i18n="dashboard">لوحة التحكم</span></a>
+        <a href="dashboardDesigner.html" class="profile-sidebar-link"><i class="bi bi-grid" aria-hidden="true"></i><span data-i18n="dashboard">لوحة التحكم</span></a>
         <a href="uploadDesign.html" class="profile-sidebar-link"><i class="bi bi-cloud-arrow-up" aria-hidden="true"></i><span data-i18n="uploadDesign">رفع تصميم جديد</span></a>
         <a href="designerDesigns.html" class="profile-sidebar-link"><i class="bi bi-images" aria-hidden="true"></i><span data-i18n="myDesigns">تصاميمي</span></a>
         <a href="designerProfile.html" class="profile-sidebar-link"><i class="bi bi-person" aria-hidden="true"></i><span data-i18n="profileTitle">الملف الشخصي</span></a>
         <a href="designerEarnings.html" class="profile-sidebar-link active" aria-current="page"><i class="bi bi-coin" aria-hidden="true"></i><span data-i18n="earnings">الأرباح</span></a>
         <div class="profile-sidebar-divider" aria-hidden="true"></div>
-        <a href="settings.html" class="profile-sidebar-link"><i class="bi bi-gear" aria-hidden="true"></i><span data-i18n="settings">الإعدادات</span></a>
-        <a href="support.html" class="profile-sidebar-link"><i class="bi bi-headset" aria-hidden="true"></i><span data-i18n="support">التواصل مع الدعم الفني</span></a>
+        <a href="settings.html?role=designer" class="profile-sidebar-link"><i class="bi bi-gear" aria-hidden="true"></i><span data-i18n="settings">الإعدادات</span></a>
+        <a href="support.html?role=designer" class="profile-sidebar-link"><i class="bi bi-headset" aria-hidden="true"></i><span data-i18n="support">التواصل مع الدعم الفني</span></a>
       </nav>
       <button type="button" class="profile-sidebar-logout" id="profileLogoutButton" data-href="login.html"><i class="bi bi-box-arrow-left" aria-hidden="true"></i><span data-i18n="logout">تسجيل الخروج</span></button>
     </aside>
     <button type="button" class="profile-sidebar-backdrop" id="sidebarBackdrop" aria-label="إغلاق القائمة" data-i18n-aria="closeSidebar"></button>
 
     <div class="profile-shell">
-      <header class="profile-topbar">
-        <div class="profile-topbar-start">
-          <button type="button" class="profile-sidebar-toggle" id="sidebarToggleButton" aria-controls="profileSidebar" aria-expanded="true" aria-label="إغلاق القائمة الجانبية">
-            <i class="bi bi-list" id="sidebarToggleIcon" aria-hidden="true"></i>
-          </button>
-        </div>
+      <header class="profile-topbar designer-printshop-topbar">
+        <a class="designer-printshop-brand" href="index.html" aria-label="الصفحة الرئيسية">
+          <img src="assets/images/palprints-wordmark-transparent.png" alt="PalPrints">
+        </a>
 
-        <div class="profile-topbar-actions">
-          <button type="button" class="profile-action-button" id="themeToggleButton" aria-label="تغيير المظهر" data-i18n-aria="changeTheme">
-            <i class="bi bi-moon-stars" id="themeToggleIcon" aria-hidden="true"></i>
-          </button>
-          <button type="button" class="profile-action-button profile-language-button" id="languageToggleButton" aria-label="تغيير اللغة" data-i18n-aria="changeLanguage">
-            <i class="bi bi-globe2" aria-hidden="true"></i>
-            <span class="profile-language-code" id="languageToggleText" aria-hidden="true">EN</span>
-          </button>
-          <a href="notifications.html" class="profile-action-button" aria-label="الإشعارات" data-i18n-aria="notifications">
-            <i class="bi bi-bell" aria-hidden="true"></i>
-            <span class="profile-action-dot" aria-hidden="true"></span>
-          </a>
+        <button type="button" class="designer-printshop-icon designer-menu-button" id="sidebarToggleButton" data-no-press aria-controls="profileSidebar" aria-expanded="true" aria-label="إغلاق القائمة الجانبية" data-i18n-aria="closeSidebar">
+          <i class="bi bi-list" id="sidebarToggleIcon" aria-hidden="true"></i>
+        </button>
+
+        <label class="designer-printshop-search">
+          <i class="bi bi-search" aria-hidden="true"></i>
+          <input type="search" placeholder="إبحث عن منتج ..." aria-label="البحث عن منتج">
+        </label>
+
+        <div class="designer-printshop-actions">
+          <div class="designer-header-dropdown-wrap">
+            <button type="button" class="designer-printshop-icon designer-dropdown-toggle" id="designerProfileMenuButton" aria-label="الحساب" aria-haspopup="true" aria-expanded="false" aria-controls="designerProfileMenu" data-no-press>
+              <i class="bi bi-person" aria-hidden="true"></i>
+            </button>
+            <div class="designer-header-dropdown" id="designerProfileMenu" role="menu" hidden>
+              <a href="designerProfile.html" role="menuitem"><i class="bi bi-person"></i><span>الملف الشخصي</span></a>
+              <a href="settings.html?role=designer" role="menuitem"><i class="bi bi-gear"></i><span>الإعدادات</span></a>
+              <span class="designer-dropdown-divider" aria-hidden="true"></span>
+              <a class="designer-dropdown-danger" href="login.html" role="menuitem"><i class="bi bi-box-arrow-left"></i><span>تسجيل الخروج</span></a>
+            </div>
+          </div>
+
+          <div class="designer-header-dropdown-wrap">
+            <button type="button" class="designer-printshop-icon designer-dropdown-toggle designer-notification-button" id="designerNotificationMenuButton" aria-label="الإشعارات" aria-haspopup="true" aria-expanded="false" aria-controls="designerNotificationMenu" data-no-press>
+              <span class="designer-bell-icon"><i class="bi bi-bell" aria-hidden="true"></i><span class="designer-notification-dot" aria-hidden="true"></span></span>
+            </button>
+            <div class="designer-header-dropdown designer-notifications-dropdown" id="designerNotificationMenu" role="menu" hidden>
+              <strong class="designer-dropdown-title">الإشعارات</strong>
+              <a href="notifications.html" role="menuitem"><i class="bi bi-patch-check"></i><span><b>حالة اعتماد الحساب</b><small>تم اعتماد حسابك بنجاح.</small></span></a>
+              <a class="designer-dropdown-footer" href="notifications.html" role="menuitem">عرض جميع الإشعارات</a>
+            </div>
+          </div>
         </div>
       </header>
 
       <main class="profile-main" id="earningsMain">
+        <div class="designer-breadcrumb">
+          <a href="index.html">الرئيسية</a>
+          <i class="bi bi-chevron-left" aria-hidden="true"></i>
+          <span data-i18n="earnings">الأرباح</span>
+        </div>
+
         <header class="earnings-header">
-          <div><h1 data-i18n="earnings">الأرباح</h1><p data-i18n="earningsIntro">تابع أرباحك واطلب استلامها بسهولة</p></div>
-          <button type="button" class="profile-button is-primary earnings-withdraw-cta" id="openWithdrawDialog"><i class="bi bi-cash-coin" aria-hidden="true"></i><span data-i18n="requestEarnings">طلب استلام الأرباح</span></button>
+          <div class="earnings-heading-group">
+            <span class="designer-heading-icon"><i class="bi bi-coin" aria-hidden="true"></i></span>
+            <div class="earnings-heading-copy"><h1 data-i18n="earnings">الأرباح</h1><p data-i18n="earningsIntro">تابع أرباحك واطلب استلامها بسهولة</p></div>
+          </div>
+          <button type="button" class="profile-button is-primary earnings-withdraw-cta" id="openWithdrawDialog" aria-haspopup="dialog" aria-controls="withdrawDialog" aria-expanded="false"><i class="bi bi-cash-coin" aria-hidden="true"></i><span data-i18n="requestEarnings">طلب استلام الأرباح</span></button>
         </header>
 
         <section class="earnings-summary" aria-label="ملخص الأرباح" data-i18n-aria="earningsSummary">
-          <article class="earnings-stat is-available" data-state="loading"><div class="earnings-stat-loader" data-state-loading><span class="profile-skeleton is-block"></span><span class="profile-skeleton is-short"></span></div><div class="earnings-stat-content is-flex" data-state-content><span class="earnings-stat-icon"><i class="bi bi-wallet2" aria-hidden="true"></i></span><div><h2 data-i18n="availableBalance">الرصيد المتاح للسحب</h2><strong dir="ltr" data-earnings-counter="245">$245.00</strong></div></div></article>
-          <article class="earnings-stat is-total" data-state="loading"><div class="earnings-stat-loader" data-state-loading><span class="profile-skeleton is-block"></span><span class="profile-skeleton is-short"></span></div><div class="earnings-stat-content is-flex" data-state-content><span class="earnings-stat-icon"><i class="bi bi-currency-dollar" aria-hidden="true"></i></span><div><h2 data-i18n="totalEarnings">إجمالي الأرباح</h2><strong dir="ltr" data-earnings-counter="1420">$1,420.00</strong></div></div></article>
-          <article class="earnings-stat is-pending" data-state="loading"><div class="earnings-stat-loader" data-state-loading><span class="profile-skeleton is-block"></span><span class="profile-skeleton is-short"></span></div><div class="earnings-stat-content is-flex" data-state-content><span class="earnings-stat-icon"><i class="bi bi-clock" aria-hidden="true"></i></span><div><h2 data-i18n="pendingBalance">قيد الاستحقاق</h2><strong dir="ltr" data-earnings-counter="180">$180.00</strong></div></div></article>
+          <article class="earnings-stat is-available"><div class="earnings-stat-content is-flex"><span class="earnings-stat-icon"><i class="bi bi-wallet2" aria-hidden="true"></i></span><div><h2 data-i18n="availableBalance">الرصيد المتاح للسحب</h2><strong dir="ltr" data-earnings-counter="245">$245.00</strong></div></div></article>
+          <article class="earnings-stat is-total"><div class="earnings-stat-content is-flex"><span class="earnings-stat-icon"><i class="bi bi-currency-dollar" aria-hidden="true"></i></span><div><h2 data-i18n="totalEarnings">إجمالي الأرباح</h2><strong dir="ltr" data-earnings-counter="1420">$1,420.00</strong></div></div></article>
+          <article class="earnings-stat is-pending"><div class="earnings-stat-content is-flex"><span class="earnings-stat-icon"><i class="bi bi-clock" aria-hidden="true"></i></span><div><h2 data-i18n="pendingBalance">قيد الاستحقاق</h2><strong dir="ltr" data-earnings-counter="180">$180.00</strong></div></div></article>
         </section>
 
-        <section class="earnings-history pal-hover-lift" aria-labelledby="historyTitle" data-state="loading">
+        <section class="earnings-history" aria-labelledby="historyTitle">
           <div class="earnings-history-head">
             <h2 id="historyTitle"><i class="bi bi-calendar3" aria-hidden="true"></i><span data-i18n="recentActivity">حدث مؤخراً</span></h2>
-            <button type="button" class="earnings-filter-toggle" id="filterToggle" aria-haspopup="dialog" aria-controls="filterDialog"><i class="bi bi-funnel" aria-hidden="true"></i><span data-i18n="filter">الفلترة</span></button>
+            <button type="button" class="earnings-filter-toggle" id="filterToggle" aria-haspopup="dialog" aria-controls="filterDialog" aria-expanded="false"><i class="bi bi-funnel" aria-hidden="true"></i><span data-i18n="filter">الفلترة</span></button>
           </div>
-          <div class="earnings-history-loader" data-state-loading><span class="profile-skeleton is-line"></span><span class="profile-skeleton is-block"></span><span class="profile-skeleton is-block"></span><span class="profile-skeleton is-block"></span></div>
-          <div class="earnings-table-wrap" data-state-content tabindex="0" aria-label="جدول معاملات الأرباح، قابل للتمرير أفقياً" data-i18n-aria="earningsTableLabel">
+          <div class="earnings-table-wrap" tabindex="0" aria-label="جدول معاملات الأرباح، قابل للتمرير أفقياً" data-i18n-aria="earningsTableLabel">
             <table class="earnings-table">
               <thead><tr><th data-i18n="transactionCode">كود العملية</th><th data-i18n="product">المنتج</th><th data-i18n="designName">اسم التصميم</th><th data-i18n="date">التاريخ</th><th data-i18n="profit">الربح</th><th data-i18n="profitStatus">حالة الربح</th></tr></thead>
               <tbody id="earningsRows">
@@ -96,8 +119,8 @@
   <dialog class="profile-dialog earnings-filter-dialog" id="filterDialog" aria-labelledby="filterDialogTitle">
     <form id="earningsFilters">
       <header class="profile-dialog-header">
-        <div><h2 id="filterDialogTitle" data-i18n="filterEarnings">فلترة الأرباح</h2><p data-i18n="filterDescription">حدّد الخيارات المناسبة للوصول إلى المعاملات التي تبحث عنها.</p></div>
-        <button type="button" class="profile-dialog-close" data-filter-close aria-label="إغلاق" data-i18n-aria="close"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+        <div class="earnings-filter-dialog-title"><span><i class="bi bi-funnel" aria-hidden="true"></i></span><div><h2 id="filterDialogTitle" data-i18n="filterEarnings">فلترة الأرباح</h2><p data-i18n="filterDescription">حدّد الخيارات المناسبة للوصول إلى المعاملات التي تبحث عنها.</p></div></div>
+        <button type="button" class="profile-dialog-close" data-filter-close data-no-press aria-label="إغلاق" data-i18n-aria="close"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
       </header>
       <div class="profile-dialog-body">
         <div class="earnings-filter-grid">
@@ -114,9 +137,9 @@
     </form>
   </dialog>
 
-  <dialog class="profile-dialog" id="withdrawDialog" aria-labelledby="withdrawTitle">
+  <dialog class="profile-dialog earnings-withdraw-dialog" id="withdrawDialog" aria-labelledby="withdrawTitle">
     <form method="dialog" id="withdrawForm">
-      <header class="profile-dialog-header"><div><h2 id="withdrawTitle" data-i18n="requestEarnings">طلب استلام الأرباح</h2><p><span data-i18n="availableBalanceLabel">الرصيد المتاح للسحب:</span> <strong dir="ltr">$245.00</strong></p></div><button type="button" class="profile-dialog-close" data-dialog-close aria-label="إغلاق" data-i18n-aria="close"><i class="bi bi-x-lg" aria-hidden="true"></i></button></header>
+      <header class="profile-dialog-header"><div class="earnings-withdraw-dialog-title"><span><i class="bi bi-cash-coin" aria-hidden="true"></i></span><div><h2 id="withdrawTitle" data-i18n="requestEarnings">طلب استلام الأرباح</h2><p><span data-i18n="availableBalanceLabel">الرصيد المتاح للسحب:</span> <strong dir="ltr">$245.00</strong></p></div></div><button type="button" class="profile-dialog-close" data-dialog-close data-no-press aria-label="إغلاق" data-i18n-aria="close"><i class="bi bi-x-lg" aria-hidden="true"></i></button></header>
       <div class="profile-dialog-body"><div class="profile-field-grid">
         <label class="profile-field"><span data-i18n="withdrawAmount">المبلغ المراد سحبه</span><span class="profile-input-shell"><i class="bi bi-currency-dollar" aria-hidden="true"></i><input id="withdrawAmount" type="number" min="1" max="245" step="0.01" required dir="ltr" placeholder="245.00"></span><small class="profile-field-error" data-i18n="amountError">أدخل مبلغاً بين $1 و$245.</small></label>
         <label class="profile-field"><span data-i18n="payoutMethod">طريقة الاستلام</span><span class="profile-input-shell"><i class="bi bi-bank" aria-hidden="true"></i><select id="payoutMethod" required><option value="" data-i18n="chooseMethod">اختر الطريقة</option><option value="bank" data-i18n="bankTransfer">تحويل بنكي</option><option value="wallet" data-i18n="electronicWallet">محفظة إلكترونية</option></select></span><small class="profile-field-error" data-i18n="methodError">اختر طريقة الاستلام.</small></label>
@@ -127,7 +150,7 @@
   </dialog>
   <div class="profile-toast" id="profileToast" role="status" aria-live="polite" aria-atomic="true"><span class="profile-toast-icon" aria-hidden="true"><i class="bi bi-check2"></i></span><span id="profileToastMessage"></span></div>
   <script src="assets/js/pages/profile-core.js?v=4"></script>
-  <script src="assets/js/pages/designerEarnings.js?v=4"></script>
+  <script src="assets/js/pages/designerEarnings.js?v=8"></script>
   <script src="assets/js/pages/interactions.js?v=3"></script>
 </body>
 </html>
