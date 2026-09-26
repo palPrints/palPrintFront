@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="صفحة إدارة المستخدمين في لوحة إدارة PalPrints" />
+    <title>إدارة المستخدمين | PalPrints</title>
+    <link rel="icon" type="image/png" href="assets/images/logoWithoutBackGround.png" />
+    <link rel="preload" href="assets/fonts/Cairo-Variable.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="stylesheet" href="assets/icons/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="assets/css/pages/adminReportsStatistics.css" />
+    <link rel="stylesheet" href="assets/css/pages/adminUsersManagement.css" />
+  </head>
+
+  <body class="admin-dashboard-page sidebar-collapsed">
+    <a class="skip-link" href="#adminUsersMain">تخطي إلى المحتوى</a>
+
+    <aside class="wallet-sidebar admin-sidebar" id="adminSidebar" aria-label="القائمة الجانبية للإدارة">
+      <nav aria-label="روابط لوحة الإدارة">
+        <a href="adminDashboard.html" data-tooltip="لوحة التحكم"><i class="bi bi-grid" aria-hidden="true"></i><span>لوحة التحكم</span></a>
+
+        <div class="admin-nav-group is-open" id="usersNavGroup">
+          <button class="admin-nav-toggle active" id="usersNavToggle" type="button" aria-expanded="true" aria-controls="usersSubmenu" data-tooltip="إدارة المستخدمين">
+            <i class="bi bi-people" aria-hidden="true"></i><span>إدارة المستخدمين</span><i class="bi bi-chevron-down admin-nav-chevron" aria-hidden="true"></i>
+          </button>
+          <div class="admin-submenu" id="usersSubmenu">
+            <a href="#customers" data-user-type="customers" data-tooltip="العملاء"><i class="bi bi-person" aria-hidden="true"></i><span>العملاء</span></a>
+            <a href="#designers" data-user-type="designers" data-tooltip="المصممون"><i class="bi bi-palette" aria-hidden="true"></i><span>المصممون</span></a>
+            <a href="#print-shops" data-user-type="printShops" data-tooltip="المطابع"><i class="bi bi-printer" aria-hidden="true"></i><span>المطابع</span></a>
+          </div>
+        </div>
+
+        <a href="desginesMangment.html" data-tooltip="إدارة التصاميم"><i class="bi bi-palette" aria-hidden="true"></i><span>إدارة التصاميم</span><b class="admin-nav-badge" aria-label="8 عناصر تحتاج إلى مراجعة">8</b></a>
+        <a href="productMangment.html" data-tooltip="إدارة المنتجات"><i class="bi bi-shop-window" aria-hidden="true"></i><span>إدارة المنتجات</span></a>
+        <a href="adminOrders.html" data-tooltip="إدارة الطلبات"><i class="bi bi-cart3" aria-hidden="true"></i><span>إدارة الطلبات</span></a>
+        <a href="adminEarningsPayments.html" data-tooltip="المدفوعات والأرباح"><i class="bi bi-wallet2" aria-hidden="true"></i><span>المدفوعات والأرباح</span></a>
+        <a href="adminShippingManagement.html" data-tooltip="إدارة الشحن"><i class="bi bi-truck" aria-hidden="true"></i><span>إدارة الشحن</span></a>
+        <a href="adminReportsStatistics.html" data-tooltip="التقارير والإحصائيات"><i class="bi bi-bar-chart-line" aria-hidden="true"></i><span>التقارير والإحصائيات</span></a>
+        <a href="#" data-tooltip="إعدادات النظام"><i class="bi bi-gear" aria-hidden="true"></i><span>إعدادات النظام</span></a>
+        <div class="admin-nav-separator" aria-hidden="true"></div>
+        <a href="support.html" data-tooltip="مركز المساعدة"><i class="bi bi-question-circle" aria-hidden="true"></i><span>مركز المساعدة</span></a>
+      </nav>
+      <button class="logout" id="logoutButton" type="button" data-href="login.html" data-tooltip="تسجيل الخروج"><i class="bi bi-box-arrow-left" aria-hidden="true"></i><span>تسجيل الخروج</span></button>
+    </aside>
+
+    <button class="sidebar-backdrop" id="sidebarBackdrop" type="button" aria-label="إغلاق القائمة"></button>
+
+    <div class="wallet-shell">
+      <header class="topbar admin-topbar">
+        <a class="header-logo" href="index.html" aria-label="الصفحة الرئيسية">
+          <span class="admin-logo-full"><img src="assets/images/palprints-wordmark-transparent.png" alt="PalPrints" /></span>
+          <span class="admin-logo-compact" aria-hidden="true"><img src="assets/images/logoWithoutBackGround.png" alt="" /></span>
+        </a>
+        <button class="icon-button menu-button" id="menuButton" type="button" aria-label="فتح القائمة" aria-controls="adminSidebar" aria-expanded="false"><i class="bi bi-list" aria-hidden="true"></i></button>
+        <label class="search-box admin-search-box">
+          <input id="dashboardSearch" type="search" placeholder="ابحث في إدارة المستخدمين..." aria-label="البحث في إدارة المستخدمين" autocomplete="off" />
+          <i class="bi bi-search" aria-hidden="true"></i>
+        </label>
+        <div class="header-actions">
+          <div class="account-wrap">
+            <button class="icon-button account-button" id="accountButton" type="button" aria-label="قائمة حساب المدير" aria-haspopup="true" aria-expanded="false"><i class="bi bi-person" aria-hidden="true"></i></button>
+            <div class="account-dropdown" id="accountDropdown" role="menu" aria-label="قائمة حساب المدير" hidden>
+              <a href="#" role="menuitem"><i class="bi bi-person" aria-hidden="true"></i><span>الملف الشخصي</span></a>
+              <a href="#" role="menuitem"><i class="bi bi-gear" aria-hidden="true"></i><span>إعدادات الحساب</span></a>
+              <a href="login.html" class="logout-link" role="menuitem"><i class="bi bi-box-arrow-left" aria-hidden="true"></i><span>تسجيل الخروج</span></a>
+            </div>
+          </div>
+          <div class="notification-wrap">
+            <button class="icon-button notification-button" id="notificationButton" type="button" aria-label="الإشعارات، 3 إشعارات جديدة" aria-haspopup="true" aria-expanded="false"><i class="bi bi-bell" aria-hidden="true"></i><span class="counter notification-counter" id="notificationCounter">3</span></button>
+            <div class="notification-dropdown admin-notification-dropdown" id="notificationDropdown" role="menu" aria-label="قائمة الإشعارات" hidden>
+              <div class="notification-dropdown-header"><h3>الإشعارات</h3><button type="button" id="markNotificationsRead">تحديد الكل كمقروء</button></div>
+              <ul class="notification-list"><li><span class="notification-item-icon is-blue"><i class="bi bi-person-plus" aria-hidden="true"></i></span><div><strong>طلب انضمام مستخدم جديد</strong><small>منذ 5 دقائق</small></div></li></ul>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="admin-main admin-users-main" id="adminUsersMain">
+        <section class="users-management" aria-labelledby="usersPageTitle">
+          <h1 id="usersPageTitle">العملاء</h1>
+
+          <div class="users-toolbar">
+            <div class="users-filters" id="usersFilters" aria-label="تصفية المستخدمين"></div>
+          </div>
+
+          <section class="users-panel theme-customers" id="usersPanel" aria-labelledby="usersListTitle">
+            <header class="users-panel-header">
+              <h2 id="usersListTitle"><i class="bi bi-person" aria-hidden="true"></i><span>العملاء</span></h2>
+              <span class="users-count" id="usersCount">0</span>
+            </header>
+            <div class="users-list" id="usersList"></div>
+            <div class="users-empty" id="usersEmpty" hidden><i class="bi bi-people" aria-hidden="true"></i><strong>لا توجد نتائج مطابقة</strong></div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <dialog class="customer-details-dialog" id="customerDetailsDialog" aria-labelledby="customerDialogTitle">
+      <header class="customer-dialog-header">
+        <h2 id="customerDialogTitle">تفاصيل المستخدم</h2>
+        <button class="customer-dialog-close" id="closeCustomerDialog" type="button" aria-label="إغلاق"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+      </header>
+      <section class="customer-dialog-profile">
+        <span class="customer-dialog-avatar" id="customerDialogAvatar">م</span>
+        <div><h3 id="customerDialogName">محمد الخطيب</h3><p><span class="customer-type-badge">العملاء</span><span class="user-status is-active" id="customerDialogStatus">نشط</span></p></div>
+      </section>
+      <div class="customer-dialog-tabs" role="tablist" aria-label="تفاصيل العميل">
+        <button class="active" id="customerInfoTab" type="button" role="tab" aria-selected="true" data-customer-tab="info">المعلومات</button>
+        <button id="customerOrdersTab" type="button" role="tab" aria-selected="false" data-customer-tab="orders">الطلبات</button>
+      </div>
+      <div class="customer-dialog-body">
+        <dl class="customer-info-grid" id="customerInfoPanel" role="tabpanel">
+          <dt>البريد الإلكتروني</dt><dd id="customerDialogEmail" dir="ltr"></dd>
+          <dt>رقم الهاتف</dt><dd id="customerDialogPhone" dir="ltr"></dd>
+          <dt>المدينة</dt><dd id="customerDialogCity"></dd>
+          <dt>تاريخ التسجيل</dt><dd id="customerDialogRegistered"></dd>
+          <dt>عدد الطلبات</dt><dd id="customerDialogOrders"></dd>
+          <dt>إجمالي الإنفاق</dt><dd id="customerDialogSpend"></dd>
+          <dt>آخر طلب</dt><dd id="customerDialogLastOrder"></dd>
+        </dl>
+        <div class="customer-orders-panel" id="customerOrdersPanel" role="tabpanel" hidden>
+          <i class="bi bi-cart3" aria-hidden="true"></i><strong id="customerOrdersSummary"></strong><span>إجمالي طلبات هذا العميل</span>
+        </div>
+      </div>
+      <footer class="customer-dialog-footer">
+        <button class="customer-disable-button" id="customerDisableButton" type="button">تعطيل الحساب</button>
+      </footer>
+    </dialog>
+
+    <div class="admin-toast" id="adminToast" role="status" aria-live="polite"></div>
+    <script src="assets/js/pages/adminUsersManagement.js"></script>
+  </body>
+</html>
