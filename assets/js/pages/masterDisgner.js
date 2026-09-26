@@ -452,7 +452,18 @@
       window.requestAnimationFrame(update);
     }
 
-    counters.forEach(animateCounter);
+    if (reducedMotion.matches || !("IntersectionObserver" in window)) {
+      counters.forEach(animateCounter);
+    } else {
+      const counterObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          animateCounter(entry.target);
+          counterObserver.unobserve(entry.target);
+        });
+      }, { threshold: 0.55 });
+      counters.forEach(function (counter) { counterObserver.observe(counter); });
+    }
     onLanguageChange(function () {
       counters.forEach(function (counter) {
         counter.textContent = format(Number(counter.getAttribute("data-target")) || 0);
@@ -485,15 +496,195 @@
     });
   }
 
+  function setupDashboardHeaderMenus() {
+    const toggles = Array.from(document.querySelectorAll(".designer-dropdown-toggle"));
+
+    function closeAll(exceptButton) {
+      toggles.forEach(function (button) {
+        if (button === exceptButton) return;
+        const menu = document.getElementById(button.getAttribute("aria-controls"));
+        button.setAttribute("aria-expanded", "false");
+        if (menu) menu.hidden = true;
+      });
+    }
+
+    toggles.forEach(function (button) {
+      const menu = document.getElementById(button.getAttribute("aria-controls"));
+      if (!menu) return;
+      button.addEventListener("click", function () {
+        const willOpen = button.getAttribute("aria-expanded") !== "true";
+        closeAll(button);
+        button.setAttribute("aria-expanded", willOpen ? "true" : "false");
+        menu.hidden = !willOpen;
+        if (willOpen) {
+          const firstItem = menu.querySelector("a, button");
+          if (firstItem) window.setTimeout(function () { firstItem.focus(); }, 0);
+        }
+      });
+    });
+
+    document.addEventListener("click", function (event) {
+      if (!event.target.closest(".designer-header-dropdown-wrap")) closeAll();
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") closeAll();
+    });
+  }
+
+  function setupDesignFilters() {
+    const headerSearch = document.getElementById("designerDashboardSearch");
+    const tableSearch = document.getElementById("designTableSearch");
+    const statusFilter = document.getElementById("designStatusFilter");
+    const dateFilter = document.getElementById("designDateFilter");
+    const clearButton = document.getElementById("clearDesignFilters");
+    const emptyState = document.getElementById("designsEmptyState");
+    const rows = Array.from(document.querySelectorAll("[data-design-row]"));
+    if (!rows.length) return;
+
+    function normalized(value) {
+      return String(value || "").trim().toLocaleLowerCase("ar");
+    }
+
+    function applyFilters(source) {
+      const activeSearch = source === headerSearch || !tableSearch ? headerSearch : tableSearch;
+      const query = normalized(activeSearch && activeSearch.value);
+      const status = statusFilter ? statusFilter.value : "";
+      const date = dateFilter ? dateFilter.value : "";
+      let visibleCount = 0;
+
+      if (headerSearch && tableSearch) {
+        if (source === headerSearch) tableSearch.value = headerSearch.value;
+        else headerSearch.value = tableSearch.value;
+      }
+
+      rows.forEach(function (row) {
+        const matchesQuery = !query || normalized(row.getAttribute("data-search")).includes(query);
+        const matchesStatus = !status || row.getAttribute("data-status") === status;
+        const matchesDate = !date || row.getAttribute("data-date") === date;
+        const visible = matchesQuery && matchesStatus && matchesDate;
+        row.hidden = !visible;
+        if (visible) visibleCount += 1;
+      });
+
+      if (emptyState) emptyState.hidden = visibleCount !== 0;
+    }
+
+    if (headerSearch) headerSearch.addEventListener("input", function () { applyFilters(headerSearch); });
+    if (tableSearch) tableSearch.addEventListener("input", function () { applyFilters(tableSearch); });
+    if (statusFilter) statusFilter.addEventListener("change", function () { applyFilters(tableSearch); });
+    if (dateFilter) dateFilter.addEventListener("change", function () { applyFilters(tableSearch); });
+    if (clearButton) clearButton.addEventListener("click", function () {
+      if (headerSearch) headerSearch.value = "";
+      if (tableSearch) tableSearch.value = "";
+      if (statusFilter) statusFilter.value = "";
+      if (dateFilter) dateFilter.value = "";
+      applyFilters(tableSearch);
+      if (tableSearch) tableSearch.focus();
+    });
+  }
+
+  function setupChartPeriods() {
+    const buttons = Array.from(document.querySelectorAll("[data-chart-period]"));
+    const salesLine = document.querySelector(".chart-line.is-sales");
+    const profitLine = document.querySelector(".chart-line.is-profit");
+    const salesArea = document.querySelector(".chart-area");
+    const salesMarker = document.getElementById("salesChartMarker");
+    const caption = document.querySelector(".performance-panel .dashboard-panel-head p");
+    let markerFrame = 0;
+    const series = {
+      week: {
+        sales: "M10 190 C90 188,105 160,150 168 S245 115,290 132 S380 145,430 108 S530 62,575 78 S660 52,710 36",
+        profit: "M10 207 C90 204,105 188,150 193 S245 153,290 166 S380 174,430 145 S530 104,575 118 S660 96,710 84",
+        label: "ملخص الأداء خلال آخر 7 أيام"
+      },
+      month: {
+        sales: "M10 185 C80 176,110 158,150 164 S240 130,290 138 S380 99,430 112 S520 70,575 82 S660 38,710 46",
+        profit: "M10 203 C80 196,110 185,150 190 S240 165,290 171 S380 139,430 148 S520 112,575 122 S660 86,710 94",
+        label: "ملخص الأداء خلال آخر 6 أشهر"
+      },
+      year: {
+        sales: "M10 202 C75 196,110 182,150 185 S235 158,290 165 S375 120,430 132 S520 86,575 96 S655 42,710 28",
+        profit: "M10 214 C75 210,110 199,150 202 S235 181,290 187 S375 154,430 162 S520 126,575 134 S655 92,710 78",
+        label: "ملخص الأداء خلال آخر 12 شهرًا"
+      }
+    };
+
+    function animateChart() {
+      if (!salesLine || !profitLine) return;
+      [salesLine, profitLine, salesArea].forEach(function (element) {
+        if (!element) return;
+        element.classList.remove("is-drawing");
+      });
+
+      void salesLine.getBoundingClientRect();
+      [salesLine, profitLine, salesArea].forEach(function (element) {
+        if (element) element.classList.add("is-drawing");
+      });
+
+      if (!salesMarker) return;
+      window.cancelAnimationFrame(markerFrame);
+      salesMarker.classList.remove("is-resting");
+      salesMarker.classList.add("is-active");
+      const pathLength = salesLine.getTotalLength();
+      const duration = reducedMotion.matches ? 0 : 1550;
+      const startedAt = performance.now();
+
+      function moveMarker(now) {
+        const progress = duration ? Math.min((now - startedAt) / duration, 1) : 1;
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const point = salesLine.getPointAtLength(pathLength * eased);
+        salesMarker.setAttribute("cx", point.x.toFixed(2));
+        salesMarker.setAttribute("cy", point.y.toFixed(2));
+        if (progress < 1) markerFrame = window.requestAnimationFrame(moveMarker);
+        else {
+          salesMarker.classList.remove("is-active");
+          salesMarker.classList.add("is-resting");
+        }
+      }
+      markerFrame = window.requestAnimationFrame(moveMarker);
+    }
+
+    buttons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        const selected = series[button.getAttribute("data-chart-period")] || series.month;
+        buttons.forEach(function (item) {
+          item.classList.toggle("active", item === button);
+          item.setAttribute("aria-pressed", item === button ? "true" : "false");
+        });
+        if (salesLine) salesLine.setAttribute("d", selected.sales);
+        if (profitLine) profitLine.setAttribute("d", selected.profit);
+        if (salesArea) salesArea.setAttribute("d", selected.sales + " L710 218 L10 218 Z");
+        if (caption) caption.textContent = selected.label;
+        animateChart();
+      });
+      button.setAttribute("aria-pressed", button.classList.contains("active") ? "true" : "false");
+    });
+
+    const chart = document.querySelector(".designer-performance-chart");
+    if (chart && !reducedMotion.matches && "IntersectionObserver" in window) {
+      const chartObserver = new IntersectionObserver(function (entries) {
+        if (!entries.some(function (entry) { return entry.isIntersecting; })) return;
+        animateChart();
+        chartObserver.disconnect();
+      }, { threshold: 0.35 });
+      chartObserver.observe(chart);
+    } else {
+      animateChart();
+    }
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     initializeDefaults();
-    applyLanguage(readStorage(STORAGE.language) || "ar");
-    applyTheme(readStorage(STORAGE.theme) || "light");
+    applyLanguage("ar");
+    applyTheme("light");
     setupSidebar();
     setupHeaderButtons();
     setupCounters();
     setupCards();
     setupLogout();
+    setupDashboardHeaderMenus();
+    setupDesignFilters();
+    setupChartPeriods();
 
     const themeButton = document.getElementById("themeToggleButton");
     const languageButton = document.getElementById("languageToggleButton");

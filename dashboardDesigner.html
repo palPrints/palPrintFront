@@ -16,8 +16,8 @@
             localStorage.setItem("palprints-sidebar-collapsed", "false");
             localStorage.setItem(defaultsKey, "true");
           }
-          var language = localStorage.getItem("palprints-language") === "en" ? "en" : "ar";
-          var theme = localStorage.getItem("palprints-theme") === "dark" ? "dark" : "light";
+          var language = "ar";
+          var theme = "light";
           document.documentElement.lang = language;
           document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
           document.documentElement.setAttribute("data-bs-theme", theme);
@@ -33,20 +33,11 @@
     <link rel="stylesheet" href="./assets/icons/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="./assets/css/pages/mainDisgner.css" />
   </head>
-  <body class="dashboard-page">
+  <body class="dashboard-page designer-dashboard-shell">
     <div class="dashboard-container profile-app" id="app">
       <aside class="profile-sidebar" id="profileSidebar" aria-label="القائمة الجانبية للمصمم" data-i18n-aria="sidebarLabel">
-        <div class="profile-sidebar-header">
-          <a href="index.html" class="profile-brand" aria-label="الصفحة الرئيسية" data-i18n-aria="goHome">
-            <img src="./assets/images/logoWithoutBackGround.png" class="profile-brand-image" alt="PalPrints" />
-          </a>
-          <button type="button" class="profile-sidebar-close" id="sidebarCloseButton" aria-label="إغلاق القائمة" data-i18n-aria="closeSidebar">
-            <i class="bi bi-x-lg" aria-hidden="true"></i>
-          </button>
-        </div>
-
         <nav class="profile-sidebar-nav" aria-label="روابط حساب المصمم" data-i18n-aria="designerNavLabel">
-          <a href="#" class="profile-sidebar-link active" aria-current="page">
+          <a href="dashboardDesigner.html" class="profile-sidebar-link active" aria-current="page">
             <i class="bi bi-grid" aria-hidden="true"></i><span data-i18n="dashboard">لوحة التحكم</span>
           </a>
           <a href="uploadDesign.html" class="profile-sidebar-link">
@@ -75,31 +66,231 @@
         </button>
       </aside>
 
-      <button type="button" class="sidebar-backdrop" id="sidebarBackdrop" aria-label="إغلاق القائمة" data-i18n-aria="closeSidebar"></button>
+      <button type="button" class="sidebar-backdrop profile-sidebar-backdrop" id="sidebarBackdrop" aria-label="إغلاق القائمة" data-i18n-aria="closeSidebar"></button>
 
       <div class="page-shell">
-        <header class="top-utility-bar" aria-label="أدوات الصفحة" data-i18n-aria="pageTools">
+        <header class="top-utility-bar designer-printshop-topbar" aria-label="أدوات الصفحة" data-i18n-aria="pageTools">
+          <a class="designer-header-logo designer-printshop-brand" href="index.html" aria-label="الصفحة الرئيسية" data-i18n-aria="goHome">
+            <span class="designer-logo-full">
+              <img src="./assets/images/palprints-wordmark-transparent.png" alt="PalPrints" />
+            </span>
+            <span class="designer-logo-compact" aria-hidden="true">
+              <img src="./assets/images/logoWithoutBackGround.png" alt="" />
+            </span>
+          </a>
           <div class="top-bar-start">
-            <button type="button" class="utility-btn sidebar-toggle-btn" id="sidebarToggleButton" aria-controls="profileSidebar" aria-label="إغلاق القائمة الجانبية" aria-expanded="true" data-i18n-aria="closeSidebar">
-              <i class="bi bi-x-lg" id="sidebarToggleIcon" aria-hidden="true"></i>
+            <button type="button" class="utility-btn sidebar-toggle-btn designer-printshop-icon designer-menu-button" id="sidebarToggleButton" aria-controls="profileSidebar" aria-label="إغلاق القائمة الجانبية" aria-expanded="true" data-i18n-aria="closeSidebar">
+              <i class="bi bi-list" id="sidebarToggleIcon" aria-hidden="true"></i>
             </button>
           </div>
-          <div class="top-bar-end">
-            <button type="button" class="utility-btn" id="themeToggleButton" aria-label="تفعيل الوضع الليلي" data-i18n-aria="switchToDark">
-              <i class="bi bi-moon-stars" id="themeToggleIcon" aria-hidden="true"></i>
-            </button>
-            <button type="button" class="utility-btn language-toggle-btn" id="languageToggleButton" aria-label="تغيير اللغة" data-i18n-aria="changeLanguage">
-              <i class="bi bi-globe2" aria-hidden="true"></i>
-              <span id="languageToggleText" aria-hidden="true">EN</span>
-            </button>
-            <a href="notifications.html" class="utility-btn notif-btn" aria-label="الإشعارات" data-i18n-aria="notifications">
-              <i class="bi bi-bell" aria-hidden="true"></i>
-              <span class="notif-dot" aria-hidden="true"></span>
-            </a>
+
+          <label class="designer-dashboard-search" for="designerDashboardSearch">
+            <i class="bi bi-search" aria-hidden="true"></i>
+            <input id="designerDashboardSearch" type="search" placeholder="ابحث في تصاميمك..." aria-label="البحث في تصاميم المصمم" autocomplete="off" />
+          </label>
+
+          <div class="top-bar-end designer-printshop-actions">
+            <div class="designer-header-dropdown-wrap">
+              <button type="button" class="utility-btn designer-printshop-icon designer-dropdown-toggle" id="designerProfileMenuButton" aria-label="الحساب" aria-haspopup="true" aria-expanded="false" aria-controls="designerProfileMenu">
+                <i class="bi bi-person" aria-hidden="true"></i>
+              </button>
+              <div class="designer-header-dropdown" id="designerProfileMenu" role="menu" hidden>
+                <a href="designerProfile.html" role="menuitem"><i class="bi bi-person" aria-hidden="true"></i><span>الملف الشخصي</span></a>
+                <a href="settings.html?role=designer" role="menuitem"><i class="bi bi-gear" aria-hidden="true"></i><span>الإعدادات</span></a>
+                <span class="designer-dropdown-divider" aria-hidden="true"></span>
+                <a class="designer-dropdown-danger" href="login.html" role="menuitem"><i class="bi bi-box-arrow-left" aria-hidden="true"></i><span>تسجيل الخروج</span></a>
+              </div>
+            </div>
+
+            <div class="designer-header-dropdown-wrap">
+              <button type="button" class="utility-btn designer-printshop-icon designer-dropdown-toggle designer-notification-button" id="designerNotificationMenuButton" aria-label="الإشعارات" aria-haspopup="true" aria-expanded="false" aria-controls="designerNotificationMenu">
+                <span class="designer-bell-icon"><i class="bi bi-bell" aria-hidden="true"></i><span class="notif-dot designer-notification-dot" aria-hidden="true"></span></span>
+              </button>
+              <div class="designer-header-dropdown designer-notifications-dropdown" id="designerNotificationMenu" role="menu" hidden>
+                <strong class="designer-dropdown-title">الإشعارات</strong>
+                <a href="notifications.html" role="menuitem"><i class="bi bi-patch-check" aria-hidden="true"></i><span><b>تم اعتماد حسابك</b><small>يمكنك الآن نشر تصاميمك وبيعها.</small></span></a>
+                <a href="notifications.html" role="menuitem"><i class="bi bi-palette" aria-hidden="true"></i><span><b>تم اعتماد تصميم جديد</b><small>تصميم «روح فلسطين» أصبح منشورًا.</small></span></a>
+                <a class="designer-dropdown-footer" href="notifications.html" role="menuitem">عرض جميع الإشعارات</a>
+              </div>
+            </div>
           </div>
         </header>
 
         <main class="main-content" id="dashboardMain">
+          <div class="dashboard-srs-content">
+            <nav class="designer-breadcrumb" aria-label="مسار التنقل">
+              <a href="index.html">الرئيسية</a>
+              <i class="bi bi-chevron-left" aria-hidden="true"></i>
+              <span>لوحة التحكم</span>
+            </nav>
+
+            <header class="dashboard-page-heading">
+              <div class="dashboard-heading-group">
+                <span class="dashboard-heading-icon"><i class="bi bi-grid" aria-hidden="true"></i></span>
+                <div>
+                  <h1>لوحة تحكم المصمم</h1>
+                  <p>تابع تصاميمك وطلباتك ومبيعاتك من مكان واحد.</p>
+                </div>
+              </div>
+              <a class="dashboard-primary-action" href="uploadDesign.html">
+                <i class="bi bi-cloud-arrow-up" aria-hidden="true"></i>
+                <span>رفع تصميم جديد</span>
+              </a>
+            </header>
+
+            <section class="stats-grid designer-summary-grid" aria-label="ملخص أداء المصمم">
+              <article class="stat-card is-blue">
+                <span class="stat-icon"><i class="bi bi-images" aria-hidden="true"></i></span>
+                <div class="stat-body"><h2 class="stat-title">إجمالي التصاميم</h2><strong class="stat-value counter" data-target="24">0</strong><p class="stat-trend neutral">18 منشورًا، 3 قيد المراجعة</p></div>
+              </article>
+              <article class="stat-card is-green">
+                <span class="stat-icon"><i class="bi bi-bag-check" aria-hidden="true"></i></span>
+                <div class="stat-body"><h2 class="stat-title">إجمالي المبيعات</h2><strong class="stat-value counter" data-target="327">0</strong><p class="stat-trend positive"><i class="bi bi-arrow-up" aria-hidden="true"></i> 12% هذا الشهر</p></div>
+              </article>
+              <article class="stat-card is-blue">
+                <span class="stat-icon"><i class="bi bi-currency-dollar" aria-hidden="true"></i></span>
+                <div class="stat-body"><h2 class="stat-title">إجمالي الأرباح</h2><strong class="stat-value"><span class="counter" data-target="8450">0</span> ₪</strong><p class="stat-trend positive"><i class="bi bi-arrow-up" aria-hidden="true"></i> 1,200 ₪ هذا الشهر</p></div>
+              </article>
+              <article class="stat-card is-amber">
+                <span class="stat-icon"><i class="bi bi-wallet2" aria-hidden="true"></i></span>
+                <div class="stat-body"><h2 class="stat-title">الرصيد المتاح</h2><strong class="stat-value"><span class="counter" data-target="2450">0</span> ₪</strong><a class="stat-card-link" href="designerEarnings.html">إدارة الأرباح</a></div>
+              </article>
+            </section>
+
+            <div class="dashboard-insights-grid">
+              <section class="dashboard-panel performance-panel" aria-labelledby="performanceTitle">
+                <header class="dashboard-panel-head">
+                  <div><h2 id="performanceTitle">أداء المبيعات والأرباح</h2><p>ملخص الأداء خلال آخر 6 أشهر</p></div>
+                  <div class="chart-periods" role="group" aria-label="الفترة الزمنية">
+                    <button type="button" data-chart-period="week">أسبوع</button>
+                    <button type="button" class="active" data-chart-period="month">6 أشهر</button>
+                    <button type="button" data-chart-period="year">سنة</button>
+                  </div>
+                </header>
+                <div class="chart-legend" aria-hidden="true"><span><i class="is-sales"></i> المبيعات</span><span><i class="is-profit"></i> الأرباح</span></div>
+                <div class="designer-performance-chart" role="img" aria-label="رسم بياني يوضح نمو المبيعات والأرباح خلال ستة أشهر">
+                  <div class="chart-y-axis" aria-hidden="true"><span>100</span><span>75</span><span>50</span><span>25</span><span>0</span></div>
+                  <div class="chart-canvas">
+                    <span class="chart-grid-line" style="--line: 0"></span><span class="chart-grid-line" style="--line: 1"></span><span class="chart-grid-line" style="--line: 2"></span><span class="chart-grid-line" style="--line: 3"></span><span class="chart-grid-line" style="--line: 4"></span>
+                    <svg viewBox="0 0 720 220" preserveAspectRatio="none" aria-hidden="true">
+                      <defs><linearGradient id="salesArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1677ff" stop-opacity=".22"/><stop offset="1" stop-color="#1677ff" stop-opacity="0"/></linearGradient></defs>
+                      <path class="chart-area" d="M10 185 C80 176,110 158,150 164 S240 130,290 138 S380 99,430 112 S520 70,575 82 S660 38,710 46 L710 218 L10 218 Z"></path>
+                      <path class="chart-line is-sales" d="M10 185 C80 176,110 158,150 164 S240 130,290 138 S380 99,430 112 S520 70,575 82 S660 38,710 46"></path>
+                      <path class="chart-line is-profit" d="M10 203 C80 196,110 185,150 190 S240 165,290 171 S380 139,430 148 S520 112,575 122 S660 86,710 94"></path>
+                      <circle class="chart-sales-marker" id="salesChartMarker" cx="10" cy="185" r="6"></circle>
+                    </svg>
+                    <div class="chart-months" aria-hidden="true"><span>أبريل</span><span>مايو</span><span>يونيو</span><span>يوليو</span><span>أغسطس</span><span>سبتمبر</span></div>
+                  </div>
+                </div>
+              </section>
+
+              <section class="dashboard-panel design-status-panel" aria-labelledby="designStatusTitle">
+                <header class="dashboard-panel-head"><div><h2 id="designStatusTitle">حالة التصاميم</h2><p>توزيع جميع تصاميمك</p></div></header>
+                <div class="design-status-visual">
+                  <div class="design-donut" role="img" aria-label="18 منشور، 3 قيد المراجعة، تصميمان مخفيان، تصميم واحد مرفوض"><span><strong class="counter" data-target="24">0</strong><small>تصميمًا</small></span></div>
+                  <ul class="design-status-list">
+                    <li><span><i class="is-published"></i> منشور</span><strong class="counter" data-target="18">0</strong></li>
+                    <li><span><i class="is-review"></i> قيد المراجعة</span><strong class="counter" data-target="3">0</strong></li>
+                    <li><span><i class="is-hidden"></i> مخفي</span><strong class="counter" data-target="2">0</strong></li>
+                    <li><span><i class="is-rejected"></i> مرفوض</span><strong class="counter" data-target="1">0</strong></li>
+                  </ul>
+                </div>
+              </section>
+            </div>
+
+            <section class="dashboard-panel designer-designs-panel" aria-labelledby="myDesignsTitle">
+              <header class="dashboard-panel-head dashboard-panel-head--split">
+                <div><h2 id="myDesignsTitle">تصاميمي</h2><p>جميع التصاميم وحالة النشر الخاصة بكل تصميم</p></div>
+                <a href="designerDesigns.html">عرض كل التصاميم <i class="bi bi-arrow-left" aria-hidden="true"></i></a>
+              </header>
+              <div class="designer-filter-bar">
+                <label class="dashboard-field"><i class="bi bi-funnel" aria-hidden="true"></i><select id="designStatusFilter" aria-label="تصفية التصاميم حسب الحالة"><option value="">كل الحالات</option><option value="published">منشور</option><option value="review">قيد المراجعة</option><option value="hidden">مخفي</option><option value="rejected">مرفوض</option></select></label>
+                <label class="dashboard-field"><i class="bi bi-calendar3" aria-hidden="true"></i><input id="designDateFilter" type="month" aria-label="تصفية التصاميم حسب تاريخ النشر" /></label>
+                <button class="dashboard-clear-filter" id="clearDesignFilters" type="button"><i class="bi bi-arrow-counterclockwise" aria-hidden="true"></i> مسح</button>
+              </div>
+              <div class="designer-table-wrap" tabindex="0" aria-label="جدول تصاميم المصمم، قابل للتمرير أفقيًا">
+                <table class="designer-data-table">
+                  <thead><tr><th>التصميم</th><th>رقم التصميم</th><th>المنتجات</th><th>تاريخ النشر</th><th>الحالة</th><th><span class="visually-hidden">الإجراءات</span></th></tr></thead>
+                  <tbody id="designerDesignRows">
+                    <tr data-design-row data-status="published" data-date="2026-09" data-search="روح فلسطين DSG-1024 تيشيرت كوب"><td><div class="design-cell"><img src="assets/images/tshirts/adults-good-things.png" alt="معاينة تصميم روح فلسطين"/><span><strong>روح فلسطين</strong><small>عبارات وطنية</small></span></div></td><td dir="ltr">#DSG-1024</td><td>تيشيرت، كوب</td><td><time datetime="2026-09-18">18 سبتمبر 2026</time></td><td><span class="dashboard-status is-published"><i></i> منشور</span></td><td><a class="table-action" href="designerDesigns.html" aria-label="إدارة تصميم روح فلسطين"><i class="bi bi-three-dots" aria-hidden="true"></i></a></td></tr>
+                    <tr data-design-row data-status="review" data-date="2026-09" data-search="زخارف القدس DSG-1023 هودي حقيبة"><td><div class="design-cell"><img src="assets/images/products/hoodie.png" alt="معاينة تصميم زخارف القدس"/><span><strong>زخارف القدس</strong><small>زخارف عربية</small></span></div></td><td dir="ltr">#DSG-1023</td><td>هودي، حقيبة</td><td><time datetime="2026-09-16">16 سبتمبر 2026</time></td><td><span class="dashboard-status is-review"><i></i> قيد المراجعة</span></td><td><a class="table-action" href="designerDesigns.html" aria-label="إدارة تصميم زخارف القدس"><i class="bi bi-three-dots" aria-hidden="true"></i></a></td></tr>
+                    <tr data-design-row data-status="hidden" data-date="2026-08" data-search="البحر والمدينة DSG-1018 كوب دفتر"><td><div class="design-cell"><img src="assets/images/mugs/palestine.png" alt="معاينة تصميم البحر والمدينة"/><span><strong>البحر والمدينة</strong><small>مناظر فلسطينية</small></span></div></td><td dir="ltr">#DSG-1018</td><td>كوب، دفتر</td><td><time datetime="2026-08-27">27 أغسطس 2026</time></td><td><span class="dashboard-status is-hidden"><i></i> مخفي</span></td><td><a class="table-action" href="designerDesigns.html" aria-label="إدارة تصميم البحر والمدينة"><i class="bi bi-three-dots" aria-hidden="true"></i></a></td></tr>
+                    <tr data-design-row data-status="rejected" data-date="2026-08" data-search="خط كوفي تجريدي DSG-1012 ملصق"><td><div class="design-cell"><img src="assets/images/products/stickers.png" alt="معاينة تصميم خط كوفي تجريدي"/><span><strong>خط كوفي تجريدي</strong><small>خط عربي</small></span></div></td><td dir="ltr">#DSG-1012</td><td>ملصق</td><td><time datetime="2026-08-11">11 أغسطس 2026</time></td><td><span class="dashboard-status is-rejected"><i></i> مرفوض</span></td><td><a class="table-action" href="designerDesigns.html" aria-label="إدارة تصميم خط كوفي تجريدي"><i class="bi bi-three-dots" aria-hidden="true"></i></a></td></tr>
+                  </tbody>
+                </table>
+                <div class="dashboard-empty-state" id="designsEmptyState" hidden><i class="bi bi-search" aria-hidden="true"></i><strong>لا توجد تصاميم مطابقة</strong><span>جرّب تغيير كلمات البحث أو عوامل التصفية.</span></div>
+              </div>
+            </section>
+
+            <section class="dashboard-panel gaza-trends-panel" aria-labelledby="gazaTrendsTitle">
+              <header class="dashboard-panel-head dashboard-panel-head--split gaza-trends-head">
+                <div class="gaza-trends-heading">
+                  <div>
+                    <h2 id="gazaTrendsTitle">الاكثر طلبا</h2>
+                    <p>استلهم منتجك القادم من حركة السوق.</p>
+                  </div>
+                </div>
+                <span class="trends-live-badge"><i aria-hidden="true"></i> يُحدّث الآن</span>
+              </header>
+
+              <div class="trending-products-grid">
+                <article class="trend-card trending-product-card">
+                  <div class="trending-product-media">
+                    <span class="trend-rank">#1</span>
+                    <span class="trend-growth"><i class="bi bi-graph-up-arrow" aria-hidden="true"></i> +38%</span>
+                    <img src="assets/images/products/tshirt.png" alt="تيشيرت بطباعة مخصصة" loading="lazy" />
+                  </div>
+                  <div class="trending-product-body">
+                    <div class="trending-product-title"><h3>تيشيرت أوفر سايز</h3><span>الأكثر رواجًا</span></div>
+                    <p>التصاميم الوطنية والخط العربي تتصدر الطلب هذا الأسبوع.</p>
+                    <a href="uploadDesign.html"><i class="bi bi-palette" aria-hidden="true"></i> صمّم لهذا المنتج</a>
+                  </div>
+                </article>
+
+                <article class="trend-card trending-product-card">
+                  <div class="trending-product-media">
+                    <span class="trend-rank">#2</span>
+                    <span class="trend-growth"><i class="bi bi-graph-up-arrow" aria-hidden="true"></i> +29%</span>
+                    <img src="assets/images/products/hoodie.png" alt="هودي بطباعة مخصصة" loading="lazy" />
+                  </div>
+                  <div class="trending-product-body">
+                    <div class="trending-product-title"><h3>هودي شتوي</h3><span>صاعد بسرعة</span></div>
+                    <p>رسومات غزة البسيطة والألوان الدافئة تحقق أفضل تفاعل.</p>
+                    <a href="uploadDesign.html"><i class="bi bi-palette" aria-hidden="true"></i> صمّم لهذا المنتج</a>
+                  </div>
+                </article>
+
+                <article class="trend-card trending-product-card">
+                  <div class="trending-product-media">
+                    <span class="trend-rank">#3</span>
+                    <span class="trend-growth"><i class="bi bi-graph-up-arrow" aria-hidden="true"></i> +24%</span>
+                    <img src="assets/images/products/tote-bag.png" alt="حقيبة قماش بطباعة مخصصة" loading="lazy" />
+                  </div>
+                  <div class="trending-product-body">
+                    <div class="trending-product-title"><h3>حقيبة قماش</h3><span>اختيار الجمهور</span></div>
+                    <p>الزخارف التراثية والعبارات القصيرة هي الأكثر حفظًا ومشاركة.</p>
+                    <a href="uploadDesign.html"><i class="bi bi-palette" aria-hidden="true"></i> صمّم لهذا المنتج</a>
+                  </div>
+                </article>
+
+                <article class="trend-card trending-product-card">
+                  <div class="trending-product-media">
+                    <span class="trend-rank">#4</span>
+                    <span class="trend-growth"><i class="bi bi-graph-up-arrow" aria-hidden="true"></i> +17%</span>
+                    <img src="assets/images/products/mug.png" alt="كوب بطباعة مخصصة" loading="lazy" />
+                  </div>
+                  <div class="trending-product-body">
+                    <div class="trending-product-title"><h3>كوب مطبوع</h3><span>هدية رائجة</span></div>
+                    <p>عبارات الأمل ورسومات المعالم الفلسطينية تتقدم في الهدايا.</p>
+                    <a href="uploadDesign.html"><i class="bi bi-palette" aria-hidden="true"></i> صمّم لهذا المنتج</a>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+          </div>
+
+          <template class="legacy-dashboard-content">
           <section class="designer-intro" aria-label="ابدأ تصميمًا جديدًا" data-i18n-aria="designerIntroLabel">
             <div class="designer-intro-copy">
               <h1 class="designer-intro-text">
@@ -230,6 +421,7 @@
               </table>
             </div>
           </section>
+          </template>
         </main>
       </div>
     </div>
