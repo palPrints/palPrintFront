@@ -925,6 +925,7 @@ body.sidebar-collapsed .site-content {
   top: 0;
   overflow: visible;
   transform-origin: 0 0;
+  transition: transform 0.2s cubic-bezier(0.2, 0.75, 0.3, 1), opacity 0.16s ease, visibility 0.16s ease;
   will-change: transform;
 }
 
@@ -937,7 +938,7 @@ body.sidebar-collapsed .site-content {
 
 .studio-snap-guide {
   position: absolute;
-  z-index: 3;
+  z-index: 4;
   pointer-events: none;
   background: #f16434;
   box-shadow: 0 0 0 1px rgb(255 255 255 / 75%);
@@ -999,10 +1000,21 @@ body.sidebar-collapsed .site-content {
   top: var(--zone-top, 28%);
   width: var(--zone-width, 38%);
   height: var(--zone-height, 42%);
-  border: 1.5px dashed var(--studio-primary);
+  border: 1.5px dashed #1677ff;
   background: transparent;
-  box-shadow: 0 0 0 1px rgb(255 255 255 / 78%), inset 0 0 0 1px rgb(255 255 255 / 24%);
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 92%), inset 0 0 0 1px rgb(11 31 58 / 12%);
   pointer-events: none;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.studio-print-zone.has-format-conflict {
+  border-color: #c77a08;
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 94%), 0 0 0 3px rgb(199 122 8 / 10%);
+}
+
+.studio-print-zone.has-overflow {
+  border-color: #dc3f45;
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 94%), 0 0 0 3px rgb(220 63 69 / 11%);
 }
 
 .studio-zone-label {
@@ -1011,17 +1023,29 @@ body.sidebar-collapsed .site-content {
   left: 50%;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 3px 7px;
+  gap: 3px;
+  padding: 2px 6px;
   color: var(--studio-primary-dark);
-  background: rgb(255 255 255 / 90%);
+  background: rgb(255 255 255 / 94%);
   border: 1px solid #bed9ff;
   border-radius: 7px;
   box-shadow: var(--studio-shadow-sm);
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 800;
   transform: translateX(-50%);
   white-space: nowrap;
+}
+
+.studio-print-zone.has-format-conflict .studio-zone-label {
+  color: #8a5100;
+  border-color: rgb(199 122 8 / 36%);
+  background: rgb(255 251 240 / 96%);
+}
+
+.studio-print-zone.has-overflow .studio-zone-label {
+  color: #a82228;
+  border-color: rgb(220 63 69 / 36%);
+  background: rgb(255 247 247 / 96%);
 }
 
 .studio-workspace-foot {
@@ -1067,31 +1091,74 @@ body.sidebar-collapsed .site-content {
   justify-self: center;
   display: inline-flex;
   align-items: center;
-  gap: 2px;
-  padding: 3px;
+  gap: 4px;
+  padding: 4px;
   color: var(--studio-copy);
-  background: #f7fafd;
-  border: 1px solid var(--studio-border);
-  border-radius: 9px;
-  font-size: 11px;
+  background: var(--studio-surface);
+  border: 1px solid var(--studio-border-strong);
+  border-radius: 11px;
+  box-shadow: 0 2px 8px rgb(11 31 58 / 8%);
 }
 
 .studio-zoom-placeholder button {
-  min-width: 28px;
-  height: 28px;
+  min-width: 32px;
+  height: 32px;
   display: grid;
   place-items: center;
   padding: 0;
   color: var(--studio-primary-dark);
   background: transparent;
-  border-radius: 6px;
+  border: 1px solid transparent;
+  border-radius: 8px;
   cursor: pointer;
+  transition: color 0.16s ease, background 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease, transform 0.12s ease;
 }
 
-.studio-zoom-placeholder button:hover:not(:disabled) { background: var(--studio-primary-soft); }
-.studio-zoom-placeholder button:disabled { color: #a9b8cc; cursor: not-allowed; opacity: 0.65; }
-.studio-zoom-placeholder .studio-zoom-value { min-width: 52px; padding-inline: 6px; color: var(--studio-ink); }
-.studio-zoom-placeholder strong { font-size: 10px; font-weight: 800; }
+.studio-zoom-placeholder button:hover:not(:disabled) {
+  color: var(--studio-primary);
+  background: var(--studio-primary-soft);
+  border-color: #c9e0ff;
+  transform: translateY(-1px);
+}
+
+.studio-zoom-placeholder button:active:not(:disabled) {
+  box-shadow: inset 0 1px 3px rgb(11 31 58 / 12%);
+  transform: translateY(0) scale(0.94);
+}
+
+.studio-zoom-placeholder button:disabled {
+  color: #a9b8cc;
+  background: #f5f8fc;
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
+.studio-zoom-placeholder .studio-zoom-step i {
+  font-size: 17px;
+  line-height: 1;
+}
+
+.studio-zoom-placeholder .studio-zoom-value {
+  min-width: 62px;
+  padding-inline: 8px;
+  color: var(--studio-ink);
+  background: #f7fafd;
+  border-color: var(--studio-border);
+  font-variant-numeric: tabular-nums;
+}
+
+.studio-zoom-placeholder .studio-zoom-value[aria-pressed="true"] {
+  color: var(--studio-primary-dark);
+  background: var(--studio-primary-soft);
+  border-color: #c9e0ff;
+}
+
+.studio-zoom-placeholder strong {
+  font-size: 13px;
+  font-weight: 850;
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
 
 .studio-tools-heading {
   margin-bottom: 15px;

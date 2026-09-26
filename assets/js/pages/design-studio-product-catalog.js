@@ -2,7 +2,9 @@
   "use strict";
 
   const sizes = (...ids) => ids.map(id => ({ id, name: id === "standard" ? "قياسي" : id }));
-  const area = (id, name, role, icon, mockup, printZone) => ({ id, name, role, icon, image: mockup, mockup, printZone });
+  const area = (id, name, role, icon, mockup, printZone, visibleBounds) => ({
+    id, name, role, icon, image: mockup, mockup, printZone, ...(visibleBounds ? { visibleBounds } : {})
+  });
   const product = config => {
     const printAreas = config.printAreas.map(item => ({ ...item, printZone: { ...item.printZone } }));
     return {
@@ -15,46 +17,59 @@
     };
   };
 
-  const tshirtFront = "assets/images/printing-areas/tshirt/tshirt-front-removebg-preview.png";
-  const tshirtBack = "assets/images/printing-areas/tshirt/tshirt-back-removebg-preview.png";
-  const rightSleeve = "assets/images/printing-areas/tshirt/tshirt-rightSleeve-removebg-preview.png";
-  const leftSleeve = "assets/images/printing-areas/tshirt/tshirt-leftSleeve-removebg-preview.png";
-  const bodyZone = { leftPct: 31, topPct: 28, widthPct: 38, heightPct: 42, widthCm: 28, heightCm: 36 };
-  const sleeveZone = { leftPct: 35, topPct: 34, widthPct: 30, heightPct: 28, widthCm: 10, heightCm: 12 };
+  const rightSleeve = "assets/images/design-studio/garments/standard-tshirt/white-right-sleeve.png";
+  const leftSleeve = "assets/images/design-studio/garments/standard-tshirt/white-left-sleeve.png";
+  const garmentMockup = (garment, color, view) => `assets/images/design-studio/garments/${garment}/${color}-${view}.png`;
+  const bodyZone = { leftPct: 31, topPct: 28, widthPct: 38, heightPct: 42, widthCm: 21, heightCm: 29.7,
+    physicalFormat: "A4", physicalDimensionsStatus: "provisional-maximum", physicalFitStatus: "unverified" };
+  const rightSleeveZone = { leftPct: 42.5, topPct: 27.8, widthPct: 13.5, heightPct: 12.15, widthCm: 10, heightCm: 12 };
+  // The left source garment has a smaller visible pixel envelope, so its normalized zone is
+  // compensated around the same sleeve center to render at the same size as the right zone.
+  const leftSleeveZone = { leftPct: 46.1, topPct: 29.2, widthPct: 12.4, heightPct: 11.16, widthCm: 10, heightCm: 12 };
+  const standardTshirtFront = garmentMockup("standard-tshirt", "white", "front");
+  const standardTshirtBack = garmentMockup("standard-tshirt", "white", "back");
+  const hoodieFront = garmentMockup("hoodie", "white", "front-stringless");
+  const hoodieBack = garmentMockup("hoodie", "white", "back");
+  // Shared alpha envelope measured across all four 1086 × 1448 stringless fronts.
+  // Keeping one envelope prevents color-specific fit changes from moving or resizing the A4 zone.
+  const hoodieFrontVisibleBounds = { left: 48 / 1086, top: 150 / 1448, right: 1070 / 1086, bottom: 1330 / 1448 };
 
   const products = [
     product({
       id: "product-001", categoryId: "tshirts", name: "تي شيرت كلاسيكي", studioTitle: "تيشيرت Unisex قطن كلاسيكي",
       description: "تي شيرت كلاسيكي عالي الجودة 100% قطن", price: 29, defaultAreaId: "front", defaultColor: "white",
       colors: [
-        { id: "white", name: "أبيض", value: "#ffffff", image: "assets/images/tshirt.webp" },
-        { id: "black", name: "أسود", value: "#000000", image: "assets/images/tshirt.webp" },
-        { id: "navy", name: "كحلي", value: "#173B87", image: "assets/images/tshirt.webp" },
-        { id: "red", name: "أحمر", value: "#D52A3C", image: "assets/images/tshirt.webp" },
-        { id: "green", name: "أخضر", value: "#2E9B42", image: "assets/images/tshirt.webp" }
+        { id: "white", name: "أبيض", value: "#ffffff", image: garmentMockup("standard-tshirt", "white", "front"), areaMockups: { front: garmentMockup("standard-tshirt", "white", "front"), back: garmentMockup("standard-tshirt", "white", "back") } },
+        { id: "black", name: "أسود", value: "#171717", image: garmentMockup("standard-tshirt", "black", "front"), areaMockups: { front: garmentMockup("standard-tshirt", "black", "front"), back: garmentMockup("standard-tshirt", "black", "back") } },
+        { id: "navy", name: "كحلي", value: "#172238", image: garmentMockup("standard-tshirt", "navy", "front"), areaMockups: { front: garmentMockup("standard-tshirt", "navy", "front"), back: garmentMockup("standard-tshirt", "navy", "back") } },
+        { id: "red", name: "أحمر", value: "#A9272D", image: garmentMockup("standard-tshirt", "red", "front"), areaMockups: { front: garmentMockup("standard-tshirt", "red", "front"), back: garmentMockup("standard-tshirt", "red", "back") } }
       ],
       sizes: sizes("S", "M", "L", "XL", "XXL"),
       printAreas: [
-        area("front", "الأمام", "front", "bi bi-person-standing", tshirtFront, bodyZone),
-        area("back", "الخلف", "back", "bi bi-person-standing", tshirtBack, bodyZone),
-        area("right-sleeve", "الكم الأيمن", "right-sleeve", "bi bi-arrow-right", rightSleeve, sleeveZone),
-        area("left-sleeve", "الكم الأيسر", "left-sleeve", "bi bi-arrow-left", leftSleeve, sleeveZone)
+        area("front", "الأمام", "front", "bi bi-person-standing", standardTshirtFront, bodyZone),
+        area("back", "الخلف", "back", "bi bi-person-standing", standardTshirtBack, bodyZone),
+        area("right-sleeve", "الكم الأيمن", "right-sleeve", "bi bi-arrow-right", rightSleeve, rightSleeveZone),
+        area("left-sleeve", "الكم الأيسر", "left-sleeve", "bi bi-arrow-left", leftSleeve, leftSleeveZone)
       ],
-      thumbnail: "assets/images/tshirt.webp"
+      thumbnail: standardTshirtFront
     }),
     product({
       id: "product-002", categoryId: "hoodies", name: "هودي بسيط", studioTitle: "هودي Unisex قطني",
       description: "هودي مريح للاستخدام اليومي", price: 79, defaultAreaId: "front", defaultColor: "white",
       colors: [
-        { id: "white", name: "أبيض", value: "#ffffff", image: "assets/images/hoodie.png" },
-        { id: "black", name: "أسود", value: "#000000", image: "assets/images/hoodie-black.png" }
+        { id: "white", name: "أبيض", value: "#ffffff", image: garmentMockup("hoodie", "white", "front-stringless"), areaMockups: { front: garmentMockup("hoodie", "white", "front-stringless"), back: garmentMockup("hoodie", "white", "back") } },
+        { id: "black", name: "أسود", value: "#171717", image: garmentMockup("hoodie", "black", "front-stringless"), areaMockups: { front: garmentMockup("hoodie", "black", "front-stringless"), back: garmentMockup("hoodie", "black", "back") } },
+        { id: "gray", name: "رمادي", value: "#B9B9B9", image: garmentMockup("hoodie", "gray", "front-stringless"), areaMockups: { front: garmentMockup("hoodie", "gray", "front-stringless"), back: garmentMockup("hoodie", "gray", "back") } },
+        { id: "navy", name: "كحلي", value: "#172238", image: garmentMockup("hoodie", "navy", "front-stringless"), areaMockups: { front: garmentMockup("hoodie", "navy", "front-stringless"), back: garmentMockup("hoodie", "navy", "back") } }
       ],
       sizes: sizes("S", "M", "L", "XL"),
       printAreas: [
-        area("front", "الأمام", "front", "bi bi-person-standing", "assets/images/printing-areas/hoodie/hoodie-front.png", { leftPct: 32, topPct: 29, widthPct: 36, heightPct: 40, widthCm: 28, heightCm: 36 }),
-        area("back", "الخلف", "back", "bi bi-person-standing", "assets/images/printing-areas/hoodie/hoodie-back.png", { leftPct: 32, topPct: 29, widthPct: 36, heightPct: 40, widthCm: 28, heightCm: 36 })
+        area("front", "الأمام", "front", "bi bi-person-standing", hoodieFront, { leftPct: 36.5, topPct: 26.2, widthPct: 31, heightPct: 32.88, widthCm: 21, heightCm: 29.7,
+          physicalFormat: "A4", physicalDimensionsStatus: "provisional-maximum", physicalFitStatus: "configured-stringless-mockup" }, hoodieFrontVisibleBounds),
+        area("back", "الخلف", "back", "bi bi-person-standing", hoodieBack, { leftPct: 32, topPct: 35, widthPct: 36, heightPct: 39, widthCm: 21, heightCm: 29.7,
+          physicalFormat: "A4", physicalDimensionsStatus: "provisional-maximum", physicalFitStatus: "unverified" })
       ],
-      thumbnail: "assets/images/hoodie.png"
+      thumbnail: hoodieFront
     }),
     product({
       id: "product-003", categoryId: "mugs", name: "كوب سيراميك", studioTitle: "كوب سيراميك",
@@ -72,24 +87,6 @@
         area("back", "الخلف", "back", "bi bi-bag", "assets/images/bag.png", { leftPct: 24, topPct: 22, widthPct: 52, heightPct: 56, widthCm: 28, heightCm: 30 })
       ],
       thumbnail: "assets/images/bag.png"
-    }),
-    product({
-      id: "product-005", categoryId: "tshirts", name: "تي شيرت ثقيل باهت", studioTitle: "تيشيرت Oversize قطن فاخر",
-      description: "تي شيرت ثقيل بقصة مريحة وألوان باهتة عصرية", price: 49, defaultAreaId: "front", defaultColor: "faded-black",
-      colors: [
-        { id: "faded-black", name: "أسود باهت", value: "#4A4A48", image: "assets/images/products1/tshirt-2/tshirt-dyed-heavyweight-faded-black-removebg-preview.png" },
-        { id: "faded-brown", name: "بني باهت", value: "#9B816A", image: "assets/images/products1/tshirt-2/tshirt-dyed-heavyweight-faded-brown-removebg-preview.png" },
-        { id: "faded-cream", name: "كريمي باهت", value: "#F1EBDD", image: "assets/images/products1/tshirt-2/tshirt-dyed-heavyweight-faded-cream-removebg-preview.png" },
-        { id: "faded-navy", name: "كحلي باهت", value: "#345775", image: "assets/images/products1/tshirt-2/tshirt-dyed-heavyweight-faded-navy-removebg-preview.png" }
-      ],
-      sizes: sizes("S", "M", "L", "XL", "XXL"),
-      printAreas: [
-        area("front", "الأمام", "front", "bi bi-person-standing", tshirtFront, { leftPct: 32, topPct: 31, widthPct: 36, heightPct: 36, widthCm: 28, heightCm: 36 }),
-        area("back", "الخلف", "back", "bi bi-person-standing", tshirtBack, { leftPct: 32, topPct: 31, widthPct: 36, heightPct: 36, widthCm: 28, heightCm: 36 }),
-        area("right-sleeve", "الكم الأيمن", "right-sleeve", "bi bi-arrow-right", rightSleeve, sleeveZone),
-        area("left-sleeve", "الكم الأيسر", "left-sleeve", "bi bi-arrow-left", leftSleeve, sleeveZone)
-      ],
-      thumbnail: "assets/images/products1/tshirt-2/tshirt-dyed-heavyweight-faded-black-removebg-preview.png"
     }),
     product({
       id: "product-006", categoryId: "caps", name: "قبعة كلاسيكية", studioTitle: "قبعة Unisex كلاسيكية",

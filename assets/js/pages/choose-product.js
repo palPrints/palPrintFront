@@ -255,9 +255,9 @@ const backendResponse = {
                     name: "الكم الأيمن",
                     role: "right-sleeve",
                     icon: "bi bi-arrow-right",
-                    image: "assets/images/printing-areas/tshirt/tshirt-rightSleeve-removebg-preview.png",
-                    mockup: "assets/images/printing-areas/tshirt/tshirt-rightSleeve-removebg-preview.png",
-                    printZone: { leftPct: 35, topPct: 34, widthPct: 30, heightPct: 28, widthCm: 10, heightCm: 12 }
+                    image: "assets/images/design-studio/garments/standard-tshirt/white-right-sleeve.png",
+                    mockup: "assets/images/design-studio/garments/standard-tshirt/white-right-sleeve.png",
+                    printZone: { leftPct: 42.5, topPct: 27.8, widthPct: 13.5, heightPct: 12.15, widthCm: 10, heightCm: 12 }
                 },
 
                 {
@@ -265,9 +265,9 @@ const backendResponse = {
                     name: "الكم الأيسر",
                     role: "left-sleeve",
                     icon: "bi bi-arrow-left",
-                    image: "assets/images/printing-areas/tshirt/tshirt-leftSleeve-removebg-preview.png",
-                    mockup: "assets/images/printing-areas/tshirt/tshirt-leftSleeve-removebg-preview.png",
-                    printZone: { leftPct: 35, topPct: 34, widthPct: 30, heightPct: 28, widthCm: 10, heightCm: 12 }
+                    image: "assets/images/design-studio/garments/standard-tshirt/white-left-sleeve.png",
+                    mockup: "assets/images/design-studio/garments/standard-tshirt/white-left-sleeve.png",
+                    printZone: { leftPct: 46.1, topPct: 29.2, widthPct: 12.4, heightPct: 11.16, widthCm: 10, heightCm: 12 }
                 }
 
             ],
@@ -494,78 +494,6 @@ const backendResponse = {
 
             thumbnail:
                 "assets/images/bag.png"
-        },
-
-
-        {
-            id: "product-005",
-
-            categoryId: "tshirts",
-
-            name: "تي شيرت ثقيل باهت",
-
-            studioTitle: "تيشيرت Oversize قطن فاخر",
-
-            description:
-                "تي شيرت ثقيل بقصة مريحة وألوان باهتة عصرية",
-
-            price: 49,
-
-            editor: {
-                defaultAreaId: "front"
-            },
-
-            defaultColor: "faded-black",
-
-            colors: [
-
-                {
-                    id: "faded-black",
-                    name: "أسود باهت",
-                    value: "#4A4A48",
-                    image: "assets/images/products1/tshirt-2/tshirt-dyed-heavyweight-faded-black-removebg-preview.png"
-                },
-
-                {
-                    id: "faded-brown",
-                    name: "بني باهت",
-                    value: "#9B816A",
-                    image: "assets/images/products1/tshirt-2/tshirt-dyed-heavyweight-faded-brown-removebg-preview.png"
-                },
-
-                {
-                    id: "faded-cream",
-                    name: "كريمي باهت",
-                    value: "#F1EBDD",
-                    image: "assets/images/products1/tshirt-2/tshirt-dyed-heavyweight-faded-cream-removebg-preview.png"
-                },
-
-                {
-                    id: "faded-navy",
-                    name: "كحلي باهت",
-                    value: "#345775",
-                    image: "assets/images/products1/tshirt-2/tshirt-dyed-heavyweight-faded-navy-removebg-preview.png"
-                }
-
-            ],
-
-            sizes: [
-                { id: "S", name: "S" },
-                { id: "M", name: "M" },
-                { id: "L", name: "L" },
-                { id: "XL", name: "XL" },
-                { id: "XXL", name: "XXL" }
-            ],
-
-            printAreas: [
-                { id: "front", name: "الأمام", role: "front", icon: "bi bi-person-standing", image: "assets/images/printing-areas/tshirt/tshirt-front-removebg-preview.png", mockup: "assets/images/printing-areas/tshirt/tshirt-front-removebg-preview.png", printZone: { leftPct: 32, topPct: 31, widthPct: 36, heightPct: 36, widthCm: 28, heightCm: 36 } },
-                { id: "back", name: "الخلف", role: "back", icon: "bi bi-person-standing", image: "assets/images/printing-areas/tshirt/tshirt-back-removebg-preview.png", mockup: "assets/images/printing-areas/tshirt/tshirt-back-removebg-preview.png", printZone: { leftPct: 32, topPct: 31, widthPct: 36, heightPct: 36, widthCm: 28, heightCm: 36 } },
-                { id: "right-sleeve", name: "الكم الأيمن", role: "right-sleeve", icon: "bi bi-arrow-right", image: "assets/images/printing-areas/tshirt/tshirt-rightSleeve-removebg-preview.png", mockup: "assets/images/printing-areas/tshirt/tshirt-rightSleeve-removebg-preview.png", printZone: { leftPct: 35, topPct: 34, widthPct: 30, heightPct: 28, widthCm: 10, heightCm: 12 } },
-                { id: "left-sleeve", name: "الكم الأيسر", role: "left-sleeve", icon: "bi bi-arrow-left", image: "assets/images/printing-areas/tshirt/tshirt-leftSleeve-removebg-preview.png", mockup: "assets/images/printing-areas/tshirt/tshirt-leftSleeve-removebg-preview.png", printZone: { leftPct: 35, topPct: 34, widthPct: 30, heightPct: 28, widthCm: 10, heightCm: 12 } }
-            ],
-
-            thumbnail:
-                "assets/images/products1/tshirt-2/tshirt-dyed-heavyweight-faded-black-removebg-preview.png"
         },
 
 

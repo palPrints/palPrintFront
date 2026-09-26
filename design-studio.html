@@ -18,7 +18,7 @@
   <div class="page-shell">
     <aside class="sidebar" id="sidebar" aria-label="قائمة الحساب">
       <a href="index.html" class="sidebar-brand" aria-label="PALPRINTS — الصفحة الرئيسية">
-        <img src="assets/images/logo/PalPrints-logo.svg" alt="PALPRINTS">
+        <img src="assets/images/palprints-wordmark-approved.png" alt="PALPRINTS">
       </a>
 
       <nav class="sidebar-nav" aria-label="روابط الحساب">
@@ -182,8 +182,8 @@
                 <div class="studio-product-canvas" id="productCanvas">
                   <img id="productMockup" alt="">
                   <div class="studio-print-zone" id="printZone" aria-label="منطقة الطباعة">
-                    <span class="studio-zone-label"><i class="bi bi-bounding-box" aria-hidden="true"></i> منطقة
-                      الطباعة</span>
+                    <span class="studio-zone-label"><i class="bi bi-bounding-box" aria-hidden="true"></i><span
+                        id="printZoneLabelText">منطقة الطباعة</span></span>
                   </div>
                 </div>
                 <canvas id="designCanvas" aria-label="لوحة التصميم"></canvas>
@@ -202,11 +202,11 @@
                     aria-hidden="true"></i></button>
               </span>
               <span class="studio-zoom-placeholder" role="group" aria-label="أدوات تكبير مساحة التصميم">
-                <button id="studioZoomOut" type="button" aria-label="تصغير العرض" title="تصغير العرض"><i class="bi bi-dash"
+                <button class="studio-zoom-step" id="studioZoomOut" type="button" aria-label="تصغير العرض" title="تصغير العرض"><i class="bi bi-dash-lg"
                     aria-hidden="true"></i></button>
                 <button class="studio-zoom-value" id="studioZoomFit" type="button" aria-label="ملاءمة التصميم للعرض"
-                  title="ملاءمة التصميم للعرض"><strong id="studioZoomValue">100%</strong></button>
-                <button id="studioZoomIn" type="button" aria-label="تكبير العرض" title="تكبير العرض"><i class="bi bi-plus"
+                  title="ملاءمة التصميم للعرض" aria-pressed="true"><strong id="studioZoomValue">100%</strong></button>
+                <button class="studio-zoom-step" id="studioZoomIn" type="button" aria-label="تكبير العرض" title="تكبير العرض"><i class="bi bi-plus-lg"
                     aria-hidden="true"></i></button>
               </span>
             </div>
@@ -261,7 +261,7 @@
       <footer class="footer">
         <div class="footer-grid">
           <div class="footer-brand">
-            <img src="assets/images/logo/PalPrints-logo.svg" alt="PALPRINTS">
+            <img src="assets/images/palprints-wordmark-approved.png" alt="PALPRINTS">
             <p>من فكرة إلى واقع.<br>صنع بكل حب لكم.</p>
           </div>
           <div class="footer-column">

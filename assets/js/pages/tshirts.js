@@ -6,8 +6,7 @@
     { id: "panda-music", category: "kids", title: "تيشيرت أطفال", description: "موسيقى دائماً", designer: "Omar K.", price: 20, image: "assets/images/tshirts/kids-panda-music.png" },
     { id: "little-explorer", category: "kids", title: "تيشيرت أطفال", description: "للمستكشف الصغير", designer: "Sara N.", price: 20, image: "assets/images/tshirts/kids-little-explorer.png" },
     { id: "moon-good-day", category: "adults", title: "تيشيرت رجال / نساء", description: "يوم جيد دائماً", designer: "Ahmad Z.", price: 20, image: "assets/images/tshirts/adults-good-day.png" },
-    { id: "good-things", category: "adults", title: "تيشيرت رجال / نساء", description: "الأمور الجيدة تستغرق وقتاً", designer: "Haneen S.", price: 20, image: "assets/images/tshirts/adults-good-things.png" },
-    { id: "salam", category: "oversized", title: "تيشيرت أوفر سايز", description: "سلام", designer: "Yousef M.", price: 25, image: "assets/images/tshirts/oversized-salam.png" }
+    { id: "good-things", category: "adults", title: "تيشيرت رجال / نساء", description: "الأمور الجيدة تستغرق وقتاً", designer: "Haneen S.", price: 20, image: "assets/images/tshirts/adults-good-things.png" }
   ];
 
   const previewPageUrl = "product-preview.html";

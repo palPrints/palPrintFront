@@ -8,29 +8,13 @@ const catalog = {
         image: "assets/images/tshirt.webp",
         colors: [{ id: "white", value: "#fff" }, { id: "black", value: "#111" }, { id: "navy", value: "#173b87" }, { id: "red", value: "#d52a3c" }, { id: "green", value: "#2e9b42" }],
         sizes: ["S", "M", "L", "XL", "XXL"],
-        areas: [{ id: "front", name: "الأمام", image: "assets/images/printing-areas/tshirt/tshirt-front-removebg-preview.png", dimensions: "28 × 36 سم" }, { id: "back", name: "الخلف", image: "assets/images/printing-areas/tshirt/tshirt-back-removebg-preview.png", dimensions: "28 × 36 سم" }, { id: "right-sleeve", name: "الكم الأيمن", image: "assets/images/printing-areas/tshirt/tshirt-rightSleeve-removebg-preview.png", dimensions: "10 × 12 سم" }, { id: "left-sleeve", name: "الكم الأيسر", image: "assets/images/printing-areas/tshirt/tshirt-leftSleeve-removebg-preview.png", dimensions: "10 × 12 سم" }]
+        areas: [{ id: "front", name: "الأمام", image: "assets/images/printing-areas/tshirt/tshirt-front-removebg-preview.png", dimensions: "28 × 36 سم" }, { id: "back", name: "الخلف", image: "assets/images/printing-areas/tshirt/tshirt-back-removebg-preview.png", dimensions: "28 × 36 سم" }, { id: "right-sleeve", name: "الكم الأيمن", image: "assets/images/design-studio/garments/standard-tshirt/white-right-sleeve.png", dimensions: "10 × 12 سم" }, { id: "left-sleeve", name: "الكم الأيسر", image: "assets/images/design-studio/garments/standard-tshirt/white-left-sleeve.png", dimensions: "10 × 12 سم" }]
     },
     "product-002": {
         name: "هودي بسيط", price: 79, colorName: { white: "أبيض", black: "أسود" }, colors: [{ id: "white", value: "#fff", image: "assets/images/hoodie.png" }, { id: "black", value: "#111", image: "assets/images/hoodie-black.png" }], sizes: ["S", "M", "L", "XL"], areas: [{ id: "front", name: "الأمام", image: "assets/images/printing-areas/hoodie/hoodie-front.png", dimensions: "28 × 36 سم" }, { id: "back", name: "الخلف", image: "assets/images/printing-areas/hoodie/hoodie-back.png", dimensions: "28 × 36 سم" }]
     },
     "product-003": { name: "كوب سيراميك", price: 19, colorName: { white: "أبيض" }, image: "assets/images/cup.webp", colors: [{ id: "white", value: "#fff" }], sizes: ["قياسي"], areas: [{ id: "front", name: "الواجهة", image: "assets/images/cup.webp", dimensions: "20 × 9 سم" }] },
     "product-004": { name: "حقيبة قماشية", price: 39, colorName: { white: "أبيض" }, image: "assets/images/bag.png", colors: [{ id: "white", value: "#fff" }], sizes: ["قياسي"], areas: [{ id: "front", name: "الأمام", image: "assets/images/bag.png", dimensions: "28 × 30 سم" }, { id: "back", name: "الخلف", image: "assets/images/bag.png", dimensions: "28 × 30 سم" }] },
-    "product-005": {
-        name: "تي شيرت ثقيل باهت",
-        price: 49,
-        colorName: { "faded-black": "أسود باهت", "faded-brown": "بني باهت", "faded-cream": "كريمي باهت", "faded-navy": "كحلي باهت" },
-        colors: [
-            { id: "faded-black", value: "#4a4a48", image: "assets/images/products1/tshirt-2/tshirt-dyed-heavyweight-faded-black-removebg-preview.png" },
-            { id: "faded-brown", value: "#9b816a", image: "assets/images/products1/tshirt-2/tshirt-dyed-heavyweight-faded-brown-removebg-preview.png" },
-            { id: "faded-cream", value: "#f1ebdd", image: "assets/images/products1/tshirt-2/tshirt-dyed-heavyweight-faded-cream-removebg-preview.png" },
-            { id: "faded-navy", value: "#345775", image: "assets/images/products1/tshirt-2/tshirt-dyed-heavyweight-faded-navy-removebg-preview.png" }
-        ],
-        sizes: ["S", "M", "L", "XL", "XXL"],
-        areas: [{ id: "front", name: "الأمام", image: "assets/images/printing-areas/tshirt/tshirt-front-removebg-preview.png", dimensions: "28 × 36 سم" }, { id: "back", name: "الخلف", image: "assets/images/printing-areas/tshirt/tshirt-back-removebg-preview.png", dimensions: "28 × 36 سم" }, { id: "right-sleeve", name: "الكم الأيمن", image: "assets/images/printing-areas/tshirt/tshirt-rightSleeve-removebg-preview.png", dimensions: "10 × 12 سم" }, { id: "left-sleeve", name: "الكم الأيسر", image: "assets/images/printing-areas/tshirt/tshirt-leftSleeve-removebg-preview.png", dimensions: "10 × 12 سم" }],
-        canvasWidth: "min(56%, 455px)",
-        canvasMobileWidth: "76%",
-        printZone: { top: "31%", left: "32%", width: "36%", height: "36%" }
-    },
     "product-006": {
         name: "قبعة كلاسيكية",
         price: 25,

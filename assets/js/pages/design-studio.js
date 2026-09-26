@@ -31,7 +31,8 @@
     summarySize: $("summarySize"), summaryPrice: $("summaryPrice"), selectedColorName: $("selectedColorName"),
     colorOptions: $("colorOptions"), sizeOptions: $("sizeOptions"), areaOptions: $("areaOptions"), areaCount: $("areaCount"),
     workspaceEyebrow: $("workspaceEyebrow"), stage: $("studioStage"), coordinateSystem: $("stageCoordinateSystem"), productCanvas: $("productCanvas"),
-    productMockup: $("productMockup"), printZone: $("printZone"), designCanvas: $("designCanvas"),
+    productMockup: $("productMockup"),
+    printZone: $("printZone"), printZoneLabelText: $("printZoneLabelText"), designCanvas: $("designCanvas"),
     toolPanel: $("toolPanel"), toolPanelContent: $("toolPanelContent"), error: $("studioError"),
     errorMessage: $("studioErrorMessage"), liveRegion: $("studioLiveRegion"), notice: $("studioNotice"), noticeText: $("studioNoticeText"),
     deleteDialog: $("deleteAssetDialog"), deleteThumbnail: $("deleteAssetThumbnail"), deleteMessage: $("deleteAssetMessage"),
@@ -128,6 +129,10 @@
   }
   function showError(message) { elements.errorMessage.textContent = message; elements.error.hidden = false; }
   function resolveZone(area, size) { return area?.sizePrintZones?.[size?.id] || area?.printZone || null; }
+  function applyZoneToOverlay(zone) {
+    ["left", "top", "width", "height"].forEach(key => elements.printZone.style.setProperty(`--zone-${key}`, `${zone[`${key}Pct`]}%`));
+    elements.printZone.classList.toggle("has-format-conflict", zone.physicalFitStatus === "conflict-review-required");
+  }
   function resolveMockup(area, color) { return color?.areaMockups?.[area.id] || (["front", "primary"].includes(area.role) && color?.image) || area.mockup || app.product.thumbnail || color?.image || ""; }
   function zonesDiffer(a, b) { return ["leftPct", "topPct", "widthPct", "heightPct", "widthCm", "heightCm"].some(key => Number(a?.[key]) !== Number(b?.[key])); }
 
@@ -151,9 +156,10 @@
   function resolveEligibleProducts(selection) {
     const shared = Array.isArray(window.PALPRINTS_PRODUCT_CATALOG?.products) ? window.PALPRINTS_PRODUCT_CATALOG.products : [];
     const payload = Array.isArray(selection?.editorProducts) ? selection.editorProducts : [];
+    const sharedIds = new Set(shared.map(product => product?.id).filter(Boolean));
     const byId = new Map();
-    [...shared, ...payload, selection?.editorProduct].forEach(product => {
-      if (!product?.id || !validateProduct(product).valid) return;
+    [...payload, selection?.editorProduct, ...shared].forEach(product => {
+      if (!product?.id || (shared.length && !sharedIds.has(product.id)) || !validateProduct(product).valid) return;
       byId.set(product.id, product);
     });
     return [...byId.values()];
@@ -395,6 +401,37 @@
     const root = elements.coordinateSystem.getBoundingClientRect(), zone = elements.printZone.getBoundingClientRect(), scale = app.stageScale || 1;
     return { left: (zone.left - root.left) / scale, top: (zone.top - root.top) / scale, width: zone.width / scale, height: zone.height / scale };
   }
+  function updatePrintZoneFeedback() {
+    if (!app.canvas || !app.geometryReady) return;
+    const zone = getZoneRect(), tolerance = 0.75;
+    let outsideCount = 0;
+    app.canvas.getObjects().forEach(object => {
+      object.setCoords();
+      const bounds = object.getBoundingRect();
+      const outside = bounds.left < zone.left - tolerance || bounds.top < zone.top - tolerance
+        || bounds.left + bounds.width > zone.left + zone.width + tolerance
+        || bounds.top + bounds.height > zone.top + zone.height + tolerance;
+      outsideCount += outside ? 1 : 0;
+      object.studioOutsidePrintZone = outside;
+      object.set({ borderColor: outside ? "#dc3f45" : "#1677ff", cornerColor: outside ? "#dc3f45" : "#1677ff" });
+    });
+    const hasOverflow = outsideCount > 0;
+    const formatConflict = elements.printZone.classList.contains("has-format-conflict");
+    elements.printZone.classList.toggle("has-overflow", hasOverflow);
+    elements.printZone.setAttribute("aria-label", hasOverflow
+      ? `منطقة الطباعة — ${outsideCount} عنصر خارج الحدود جزئيًا`
+      : formatConflict ? "منطقة الطباعة — ملاءمة A4 تحتاج إلى تأكيد" : "منطقة الطباعة");
+    elements.printZone.title = hasOverflow ? "الأجزاء الواقعة خارج الحدود لن تدخل في ملف الطباعة."
+      : formatConflict ? "المساحة الآمنة فوق الجيب لا تسمح بعرض ارتفاع A4 كاملًا. يلزم تأكيد المطبعة." : "";
+    if (elements.printZoneLabelText) elements.printZoneLabelText.textContent = hasOverflow ? "تجاوز حدود الطباعة"
+      : formatConflict ? "A4 بحاجة تأكيد" : "منطقة الطباعة";
+  }
+  function createPrintAreaExport(multiplier = 1) {
+    if (!app.canvas || !app.geometryReady) return null;
+    const zone = getZoneRect(), scale = Math.max(0.1, Number(multiplier) || 1);
+    app.canvas.renderAll();
+    return app.canvas.toCanvasElement(scale, { left: zone.left, top: zone.top, width: zone.width, height: zone.height });
+  }
   function objectToModel(object, zone) {
     const common = { id: object.studioId, kind: object.studioKind, x: (object.left - zone.left) / zone.width, y: (object.top - zone.top) / zone.height,
       angle: Number(object.angle) || 0, flipX: Boolean(object.flipX), flipY: Boolean(object.flipY) };
@@ -484,7 +521,7 @@
     const zone = getZoneRect(), objects = (await Promise.all(models.map(model => modelToObject(model, zone)))).filter(Boolean);
     if (token !== app.areaSwitchToken) return;
     app.suppressCanvasEvents = true; app.canvas.clear(); objects.forEach(object => app.canvas.add(object)); app.canvas.discardActiveObject(); app.canvas.requestRenderAll(); app.suppressCanvasEvents = false;
-    clearSnapGuides(); updateSelectedObjectControls();
+    clearSnapGuides(); updateSelectedObjectControls(); updatePrintZoneFeedback();
     app.viewportZone = { ...zone };
   }
   function reflowObjects(models) {
@@ -496,7 +533,7 @@
       else if (model.kind === "graphic") Object.assign(values, { scaleX: (model.width * zone.width) / object.width, scaleY: (model.width * zone.width) / object.width });
       else Object.assign(values, { width: Math.max(30, model.width * zone.width), fontSize: Math.max(8, model.fontSize * zone.height), scaleX: model.scaleX, scaleY: model.scaleY });
       object.set(values); object.setCoords();
-    }); app.canvas.requestRenderAll(); app.viewportZone = { ...zone };
+    }); app.canvas.requestRenderAll(); app.viewportZone = { ...zone }; updatePrintZoneFeedback();
   }
 
   function uniformFitObjects(models, oldZone) {
@@ -508,7 +545,7 @@
         scaleX: object.scaleX * fit, scaleY: object.scaleY * fit });
       object.setCoords();
     });
-    app.canvas.requestRenderAll(); app.viewportZone = { ...nextZone };
+    app.canvas.requestRenderAll(); app.viewportZone = { ...nextZone }; updatePrintZoneFeedback();
   }
 
   function initializeLogicalStage() {
@@ -533,7 +570,7 @@
     elements.zoomValue.textContent = `${Math.round(app.viewZoom * 100)}%`;
     elements.zoomOut.disabled = app.viewZoom <= VIEW_ZOOM.min + 0.001;
     elements.zoomIn.disabled = app.viewZoom >= VIEW_ZOOM.max - 0.001;
-    elements.zoomFit.disabled = Math.abs(app.viewZoom - 1) < 0.001;
+    elements.zoomFit.setAttribute("aria-pressed", String(Math.abs(app.viewZoom - 1) < 0.001));
   }
   function setViewZoom(value, shouldAnnounce = true) {
     const clamped = Math.min(VIEW_ZOOM.max, Math.max(VIEW_ZOOM.min, Number(value) || 1));
@@ -545,6 +582,9 @@
     elements.zoomOut?.addEventListener("click", () => setViewZoom(app.viewZoom - VIEW_ZOOM.step));
     elements.zoomIn?.addEventListener("click", () => setViewZoom(app.viewZoom + VIEW_ZOOM.step));
     elements.zoomFit?.addEventListener("click", () => setViewZoom(1));
+    elements.coordinateSystem?.addEventListener("transitionend", event => {
+      if (event.propertyName === "transform") app.canvas?.calcOffset();
+    });
     updateZoomControls();
   }
   function refreshCanvasResolution() {
@@ -557,6 +597,10 @@
     app.canvas.requestRenderAll();
   }
   function measureVisibleBounds() {
+    const configured = app.area?.visibleBounds;
+    if (configured && ["left", "top", "right", "bottom"].every(key => Number.isFinite(Number(configured[key])))
+      && configured.left >= 0 && configured.top >= 0 && configured.right <= 1 && configured.bottom <= 1
+      && configured.right > configured.left && configured.bottom > configured.top) return configured;
     const image = elements.productMockup, scale = Math.min(1, 512 / Math.max(image.naturalWidth, image.naturalHeight));
     const width = Math.max(1, Math.round(image.naturalWidth * scale)), height = Math.max(1, Math.round(image.naturalHeight * scale));
     const canvas = document.createElement("canvas"), context = canvas.getContext("2d", { willReadFrequently: true });
@@ -579,9 +623,12 @@
     const scale = Math.min(targetHeight / visibleHeight, availableWidth / visibleWidth);
     const offsetX = ((image.naturalWidth / 2) - ((bounds.left + bounds.right) / 2) * image.naturalWidth) * scale;
     const offsetY = ((image.naturalHeight / 2) - ((bounds.top + bounds.bottom) / 2) * image.naturalHeight) * scale;
+    const width = `${Math.floor(image.naturalWidth * scale)}px`, height = `${Math.floor(image.naturalHeight * scale)}px`;
+    const left = `calc(50% + ${offsetX}px)`, top = `calc(50% + ${offsetY}px)`;
     elements.productCanvas.style.setProperty("--studio-product-ratio", `${image.naturalWidth} / ${image.naturalHeight}`);
-    elements.productCanvas.style.width = `${Math.floor(image.naturalWidth * scale)}px`; elements.productCanvas.style.height = `${Math.floor(image.naturalHeight * scale)}px`;
-    elements.productCanvas.style.left = `calc(50% + ${offsetX}px)`; elements.productCanvas.style.top = `calc(50% + ${offsetY}px)`; app.geometryReady = true; return true;
+    elements.productCanvas.style.width = width; elements.productCanvas.style.height = height;
+    elements.productCanvas.style.left = left; elements.productCanvas.style.top = top;
+    app.geometryReady = true; return true;
   }
   function waitForMockup(image) {
     if (image.complete && image.naturalWidth > 0) return Promise.resolve();
@@ -589,12 +636,15 @@
       const loaded = () => { cleanup(); resolve(); }, failed = () => { cleanup(); reject(new Error("Mockup failed to load.")); };
       const cleanup = () => { image.removeEventListener("load", loaded); image.removeEventListener("error", failed); };
       image.addEventListener("load", loaded, { once: true }); image.addEventListener("error", failed, { once: true });
+      // A cached/local image can finish between the initial check and listener registration.
+      if (image.complete) (image.naturalWidth > 0 ? loaded : failed)();
     });
   }
   async function loadMockup(area, color) {
     elements.stage.classList.add("is-loading"); elements.stage.setAttribute("aria-busy", "true"); app.geometryReady = false;
-    elements.productMockup.src = resolveMockup(area, color); elements.productMockup.alt = `${app.product.studioTitle || app.product.name} — ${area.name}`;
-    const zone = resolveZone(area, app.size); ["left", "top", "width", "height"].forEach(key => elements.printZone.style.setProperty(`--zone-${key}`, `${zone[`${key}Pct`]}%`));
+    const mockup = resolveMockup(area, color);
+    elements.productMockup.src = mockup; elements.productMockup.alt = `${app.product.studioTitle || app.product.name} — ${area.name}`;
+    const zone = resolveZone(area, app.size); applyZoneToOverlay(zone);
     await waitForMockup(elements.productMockup);
     fitProductToStage(); updateStageTransform();
   }
@@ -626,7 +676,7 @@
         saveActiveArea(); const oldZoneRect = app.viewportZone || getZoneRect(), models = app.design.areas[app.area.id].objects, needsFit = zonesDiffer(oldZone, nextZone);
         app.size = size; elements.summarySize.textContent = size.name; renderSizes();
         if (needsFit) showNotice("تغيّر مقاس منطقة الطباعة لهذا المقاس، وتمت ملاءمة التصميم تناسبيًا دون تشويه.", "warning");
-        ["left", "top", "width", "height"].forEach(key => elements.printZone.style.setProperty(`--zone-${key}`, `${nextZone[`${key}Pct`]}%`));
+        applyZoneToOverlay(nextZone);
         if (needsFit) uniformFitObjects(models, oldZoneRect); else reflowObjects(models); saveActiveArea(); commitDesign(); captureHistory(); renderToolPanel(app.activeTool);
       }); elements.sizeOptions.appendChild(button);
     });
@@ -1084,6 +1134,7 @@
     elements.snapGuideVertical.hidden = !vertical; elements.snapGuideHorizontal.hidden = !horizontal;
     if (vertical) Object.assign(elements.snapGuideVertical.style, { left: `${vertical.zoneLine}px`, top: `${zone.top}px`, height: `${zone.height}px` });
     if (horizontal) Object.assign(elements.snapGuideHorizontal.style, { left: `${zone.left}px`, top: `${horizontal.zoneLine}px`, width: `${zone.width}px` });
+    updatePrintZoneFeedback();
   }
 
   function setupCanvasEvents() {
@@ -1096,13 +1147,15 @@
     app.canvas.on("mouse:down", beginSnapDrag);
     app.canvas.on("object:moving", snapMovingObject);
     app.canvas.on("object:scaling", event => {
-      const object = event.target; if (object?.studioKind !== "graphic") return;
-      object.set({ scaleY: object.scaleX }); object.setCoords(); app.canvas.requestRenderAll();
+      const object = event.target;
+      if (object?.studioKind === "graphic") object.set({ scaleY: object.scaleX });
+      object?.setCoords(); updatePrintZoneFeedback(); app.canvas.requestRenderAll();
     });
+    app.canvas.on("object:rotating", updatePrintZoneFeedback);
     app.canvas.on("mouse:up", finishSnapDrag);
     ["object:added", "object:removed", "object:modified", "text:changed"].forEach(name => app.canvas.on(name, () => {
       if (!app.suppressCanvasEvents) {
-        clearSnapGuides(); scheduleCommit(); updateSelectedObjectControls(); renderAreaCopyActions();
+        clearSnapGuides(); scheduleCommit(); updateSelectedObjectControls(); updatePrintZoneFeedback(); renderAreaCopyActions();
         if (app.activeTool === "upload" && (name === "object:modified" || name === "object:added")) renderToolPanel("upload");
       }
     }));
@@ -1139,7 +1192,15 @@
     const validation = validateProduct(app.selection.editorProduct); if (!validation.valid) return showError(validation.message);
     ensureDesignId(app.selection);
     const catalog = resolveEligibleProducts(app.selection);
-    catalog.forEach(product => app.products.set(product.id, product)); if (!app.products.has(app.selection.editorProduct.id)) app.products.set(app.selection.editorProduct.id, app.selection.editorProduct);
+    catalog.forEach(product => app.products.set(product.id, product));
+    if (!app.products.has(app.selection.editorProduct.id)) {
+      const fallbackProduct = catalog[0];
+      if (!fallbackProduct) return showError("لا توجد منتجات صالحة ومتاحة حاليًا في استوديو التصميم.");
+      app.selection = { ...app.selection, productId: fallbackProduct.id, editorProduct: fallbackProduct,
+        colorId: fallbackProduct.defaultColor || fallbackProduct.colors?.[0]?.id,
+        sizeId: fallbackProduct.sizes?.[0]?.id, printAreaIds: [fallbackProduct.editor.defaultAreaId] };
+      sessionStorage.setItem(SELECTION_KEY, JSON.stringify(app.selection));
+    }
     const documentState = loadDesignDocument(app.selection); app.assets = documentState.assets; app.drafts = documentState.drafts || {};
     const initialProduct = app.products.get(documentState.activeProductId) || app.selection.editorProduct;
     if (!app.drafts[initialProduct.id]) app.drafts[initialProduct.id] = createDraft(initialProduct, { colorId: app.selection.colorId, sizeId: app.selection.sizeId });
@@ -1153,5 +1214,6 @@
   }
 
   addEventListener("beforeunload", () => { saveActiveArea(); commitDesign(); app.objectUrls.forEach(url => URL.revokeObjectURL(url)); });
+  window.PALPRINTS_DESIGN_STUDIO_EXPORT = Object.freeze({ createPrintAreaCanvas: createPrintAreaExport });
   void init();
 })(window, document);
