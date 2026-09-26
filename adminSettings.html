@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="إعدادات نظام PalPrints لمدير المنصة">
+  <title>إعدادات النظام | PalPrints</title>
+  <link rel="icon" type="image/png" href="assets/images/logoWithoutBackGround.png">
+  <link rel="preload" href="assets/fonts/Cairo-Variable.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="assets/icons/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="assets/css/pages/printingEarnings.css?v=18">
+  <link rel="stylesheet" href="assets/css/pages/adminDashboard.css">
+  <link rel="stylesheet" href="assets/css/pages/adminTools.css?v=1">
+</head>
+<body class="admin-dashboard-page admin-tools-page admin-settings-user-style sidebar-collapsed">
+  <a class="skip-link" href="#adminSettingsMain">تخطي إلى المحتوى</a>
+  <aside class="wallet-sidebar admin-sidebar" id="adminSidebar" aria-label="القائمة الجانبية للإدارة">
+    <nav aria-label="روابط لوحة الإدارة">
+      <a href="adminDashboard.html" data-tooltip="لوحة التحكم"><i class="bi bi-grid"></i><span>لوحة التحكم</span></a>
+      <a href="adminUsersManagement.html" data-tooltip="إدارة المستخدمين"><i class="bi bi-people"></i><span>إدارة المستخدمين</span></a>
+      <a href="desginesMangment.html" data-tooltip="إدارة التصاميم"><i class="bi bi-palette"></i><span>إدارة التصاميم</span><b class="admin-nav-badge">8</b></a>
+      <a href="productMangment.html" data-tooltip="إدارة المنتجات"><i class="bi bi-shop-window"></i><span>إدارة المنتجات</span></a>
+      <a href="adminOrders.html" data-tooltip="إدارة الطلبات"><i class="bi bi-cart3"></i><span>إدارة الطلبات</span></a>
+      <a href="adminEarningsPayments.html" data-tooltip="المدفوعات والأرباح"><i class="bi bi-wallet2"></i><span>المدفوعات والأرباح</span></a>
+      <a href="adminShippingManagement.html" data-tooltip="إدارة الشحن"><i class="bi bi-truck"></i><span>إدارة الشحن</span></a>
+      <a href="adminReportsStatistics.html" data-tooltip="التقارير والإحصائيات"><i class="bi bi-bar-chart-line"></i><span>التقارير والإحصائيات</span></a>
+      <a class="active" href="adminSettings.html" aria-current="page" data-tooltip="إعدادات النظام"><i class="bi bi-gear"></i><span>إعدادات النظام</span></a>
+      <div class="admin-nav-separator" aria-hidden="true"></div>
+      <a href="adminSupport.html" data-tooltip="الدعم الفني"><i class="bi bi-headset"></i><span>الدعم الفني</span><b class="admin-nav-badge is-blue">5</b></a>
+    </nav>
+    <button class="logout" id="logoutButton" type="button" data-href="login.html" data-tooltip="تسجيل الخروج"><i class="bi bi-box-arrow-left"></i><span>تسجيل الخروج</span></button>
+  </aside>
+  <button class="sidebar-backdrop" id="sidebarBackdrop" type="button" aria-label="إغلاق القائمة"></button>
+
+  <div class="wallet-shell">
+    <header class="topbar admin-topbar">
+      <a class="header-logo" href="adminDashboard.html" aria-label="لوحة التحكم"><span class="admin-logo-full"><img src="assets/images/palprints-wordmark-transparent.png" alt="PalPrints"></span><span class="admin-logo-compact"><img src="assets/images/logoWithoutBackGround.png" alt=""></span></a>
+      <button class="icon-button menu-button" id="menuButton" type="button" aria-label="فتح القائمة" aria-controls="adminSidebar" aria-expanded="false"><i class="bi bi-list"></i></button>
+      <label class="search-box admin-search-box"><input id="dashboardSearch" type="search" placeholder="ابحث في الإعدادات..." aria-label="البحث في الإعدادات"><i class="bi bi-search"></i></label>
+      <div class="header-actions">
+        <div class="account-wrap"><button class="icon-button account-button" id="accountButton" type="button" aria-label="حساب المدير" aria-expanded="false"><i class="bi bi-person"></i></button><div class="account-dropdown" id="accountDropdown" hidden><a href="adminSettings.html"><i class="bi bi-gear"></i><span>إعدادات الحساب</span></a><a href="login.html" class="logout-link"><i class="bi bi-box-arrow-left"></i><span>تسجيل الخروج</span></a></div></div>
+        <div class="notification-wrap"><button class="icon-button notification-button" id="notificationButton" type="button" aria-label="الإشعارات" aria-expanded="false"><i class="bi bi-bell"></i><span class="counter notification-counter" id="notificationCounter">3</span></button><div class="notification-dropdown admin-notification-dropdown" id="notificationDropdown" hidden><div class="notification-dropdown-header"><h3>الإشعارات</h3><button id="markNotificationsRead" type="button">تحديد الكل كمقروء</button></div><ul class="notification-list"><li><span class="notification-item-icon is-blue"><i class="bi bi-gear"></i></span><div><strong>تم تحديث رسوم المنصة</strong><small>منذ 20 دقيقة</small></div></li><li><span class="notification-item-icon is-amber"><i class="bi bi-credit-card"></i></span><div><strong>بوابة دفع تحتاج مراجعة</strong><small>منذ ساعة</small></div></li></ul></div></div>
+      </div>
+    </header>
+
+    <main class="admin-main admin-tools-main" id="adminSettingsMain">
+      <nav class="admin-settings-breadcrumb" aria-label="مسار التنقل"><a href="adminDashboard.html">لوحة التحكم</a><i class="bi bi-chevron-left"></i><span>الإعدادات</span></nav>
+      <header class="admin-tools-heading admin-settings-heading"><span class="admin-settings-heading-icon"><i class="bi bi-gear"></i></span><div><h1>إعدادات النظام</h1><p>إدارة إعدادات المنصة ووسائل الدفع والإشعارات والرسوم.</p></div><span class="admin-settings-role-badge"><i class="bi bi-shield-check"></i><span>حساب مدير النظام</span></span></header>
+
+      <div class="admin-settings-layout">
+        <nav class="admin-settings-tabs" aria-label="أقسام الإعدادات">
+          <button class="active" type="button" data-settings-tab="general" aria-selected="true"><i class="bi bi-sliders"></i><span>الإعدادات العامة</span></button>
+          <button type="button" data-settings-tab="payments"><i class="bi bi-credit-card"></i><span>وسائل الدفع</span></button>
+          <button type="button" data-settings-tab="notifications"><i class="bi bi-bell"></i><span>الإشعارات</span></button>
+          <button type="button" data-settings-tab="fees"><i class="bi bi-percent"></i><span>الرسوم والعمولات</span></button>
+          <button type="button" data-settings-tab="audit"><i class="bi bi-clock-history"></i><span>سجل النشاط</span></button>
+        </nav>
+
+        <div class="admin-settings-content">
+          <section class="admin-tool-card admin-settings-panel active" data-settings-panel="general">
+            <header class="admin-tool-card__header"><div><h2>الإعدادات العامة</h2><p>البيانات الأساسية وسياسات تشغيل المنصة.</p></div><span class="admin-section-icon"><i class="bi bi-sliders"></i></span></header>
+            <form class="admin-settings-form" data-admin-form="general">
+              <div class="admin-field-grid"><label><span>اسم المنصة</span><input type="text" value="PalPrints" required></label><label><span>البريد الإداري</span><input type="email" value="admin@palprints.ps" dir="ltr" required></label><label><span>رقم التواصل</span><input type="tel" value="+970 59 200 0000" dir="ltr"></label><label><span>العملة الافتراضية</span><select><option selected>شيكل إسرائيلي (₪)</option><option>دولار أمريكي ($)</option><option>دينار أردني (د.أ)</option></select></label></div>
+              <label class="admin-field-wide"><span>وصف المنصة</span><textarea rows="3">منصة فلسطينية للطباعة عند الطلب تربط العملاء بالمصممين والمطابع.</textarea></label>
+              <div class="admin-toggle-row"><div><strong>السماح بالتسجيل الجديد</strong><small>السماح للعملاء والمصممين والمطابع بإنشاء حسابات.</small></div><label class="admin-switch"><input type="checkbox" checked><span></span></label></div>
+              <div class="admin-toggle-row"><div><strong>وضع الصيانة</strong><small>تعطيل الواجهة العامة مؤقتًا مع إبقاء لوحة الإدارة متاحة.</small></div><label class="admin-switch"><input type="checkbox"><span></span></label></div>
+              <footer class="admin-form-actions"><button class="admin-secondary-button" type="reset"><i class="bi bi-arrow-counterclockwise"></i>استعادة الافتراضي</button><button class="admin-primary-button" type="submit"><i class="bi bi-check2"></i>حفظ التغييرات</button></footer>
+            </form>
+          </section>
+
+          <section class="admin-settings-panel" data-settings-panel="payments" hidden>
+            <div class="admin-panel-heading"><div><h2>وسائل الدفع</h2><p>تفعيل بوابات الدفع المستخدمة في الطلبات وعمليات السحب.</p></div><button class="admin-primary-button" type="button" data-toast="تم فتح نموذج إضافة وسيلة دفع."><i class="bi bi-plus-lg"></i>إضافة وسيلة</button></div>
+            <div class="admin-payment-list">
+              <article class="admin-payment-card"><span class="payment-logo is-blue"><i class="bi bi-phone"></i></span><div><h3>Jawwal Pay</h3><p>محفظة إلكترونية · متصلة وآمنة</p></div><span class="admin-status is-success">نشطة</span><label class="admin-switch"><input type="checkbox" checked><span></span></label></article>
+              <article class="admin-payment-card"><span class="payment-logo is-green"><i class="bi bi-wallet2"></i></span><div><h3>PalPay</h3><p>دفع إلكتروني · متصلة وآمنة</p></div><span class="admin-status is-success">نشطة</span><label class="admin-switch"><input type="checkbox" checked><span></span></label></article>
+              <article class="admin-payment-card"><span class="payment-logo is-navy"><i class="bi bi-bank"></i></span><div><h3>Bank of Palestine</h3><p>بطاقات وحوالات بنكية · يحتاج تحديث بيانات الربط</p></div><span class="admin-status is-warning">تحتاج مراجعة</span><label class="admin-switch"><input type="checkbox"><span></span></label></article>
+            </div>
+          </section>
+
+          <section class="admin-tool-card admin-settings-panel" data-settings-panel="notifications" hidden>
+            <header class="admin-tool-card__header"><div><h2>إدارة الإشعارات</h2><p>حدد الأحداث التي ترسل إشعارات تلقائية للمستخدمين.</p></div><span class="admin-section-icon"><i class="bi bi-bell"></i></span></header>
+            <form data-admin-form="notifications"><div class="admin-toggle-row"><div><strong>تحديثات الطلبات</strong><small>إرسال إشعار عند انتقال الطلب بين مراحل التنفيذ والشحن.</small></div><label class="admin-switch"><input type="checkbox" checked><span></span></label></div><div class="admin-toggle-row"><div><strong>نتائج الاعتماد</strong><small>إبلاغ المصمم أو المطبعة بقبول أو رفض طلب الاعتماد.</small></div><label class="admin-switch"><input type="checkbox" checked><span></span></label></div><div class="admin-toggle-row"><div><strong>المدفوعات والسحوبات</strong><small>إرسال إشعارات بحالة عمليات الدفع وطلبات السحب.</small></div><label class="admin-switch"><input type="checkbox" checked><span></span></label></div><div class="admin-toggle-row"><div><strong>النشرات التسويقية</strong><small>إرسال العروض والأخبار إلى المستخدمين المشتركين.</small></div><label class="admin-switch"><input type="checkbox"><span></span></label></div><footer class="admin-form-actions"><button class="admin-primary-button" type="submit"><i class="bi bi-check2"></i>حفظ الإشعارات</button></footer></form>
+          </section>
+
+          <section class="admin-tool-card admin-settings-panel" data-settings-panel="fees" hidden>
+            <header class="admin-tool-card__header"><div><h2>الرسوم والعمولات</h2><p>تعديل النسب المستخدمة في احتساب أرباح المنصة.</p></div><span class="admin-section-icon"><i class="bi bi-percent"></i></span></header>
+            <form class="admin-settings-form" data-admin-form="fees"><div class="admin-field-grid"><label><span>عمولة المنصة على المبيعات</span><span class="admin-number-field"><input type="number" min="0" max="100" value="12"><b>%</b></span></label><label><span>رسوم معالجة الدفع</span><span class="admin-number-field"><input type="number" min="0" max="100" step="0.1" value="2.5"><b>%</b></span></label><label><span>الحد الأدنى للسحب</span><span class="admin-number-field"><input type="number" min="0" value="100"><b>₪</b></span></label><label><span>الضريبة</span><span class="admin-number-field"><input type="number" min="0" max="100" value="16"><b>%</b></span></label></div><div class="admin-info-note"><i class="bi bi-info-circle"></i><span>ستطبق القيم الجديدة على الطلبات التي تُنشأ بعد حفظ التغييرات فقط.</span></div><footer class="admin-form-actions"><button class="admin-primary-button" type="submit"><i class="bi bi-check2"></i>تحديث الرسوم</button></footer></form>
+          </section>
+
+          <section class="admin-settings-panel" data-settings-panel="audit" hidden>
+            <div class="admin-panel-heading"><div><h2>سجل النشاط الإداري</h2><p>جميع التغييرات الحساسة المسجلة وفق متطلبات الـSRS.</p></div><button class="admin-secondary-button" type="button" data-toast="تم تجهيز سجل النشاط للتصدير."><i class="bi bi-download"></i>تصدير السجل</button></div>
+            <div class="admin-audit-list"><article><span class="audit-icon is-blue"><i class="bi bi-gear"></i></span><div><h3>تحديث إعدادات المنصة</h3><p>عدّل المدير أحمد العملة الافتراضية وبيانات التواصل.</p></div><time datetime="2026-09-26T10:42">اليوم، 10:42 ص</time></article><article><span class="audit-icon is-green"><i class="bi bi-credit-card"></i></span><div><h3>تفعيل وسيلة دفع</h3><p>تم تفعيل Jawwal Pay للطلبات الجديدة.</p></div><time datetime="2026-09-25T15:18">أمس، 3:18 م</time></article><article><span class="audit-icon is-orange"><i class="bi bi-percent"></i></span><div><h3>تعديل عمولة المنصة</h3><p>تغيرت العمولة من 10% إلى 12%.</p></div><time datetime="2026-09-24T11:07">24 سبتمبر، 11:07 ص</time></article></div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+  <div class="admin-toast" id="adminToast" role="status" aria-live="polite"></div>
+  <script src="assets/js/pages/adminDashboard.js"></script>
+  <script src="assets/js/pages/adminTools.js?v=1"></script>
+</body>
+</html>
