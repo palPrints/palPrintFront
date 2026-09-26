@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="صفحة إدارة الشحن في لوحة إدارة PalPrints" />
+    <title>إدارة الشحن | PalPrints</title>
+    <link rel="icon" type="image/png" href="assets/images/logoWithoutBackGround.png" />
+    <link rel="preload" href="assets/fonts/Cairo-Variable.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="stylesheet" href="assets/icons/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="assets/css/pages/adminShippingManagement.css" />
+  </head>
+
+  <body class="admin-dashboard-page sidebar-collapsed">
+    <a class="skip-link" href="#adminShippingMain">تخطي إلى المحتوى</a>
+
+    <aside class="wallet-sidebar admin-sidebar" id="adminSidebar" aria-label="القائمة الجانبية للإدارة">
+      <nav aria-label="روابط لوحة الإدارة">
+        <a href="adminDashboard.html" data-tooltip="لوحة التحكم"><i class="bi bi-grid" aria-hidden="true"></i><span>لوحة التحكم</span></a>
+
+        <div class="admin-nav-group" id="usersNavGroup">
+          <button class="admin-nav-toggle" id="usersNavToggle" type="button" aria-expanded="false" aria-controls="usersSubmenu" data-tooltip="إدارة المستخدمين">
+            <i class="bi bi-people" aria-hidden="true"></i><span>إدارة المستخدمين</span><i class="bi bi-chevron-down admin-nav-chevron" aria-hidden="true"></i>
+          </button>
+          <div class="admin-submenu" id="usersSubmenu" hidden>
+            <a href="#" data-tooltip="العملاء"><i class="bi bi-person" aria-hidden="true"></i><span>العملاء</span></a>
+            <a href="#" data-tooltip="المصممون"><i class="bi bi-palette" aria-hidden="true"></i><span>المصممون</span></a>
+            <a href="#" data-tooltip="المطابع"><i class="bi bi-printer" aria-hidden="true"></i><span>المطابع</span></a>
+          </div>
+        </div>
+
+        <a href="desginesMangment.html" data-tooltip="إدارة التصاميم"><i class="bi bi-palette" aria-hidden="true"></i><span>إدارة التصاميم</span><b class="admin-nav-badge" aria-label="8 عناصر تحتاج إلى مراجعة">8</b></a>
+        <a href="productMangment.html" data-tooltip="إدارة المنتجات"><i class="bi bi-shop-window" aria-hidden="true"></i><span>إدارة المنتجات</span></a>
+        <a href="adminOrders.html" data-tooltip="إدارة الطلبات"><i class="bi bi-cart3" aria-hidden="true"></i><span>إدارة الطلبات</span></a>
+        <a href="adminEarningsPayments.html" data-tooltip="المدفوعات والأرباح"><i class="bi bi-wallet2" aria-hidden="true"></i><span>المدفوعات والأرباح</span></a>
+        <a class="active" href="adminShippingManagement.html" aria-current="page" data-tooltip="إدارة الشحن"><i class="bi bi-truck" aria-hidden="true"></i><span>إدارة الشحن</span></a>
+        <a href="adminReportsStatistics.html" data-tooltip="التقارير والإحصائيات"><i class="bi bi-bar-chart-line" aria-hidden="true"></i><span>التقارير والإحصائيات</span></a>
+        <a href="#" data-tooltip="إعدادات النظام"><i class="bi bi-gear" aria-hidden="true"></i><span>إعدادات النظام</span></a>
+        <div class="admin-nav-separator" aria-hidden="true"></div>
+        <a href="support.html" data-tooltip="مركز المساعدة"><i class="bi bi-question-circle" aria-hidden="true"></i><span>مركز المساعدة</span></a>
+      </nav>
+
+      <button class="logout" id="logoutButton" type="button" data-href="login.html" data-tooltip="تسجيل الخروج"><i class="bi bi-box-arrow-left" aria-hidden="true"></i><span>تسجيل الخروج</span></button>
+    </aside>
+
+    <button class="sidebar-backdrop" id="sidebarBackdrop" type="button" aria-label="إغلاق القائمة"></button>
+
+    <div class="wallet-shell">
+      <header class="topbar admin-topbar">
+        <a class="header-logo" href="index.html" aria-label="الصفحة الرئيسية">
+          <span class="admin-logo-full"><img src="assets/images/palprints-wordmark-transparent.png" alt="PalPrints" /></span>
+          <span class="admin-logo-compact" aria-hidden="true"><img src="assets/images/logoWithoutBackGround.png" alt="" /></span>
+        </a>
+        <button class="icon-button menu-button" id="menuButton" type="button" aria-label="فتح القائمة" aria-controls="adminSidebar" aria-expanded="false"><i class="bi bi-list" aria-hidden="true"></i></button>
+        <label class="search-box admin-search-box">
+          <input id="dashboardSearch" type="search" placeholder="ابحث في إدارة الشحن..." aria-label="البحث في إدارة الشحن" autocomplete="off" />
+          <i class="bi bi-search" aria-hidden="true"></i>
+        </label>
+        <div class="header-actions">
+          <div class="account-wrap">
+            <button class="icon-button account-button" id="accountButton" type="button" aria-label="قائمة حساب المدير" aria-haspopup="true" aria-expanded="false"><i class="bi bi-person" aria-hidden="true"></i></button>
+            <div class="account-dropdown" id="accountDropdown" role="menu" aria-label="قائمة حساب المدير" hidden>
+              <a href="#" role="menuitem"><i class="bi bi-person" aria-hidden="true"></i><span>الملف الشخصي</span></a>
+              <a href="#" role="menuitem"><i class="bi bi-gear" aria-hidden="true"></i><span>إعدادات الحساب</span></a>
+              <a href="login.html" class="logout-link" role="menuitem"><i class="bi bi-box-arrow-left" aria-hidden="true"></i><span>تسجيل الخروج</span></a>
+            </div>
+          </div>
+          <div class="notification-wrap">
+            <button class="icon-button notification-button" id="notificationButton" type="button" aria-label="الإشعارات، 3 إشعارات جديدة" aria-haspopup="true" aria-expanded="false"><i class="bi bi-bell" aria-hidden="true"></i><span class="counter notification-counter" id="notificationCounter">3</span></button>
+            <div class="notification-dropdown admin-notification-dropdown" id="notificationDropdown" role="menu" aria-label="قائمة الإشعارات" hidden>
+              <div class="notification-dropdown-header"><h3>الإشعارات</h3><button type="button" id="markNotificationsRead">تحديد الكل كمقروء</button></div>
+              <ul class="notification-list">
+                <li><span class="notification-item-icon is-blue"><i class="bi bi-person-plus" aria-hidden="true"></i></span><div><strong>طلب انضمام مصمم جديد</strong><small>منذ 5 دقائق</small></div></li>
+                <li><span class="notification-item-icon is-amber"><i class="bi bi-palette" aria-hidden="true"></i></span><div><strong>8 تصاميم بانتظار المراجعة</strong><small>منذ 18 دقيقة</small></div></li>
+                <li><span class="notification-item-icon is-green"><i class="bi bi-check-circle" aria-hidden="true"></i></span><div><strong>تمت تسوية دفعات هذا الأسبوع</strong><small>منذ ساعة</small></div></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="admin-main admin-shipping-main" id="adminShippingMain">
+        <section class="shipping-overview" aria-labelledby="shippingTitle">
+          <h1 id="shippingTitle">إدارة الشحن</h1>
+
+          <div class="shipping-summary-grid" aria-label="ملخص حالات الشحن">
+            <article class="shipping-summary-card is-failed">
+              <div><p>فشل التوصيل</p><strong data-shipping-counter="1">1</strong></div>
+              <span class="shipping-summary-icon" aria-hidden="true"><i class="bi bi-file-earmark-x"></i></span>
+            </article>
+            <article class="shipping-summary-card is-delivered">
+              <div><p>تم التوصيل</p><strong data-shipping-counter="2">2</strong></div>
+              <span class="shipping-summary-icon" aria-hidden="true"><i class="bi bi-check-circle"></i></span>
+            </article>
+            <article class="shipping-summary-card is-transit">
+              <div><p>في الطريق</p><strong data-shipping-counter="4">4</strong></div>
+              <span class="shipping-summary-icon" aria-hidden="true"><i class="bi bi-clock"></i></span>
+            </article>
+            <article class="shipping-summary-card is-total">
+              <div><p>إجمالي الشحنات</p><strong data-shipping-counter="9">9</strong></div>
+              <span class="shipping-summary-icon" aria-hidden="true"><i class="bi bi-truck"></i></span>
+            </article>
+          </div>
+
+          <section class="shipping-records" aria-label="قائمة الشحنات">
+            <div class="shipping-records-toolbar">
+              <div class="shipping-status-filters" role="group" aria-label="تصفية الشحنات حسب الحالة">
+                <button class="active" type="button" data-shipping-filter="all">الكل (9)</button>
+                <button type="button" data-shipping-filter="failed">فشل التوصيل (1)</button>
+                <button type="button" data-shipping-filter="delivered">تم التوصيل (2)</button>
+                <button type="button" data-shipping-filter="transit">في الطريق (4)</button>
+                <button type="button" data-shipping-filter="pending">بانتظار الاستلام (2)</button>
+              </div>
+            </div>
+
+            <div class="shipping-table-wrap" tabindex="0" aria-label="جدول الشحنات، قابل للتمرير أفقيًا">
+              <table class="shipping-table">
+                <thead>
+                  <tr><th>رقم الشحنة</th><th>الطلب</th><th>العميل</th><th>المنتج</th><th>شركة الشحن</th><th>رقم التتبع</th><th>التسليم المتوقع</th><th>الحالة</th></tr>
+                </thead>
+                <tbody id="shippingTableBody">
+                  <tr data-shipping-row data-status="transit" data-search="SHP-001 ORD-9821 محمد الخطيب تيشيرت فلسطين DHL 7747821"><td><a href="#">SHP-001</a></td><td>#ORD-9821</td><td><strong>محمد الخطيب</strong><small>رام الله</small></td><td>تيشيرت - تصميم فلسطين</td><td><span class="carrier is-dhl">DHL</span></td><td>DHL-7747821</td><td>20 سبتمبر 2026</td><td><span class="shipping-status is-transit">في الطريق</span></td></tr>
+                  <tr data-shipping-row data-status="transit" data-search="SHP-002 ORD-9820 علا المصري كوب تصميم زيتون ارامكس 3349820"><td><a href="#">SHP-002</a></td><td>#ORD-9820</td><td><strong>علا المصري</strong><small>رام الله</small></td><td>كوب - تصميم زيتون</td><td><span class="carrier is-aramex">أرامكس</span></td><td>AMX-3349820</td><td>19 سبتمبر 2026</td><td><span class="shipping-status is-transit">في الطريق</span></td></tr>
+                  <tr data-shipping-row data-status="delivered" data-search="SHP-003 ORD-9819 يامن أبو شاويش دفتر خط عربي ارامكس 3349819"><td><a href="#">SHP-003</a></td><td>#ORD-9819</td><td><strong>يامن أبو شاويش</strong><small>نابلس</small></td><td>دفتر - خط عربي</td><td><span class="carrier is-aramex">أرامكس</span></td><td>AMX-3349819</td><td>17 سبتمبر 2026</td><td><span class="shipping-status is-delivered">تم التوصيل</span></td></tr>
+                  <tr data-shipping-row data-status="pending" data-search="SHP-004 ORD-9818 نوال أبو رزق ستيكر تصميم قدس DHL 7749818"><td><a href="#">SHP-004</a></td><td>#ORD-9818</td><td><strong>نوال أبو رزق</strong><small>الخليل</small></td><td>ستيكر - تصميم قدس</td><td><span class="carrier is-dhl">DHL</span></td><td>DHL-7749818</td><td>21 سبتمبر 2026</td><td><span class="shipping-status is-pending">بانتظار الاستلام</span></td></tr>
+                  <tr data-shipping-row data-status="delivered" data-search="SHP-005 ORD-9816 أحمد سالم كوب لوجو مخصص ارامكس 3349816"><td><a href="#">SHP-005</a></td><td>#ORD-9816</td><td><strong>أحمد سالم</strong><small>جنين</small></td><td>كوب - لوجو مخصص</td><td><span class="carrier is-aramex">أرامكس</span></td><td>AMX-3349816</td><td>16 سبتمبر 2026</td><td><span class="shipping-status is-delivered">تم التوصيل</span></td></tr>
+                  <tr data-shipping-row data-status="transit" data-search="SHP-006 ORD-9815 ريم الحسن هودي زخرفة إسلامية DHL 7749815"><td><a href="#">SHP-006</a></td><td>#ORD-9815</td><td><strong>ريم الحسن</strong><small>رام الله</small></td><td>هودي - زخرفة إسلامية</td><td><span class="carrier is-dhl">DHL</span></td><td>DHL-7749815</td><td>21 سبتمبر 2026</td><td><span class="shipping-status is-transit">في الطريق</span></td></tr>
+                  <tr data-shipping-row data-status="transit" data-search="SHP-007 ORD-9814 خضر البرغوثي ستيكر خريطة فلسطين البريد 1149814"><td><a href="#">SHP-007</a></td><td>#ORD-9814</td><td><strong>خضر البرغوثي</strong><small>رام الله</small></td><td>ستيكر - خريطة فلسطين</td><td><span class="carrier is-post">البريد</span></td><td>POST-1149814</td><td>19 سبتمبر 2026</td><td><span class="shipping-status is-transit">في الطريق</span></td></tr>
+                  <tr data-shipping-row data-status="failed" data-search="SHP-008 ORD-9813 سوسن عوض وسادة تطريز تقليدي DHL 7749813"><td><a href="#">SHP-008</a></td><td>#ORD-9813</td><td><strong>سوسن عوض</strong><small>جنين</small></td><td>وسادة - تطريز تقليدي</td><td><span class="carrier is-dhl">DHL</span></td><td>DHL-7749813</td><td>15 سبتمبر 2026</td><td><span class="shipping-status is-failed">فشل التوصيل</span></td></tr>
+                  <tr data-shipping-row data-status="pending" data-search="SHP-009 ORD-9812 محمد الحلواني كاب شعار بالإنجليزي ارامكس 3349812"><td><a href="#">SHP-009</a></td><td>#ORD-9812</td><td><strong>محمد الحلواني</strong><small>غزة</small></td><td>كاب - شعار بالإنجليزي</td><td><span class="carrier is-aramex">أرامكس</span></td><td>AMX-3349812</td><td>22 سبتمبر 2026</td><td><span class="shipping-status is-pending">بانتظار الاستلام</span></td></tr>
+                  <tr class="shipping-empty-row" id="shippingEmptyRow" hidden><td colspan="8"><i class="bi bi-search" aria-hidden="true"></i><strong>لا توجد شحنات مطابقة</strong><span>جرّب اختيار حالة أخرى.</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="shipping-results-count" id="shippingResultsCount">عرض 9 من أصل 9 شحنات</p>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <div class="admin-toast" id="adminToast" role="status" aria-live="polite" aria-atomic="true"></div>
+    <script src="assets/js/pages/adminShippingManagement.js"></script>
+  </body>
+</html>
