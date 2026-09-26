@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("roleDashboardLink").querySelector("span").textContent = config.dashboardLabel;
   document.getElementById("roleProfileLink").href = config.profile;
   document.getElementById("headerProfileLink").href = config.profile;
+  document.getElementById("supportSidebarLink").href = "support.html?role=" + role;
   const badge = document.getElementById("settingsRoleBadge");
   badge.querySelector("i").className = "bi " + config.icon;
   badge.querySelector("span").textContent = config.label;
