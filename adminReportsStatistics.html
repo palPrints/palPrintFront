@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="صفحة التقارير والإحصائيات في لوحة إدارة PalPrints" />
+    <title>التقارير والإحصائيات | PalPrints</title>
+
+    <link rel="icon" type="image/png" href="assets/images/logoWithoutBackGround.png" />
+    <link rel="preload" href="assets/fonts/Cairo-Variable.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="stylesheet" href="assets/icons/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="assets/css/pages/adminReportsStatistics.css" />
+  </head>
+
+  <body class="admin-dashboard-page sidebar-collapsed">
+    <a class="skip-link" href="#adminReportsMain">تخطي إلى المحتوى</a>
+
+    <aside class="wallet-sidebar admin-sidebar" id="adminSidebar" aria-label="القائمة الجانبية للإدارة">
+      <nav aria-label="روابط لوحة الإدارة">
+        <a href="adminDashboard.html" data-tooltip="لوحة التحكم">
+          <i class="bi bi-grid" aria-hidden="true"></i>
+          <span>لوحة التحكم</span>
+        </a>
+
+        <div class="admin-nav-group" id="usersNavGroup">
+          <button class="admin-nav-toggle" id="usersNavToggle" type="button" aria-expanded="false" aria-controls="usersSubmenu" data-tooltip="إدارة المستخدمين">
+            <i class="bi bi-people" aria-hidden="true"></i>
+            <span>إدارة المستخدمين</span>
+            <i class="bi bi-chevron-down admin-nav-chevron" aria-hidden="true"></i>
+          </button>
+          <div class="admin-submenu" id="usersSubmenu" hidden>
+            <a href="#" data-tooltip="العملاء"><i class="bi bi-person" aria-hidden="true"></i><span>العملاء</span></a>
+            <a href="#" data-tooltip="المصممون"><i class="bi bi-palette" aria-hidden="true"></i><span>المصممون</span></a>
+            <a href="#" data-tooltip="المطابع"><i class="bi bi-printer" aria-hidden="true"></i><span>المطابع</span></a>
+          </div>
+        </div>
+
+        <a href="desginesMangment.html" data-tooltip="إدارة التصاميم">
+          <i class="bi bi-palette" aria-hidden="true"></i><span>إدارة التصاميم</span>
+          <b class="admin-nav-badge" aria-label="8 عناصر تحتاج إلى مراجعة">8</b>
+        </a>
+        <a href="productMangment.html" data-tooltip="إدارة المنتجات"><i class="bi bi-shop-window" aria-hidden="true"></i><span>إدارة المنتجات</span></a>
+        <a href="adminOrders.html" data-tooltip="إدارة الطلبات"><i class="bi bi-cart3" aria-hidden="true"></i><span>إدارة الطلبات</span></a>
+        <a href="adminEarningsPayments.html" data-tooltip="المدفوعات والأرباح"><i class="bi bi-wallet2" aria-hidden="true"></i><span>المدفوعات والأرباح</span></a>
+        <a href="#" data-tooltip="إدارة الشحن"><i class="bi bi-truck" aria-hidden="true"></i><span>إدارة الشحن</span></a>
+        <a class="active" href="adminReportsStatistics.html" aria-current="page" data-tooltip="التقارير والإحصائيات">
+          <i class="bi bi-bar-chart-line" aria-hidden="true"></i><span>التقارير والإحصائيات</span>
+        </a>
+        <a href="#" data-tooltip="إعدادات النظام"><i class="bi bi-gear" aria-hidden="true"></i><span>إعدادات النظام</span></a>
+
+        <div class="admin-nav-separator" aria-hidden="true"></div>
+        <a href="support.html" data-tooltip="مركز المساعدة"><i class="bi bi-question-circle" aria-hidden="true"></i><span>مركز المساعدة</span></a>
+      </nav>
+
+      <button class="logout" id="logoutButton" type="button" data-href="login.html" data-tooltip="تسجيل الخروج">
+        <i class="bi bi-box-arrow-left" aria-hidden="true"></i><span>تسجيل الخروج</span>
+      </button>
+    </aside>
+
+    <button class="sidebar-backdrop" id="sidebarBackdrop" type="button" aria-label="إغلاق القائمة"></button>
+
+    <div class="wallet-shell">
+      <header class="topbar admin-topbar">
+        <a class="header-logo" href="index.html" aria-label="الصفحة الرئيسية">
+          <span class="admin-logo-full"><img src="assets/images/palprints-wordmark-transparent.png" alt="PalPrints" /></span>
+          <span class="admin-logo-compact" aria-hidden="true"><img src="assets/images/logoWithoutBackGround.png" alt="" /></span>
+        </a>
+
+        <button class="icon-button menu-button" id="menuButton" type="button" aria-label="فتح القائمة" aria-controls="adminSidebar" aria-expanded="false">
+          <i class="bi bi-list" aria-hidden="true"></i>
+        </button>
+
+        <label class="search-box admin-search-box">
+          <input id="dashboardSearch" type="search" placeholder="ابحث في التقارير والإحصائيات..." aria-label="البحث في التقارير والإحصائيات" autocomplete="off" />
+          <i class="bi bi-search" aria-hidden="true"></i>
+        </label>
+
+        <div class="header-actions">
+          <div class="account-wrap">
+            <button class="icon-button account-button" id="accountButton" type="button" aria-label="قائمة حساب المدير" aria-haspopup="true" aria-expanded="false">
+              <i class="bi bi-person" aria-hidden="true"></i>
+            </button>
+            <div class="account-dropdown" id="accountDropdown" role="menu" aria-label="قائمة حساب المدير" hidden>
+              <a href="#" role="menuitem"><i class="bi bi-person" aria-hidden="true"></i><span>الملف الشخصي</span></a>
+              <a href="#" role="menuitem"><i class="bi bi-gear" aria-hidden="true"></i><span>إعدادات الحساب</span></a>
+              <a href="login.html" class="logout-link" role="menuitem"><i class="bi bi-box-arrow-left" aria-hidden="true"></i><span>تسجيل الخروج</span></a>
+            </div>
+          </div>
+
+          <div class="notification-wrap">
+            <button class="icon-button notification-button" id="notificationButton" type="button" aria-label="الإشعارات، 3 إشعارات جديدة" aria-haspopup="true" aria-expanded="false">
+              <i class="bi bi-bell" aria-hidden="true"></i><span class="counter notification-counter" id="notificationCounter">3</span>
+            </button>
+            <div class="notification-dropdown admin-notification-dropdown" id="notificationDropdown" role="menu" aria-label="قائمة الإشعارات" hidden>
+              <div class="notification-dropdown-header"><h3>الإشعارات</h3><button type="button" id="markNotificationsRead">تحديد الكل كمقروء</button></div>
+              <ul class="notification-list" id="notificationList">
+                <li><span class="notification-item-icon is-blue"><i class="bi bi-person-plus" aria-hidden="true"></i></span><div><strong>طلب انضمام مصمم جديد</strong><small>منذ 5 دقائق</small></div></li>
+                <li><span class="notification-item-icon is-amber"><i class="bi bi-palette" aria-hidden="true"></i></span><div><strong>8 تصاميم بانتظار المراجعة</strong><small>منذ 18 دقيقة</small></div></li>
+                <li><span class="notification-item-icon is-green"><i class="bi bi-check-circle" aria-hidden="true"></i></span><div><strong>تمت تسوية دفعات هذا الأسبوع</strong><small>منذ ساعة</small></div></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="admin-main admin-reports-main" id="adminReportsMain">
+        <section class="reports-overview" aria-labelledby="reportsTitle">
+          <div class="reports-heading-row">
+            <h1 id="reportsTitle">التقارير والإحصائيات</h1>
+          </div>
+
+          <div class="reports-toolbar">
+            <div class="report-tabs" role="tablist" aria-label="أنواع التقارير">
+              <button class="active" type="button" role="tab" aria-selected="true" data-report="sales">إحصائيات المبيعات</button>
+              <button type="button" role="tab" aria-selected="false" data-report="orders">إحصائيات الطلبات</button>
+              <button type="button" role="tab" aria-selected="false" data-report="profits">الأرباح والعمولات</button>
+              <button type="button" role="tab" aria-selected="false" data-report="users">تقارير المستخدمين</button>
+            </div>
+
+            <div class="reports-actions" aria-label="خيارات التقرير">
+              <div class="period-switcher" role="group" aria-label="الفترة الزمنية">
+                <button type="button" data-period="week">أسبوع</button>
+                <button class="active" type="button" data-period="month">شهر</button>
+                <button type="button" data-period="quarter">٣ أشهر</button>
+                <button type="button" data-period="year">سنة</button>
+              </div>
+              <div class="export-menu-wrap">
+                <button class="export-report-button" id="exportReportButton" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="exportFormatMenu">
+                  <i class="bi bi-download" aria-hidden="true"></i><span>تصدير</span><i class="bi bi-chevron-down export-chevron" aria-hidden="true"></i>
+                </button>
+                <div class="export-format-menu" id="exportFormatMenu" role="menu" aria-label="اختر صيغة التصدير" hidden>
+                  <button type="button" role="menuitem" data-export-format="xlsx"><i class="bi bi-file-earmark-excel" aria-hidden="true"></i><span><strong>Excel</strong><small>ملف جدول قابل للتعديل</small></span></button>
+                  <button type="button" role="menuitem" data-export-format="csv"><i class="bi bi-filetype-csv" aria-hidden="true"></i><span><strong>CSV</strong><small>بيانات مفصولة بفواصل</small></span></button>
+                  <button type="button" role="menuitem" data-export-format="pdf"><i class="bi bi-file-earmark-pdf" aria-hidden="true"></i><span><strong>PDF</strong><small>حفظ من نافذة الطباعة</small></span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="report-summary-grid" aria-label="ملخص إحصائيات المبيعات">
+            <article class="report-stat-card" data-stat-card="0">
+              <p data-stat-title>إجمالي الإيرادات</p>
+              <div class="report-stat-body">
+                <div>
+                  <strong data-stat-value>₪ 46,200</strong>
+                  <span class="report-change is-positive" data-stat-change><i class="bi bi-caret-up-fill" aria-hidden="true"></i> 18%</span>
+                  <small data-period-label>هذا الشهر</small>
+                </div>
+                <svg class="report-sparkline is-blue" viewBox="0 0 100 36" aria-hidden="true">
+                  <path class="area" d="M2 31 L14 27 L25 29 L37 20 L49 22 L61 15 L73 17 L85 10 L98 12 L98 36 L2 36 Z"></path>
+                  <path d="M2 31 L14 27 L25 29 L37 20 L49 22 L61 15 L73 17 L85 10 L98 12"></path>
+                </svg>
+              </div>
+            </article>
+
+            <article class="report-stat-card" data-stat-card="1">
+              <p data-stat-title>إجمالي الطلبات</p>
+              <div class="report-stat-body">
+                <div>
+                  <strong data-stat-value>528 طلب</strong>
+                  <span class="report-change is-positive" data-stat-change><i class="bi bi-caret-up-fill" aria-hidden="true"></i> 12%</span>
+                  <small data-period-label>هذا الشهر</small>
+                </div>
+                <svg class="report-sparkline is-purple" viewBox="0 0 100 36" aria-hidden="true">
+                  <path class="area" d="M2 30 L14 32 L25 24 L37 26 L49 18 L61 20 L73 14 L85 15 L98 8 L98 36 L2 36 Z"></path>
+                  <path d="M2 30 L14 32 L25 24 L37 26 L49 18 L61 20 L73 14 L85 15 L98 8"></path>
+                </svg>
+              </div>
+            </article>
+
+            <article class="report-stat-card" data-stat-card="2">
+              <p data-stat-title>متوسط قيمة الطلب</p>
+              <div class="report-stat-body">
+                <div>
+                  <strong data-stat-value>₪ 121</strong>
+                  <span class="report-change is-positive" data-stat-change><i class="bi bi-caret-up-fill" aria-hidden="true"></i> 5%</span>
+                  <small data-period-label>هذا الشهر</small>
+                </div>
+                <svg class="report-sparkline is-green" viewBox="0 0 100 36" aria-hidden="true">
+                  <path class="area" d="M2 18 L15 19 L28 18 L41 19 L54 17 L67 18 L80 16 L98 17 L98 36 L2 36 Z"></path>
+                  <path d="M2 18 L15 19 L28 18 L41 19 L54 17 L67 18 L80 16 L98 17"></path>
+                </svg>
+              </div>
+            </article>
+
+            <article class="report-stat-card report-product-card" data-stat-card="3">
+              <p data-stat-title>أعلى مبيعًا</p>
+              <strong data-stat-value>تيشيرت</strong>
+              <span class="product-accent" aria-hidden="true"></span>
+              <small data-period-label>هذا الشهر</small>
+            </article>
+          </div>
+
+          <div class="reports-charts-grid">
+            <section class="report-chart-card product-sales-card" aria-labelledby="productSalesTitle">
+              <h2 id="productSalesTitle">المبيعات حسب نوع المنتج</h2>
+              <div class="product-sales-list">
+                <div class="product-sales-row">
+                  <span class="product-name">تيشيرت</span>
+                  <span class="product-bar"><i class="is-blue" style="--value: 88%"></i></span>
+                  <strong>184</strong><small>35%</small>
+                </div>
+                <div class="product-sales-row">
+                  <span class="product-name">هودي</span>
+                  <span class="product-bar"><i class="is-purple" style="--value: 67%"></i></span>
+                  <strong>112</strong><small>21%</small>
+                </div>
+                <div class="product-sales-row">
+                  <span class="product-name">كوب</span>
+                  <span class="product-bar"><i class="is-green" style="--value: 58%"></i></span>
+                  <strong>98</strong><small>19%</small>
+                </div>
+                <div class="product-sales-row">
+                  <span class="product-name">ستيكر</span>
+                  <span class="product-bar"><i class="is-orange" style="--value: 45%"></i></span>
+                  <strong>76</strong><small>14%</small>
+                </div>
+                <div class="product-sales-row">
+                  <span class="product-name">كاب</span>
+                  <span class="product-bar"><i class="is-cyan" style="--value: 31%"></i></span>
+                  <strong>52</strong><small>10%</small>
+                </div>
+                <div class="product-sales-row">
+                  <span class="product-name">حقيبة قماش</span>
+                  <span class="product-bar"><i class="is-red" style="--value: 4%"></i></span>
+                  <strong>6</strong><small>1%</small>
+                </div>
+              </div>
+            </section>
+
+            <section class="report-chart-card monthly-revenue-card" aria-labelledby="monthlyRevenueTitle">
+              <header>
+                <h2 id="monthlyRevenueTitle">إيرادات المبيعات الشهرية (₪)</h2>
+                <span>هذا العام</span>
+              </header>
+              <div class="monthly-bars" role="img" aria-label="مخطط إيرادات المبيعات الشهرية من يناير إلى ديسمبر">
+                <div class="monthly-bar" style="--height: 100%"><b>5800</b><i></i><span>ديس</span></div>
+                <div class="monthly-bar" style="--height: 96%"><b>5600</b><i></i><span>نوف</span></div>
+                <div class="monthly-bar" style="--height: 88%"><b>5100</b><i></i><span>أكت</span></div>
+                <div class="monthly-bar" style="--height: 81%"><b>4700</b><i></i><span>سبت</span></div>
+                <div class="monthly-bar" style="--height: 91%"><b>5300</b><i></i><span>أغس</span></div>
+                <div class="monthly-bar" style="--height: 73%"><b>4200</b><i></i><span>يول</span></div>
+                <div class="monthly-bar" style="--height: 55%"><b>3200</b><i></i><span>يون</span></div>
+                <div class="monthly-bar" style="--height: 62%"><b>3600</b><i></i><span>ماي</span></div>
+                <div class="monthly-bar" style="--height: 50%"><b>2900</b><i></i><span>أبر</span></div>
+                <div class="monthly-bar" style="--height: 31%"><b>1800</b><i></i><span>مار</span></div>
+                <div class="monthly-bar" style="--height: 36%"><b>2100</b><i></i><span>فبر</span></div>
+                <div class="monthly-bar" style="--height: 24%"><b>1400</b><i></i><span>ينا</span></div>
+              </div>
+            </section>
+          </div>
+
+          <div class="reports-breakdown-grid">
+            <section class="report-chart-card top-cities-card" aria-labelledby="topCitiesTitle">
+              <h2 id="topCitiesTitle">أعلى المدن مبيعًا</h2>
+              <div class="top-cities-list">
+                <div class="city-sales-row">
+                  <div><span>رام الله</span><strong><bdi>₪ 17,040</bdi></strong></div>
+                  <span class="city-sales-bar"><i class="is-blue" style="--value: 100%"></i></span>
+                </div>
+                <div class="city-sales-row">
+                  <div><span>غزة</span><strong><bdi>₪ 14,160</bdi></strong></div>
+                  <span class="city-sales-bar"><i class="is-purple" style="--value: 83%"></i></span>
+                </div>
+                <div class="city-sales-row">
+                  <div><span>نابلس</span><strong><bdi>₪ 10,440</bdi></strong></div>
+                  <span class="city-sales-bar"><i class="is-green" style="--value: 61%"></i></span>
+                </div>
+                <div class="city-sales-row">
+                  <div><span>الخليل</span><strong><bdi>₪ 7,680</bdi></strong></div>
+                  <span class="city-sales-bar"><i class="is-orange" style="--value: 45%"></i></span>
+                </div>
+                <div class="city-sales-row">
+                  <div><span>جنين</span><strong><bdi>₪ 5,520</bdi></strong></div>
+                  <span class="city-sales-bar"><i class="is-cyan" style="--value: 32%"></i></span>
+                </div>
+              </div>
+            </section>
+
+            <section class="report-chart-card revenue-distribution-card" aria-labelledby="revenueDistributionTitle">
+              <h2 id="revenueDistributionTitle">توزيع الإيرادات حسب المنتج</h2>
+              <div class="revenue-distribution-content">
+                <div class="revenue-donut" role="img" aria-label="إجمالي الإيرادات 26560 شيكل موزعة حسب نوع المنتج">
+                  <span><strong>26,560</strong><small>₪</small></span>
+                </div>
+                <ul class="revenue-legend">
+                  <li><i class="is-blue"></i><span>تيشيرت</span><strong><bdi>₪ 9,200</bdi></strong></li>
+                  <li><i class="is-purple"></i><span>هودي</span><strong><bdi>₪ 8,960</bdi></strong></li>
+                  <li><i class="is-green"></i><span>كوب</span><strong><bdi>₪ 3,920</bdi></strong></li>
+                  <li><i class="is-orange"></i><span>ستيكر</span><strong><bdi>₪ 1,520</bdi></strong></li>
+                  <li><i class="is-cyan"></i><span>كاب</span><strong><bdi>₪ 2,600</bdi></strong></li>
+                  <li><i class="is-red"></i><span>حقيبة قماش</span><strong><bdi>₪ 360</bdi></strong></li>
+                </ul>
+              </div>
+            </section>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="admin-toast" id="adminToast" role="status" aria-live="polite" aria-atomic="true"></div>
+    <script src="assets/js/pages/adminReportsStatistics.js"></script>
+  </body>
+</html>
