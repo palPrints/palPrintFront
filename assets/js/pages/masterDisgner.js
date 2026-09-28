@@ -268,10 +268,13 @@
       if (value) element.setAttribute("alt", value);
     });
 
-    const title = translate("documentTitle");
-    const description = document.querySelector('meta[name="description"]');
-    if (title) document.title = title;
-    if (description) description.setAttribute("content", translate("documentDescription"));
+    const preserveDocumentMeta = document.body && document.body.hasAttribute("data-preserve-dashboard-meta");
+    if (!preserveDocumentMeta) {
+      const title = translate("documentTitle");
+      const description = document.querySelector('meta[name="description"]');
+      if (title) document.title = title;
+      if (description) description.setAttribute("content", translate("documentDescription"));
+    }
 
     each(document.querySelectorAll("[data-back-icon]"), function (icon) {
       icon.classList.remove("bi-arrow-left", "bi-arrow-right");
