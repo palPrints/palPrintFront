@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" data-bs-theme="light">
 
 <head>
   <meta charset="UTF-8">
@@ -8,69 +8,74 @@
   <title>PALPRINTS | استوديو التصميم</title>
   <link rel="preload" href="assets/fonts/Cairo-Variable.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="stylesheet" href="assets/icons/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="assets/css/pages/mainDisgner.css">
   <link rel="stylesheet" href="assets/css/pages/design-studio.css">
   <link rel="stylesheet" href="assets/css/pages/interactions.css">
   <link rel="stylesheet" href="assets/css/theme-dark.css?v=26" />
   <script src="assets/js/theme-dark.js?v=2"></script>
 </head>
 
-<body class="design-studio-page">
+<body class="dashboard-page design-studio-page" data-preserve-dashboard-meta>
   <a class="skip-link" href="#mainContent">تخطَّ إلى المحتوى</a>
 
-  <div class="page-shell">
-    <aside class="sidebar" id="sidebar" aria-label="قائمة الحساب">
-      <a href="index.html" class="sidebar-brand" aria-label="PALPRINTS — الصفحة الرئيسية">
-        <img src="assets/images/palprints-wordmark-approved.png" alt="PALPRINTS">
-      </a>
+  <div class="dashboard-container profile-app" id="app">
+    <aside class="profile-sidebar" id="profileSidebar" aria-label="القائمة الجانبية للمصمم" data-i18n-aria="sidebarLabel">
+      <div class="profile-sidebar-header">
+        <a href="index.html" class="profile-brand" aria-label="الصفحة الرئيسية" data-i18n-aria="goHome">
+          <img src="assets/images/logoWithoutBackGround.png" class="profile-brand-image" alt="PalPrints">
+        </a>
+        <button type="button" class="profile-sidebar-close" id="sidebarCloseButton" aria-label="إغلاق القائمة" data-i18n-aria="closeSidebar">
+          <i class="bi bi-x-lg" aria-hidden="true"></i>
+        </button>
+      </div>
 
-      <nav class="sidebar-nav" aria-label="روابط الحساب">
-        <a href="index.html" class="nav-link"><i class="bi bi-shop-window" aria-hidden="true"></i><span>متجر
-            PALPRINTS</span></a>
-        <a href="custProfile.html" class="nav-link"><i class="bi bi-person" aria-hidden="true"></i><span>الملف
-            الشخصي</span></a>
-        <a href="orders.html" class="nav-link"><i class="bi bi-bag" aria-hidden="true"></i><span>طلباتي</span></a>
-        <a href="favorites.html" class="nav-link"><i class="bi bi-heart" aria-hidden="true"></i><span>المفضلة</span></a>
-        <span class="nav-divider" aria-hidden="true"></span>
-        <a href="design-studio.html" class="nav-link active" aria-current="page"><i class="bi bi-bezier2"
-            aria-hidden="true"></i><span>استوديو التصميم</span></a>
-        <a href="#" class="nav-link"><i class="bi bi-gear" aria-hidden="true"></i><span>الإعدادات</span></a>
-        <a href="#" class="nav-link"><i class="bi bi-headset" aria-hidden="true"></i><span>الدعم الفني</span></a>
+      <nav class="profile-sidebar-nav" aria-label="روابط حساب المصمم" data-i18n-aria="designerNavLabel">
+        <a href="dashboardDesigner.html" class="profile-sidebar-link"><i class="bi bi-grid" aria-hidden="true"></i><span data-i18n="dashboard">لوحة التحكم</span></a>
+        <a href="uploadDesign.html" class="profile-sidebar-link"><i class="bi bi-cloud-arrow-up" aria-hidden="true"></i><span data-i18n="uploadDesign">رفع تصميم جديد</span></a>
+        <a href="designerDesigns.html" class="profile-sidebar-link"><i class="bi bi-images" aria-hidden="true"></i><span data-i18n="myDesigns">تصاميمي</span></a>
+        <a href="design-studio.html" class="profile-sidebar-link active" aria-current="page"><i class="bi bi-bezier2" aria-hidden="true"></i><span>استوديو التصميم</span></a>
+        <a href="designerProfile.html" class="profile-sidebar-link"><i class="bi bi-person" aria-hidden="true"></i><span data-i18n="profileTitle">الملف الشخصي</span></a>
+        <a href="designerEarnings.html" class="profile-sidebar-link"><i class="bi bi-coin" aria-hidden="true"></i><span data-i18n="earnings">الأرباح</span></a>
+        <div class="profile-sidebar-divider" aria-hidden="true"></div>
+        <a href="settings.html?role=designer" class="profile-sidebar-link"><i class="bi bi-gear" aria-hidden="true"></i><span data-i18n="settings">الإعدادات</span></a>
+        <a href="support.html?role=designer" class="profile-sidebar-link"><i class="bi bi-headset" aria-hidden="true"></i><span data-i18n="support">التواصل مع الدعم الفني</span></a>
       </nav>
 
-      <button type="button" class="logout-button">
-        <i class="bi bi-box-arrow-left" aria-hidden="true"></i><span>تسجيل الخروج</span>
+      <button type="button" class="profile-sidebar-logout" id="profileLogoutButton" data-href="login.html">
+        <i class="bi bi-box-arrow-left" aria-hidden="true"></i><span data-i18n="logout">تسجيل الخروج</span>
       </button>
     </aside>
 
-    <button class="sidebar-overlay" id="sidebarOverlay" type="button" aria-label="إغلاق القائمة"></button>
+    <button type="button" class="sidebar-backdrop" id="sidebarBackdrop" aria-label="إغلاق القائمة" data-i18n-aria="closeSidebar"></button>
 
-    <div class="site-content">
-      <header class="topbar">
-        <button class="icon-button menu-button" id="menuButton" type="button" aria-label="طي القائمة"
-          aria-controls="sidebar" aria-expanded="true">
-          <i class="bi bi-list" aria-hidden="true"></i>
-        </button>
-
-        <label class="search-box">
-          <input type="search" placeholder="ابحث عن منتج ..." aria-label="البحث عن منتج">
-          <i class="bi bi-search" aria-hidden="true"></i>
-        </label>
-
-        <div class="header-actions">
-          <a class="icon-button account-button" href="custProfile.html" aria-label="الحساب"><i class="bi bi-person"
-              aria-hidden="true"></i></a>
-          <button class="icon-button notification-button" type="button" aria-label="الإشعارات"><i class="bi bi-bell"
-              aria-hidden="true"></i></button>
-          <a class="icon-button cart-button" href="cart.html" aria-label="سلة المشتريات"><i class="bi bi-cart3"
-              aria-hidden="true"></i><span class="counter">2</span></a>
+    <div class="page-shell">
+      <header class="top-utility-bar" aria-label="أدوات الصفحة" data-i18n-aria="pageTools">
+        <div class="top-bar-start">
+          <button type="button" class="utility-btn sidebar-toggle-btn" id="sidebarToggleButton" aria-controls="profileSidebar" aria-label="إغلاق القائمة الجانبية" aria-expanded="true" data-i18n-aria="closeSidebar">
+            <i class="bi bi-x-lg" id="sidebarToggleIcon" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="top-bar-end">
+          <button type="button" class="utility-btn" id="themeToggleButton" aria-label="تفعيل الوضع الليلي" data-i18n-aria="switchToDark">
+            <i class="bi bi-moon-stars" id="themeToggleIcon" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="utility-btn language-toggle-btn" id="languageToggleButton" aria-label="تغيير اللغة" data-i18n-aria="changeLanguage">
+            <i class="bi bi-globe2" aria-hidden="true"></i><span id="languageToggleText" aria-hidden="true">EN</span>
+          </button>
+          <a href="notifications.html" class="utility-btn notif-btn" aria-label="الإشعارات" data-i18n-aria="notifications">
+            <i class="bi bi-bell" aria-hidden="true"></i><span class="notif-dot" aria-hidden="true"></span>
+          </a>
         </div>
       </header>
 
-      <main class="studio-main" id="mainContent">
+      <main class="studio-main main-content" id="mainContent">
         <div class="studio-page-heading">
-          <span>استوديو التصميم</span>
+          <ol class="profile-breadcrumb studio-breadcrumb" aria-label="مسار التنقل">
+            <li><a href="storefront.html">المتجر</a></li>
+            <li><a href="choose-product.html">المنتجات</a></li>
+            <li aria-current="page"><span>استوديو التصميم</span></li>
+          </ol>
           <h1>صمّم منتجك</h1>
-          <p>أضف لمستك الإبداعية داخل منطقة الطباعة المعتمدة للمنتج.</p>
         </div>
 
         <section class="studio-product-strip" aria-label="المنتج المحدد">
@@ -260,34 +265,6 @@
         </section>
       </main>
 
-      <footer class="footer">
-        <div class="footer-grid">
-          <div class="footer-brand">
-            <img src="assets/images/palprints-wordmark-approved.png" alt="PALPRINTS">
-            <p>من فكرة إلى واقع.<br>صنع بكل حب لكم.</p>
-          </div>
-          <div class="footer-column">
-            <h3>المتجر</h3><a href="index.html">كل المنتجات</a><a href="#">التصنيفات</a><a href="#">الأكثر مبيعًا</a>
-          </div>
-          <div class="footer-column">
-            <h3>حسابك</h3><a href="custProfile.html">الملف الشخصي</a><a href="orders.html">طلباتي</a><a
-              href="favorites.html">المفضلة</a>
-          </div>
-          <div class="footer-column">
-            <h3>المساعدة</h3><a href="#">الدعم الفني</a><a href="#">الأسئلة الشائعة</a><a href="#">سياسة الخصوصية</a>
-          </div>
-          <div class="footer-column footer-contact">
-            <h3>تواصل معنا</h3><a href="mailto:support@palprints.com"><i class="bi bi-envelope" aria-hidden="true"></i>
-              support@palprints.com</a><span><i class="bi bi-geo-alt" aria-hidden="true"></i> فلسطين</span>
-          </div>
-        </div>
-        <div class="footer-bottom">
-          <p>© 2026 PALPRINTS جميع الحقوق محفوظة.</p>
-          <div class="footer-social"><a href="#" aria-label="إنستغرام"><i class="bi bi-instagram"></i></a><a href="#"
-              aria-label="فيسبوك"><i class="bi bi-facebook"></i></a><a href="#" aria-label="واتساب"><i
-                class="bi bi-whatsapp"></i></a></div>
-        </div>
-      </footer>
     </div>
   </div>
 
@@ -329,6 +306,7 @@
 
   <div class="sr-only" id="studioLiveRegion" aria-live="polite" aria-atomic="true"></div>
 
+  <script src="assets/js/pages/masterDisgner.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/fabric@7.4.0/dist/index.min.js"></script>
   <script src="assets/js/pages/canvas-history-manager.js"></script>
   <script src="assets/js/pages/interactions.js"></script>
