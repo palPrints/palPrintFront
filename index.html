@@ -60,11 +60,16 @@
   >
 
   <script>
-    /* Light is the default; opt into dark only when the browser/device requests it. */
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      document.documentElement.dataset.bsTheme = "dark";
+    /* Apply the theme saved from Settings before the first paint. */
+    try {
+      document.documentElement.dataset.bsTheme =
+        localStorage.getItem("palprints-theme") === "dark" ? "dark" : "light";
+    } catch (error) {
+      document.documentElement.dataset.bsTheme = "light";
     }
   </script>
+  <link rel="stylesheet" href="assets/css/theme-dark.css?v=26" />
+  <script src="assets/js/theme-dark.js?v=2"></script>
 </head>
 
 <body class="home-page">

@@ -299,17 +299,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // 4. مزامنة مظهر الصفحة تلقائيًا مع الوضع المختار في الجهاز.
-  const deviceTheme = window.matchMedia("(prefers-color-scheme: dark)");
-
-  function applyDeviceTheme(event) {
-    const isDark = event.matches;
-    document.body.classList.toggle("dark-mode", isDark);
-    document.documentElement.dataset.bsTheme = isDark ? "dark" : "light";
-  }
-
-  applyDeviceTheme(deviceTheme);
-  deviceTheme.addEventListener?.("change", applyDeviceTheme);
+  // 4. المظهر يتبع اختيار المستخدم المحفوظ من صفحة الإعدادات.
+  const savedTheme = localStorage.getItem("palprints-theme") === "dark"
+    ? "dark"
+    : "light";
+  document.body.classList.toggle("dark-mode", savedTheme === "dark");
+  document.documentElement.dataset.bsTheme = savedTheme;
 
   // 5. ربط زر اللغة الموجود في الفوتر بنفس نظام الترجمة
   const footerLanguageButton = document.getElementById("footer-lang-toggle");
