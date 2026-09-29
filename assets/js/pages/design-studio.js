@@ -4,6 +4,8 @@
   const SELECTION_KEY = "palprintsDesignerSelection";
   const DESIGN_PREFIX = "palprintsDesign:";
   const FALLBACK_ASSET_PREFIX = "palprintsDesignAsset:";
+  const WORKFLOW_CONTEXT_KEY = "palprintsStudioWorkflowContext";
+  const roleAuth = window.PALPRINTS_ROLE_AUTH;
   // const DESKTOP_PRODUCT_HEIGHT_RATIO = 0.94;
   const DESKTOP_PRODUCT_HEIGHT_RATIO = 1.0;
   const COMPACT_PRODUCT_HEIGHT_RATIO = 1;
@@ -29,6 +31,8 @@
   const elements = {
     summaryImage: $("summaryImage"), summaryProductName: $("summaryProductName"), summaryColor: $("summaryColor"),
     summarySize: $("summarySize"), summaryPrice: $("summaryPrice"), selectedColorName: $("selectedColorName"),
+    summaryColorLabel: $("summaryColorLabel"), summarySizeLabel: $("summarySizeLabel"),
+    colorTitle: $("colorTitle"), sizeTitle: $("sizeTitle"), previewSizeHelper: $("previewSizeHelper"), previewButton: $("previewButton"),
     colorOptions: $("colorOptions"), sizeOptions: $("sizeOptions"), areaOptions: $("areaOptions"), areaCount: $("areaCount"),
     workspaceEyebrow: $("workspaceEyebrow"), stage: $("studioStage"), coordinateSystem: $("stageCoordinateSystem"), productCanvas: $("productCanvas"),
     productMockup: $("productMockup"),
@@ -43,16 +47,18 @@
     swapProductToggle: $("swapProductToggle"), productSwapPanel: $("productSwapPanel"), closeProductSwap: $("closeProductSwap"), productSwapOptions: $("productSwapOptions"),
     undo: $("studioUndo"), redo: $("studioRedo"),
     zoomOut: $("studioZoomOut"), zoomFit: $("studioZoomFit"), zoomIn: $("studioZoomIn"), zoomValue: $("studioZoomValue"),
-    replaceAreaDialog: $("replaceAreaDialog"), replaceAreaMessage: $("replaceAreaMessage"), cancelAreaReplace: $("cancelAreaReplace"), confirmAreaReplace: $("confirmAreaReplace")
+    replaceAreaDialog: $("replaceAreaDialog"), replaceAreaMessage: $("replaceAreaMessage"), cancelAreaReplace: $("cancelAreaReplace"), confirmAreaReplace: $("confirmAreaReplace"),
+    productDraftDialog: $("productDraftDialog"), productDraftMessage: $("productDraftMessage"),
+    cancelProductSwap: $("cancelProductSwap"), keepProductDraft: $("keepProductDraft"), replaceProductDraft: $("replaceProductDraft")
   };
 
   const app = {
-    selection: null, product: null, color: null, size: null, area: null, design: null, canvas: null, assetStore: null,
+    selection: null, product: null, color: null, size: null, area: null, design: null, canvas: null, assetStore: null, studioRole: null,
     activeTool: "upload", objectUrls: new Map(), fontPromises: new Map(), suppressCanvasEvents: false,
     geometryReady: false, viewportZone: null, logicalStage: null, baseStageScale: 1, stageScale: 1, viewZoom: 1, areaSwitchToken: 0, snapDrag: null,
     persistTimer: null, resizeObserver: null, resizeFrame: null, noticeTimer: null, panelRenderToken: 0,
     pendingAssetFingerprints: new Set(), graphicsCategory: GRAPHICS.categories[0] || "", graphicsSearch: "", graphicsLimit: GRAPHICS_PAGE_SIZE,
-    products: new Map(), drafts: {}, history: [], historyIndex: -1, historyTimer: null, historyRestoring: false
+    products: new Map(), drafts: {}, history: [], historyIndex: -1, historyTimer: null, historyRestoring: false, productSwapping: false
   };
 
   class DesignAssetStore {
@@ -119,6 +125,18 @@
   }
 
   function uid(prefix) { return `${prefix}-${window.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(16).slice(2)}`}`; }
+  function applyRoleAwareUi() {
+    const designerMode = app.studioRole === "designer";
+    const colorLabel = designerMode ? "لون المعاينة" : "اللون";
+    const sizeLabel = designerMode ? "مقاس المعاينة" : "المقاس";
+    document.body.dataset.userRole = app.studioRole;
+    elements.summaryColorLabel.textContent = colorLabel;
+    elements.summarySizeLabel.textContent = sizeLabel;
+    elements.colorTitle.textContent = colorLabel;
+    elements.sizeTitle.textContent = sizeLabel;
+    elements.previewSizeHelper.hidden = !designerMode;
+    elements.previewButton.querySelector("span").textContent = designerMode ? "معاينة وإعداد التصميم" : "معاينة التصميم";
+  }
   function readSelection() { try { return JSON.parse(window.sessionStorage.getItem(SELECTION_KEY) || "null"); } catch (error) { return null; } }
   function selectedItem(items, id) { return (items || []).find(item => item.id === id) || items?.[0] || null; }
   function formatPrice(value) { const amount = Number(value); return Number.isFinite(amount) ? `${amount.toFixed(2)} ر.س` : "—"; }
@@ -134,7 +152,13 @@
     elements.printZone.classList.toggle("has-format-conflict", zone.physicalFitStatus === "conflict-review-required");
   }
   function resolveMockup(area, color) { return color?.areaMockups?.[area.id] || (["front", "primary"].includes(area.role) && color?.image) || area.mockup || app.product.thumbnail || color?.image || ""; }
-  function zonesDiffer(a, b) { return ["leftPct", "topPct", "widthPct", "heightPct", "widthCm", "heightCm"].some(key => Number(a?.[key]) !== Number(b?.[key])); }
+  function zonesDiffer(a, b) {
+    return ["leftPct", "topPct", "widthPct", "heightPct", "widthCm", "heightCm"].some(key => {
+      const first = a?.[key] == null ? null : Number(a[key]);
+      const second = b?.[key] == null ? null : Number(b[key]);
+      return first !== second;
+    });
+  }
 
   function validateProduct(product) {
     if (!product?.id || !product.editor) return { valid: false, message: "بيانات المنتج المرسلة إلى الاستوديو غير مكتملة." };
@@ -142,10 +166,15 @@
     if (!areas.length || !areas.some(area => area.id === product.editor.defaultAreaId)) return { valid: false, message: "مناطق الطباعة غير مهيأة بصورة صالحة." };
     const ids = new Set();
     for (const area of areas) {
-      const zone = area.printZone || {}, values = [zone.leftPct, zone.topPct, zone.widthPct, zone.heightPct, zone.widthCm, zone.heightCm].map(Number);
-      const [left, top, width, height, physicalWidth, physicalHeight] = values;
-      if (!area.id || ids.has(area.id) || !area.mockup || !values.every(Number.isFinite) || left < 0 || top < 0 || width <= 0 || height <= 0
-        || left + width > 100 || top + height > 100 || physicalWidth <= 0 || physicalHeight <= 0) {
+      const zone = area.printZone || {}, visualValues = [zone.leftPct, zone.topPct, zone.widthPct, zone.heightPct].map(Number);
+      const [left, top, width, height] = visualValues;
+      const physicalWidth = Number(zone.widthCm), physicalHeight = Number(zone.heightCm);
+      const physicalDimensionsAreUnknown = zone.physicalDimensionsStatus === "unknown"
+        && zone.widthCm == null && zone.heightCm == null;
+      const physicalDimensionsAreValid = physicalDimensionsAreUnknown
+        || (Number.isFinite(physicalWidth) && physicalWidth > 0 && Number.isFinite(physicalHeight) && physicalHeight > 0);
+      if (!area.id || ids.has(area.id) || !area.mockup || !visualValues.every(Number.isFinite) || left < 0 || top < 0 || width <= 0 || height <= 0
+        || left + width > 100 || top + height > 100 || !physicalDimensionsAreValid) {
         return { valid: false, message: `بيانات منطقة الطباعة «${area.name || area.id || "غير معروفة"}» غير صالحة.` };
       }
       ids.add(area.id);
@@ -184,6 +213,46 @@
     return { productId: product.id, colorId: options.colorId || product.defaultColor || product.colors?.[0]?.id,
       sizeId: options.sizeId || product.sizes?.[0]?.id,
       activeAreaId: options.activeAreaId || product.editor.defaultAreaId, areas };
+  }
+  function draftHasArtwork(draft) {
+    return Object.values(draft?.areas || {}).some(area => Array.isArray(area?.objects) && area.objects.length > 0);
+  }
+  function comparableNumber(value) {
+    const number = Number(value);
+    return Number.isFinite(number) ? Math.round(number * 1000000) / 1000000 : null;
+  }
+  function semanticObject(model) {
+    const common = {
+      kind: model?.kind || null,
+      x: comparableNumber(model?.x), y: comparableNumber(model?.y),
+      angle: comparableNumber(model?.angle), flipX: Boolean(model?.flipX), flipY: Boolean(model?.flipY)
+    };
+    if (model?.kind === "image") return {
+      ...common, assetId: model.assetId || null,
+      width: comparableNumber(model.width), height: comparableNumber(model.height)
+    };
+    if (model?.kind === "graphic") return {
+      ...common, graphicId: model.graphicId || null, color: model.color || null,
+      width: comparableNumber(model.width)
+    };
+    if (model?.kind === "text") return {
+      ...common, text: model.text || "", width: comparableNumber(model.width), fontSize: comparableNumber(model.fontSize),
+      scaleX: comparableNumber(model.scaleX), scaleY: comparableNumber(model.scaleY),
+      fontFamily: model.fontFamily || null, fill: model.fill || null,
+      fontWeight: model.fontWeight || null, fontStyle: model.fontStyle || null,
+      textAlign: model.textAlign || null, charSpacing: comparableNumber(model.charSpacing),
+      lineHeight: comparableNumber(model.lineHeight)
+    };
+    return { ...common, width: comparableNumber(model?.width), height: comparableNumber(model?.height) };
+  }
+  function semanticDraft(draft, product) {
+    return product.editor.printAreas.map(area => ({
+      areaId: area.id,
+      objects: (draft?.areas?.[area.id]?.objects || []).map(semanticObject)
+    }));
+  }
+  function draftsHaveEquivalentArtwork(first, second, product) {
+    return JSON.stringify(semanticDraft(first, product)) === JSON.stringify(semanticDraft(second, product));
   }
   function activeDraftSnapshot() {
     return { productId: app.product.id, colorId: app.color?.id, sizeId: app.size?.id, activeAreaId: app.area?.id,
@@ -281,8 +350,15 @@
 
   function transferredModels(models, sourceArea, sourceSize, targetArea, targetSize) {
     const sourceZone = resolveZone(sourceArea, sourceSize), targetZone = resolveZone(targetArea, targetSize);
-    const sourceWidth = Number(sourceZone?.widthCm), sourceHeight = Number(sourceZone?.heightCm);
-    const targetWidth = Number(targetZone?.widthCm), targetHeight = Number(targetZone?.heightCm);
+    const dimensions = zone => {
+      const physicalWidth = Number(zone?.widthCm), physicalHeight = Number(zone?.heightCm);
+      if (physicalWidth > 0 && physicalHeight > 0) return { width: physicalWidth, height: physicalHeight };
+      const visualWidth = Number(zone?.widthPct), visualHeight = Number(zone?.heightPct);
+      return visualWidth > 0 && visualHeight > 0 ? { width: visualWidth, height: visualHeight } : null;
+    };
+    const sourceDimensions = dimensions(sourceZone), targetDimensions = dimensions(targetZone);
+    const sourceWidth = sourceDimensions?.width, sourceHeight = sourceDimensions?.height;
+    const targetWidth = targetDimensions?.width, targetHeight = targetDimensions?.height;
     let xFactor = 1, yFactor = 1;
     if ([sourceWidth, sourceHeight, targetWidth, targetHeight].every(value => Number.isFinite(value) && value > 0)) {
       const fit = Math.min(targetWidth / sourceWidth, targetHeight / sourceHeight);
@@ -336,13 +412,21 @@
     const mapping = new Map(), used = new Set(), sources = sourceProduct.editor.printAreas, targets = targetProduct.editor.printAreas;
     sources.forEach(source => { const target = targets.find(area => area.id === source.id && !used.has(area.id)); if (target) { mapping.set(source.id, target.id); used.add(target.id); } });
     sources.filter(source => !mapping.has(source.id)).forEach(source => { const target = targets.find(area => area.role && area.role === source.role && !used.has(area.id)); if (target) { mapping.set(source.id, target.id); used.add(target.id); } });
-    if (sources.length === 1 && targets.length === 1 && !mapping.has(sources[0].id)) mapping.set(sources[0].id, targets[0].id);
-    if (!mapping.has(app.area.id)) mapping.set(app.area.id, targetProduct.editor.defaultAreaId);
+    if (sources.length === 1 && targets.length === 1 && !mapping.has(sources[0].id) && !used.has(targets[0].id)) {
+      mapping.set(sources[0].id, targets[0].id); used.add(targets[0].id);
+    }
+    const activeSource = sources.find(area => area.id === app.area.id);
+    const defaultTarget = targets.find(area => area.id === targetProduct.editor.defaultAreaId);
+    if (activeSource && defaultTarget && !mapping.has(activeSource.id) && !used.has(defaultTarget.id)) {
+      mapping.set(activeSource.id, defaultTarget.id); used.add(defaultTarget.id);
+    }
     return mapping;
   }
-  function transferredDraft(targetProduct) {
-    const sourceProduct = app.product, sourceSize = app.size, targetSize = selectedItem(targetProduct.sizes, targetProduct.sizes?.[0]?.id);
-    const draft = createDraft(targetProduct), mapping = areaMapping(sourceProduct, targetProduct);
+  function transferredDraft(targetProduct, destinationDraft = null) {
+    const sourceProduct = app.product;
+    const targetSize = selectedItem(targetProduct.sizes, destinationDraft?.sizeId || targetProduct.sizes?.[0]?.id);
+    const draft = createDraft(targetProduct, { colorId: destinationDraft?.colorId, sizeId: targetSize?.id });
+    const sourceSize = app.size, mapping = areaMapping(sourceProduct, targetProduct);
     mapping.forEach((targetId, sourceId) => {
       const sourceArea = sourceProduct.editor.printAreas.find(area => area.id === sourceId), targetArea = targetProduct.editor.printAreas.find(area => area.id === targetId);
       if (!sourceArea || !targetArea) return;
@@ -350,17 +434,43 @@
     });
     draft.activeAreaId = mapping.get(app.area.id) || targetProduct.editor.defaultAreaId; return draft;
   }
-  function productNeedsManualReview(sourceProduct, targetProduct) {
-    if (sourceProduct.editor.printAreas.length !== targetProduct.editor.printAreas.length) return true;
+  function productNeedsManualReview(sourceProduct, targetProduct, destinationDraft = null) {
     const mapping = areaMapping(sourceProduct, targetProduct);
     if (mapping.size !== sourceProduct.editor.printAreas.length) return true;
     return [...mapping].some(([sourceId, targetId]) => {
       const sourceArea = sourceProduct.editor.printAreas.find(area => area.id === sourceId), targetArea = targetProduct.editor.printAreas.find(area => area.id === targetId);
-      const sourceZone = resolveZone(sourceArea, app.size), targetSize = selectedItem(targetProduct.sizes, targetProduct.sizes?.[0]?.id), targetZone = resolveZone(targetArea, targetSize);
-      const sourceRatio = Number(sourceZone?.widthCm) / Number(sourceZone?.heightCm), targetRatio = Number(targetZone?.widthCm) / Number(targetZone?.heightCm);
-      const widthChange = Number(targetZone?.widthCm) / Number(sourceZone?.widthCm), heightChange = Number(targetZone?.heightCm) / Number(sourceZone?.heightCm);
+      const sourceZone = resolveZone(sourceArea, app.size), targetSize = selectedItem(targetProduct.sizes, destinationDraft?.sizeId || targetProduct.sizes?.[0]?.id), targetZone = resolveZone(targetArea, targetSize);
+      const sourceWidth = Number(sourceZone?.widthCm) > 0 ? Number(sourceZone.widthCm) : Number(sourceZone?.widthPct);
+      const sourceHeight = Number(sourceZone?.heightCm) > 0 ? Number(sourceZone.heightCm) : Number(sourceZone?.heightPct);
+      const targetWidth = Number(targetZone?.widthCm) > 0 ? Number(targetZone.widthCm) : Number(targetZone?.widthPct);
+      const targetHeight = Number(targetZone?.heightCm) > 0 ? Number(targetZone.heightCm) : Number(targetZone?.heightPct);
+      const sourceRatio = sourceWidth / sourceHeight, targetRatio = targetWidth / targetHeight;
+      const widthChange = targetWidth / sourceWidth, heightChange = targetHeight / sourceHeight;
       return ![sourceRatio, targetRatio, widthChange, heightChange].every(Number.isFinite)
         || Math.abs((targetRatio / sourceRatio) - 1) > 0.15 || widthChange < 0.75 || widthChange > 1.25 || heightChange < 0.75 || heightChange > 1.25;
+    });
+  }
+  function chooseExistingProductDraft(target) {
+    const dialog = elements.productDraftDialog;
+    if (!dialog || !target) return Promise.resolve("cancel");
+    elements.productDraftMessage.textContent = `لدى «${target.name}» تصميم محفوظ. اختر استبداله بنسخة من التصميم الحالي أو فتح التصميم المحفوظ كما هو.`;
+    return new Promise(resolve => {
+      let settled = false;
+      const finish = choice => { if (settled) return; settled = true; cleanup(); if (dialog.open) dialog.close(); resolve(choice); };
+      const cancel = event => { event?.preventDefault?.(); finish("cancel"); };
+      const keep = () => finish("keep"), replace = () => finish("replace");
+      const backdrop = event => { if (event.target === dialog) cancel(event); };
+      const cleanup = () => {
+        elements.cancelProductSwap.removeEventListener("click", cancel);
+        elements.keepProductDraft.removeEventListener("click", keep);
+        elements.replaceProductDraft.removeEventListener("click", replace);
+        dialog.removeEventListener("cancel", cancel); dialog.removeEventListener("click", backdrop);
+      };
+      elements.cancelProductSwap.addEventListener("click", cancel);
+      elements.keepProductDraft.addEventListener("click", keep);
+      elements.replaceProductDraft.addEventListener("click", replace);
+      dialog.addEventListener("cancel", cancel); dialog.addEventListener("click", backdrop);
+      dialog.showModal(); elements.keepProductDraft.focus();
     });
   }
   async function renderActiveProduct() {
@@ -368,13 +478,26 @@
     await loadMockup(app.area, app.color); await restoreArea(app.area.id); revealStage(); renderToolPanel(app.activeTool);
   }
   async function swapProduct(productId) {
-    const target = app.products.get(productId); if (!target || target.id === app.product.id || app.historyRestoring) return;
-    const source = app.product, needsReview = productNeedsManualReview(source, target); storeActiveDraft(); const existing = app.drafts[target.id];
-    const nextDraft = existing ? clone(existing) : transferredDraft(target);
-    app.drafts[source.id] = activeDraftSnapshot(); app.drafts[target.id] = nextDraft; activateDraft(target, nextDraft);
-    await renderActiveProduct(); commitDesign(); captureHistory();
-    if (needsReview) showNotice("تختلف مناطق الطباعة في المنتج الجديد. راجع موضع التصميم واضبطه يدويًا عند الحاجة.", "warning");
-    elements.productSwapPanel.hidden = true; elements.swapProductToggle.setAttribute("aria-expanded", "false");
+    const target = app.products.get(productId); if (!target || target.id === app.product.id || app.historyRestoring || app.productSwapping) return;
+    app.productSwapping = true;
+    try {
+      const source = app.product;
+      if (app.historyTimer) captureHistory(); else storeActiveDraft();
+      const existing = app.drafts[target.id], hasExistingArtwork = draftHasArtwork(existing);
+      const incoming = transferredDraft(target, existing);
+      const equivalentArtwork = hasExistingArtwork && draftsHaveEquivalentArtwork(existing, incoming, target);
+      const choice = !hasExistingArtwork ? "replace" : equivalentArtwork ? "keep" : await chooseExistingProductDraft(target);
+      if (choice === "cancel") return;
+      const transfersDesign = choice === "replace";
+      const needsReview = transfersDesign && productNeedsManualReview(source, target, existing);
+      const nextDraft = transfersDesign ? incoming : clone(existing);
+      app.drafts[source.id] = activeDraftSnapshot(); app.drafts[target.id] = nextDraft; activateDraft(target, nextDraft);
+      await renderActiveProduct(); commitDesign(); captureHistory();
+      if (needsReview) showNotice("تختلف مناطق الطباعة في المنتج الجديد. راجع موضع التصميم واضبطه يدويًا عند الحاجة.", "warning");
+      elements.productSwapPanel.hidden = true; elements.swapProductToggle.setAttribute("aria-expanded", "false");
+    } finally {
+      app.productSwapping = false;
+    }
   }
   function renderProductSelector() {
     if (!elements.productSwapOptions) return; elements.productSwapOptions.replaceChildren();
@@ -1186,8 +1309,27 @@
     });
     app.resizeObserver.observe(elements.stage);
   }
+  function continueToReview() {
+    saveActiveArea();
+    commitDesign();
+    const workflowContext = {
+      schemaVersion: 1,
+      workflowMode: app.studioRole,
+      source: "design-studio",
+      designId: app.selection.designId,
+      productId: app.product.id,
+      activeAreaId: app.area.id,
+      preview: { colorId: app.color?.id || null, sizeId: app.size?.id || null },
+      updatedAt: new Date().toISOString()
+    };
+    sessionStorage.setItem(WORKFLOW_CONTEXT_KEY, JSON.stringify(workflowContext));
+    window.location.href = "productPreview.html";
+  }
   async function init() {
-    setupSiteShell(); setupToolTabs(); if (!elements.designCanvas || !elements.printZone || !window.fabric?.Canvas) return showError("تعذر تجهيز مساحة التصميم. أعد تحميل الصفحة وحاول مرة أخرى.");
+    const access = await roleAuth.resolve();
+    if (!access.role) return roleAuth.redirectToLogin();
+    app.studioRole = access.role; applyRoleAwareUi(); setupSiteShell(); setupToolTabs();
+    if (!elements.designCanvas || !elements.printZone || !window.fabric?.Canvas) return showError("تعذر تجهيز مساحة التصميم. أعد تحميل الصفحة وحاول مرة أخرى.");
     app.selection = readSelection(); if (!app.selection) return showError("اختر منتجًا مهيأ من صفحة اختيار المنتجات أولًا.");
     const validation = validateProduct(app.selection.editorProduct); if (!validation.valid) return showError(validation.message);
     ensureDesignId(app.selection);
@@ -1209,6 +1351,8 @@
     initCanvas(); setupZoomControls();
     try {
       await switchArea(app.area.id, true); setupResizeObserver(); setupHistory(); setupProductSwap(); commitDesign(); captureHistory();
+      elements.previewButton.disabled = false;
+      elements.previewButton.addEventListener("click", continueToReview);
     }
     catch (error) { console.error(error); showError("تعذر تحميل مساحة المنتج المحدد."); }
   }

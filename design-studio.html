@@ -15,25 +15,15 @@
   <script src="assets/js/theme-dark.js?v=2"></script>
 </head>
 
-<body class="dashboard-page design-studio-page" data-preserve-dashboard-meta>
+<body class="dashboard-page designer-dashboard-shell design-studio-page" data-preserve-dashboard-meta>
   <a class="skip-link" href="#mainContent">تخطَّ إلى المحتوى</a>
 
   <div class="dashboard-container profile-app" id="app">
     <aside class="profile-sidebar" id="profileSidebar" aria-label="القائمة الجانبية للمصمم" data-i18n-aria="sidebarLabel">
-      <div class="profile-sidebar-header">
-        <a href="index.html" class="profile-brand" aria-label="الصفحة الرئيسية" data-i18n-aria="goHome">
-          <img src="assets/images/logoWithoutBackGround.png" class="profile-brand-image" alt="PalPrints">
-        </a>
-        <button type="button" class="profile-sidebar-close" id="sidebarCloseButton" aria-label="إغلاق القائمة" data-i18n-aria="closeSidebar">
-          <i class="bi bi-x-lg" aria-hidden="true"></i>
-        </button>
-      </div>
-
       <nav class="profile-sidebar-nav" aria-label="روابط حساب المصمم" data-i18n-aria="designerNavLabel">
         <a href="dashboardDesigner.html" class="profile-sidebar-link"><i class="bi bi-grid" aria-hidden="true"></i><span data-i18n="dashboard">لوحة التحكم</span></a>
-        <a href="uploadDesign.html" class="profile-sidebar-link"><i class="bi bi-cloud-arrow-up" aria-hidden="true"></i><span data-i18n="uploadDesign">رفع تصميم جديد</span></a>
+        <a href="design-studio.html" class="profile-sidebar-link active" aria-current="page"><i class="bi bi-cloud-arrow-up" aria-hidden="true"></i><span data-i18n="uploadDesign">رفع تصميم جديد</span></a>
         <a href="designerDesigns.html" class="profile-sidebar-link"><i class="bi bi-images" aria-hidden="true"></i><span data-i18n="myDesigns">تصاميمي</span></a>
-        <a href="design-studio.html" class="profile-sidebar-link active" aria-current="page"><i class="bi bi-bezier2" aria-hidden="true"></i><span>استوديو التصميم</span></a>
         <a href="designerProfile.html" class="profile-sidebar-link"><i class="bi bi-person" aria-hidden="true"></i><span data-i18n="profileTitle">الملف الشخصي</span></a>
         <a href="designerEarnings.html" class="profile-sidebar-link"><i class="bi bi-coin" aria-hidden="true"></i><span data-i18n="earnings">الأرباح</span></a>
         <div class="profile-sidebar-divider" aria-hidden="true"></div>
@@ -46,25 +36,53 @@
       </button>
     </aside>
 
-    <button type="button" class="sidebar-backdrop" id="sidebarBackdrop" aria-label="إغلاق القائمة" data-i18n-aria="closeSidebar"></button>
+    <button type="button" class="sidebar-backdrop profile-sidebar-backdrop" id="sidebarBackdrop" aria-label="إغلاق القائمة" data-i18n-aria="closeSidebar"></button>
 
     <div class="page-shell">
-      <header class="top-utility-bar" aria-label="أدوات الصفحة" data-i18n-aria="pageTools">
+      <header class="top-utility-bar designer-printshop-topbar" aria-label="أدوات الصفحة" data-i18n-aria="pageTools">
+        <a class="designer-header-logo designer-printshop-brand" href="index.html" aria-label="الصفحة الرئيسية" data-i18n-aria="goHome">
+          <span class="designer-logo-full">
+            <img src="./assets/images/palprints-wordmark-transparent.png" alt="PalPrints">
+          </span>
+          <span class="designer-logo-compact" aria-hidden="true">
+            <img src="./assets/images/logoWithoutBackGround.png" alt="">
+          </span>
+        </a>
         <div class="top-bar-start">
-          <button type="button" class="utility-btn sidebar-toggle-btn" id="sidebarToggleButton" aria-controls="profileSidebar" aria-label="إغلاق القائمة الجانبية" aria-expanded="true" data-i18n-aria="closeSidebar">
-            <i class="bi bi-x-lg" id="sidebarToggleIcon" aria-hidden="true"></i>
+          <button type="button" class="utility-btn sidebar-toggle-btn designer-printshop-icon designer-menu-button" id="sidebarToggleButton" aria-controls="profileSidebar" aria-label="إغلاق القائمة الجانبية" aria-expanded="true" data-i18n-aria="closeSidebar">
+            <i class="bi bi-list" id="sidebarToggleIcon" aria-hidden="true"></i>
           </button>
         </div>
-        <div class="top-bar-end">
-          <button type="button" class="utility-btn" id="themeToggleButton" aria-label="تفعيل الوضع الليلي" data-i18n-aria="switchToDark">
-            <i class="bi bi-moon-stars" id="themeToggleIcon" aria-hidden="true"></i>
-          </button>
-          <button type="button" class="utility-btn language-toggle-btn" id="languageToggleButton" aria-label="تغيير اللغة" data-i18n-aria="changeLanguage">
-            <i class="bi bi-globe2" aria-hidden="true"></i><span id="languageToggleText" aria-hidden="true">EN</span>
-          </button>
-          <a href="notifications.html" class="utility-btn notif-btn" aria-label="الإشعارات" data-i18n-aria="notifications">
-            <i class="bi bi-bell" aria-hidden="true"></i><span class="notif-dot" aria-hidden="true"></span>
-          </a>
+
+        <label class="designer-dashboard-search" for="designerDashboardSearch">
+          <i class="bi bi-search" aria-hidden="true"></i>
+          <input id="designerDashboardSearch" type="search" placeholder="ابحث في تصاميمك..." aria-label="البحث في تصاميم المصمم" autocomplete="off">
+        </label>
+
+        <div class="top-bar-end designer-printshop-actions">
+          <div class="designer-header-dropdown-wrap">
+            <button type="button" class="utility-btn designer-printshop-icon designer-dropdown-toggle" id="designerProfileMenuButton" aria-label="الحساب" aria-haspopup="true" aria-expanded="false" aria-controls="designerProfileMenu">
+              <i class="bi bi-person" aria-hidden="true"></i>
+            </button>
+            <div class="designer-header-dropdown" id="designerProfileMenu" role="menu" hidden>
+              <a href="designerProfile.html" role="menuitem"><i class="bi bi-person" aria-hidden="true"></i><span>الملف الشخصي</span></a>
+              <a href="settings.html?role=designer" role="menuitem"><i class="bi bi-gear" aria-hidden="true"></i><span>الإعدادات</span></a>
+              <span class="designer-dropdown-divider" aria-hidden="true"></span>
+              <a class="designer-dropdown-danger" href="login.html" role="menuitem"><i class="bi bi-box-arrow-left" aria-hidden="true"></i><span>تسجيل الخروج</span></a>
+            </div>
+          </div>
+
+          <div class="designer-header-dropdown-wrap">
+            <button type="button" class="utility-btn designer-printshop-icon designer-dropdown-toggle designer-notification-button" id="designerNotificationMenuButton" aria-label="الإشعارات" aria-haspopup="true" aria-expanded="false" aria-controls="designerNotificationMenu">
+              <span class="designer-bell-icon"><i class="bi bi-bell" aria-hidden="true"></i><span class="notif-dot designer-notification-dot" aria-hidden="true"></span></span>
+            </button>
+            <div class="designer-header-dropdown designer-notifications-dropdown" id="designerNotificationMenu" role="menu" hidden>
+              <strong class="designer-dropdown-title">الإشعارات</strong>
+              <a href="dashboardDesigner.html" role="menuitem"><i class="bi bi-patch-check" aria-hidden="true"></i><span><b>تم اعتماد حسابك</b><small>يمكنك الآن نشر تصاميمك وبيعها.</small></span></a>
+              <a href="dashboardDesigner.html" role="menuitem"><i class="bi bi-palette" aria-hidden="true"></i><span><b>تم اعتماد تصميم جديد</b><small>تصميم «روح فلسطين» أصبح منشورًا.</small></span></a>
+              <a class="designer-dropdown-footer" href="dashboardDesigner.html" role="menuitem">عرض جميع الإشعارات</a>
+            </div>
+          </div>
         </div>
       </header>
 
@@ -88,11 +106,11 @@
           </div>
           <dl class="studio-product-meta">
             <div>
-              <dt>اللون</dt>
+              <dt id="summaryColorLabel">اللون</dt>
               <dd id="summaryColor">—</dd>
             </div>
             <div>
-              <dt>المقاس</dt>
+              <dt id="summarySizeLabel">المقاس</dt>
               <dd id="summarySize">—</dd>
             </div>
             <div>
@@ -136,6 +154,7 @@
                 <h3 id="sizeTitle">المقاس</h3><span>حسب اختيار المنتج</span>
               </div>
               <div class="studio-sizes" id="sizeOptions" aria-label="مقاسات المنتج"></div>
+              <p class="studio-preview-size-helper" id="previewSizeHelper" hidden>لا يحدد المقاسات المتاحة للعملاء</p>
             </section>
 
             <section class="studio-option-group" aria-labelledby="areaTitle">
@@ -300,6 +319,26 @@
     </div>
   </dialog>
 
+  <dialog class="studio-confirm-dialog studio-product-draft-dialog" id="productDraftDialog"
+    aria-labelledby="productDraftTitle" aria-describedby="productDraftMessage">
+    <div class="studio-confirm-content">
+      <div class="studio-confirm-thumbnail"><i class="bi bi-arrow-left-right" aria-hidden="true"></i></div>
+      <div class="studio-confirm-copy">
+        <h2 id="productDraftTitle">يوجد تصميم محفوظ لهذا المنتج</h2>
+        <p id="productDraftMessage"></p>
+      </div>
+    </div>
+    <div class="studio-confirm-actions studio-product-draft-actions">
+      <button class="studio-confirm-cancel" id="cancelProductSwap" type="button">إلغاء</button>
+      <button class="studio-confirm-cancel studio-confirm-keep" id="keepProductDraft" type="button">
+        <i class="bi bi-folder2-open" aria-hidden="true"></i> الاحتفاظ بالتصميم الحالي
+      </button>
+      <button class="studio-confirm-delete studio-confirm-primary" id="replaceProductDraft" type="button">
+        <i class="bi bi-copy" aria-hidden="true"></i> استبدال التصميم
+      </button>
+    </div>
+  </dialog>
+
   <div class="studio-notice" id="studioNotice" role="status" aria-live="polite" hidden>
     <i class="bi bi-info-circle" aria-hidden="true"></i><span id="studioNoticeText"></span>
   </div>
@@ -313,6 +352,7 @@
   <script src="assets/js/pages/design-studio-product-catalog.js"></script>
   <script src="assets/js/pages/design-studio-graphics.js"></script>
   <script src="assets/js/pages/design-studio-svg-renderer.js?v=4"></script>
+  <script src="assets/js/pages/role-auth-resolver.js"></script>
   <script src="assets/js/pages/design-studio.js"></script>
 </body>
 

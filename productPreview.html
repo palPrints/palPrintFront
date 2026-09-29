@@ -81,14 +81,14 @@
         <ol class="preview-breadcrumb" aria-label="مسار التنقل">
           <li><a href="index.html">الرئيسية</a></li>
           <li><a href="storefront.html#products">المنتجات</a></li>
-          <li><a href="hoodies.html">هودي</a></li>
+          <li><a href="hoodies.html" id="breadcrumbProductName">المنتج</a></li>
           <li aria-current="page"><span>معاينة المنتج</span></li>
         </ol>
         <div class="preview-title-row">
           <span class="preview-heading-icon" aria-hidden="true"><i class="bi bi-eye"></i></span>
           <div>
-            <h1>معاينة المنتج</h1>
-            <p>راجع الشكل النهائي واختياراتك، ثم أضف المنتج إلى سلتك بثقة.</p>
+            <h1 id="previewPageTitle">معاينة المنتج</h1>
+            <p id="previewPageDescription">راجع الشكل النهائي واختياراتك، ثم أضف المنتج إلى سلتك بثقة.</p>
           </div>
         </div>
       </header>
@@ -153,17 +153,17 @@
 
           <div class="piece-editor" id="pieceEditorPanel" role="tabpanel" aria-label="خيارات القطعة 1" tabindex="0">
             <fieldset class="preview-option-group">
-              <legend><span><i class="bi bi-palette" aria-hidden="true"></i> اللون</span><strong id="selectedColorName"></strong></legend>
+              <legend><span><i class="bi bi-palette" aria-hidden="true"></i> <span id="colorControlLabel">اللون</span></span><strong id="selectedColorName"></strong></legend>
               <div class="color-options" id="colorOptions"></div>
             </fieldset>
 
-            <fieldset class="preview-option-group">
+            <fieldset class="preview-option-group" id="customerSizeGroup">
               <legend><span><i class="bi bi-rulers" aria-hidden="true"></i> المقاس</span><strong id="selectedSizeName"></strong></legend>
               <div class="size-options" id="sizeOptions"></div>
             </fieldset>
 
-            <section class="quantity-section" aria-labelledby="quantityTitle">
-              <div><span class="option-label" id="quantityTitle"><i class="bi bi-copy" aria-hidden="true"></i> الكمية</span><small>الحد الأقصى 99 قطعة</small></div>
+            <section class="quantity-section" id="customerQuantitySection" aria-labelledby="quantityTitle">
+              <div><span class="option-label" id="quantityTitle"><i class="bi bi-copy" aria-hidden="true"></i> الكمية</span><small id="quantityLimitText"></small></div>
               <div class="quantity-control">
                 <button type="button" id="decreaseQuantity" aria-label="تقليل الكمية"><i class="bi bi-dash-lg" aria-hidden="true"></i></button>
                 <output id="quantityValue">1</output>
@@ -171,17 +171,31 @@
               </div>
             </section>
 
-            <fieldset class="preview-option-group print-area-group">
+            <fieldset class="preview-option-group print-area-group" id="customerPrintAreaGroup">
               <legend><span><i class="bi bi-printer" aria-hidden="true"></i> مناطق الطباعة</span><small>اختر منطقة واحدة على الأقل</small></legend>
               <div class="print-area-options" id="printAreaOptions"></div>
               <p class="option-error" id="printAreaError" role="alert"></p>
             </fieldset>
           </div>
 
+          <section class="designer-color-approval" id="designerColorApproval" aria-labelledby="designerColorsTitle" hidden>
+            <div>
+              <span class="option-label" id="designerColorsTitle"><i class="bi bi-palette2" aria-hidden="true"></i> حدد ألوان المنتج المناسبة لهذا التصميم</span>
+              <p id="allowedColorsSummary">لم يتم تحديد ألوان بعد</p>
+            </div>
+            <button type="button" class="preview-button is-secondary" id="openAllowedColors"><i class="bi bi-check2-square" aria-hidden="true"></i><span>اختيار الألوان</span></button>
+          </section>
+
+          <section class="printing-technology-section" id="printingTechnologySection" aria-labelledby="printingTechnologyTitle">
+            <label for="printingTechnology" id="printingTechnologyTitle"><i class="bi bi-printer" aria-hidden="true"></i> تقنية الطباعة</label>
+            <select id="printingTechnology" disabled><option value="">غير متاحة — لم تتم تهيئتها بعد</option></select>
+            <small id="printingTechnologyNote">لم تُضف بيانات تقنيات الطباعة المتاحة لهذا المنتج أو المطبعة بعد.</small>
+          </section>
+
         </aside>
       </div>
 
-      <div class="preview-purchase-row">
+      <div class="preview-purchase-row" id="customerPurchaseRow">
         <section class="price-card price-card--horizontal" aria-labelledby="priceTitle">
           <div class="price-card-title"><span><i class="bi bi-receipt" aria-hidden="true"></i><strong id="priceTitle">تفاصيل السعر</strong></span><small>لا يشمل التوصيل</small></div>
           <div class="price-breakdown" id="priceBreakdown"></div>
@@ -192,7 +206,6 @@
           <p class="summary-validation" id="summaryValidation" role="status" aria-live="polite"></p>
           <div class="preview-bottom-buttons">
             <button type="button" class="preview-button is-primary" id="addToCartButton"><i class="bi bi-cart-plus" aria-hidden="true"></i><span>إضافة إلى السلة</span></button>
-            <a class="preview-button is-secondary" href="hoodies.html"><i class="bi bi-arrow-right" aria-hidden="true"></i><span>العودة إلى تصاميم الهودي</span></a>
           </div>
         </div>
       </div>
@@ -231,11 +244,27 @@
     <div class="fullscreen-stage" id="fullscreenStage"></div>
   </dialog>
 
+  <dialog class="allowed-colors-dialog" id="allowedColorsDialog" aria-labelledby="allowedColorsDialogTitle">
+    <div class="allowed-colors-card">
+      <header>
+        <div><span>إعدادات النشر</span><h2 id="allowedColorsDialogTitle">حدد ألوان المنتج المناسبة لهذا التصميم</h2></div>
+        <button type="button" id="closeAllowedColors" aria-label="إغلاق"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+      </header>
+      <p>يمكنك معاينة الألوان من الصفحة قبل اعتمادها للبيع.</p>
+      <div class="allowed-colors-actions"><button type="button" id="selectAllColors">تحديد الكل</button><button type="button" id="clearAllColors">إلغاء تحديد الكل</button></div>
+      <div class="allowed-colors-list" id="allowedColorOptions"></div>
+      <footer><button type="button" class="preview-button is-secondary" id="cancelAllowedColors">إلغاء</button><button type="button" class="preview-button is-primary" id="confirmAllowedColors">اعتماد الألوان</button></footer>
+    </div>
+  </dialog>
+
   <div class="preview-toast" id="previewToast" role="status" aria-live="polite"><span class="preview-toast-icon"><i class="bi bi-check2" aria-hidden="true"></i></span><span id="previewToastMessage"></span></div>
 
   <script src="assets/js/pages/profile-core.js?v=5"></script>
   <script src="assets/js/pages/storefront.js?v=21"></script>
   <script src="assets/js/pages/interactions.js?v=4"></script>
+  <script src="assets/js/pages/design-studio-product-catalog.js"></script>
+  <script src="assets/js/pages/design-studio-graphics.js"></script>
+  <script src="assets/js/pages/role-auth-resolver.js"></script>
   <script src="assets/js/pages/productPreview.js?v=3"></script>
 </body>
 </html>
