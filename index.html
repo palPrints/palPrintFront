@@ -16,7 +16,7 @@
       <nav class="home-admin-header__nav" aria-label="التنقل الرئيسي">
         <a class="is-active" href="index.html">الرئيسية</a>
         <a href="#what-to-print">المنتجات</a>
-        <a href="#featured-designs">التصاميم</a>
+        <a href="#featured-designs">اطبع لمناسبتك</a>
         <a href="#how-it-works">كيف نعمل</a>
         <a href="#about-palprints">عن المنصة</a>
       </nav>
@@ -38,11 +38,6 @@
             class="home-hero__image home-hero__image--second"
             src="assets/images/home-hero-design-studio.png"
             alt="مصممة تعمل على تصاميم ملابس في استوديو إبداعي"
-          />
-          <img
-            class="home-hero__image home-hero__image--third"
-            src="assets/images/home-hero-custom-products.png"
-            alt="مجموعة منتجات مخصصة تشمل قمصانًا وحقائب وأكوابًا مطبوعة"
           />
         </div>
         <div class="home-hero__content">
@@ -136,81 +131,39 @@
       <section class="featured-designs" id="featured-designs" aria-labelledby="featured-designs-title">
         <div class="featured-designs__inner">
           <header class="featured-designs__header">
-            <h2 id="featured-designs-title">استكشف التصاميم وتصفح حسب ما يناسبك</h2>
+            <div>
+              <h2 id="featured-designs-title">تصفح حسب مناسبتك</h2>
+            </div>
           </header>
 
-          <div class="featured-designs__grid">
-            <article class="design-card">
-              <a class="design-card__media design-card__media--blue" href="design-studio.html" aria-label="استعرض تصميم فلسطين حرة">
-                <img src="assets/images/studio-graphics/palestine/palestine-lettering-free-palestine-220052.svg" alt="تصميم فلسطين حرة" loading="lazy" />
-                <span class="design-card__favorite" aria-label="128 إعجاب">♡ 128</span>
-              </a>
-              <div class="design-card__body">
-                <h3><a href="design-studio.html">فلسطين حرة</a></h3>
-                <div class="design-card__designer">
-                  <span class="design-card__avatar" aria-hidden="true">ل</span>
-                  <span>ليان أحمد</span>
-                </div>
-                <div class="design-card__footer">
-                  <span>تيشيرتات · بوسترات</span>
-                  <a href="design-studio.html" aria-label="اطبع تصميم فلسطين حرة">اطبع التصميم</a>
-                </div>
-              </div>
-            </article>
+          <div class="featured-designs__grid occasion-grid">
+            <a class="occasion-card" href="choose-product.html?occasion=wedding-engagement" aria-label="تصفح منتجات زفاف وخطوبة">
+              <span class="occasion-card__media">
+                <img src="assets/images/occasions/wedding-engagement-v2.png" alt="خاتم زفاف في أجواء حفل أنيقة" loading="lazy" />
+              </span>
+              <span class="occasion-card__title">زفاف وخطوبة</span>
+            </a>
 
-            <article class="design-card">
-              <a class="design-card__media design-card__media--sand" href="design-studio.html" aria-label="استعرض تصميم روح المدينة">
-                <img src="assets/images/studio-graphics/islamic/islamic-beautiful-mosque-184937.svg" alt="تصميم مسجد بخطوط فنية" loading="lazy" />
-                <span class="design-card__favorite" aria-label="96 إعجاب">♡ 96</span>
-              </a>
-              <div class="design-card__body">
-                <h3><a href="design-studio.html">روح المدينة</a></h3>
-                <div class="design-card__designer">
-                  <span class="design-card__avatar design-card__avatar--orange" aria-hidden="true">م</span>
-                  <span>محمد خليل</span>
-                </div>
-                <div class="design-card__footer">
-                  <span>أكواب · دفاتر</span>
-                  <a href="design-studio.html" aria-label="اطبع تصميم روح المدينة">اطبع التصميم</a>
-                </div>
-              </div>
-            </article>
+            <a class="occasion-card" href="choose-product.html?occasion=newborn" aria-label="تصفح منتجات مولود جديد">
+              <span class="occasion-card__media">
+                <img src="assets/images/occasions/newborn-occasion-v2.png" alt="يدا مولود بملابس بيضاء ناعمة" loading="lazy" />
+              </span>
+              <span class="occasion-card__title">مولود جديد</span>
+            </a>
 
-            <article class="design-card">
-              <a class="design-card__media design-card__media--mint" href="design-studio.html" aria-label="استعرض تصميم كلاسيك على الطريق">
-                <img src="assets/images/studio-graphics/cars/cars-orange-classic-car-342710.svg" alt="تصميم سيارة كلاسيكية برتقالية" loading="lazy" />
-                <span class="design-card__favorite" aria-label="74 إعجاب">♡ 74</span>
-              </a>
-              <div class="design-card__body">
-                <h3><a href="design-studio.html">كلاسيك على الطريق</a></h3>
-                <div class="design-card__designer">
-                  <span class="design-card__avatar design-card__avatar--green" aria-hidden="true">ر</span>
-                  <span>رامي نصار</span>
-                </div>
-                <div class="design-card__footer">
-                  <span>هوديز · ستيكرات</span>
-                  <a href="design-studio.html" aria-label="اطبع تصميم كلاسيك على الطريق">اطبع التصميم</a>
-                </div>
-              </div>
-            </article>
+            <a class="occasion-card" href="choose-product.html?occasion=graduation" aria-label="تصفح منتجات التخرج">
+              <span class="occasion-card__media">
+                <img src="assets/images/occasions/graduation-v2.png" alt="خريجة تحمل باقة ورد وترتدي قبعة التخرج" loading="lazy" />
+              </span>
+              <span class="occasion-card__title">تخرج</span>
+            </a>
 
-            <article class="design-card">
-              <a class="design-card__media design-card__media--violet" href="design-studio.html" aria-label="استعرض تصميم طائر النهضة">
-                <img src="assets/images/studio-graphics/animals/animals-craftsmanspace-phoenix-cleaned-up-255182.svg" alt="تصميم طائر فينيق فني" loading="lazy" />
-                <span class="design-card__favorite" aria-label="143 إعجاب">♡ 143</span>
-              </a>
-              <div class="design-card__body">
-                <h3><a href="design-studio.html">طائر النهضة</a></h3>
-                <div class="design-card__designer">
-                  <span class="design-card__avatar design-card__avatar--violet" aria-hidden="true">س</span>
-                  <span>سارة عوض</span>
-                </div>
-                <div class="design-card__footer">
-                  <span>تيشيرتات · حقائب</span>
-                  <a href="design-studio.html" aria-label="اطبع تصميم طائر النهضة">اطبع التصميم</a>
-                </div>
-              </div>
-            </article>
+            <a class="occasion-card" href="choose-product.html?occasion=birthday" aria-label="تصفح منتجات أعياد الميلاد">
+              <span class="occasion-card__media">
+                <img src="assets/images/occasions/birthday-v2.png" alt="هدية عيد ميلاد مع بطاقة وزهور" loading="lazy" />
+              </span>
+              <span class="occasion-card__title">أعياد ميلاد</span>
+            </a>
           </div>
         </div>
       </section>
