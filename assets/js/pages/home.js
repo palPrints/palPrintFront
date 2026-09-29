@@ -25,7 +25,7 @@
     },
     {
       element: document.querySelector(".featured-designs"),
-      items: ".featured-designs__header, .design-card",
+      items: ".featured-designs__header, .occasion-card",
     },
     {
       element: document.querySelector(".partner-cta__video-title"),
