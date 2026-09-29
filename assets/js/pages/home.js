@@ -29,7 +29,15 @@
     },
     {
       element: document.querySelector(".partner-cta"),
-      items: ".partner-cta__video-title, .partner-cta__video, .partner-card",
+      items: ".partner-cta__video-title, .partner-cta__video",
+    },
+    {
+      element: document.querySelector(".partner-card--designer"),
+      items: ".partner-card__content, .partner-card__photo",
+    },
+    {
+      element: document.querySelector(".partner-card--printer"),
+      items: ":scope > h2, :scope > p, .partner-card__stats, :scope > .partner-card__button",
     },
     {
       element: document.querySelector(".home-footer"),
