@@ -397,7 +397,7 @@ const backendResponse = {
                     name: "أبيض",
                     value: "#ffffff",
                     image:
-                        "assets/images/cup.webp"
+                        "assets/images/products/7.png"
                 }
 
             ],
@@ -418,14 +418,21 @@ const backendResponse = {
                     name: "الواجهة",
                     role: "primary",
                     icon: "bi bi-cup-hot",
-                    mockup: "assets/images/cup.webp",
-                    printZone: { leftPct: 20, topPct: 32, widthPct: 60, heightPct: 36, widthCm: 20, heightCm: 9 }
+                    mockup: "assets/images/products/7.png",
+                    printZone: {
+                        leftPct: 21.5,
+                        topPct: 29,
+                        widthPct: 42,
+                        heightPct: 34,
+                        physicalDimensionsStatus: "unknown",
+                        physicalFitStatus: "visual-only"
+                    }
                 }
 
             ],
 
             thumbnail:
-                "assets/images/cup.webp"
+                "assets/images/products/7.png"
         },
 
 
@@ -631,15 +638,20 @@ function validateEditorProduct(product) {
         const height = Number(zone.heightPct);
         const physicalWidth = Number(zone.widthCm);
         const physicalHeight = Number(zone.heightCm);
+        const physicalDimensionsAreUnknown = zone.physicalDimensionsStatus === "unknown"
+            && zone.widthCm == null
+            && zone.heightCm == null;
+        const physicalDimensionsAreValid = physicalDimensionsAreUnknown
+            || (Number.isFinite(physicalWidth) && physicalWidth > 0
+                && Number.isFinite(physicalHeight) && physicalHeight > 0);
 
-        const coordinatesAreValid = [left, top, width, height, physicalWidth, physicalHeight]
+        const coordinatesAreValid = [left, top, width, height]
             .every(Number.isFinite)
             && left >= 0
             && top >= 0
             && width > 0
             && height > 0
-            && physicalWidth > 0
-            && physicalHeight > 0
+            && physicalDimensionsAreValid
             && left + width <= 100
             && top + height <= 100;
 

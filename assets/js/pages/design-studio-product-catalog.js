@@ -74,9 +74,12 @@
     product({
       id: "product-003", categoryId: "mugs", name: "كوب سيراميك", studioTitle: "كوب سيراميك",
       description: "كوب سيراميك عالي الجودة", price: 19, defaultAreaId: "front", defaultColor: "white",
-      colors: [{ id: "white", name: "أبيض", value: "#ffffff", image: "assets/images/cup.webp" }], sizes: sizes("standard"),
-      printAreas: [area("front", "الواجهة", "primary", "bi bi-cup-hot", "assets/images/cup.webp", { leftPct: 20, topPct: 32, widthPct: 60, heightPct: 36, widthCm: 20, heightCm: 9 })],
-      thumbnail: "assets/images/cup.webp"
+      colors: [{ id: "white", name: "أبيض", value: "#ffffff", image: "assets/images/products/7.png" }], sizes: sizes("standard"),
+      printAreas: [area("front", "الواجهة", "primary", "bi bi-cup-hot", "assets/images/products/7.png", {
+        leftPct: 21.5, topPct: 29, widthPct: 42, heightPct: 34,
+        physicalDimensionsStatus: "unknown", physicalFitStatus: "visual-only"
+      })],
+      thumbnail: "assets/images/products/7.png"
     }),
     product({
       id: "product-004", categoryId: "bags", name: "حقيبة قماشية", studioTitle: "حقيبة قماشية قطنية",
