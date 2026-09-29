@@ -905,18 +905,6 @@ body.home-page {
   background: linear-gradient(145deg, #f3edff, #dfd1ff);
 }
 
-.occasion-card--yellow .occasion-card__media {
-  background: linear-gradient(145deg, #fff9dd, #fbe9a8);
-}
-
-.occasion-card--rose .occasion-card__media {
-  background: linear-gradient(145deg, #fff0f5, #f8d5e2);
-}
-
-.occasion-card--blue .occasion-card__media {
-  background: linear-gradient(145deg, #edf3ff, #d5e1fb);
-}
-
 .occasion-card__media img {
   display: block;
   width: 76%;
