@@ -1539,3 +1539,46 @@ body.home-page {
   }
 
 }
+
+/* Progressive section reveals: enabled only after JavaScript prepares the page. */
+.reveal-ready .hero-reveal,
+.reveal-ready .scroll-reveal .reveal-item {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.reveal-ready .hero-reveal {
+  transform: translateY(18px) scale(0.99);
+  transition:
+    opacity 700ms ease,
+    transform 850ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-ready .hero-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-ready .hero-reveal .reveal-item,
+.reveal-ready .scroll-reveal .reveal-item {
+  transition:
+    opacity 620ms ease var(--reveal-delay, 0ms),
+    transform 760ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal-ready .hero-reveal.is-visible .reveal-item,
+.reveal-ready .scroll-reveal.is-visible .reveal-item {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-ready .hero-reveal,
+  .reveal-ready .hero-reveal .reveal-item,
+  .reveal-ready .scroll-reveal .reveal-item {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
