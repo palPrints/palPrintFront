@@ -1,0 +1,5 @@
+assets/videos/*.mp4 filter=lfs diff=lfs merge=lfs -text
+assets/images/home-hero-* filter=lfs diff=lfs merge=lfs -text
+assets/images/designer-partner-cutout.png filter=lfs diff=lfs merge=lfs -text
+assets/images/products/*.png filter=lfs diff=lfs merge=lfs -text
+assets/images/stickers/illustrated/*.png filter=lfs diff=lfs merge=lfs -text
