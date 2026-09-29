@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-29T00:00:00.000Z",
+  "title": "Design System: PalPrints",
+  "extensions": {
+    "colorMeta": {
+      "primary": { "role": "primary", "displayName": "Primary Blue", "canonical": "#1677FF" },
+      "primary-hover": { "role": "primary", "displayName": "Primary Hover", "canonical": "#0A68EB" },
+      "primary-active": { "role": "primary", "displayName": "Primary Active", "canonical": "#0F58BE" },
+      "primary-soft": { "role": "primary", "displayName": "Primary Soft", "canonical": "#EFF6FF" },
+      "accent": { "role": "secondary", "displayName": "Accent Orange", "canonical": "#FF7A00" },
+      "accent-text": { "role": "secondary", "displayName": "Accent Text", "canonical": "#B25500" },
+      "text-strong": { "role": "neutral", "displayName": "Text Strong (Navy 900)", "canonical": "#0B1F3A" },
+      "text-body": { "role": "neutral", "displayName": "Text Body (Navy 700)", "canonical": "#2C405C" },
+      "text-muted": { "role": "neutral", "displayName": "Text Muted (Navy 500)", "canonical": "#5B7394" },
+      "border": { "role": "neutral", "displayName": "Border (Navy 200)", "canonical": "#DFE8F3" },
+      "surface-muted": { "role": "neutral", "displayName": "Surface Muted (Navy 50)", "canonical": "#F7FAFD" },
+      "success": { "role": "semantic", "displayName": "Success", "canonical": "#16A34A" },
+      "warning": { "role": "semantic", "displayName": "Warning", "canonical": "#D97706" },
+      "danger": { "role": "semantic", "displayName": "Danger", "canonical": "#DC2626" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero headlines only." },
+      "h1": { "displayName": "H1", "purpose": "Page-level titles." },
+      "h2": { "displayName": "H2", "purpose": "Section titles." },
+      "h3": { "displayName": "H3", "purpose": "Card / sub-section titles." },
+      "body": { "displayName": "Body", "purpose": "Default paragraph text." },
+      "eyebrow": { "displayName": "Eyebrow", "purpose": "Section kickers, paired with a primary-colored dot." }
+    },
+    "shadows": [
+      { "name": "shadow-sm", "value": "0 1px 2px rgba(11,31,58,.06)", "purpose": "Resting cards." },
+      { "name": "shadow", "value": "0 4px 14px rgba(11,31,58,.08)", "purpose": "Default raised surfaces." },
+      { "name": "shadow-lg", "value": "0 12px 28px rgba(11,31,58,.12)", "purpose": "High-elevation surfaces." },
+      { "name": "shadow-primary", "value": "0 6px 16px rgba(22,119,255,.24)", "purpose": "Primary button lift only, never a background glow." }
+    ],
+    "motion": [],
+    "breakpoints": [
+      { "name": "sm", "value": "560px" },
+      { "name": "md", "value": "760px" },
+      { "name": "lg", "value": "900px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main call-to-action button, one per screen/form.",
+      "html": "<button class=\"ds-btn-primary\">تأكيد الطلب</button>",
+      "css": ".ds-btn-primary { background: #1677FF; color: #FFFFFF; padding: 0.7rem 1.35rem; border-radius: 12px; border: none; font-weight: 700; font-family: Cairo, sans-serif; box-shadow: 0 6px 16px rgba(22,119,255,.24); transition: background-color .18s ease; } .ds-btn-primary:hover { background: #0A68EB; } .ds-btn-primary:focus-visible { outline: 2px solid #3287FF; outline-offset: 2px; } .ds-btn-primary:active { background: #0F58BE; transform: translateY(1px); }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary action button.",
+      "html": "<button class=\"ds-btn-outline\">إلغاء</button>",
+      "css": ".ds-btn-outline { background: transparent; color: #1677FF; padding: 0.7rem 1.35rem; border-radius: 12px; border: 1px solid #BED9FF; font-weight: 700; font-family: Cairo, sans-serif; transition: background-color .18s ease; } .ds-btn-outline:hover { background: #EFF6FF; border-color: #91BFFF; } .ds-btn-outline:focus-visible { outline: 2px solid #3287FF; outline-offset: 2px; }"
+    },
+    {
+      "name": "Product Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Storefront product card with image, title, designer, price.",
+      "html": "<article class=\"ds-product-card\"><div class=\"ds-product-card__media\"></div><div class=\"ds-product-card__body\"><p class=\"ds-product-card__title\">تطريز فلسطيني هندسي</p><p class=\"ds-product-card__designer\">تصميم: نوال أبو رزق</p><span class=\"ds-product-card__price\">49.90 ₪</span></div></article>",
+      "css": ".ds-product-card { background: #FFFFFF; border: 1px solid #DFE8F3; border-radius: 16px; overflow: hidden; box-shadow: 0 1px 2px rgba(11,31,58,.06); font-family: Cairo, sans-serif; transition: transform .2s ease, box-shadow .2s ease; } .ds-product-card:hover { transform: translateY(-3px); box-shadow: 0 4px 14px rgba(11,31,58,.08); } .ds-product-card__media { aspect-ratio: 1/1; background: #F7FAFD; } .ds-product-card__body { padding: 0.9rem 1rem 1.1rem; } .ds-product-card__title { font-weight: 700; font-size: 0.95rem; color: #0B1F3A; margin: 0 0 0.2rem; } .ds-product-card__designer { font-size: 0.78rem; color: #5B7394; margin: 0 0 0.55rem; } .ds-product-card__price { font-weight: 800; color: #0B1F3A; font-size: 1rem; direction: ltr; }"
+    },
+    {
+      "name": "Soft Badge",
+      "kind": "chip",
+      "refersTo": "badge-soft",
+      "description": "Default neutral-brand status badge.",
+      "html": "<span class=\"ds-badge-soft\">قيد المراجعة</span>",
+      "css": ".ds-badge-soft { display: inline-flex; align-items: center; background: #EFF6FF; color: #0F58BE; border-radius: 999px; padding: 0.15rem 0.65rem; font-size: 0.78rem; font-weight: 700; font-family: Cairo, sans-serif; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Labeled text field with helper text.",
+      "html": "<div class=\"ds-field\"><label class=\"ds-field__label\">اسم التصميم</label><input class=\"ds-field__input\" type=\"text\" placeholder=\"مثال: تطريز فلسطيني هندسي\"><div class=\"ds-field__help\">هيك بيظهر اسم التصميم للزبائن بصفحة المنتج.</div></div>",
+      "css": ".ds-field{ font-family: Cairo, sans-serif; } .ds-field__label { font-weight: 600; color: #0B1F3A; margin-bottom: 0.35rem; display: block; font-size: 0.9rem; } .ds-field__input { background: #FFFFFF; color: #2C405C; border: 1px solid #DFE8F3; border-radius: 8px; padding: 0.65rem 0.85rem; width: 100%; font-family: inherit; } .ds-field__input:focus { border-color: #1677FF; box-shadow: 0 0 0 3px rgba(22,119,255,.18); outline: none; } .ds-field__help { font-size: 0.8rem; margin-top: 0.35rem; color: #5B7394; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Print Shop Registration Mark",
+    "overview": "PalPrints borrows its visual language from the print shop, not from generic SaaS: crop marks, a halftone dot grid, and the circular registration mark are the only decorative vocabulary allowed. There are no organic blobs, no decorative gradients beyond the one confirmed brand gradient, and no ornamental flourishes — precision reads as trust for a product whose entire promise is \"your design, printed correctly.\" The interface is light-only (no dark mode); data-bs-theme=\"light\" is the permanent state, matching a physical print shop's clean, well-lit counter rather than a screen-native dark aesthetic. Blue carries the brand and every primary action. Navy carries every piece of text and every dark surface — there is no pure black (#000) anywhere in the system. Orange is a single strictly-rationed accent: badges, alerts, and campaign call-outs only, capped at roughly 5% of any screen's area, never a primary button, logo, navbar, or large background. The interface is Arabic-first and RTL end to end; Cairo is the only typeface, for Arabic and Latin text alike, and numerals/prices stay LTR inside the RTL flow.",
+    "keyCharacteristics": [
+      "Print-shop iconography only (crop marks, halftone, registration mark) — no organic or generic AI-UI decoration.",
+      "One primary blue, rationed orange, navy for all text — no pure black.",
+      "Light-only; no dark mode anywhere in the product.",
+      "Cairo everywhere; numbers and currency always render LTR (49.90 ₪) inside RTL layout.",
+      "4px spacing scale exclusively; no arbitrary spacing values."
+    ],
+    "rules": [
+      { "name": "The One Accent Rule", "body": "Orange never exceeds ~5% of a screen's area and never appears on a primary button, the logo, the navbar/sidebar, or a text link.", "section": "colors" },
+      { "name": "The No-Pure-Black Rule", "body": "All \"black\" text and dark surfaces are Navy 900 (#0B1F3A); #000000 never appears.", "section": "colors" },
+      { "name": "The Small-Text Blue Rule", "body": "Any blue text below large-text size (links, small labels) uses #0A68EB (blue-700, 6.1:1 on white), not #1677FF (blue-600, 4.1:1 — valid only for buttons/graphics/large text).", "section": "colors" },
+      { "name": "The Scale-Only Rule", "body": "Use the defined type roles; never hand-pick a one-off font-size. Adjacent roles should read as a clear step, not a near-tie.", "section": "typography" },
+      { "name": "The 11px Floor Rule", "body": "No functional or content-bearing text renders below 11px; only non-interactive legal fine print may drop to 10px.", "section": "typography" },
+      { "name": "The No-Glow Rule", "body": "A colored, zero-offset blurred shadow (a \"glow\") behind text or on a dark background never appears. shadow-primary is a directional button shadow, not a halo.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do use exactly one primary blue button per screen/form.",
+      "Do keep orange to badges, alerts, and campaign call-outs, under ~5% of screen area.",
+      "Do render order/payment status as a colored badge, never plain text.",
+      "Do use only the 4px-multiple spacing scale.",
+      "Do give every interactive element a visible focus state.",
+      "Do use blue-700 (not blue-600) for any small text or link on a light background.",
+      "Do keep all functional text at 11px or larger (10px only for non-interactive legal fine print)."
+    ],
+    "donts": [
+      "Don't mix orange and blue in the same element or gradient.",
+      "Don't put orange text on a plain white background.",
+      "Don't use arbitrary border-radius values outside the four-step scale.",
+      "Don't use shadow-lg or a colored glow on small elements like badges.",
+      "Don't use pure black (#000) — Navy 900 is the system's black.",
+      "Don't use any font other than Cairo, anywhere, including in small print or icon labels."
+    ]
+  }
+}

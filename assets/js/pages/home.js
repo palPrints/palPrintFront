@@ -81,6 +81,31 @@
     requestAnimationFrame(() => hero?.classList.add("is-visible"));
   });
 
+  if (hero) {
+    const slides = hero.querySelector(".home-hero__slides");
+    let ticking = false;
+
+    const updateHeroParallax = () => {
+      ticking = false;
+      const rect = hero.getBoundingClientRect();
+      if (rect.bottom <= 0 || rect.top >= window.innerHeight) return;
+      const shift = Math.min(Math.max(-rect.top * 0.12, 0), 24);
+      slides?.style.setProperty("--hero-parallax", `${shift}px`);
+    };
+
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(updateHeroParallax);
+      },
+      { passive: true },
+    );
+
+    updateHeroParallax();
+  }
+
   if (!("IntersectionObserver" in window)) {
     revealGroups.forEach(({ element }) => element.classList.add("is-visible"));
     return;
