@@ -1559,6 +1559,19 @@ body.home-page {
   transform: none;
 }
 
+.reveal-ready .scroll-reveal.reveal-self {
+  opacity: 0;
+  transform: translateY(36px) scale(0.985);
+  transition:
+    opacity 650ms ease,
+    transform 800ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-ready .scroll-reveal.reveal-self.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
 .reveal-ready .hero-reveal .reveal-item,
 .reveal-ready .scroll-reveal .reveal-item {
   transition:
@@ -1576,6 +1589,7 @@ body.home-page {
 @media (prefers-reduced-motion: reduce) {
   .reveal-ready .hero-reveal,
   .reveal-ready .hero-reveal .reveal-item,
+  .reveal-ready .scroll-reveal.reveal-self,
   .reveal-ready .scroll-reveal .reveal-item {
     opacity: 1;
     transform: none;

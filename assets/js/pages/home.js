@@ -28,16 +28,22 @@
       items: ".featured-designs__header, .design-card",
     },
     {
-      element: document.querySelector(".partner-cta"),
-      items: ".partner-cta__video-title, .partner-cta__video",
+      element: document.querySelector(".partner-cta__video-title"),
+      revealSelf: true,
+    },
+    {
+      element: document.querySelector(".partner-cta__video"),
+      revealSelf: true,
     },
     {
       element: document.querySelector(".partner-card--designer"),
       items: ".partner-card__content, .partner-card__photo",
+      revealSelf: true,
     },
     {
       element: document.querySelector(".partner-card--printer"),
       items: ":scope > h2, :scope > p, .partner-card__stats, :scope > .partner-card__button",
+      revealSelf: true,
     },
     {
       element: document.querySelector(".home-footer"),
@@ -57,9 +63,10 @@
     prepareItems(hero, ".home-hero__content > *");
   }
 
-  revealGroups.forEach(({ element, items }) => {
+  revealGroups.forEach(({ element, items, revealSelf }) => {
     element.classList.add("scroll-reveal");
-    prepareItems(element, items);
+    if (revealSelf) element.classList.add("reveal-self");
+    if (items) prepareItems(element, items);
   });
 
   document.documentElement.classList.add("reveal-ready");
