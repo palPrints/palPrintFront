@@ -173,6 +173,7 @@ body.home-page {
 
 .home-admin-header__actions {
   display: flex;
+  min-width: 0;
   align-items: center;
   gap: 10px;
 }
@@ -1406,7 +1407,7 @@ body.home-page {
 
 @media (max-width: 600px) {
   .featured-designs {
-    padding: var(--sp-10) var(--sp-4);
+    padding: 3.25rem var(--sp-4);
   }
 
   .featured-designs__header {
@@ -1417,6 +1418,7 @@ body.home-page {
 
   .featured-designs__all {
     align-self: stretch;
+    width: 100%;
   }
 
   .featured-designs__grid {
@@ -1429,28 +1431,36 @@ body.home-page {
   }
 
   .products-carousel {
-    gap: var(--sp-2);
+    display: block;
   }
 
   .products-carousel__arrow {
-    width: 36px;
-    height: 36px;
+    display: none;
+  }
+
+  .products-carousel__track {
+    gap: 14px;
+    width: 100%;
+    padding: 4px 2px 14px;
+    scroll-padding-inline: 2px;
+    touch-action: pan-x;
   }
 
   .product-card {
-    width: 148px;
+    width: min(76vw, 240px);
+    padding: 20px 16px 16px;
   }
 
   .product-card__media {
-    height: 112px;
+    height: 150px;
   }
 
   .partner-cta {
-    padding: var(--sp-10) var(--sp-4);
+    padding: 3.25rem var(--sp-4);
   }
 
   .partner-card__content {
-    padding: 28px 24px;
+    padding: 28px 22px;
   }
 
   .partner-card--designer {
@@ -1458,17 +1468,17 @@ body.home-page {
   }
 
   .partner-card__photo {
-    min-height: 330px;
+    min-height: 290px;
   }
 
   .partner-card__photo img {
-    width: min(100%, 360px);
-    height: 108%;
+    width: min(96%, 340px);
+    height: 104%;
   }
 
   .partner-card--printer {
     min-height: auto;
-    padding: 28px 24px;
+    padding: 28px 22px;
   }
 
   .partner-card--printer h2 {
@@ -1477,6 +1487,16 @@ body.home-page {
 
   .partner-card__stats {
     margin-top: var(--sp-3);
+  }
+
+  .partner-card__actions,
+  .partner-card__button,
+  .partner-card__button--blue {
+    width: 100%;
+  }
+
+  .partner-card__button--blue {
+    align-self: stretch;
   }
 }
 
@@ -1489,7 +1509,8 @@ body.home-page {
 @media (max-width: 760px) {
   .home-admin-header {
     height: 60px;
-    padding-inline: var(--sp-4);
+    gap: 10px;
+    padding-inline: max(var(--sp-4), env(safe-area-inset-left));
   }
 
   .home-admin-header__logo img {
@@ -1501,24 +1522,39 @@ body.home-page {
   }
 
   .home-admin-header__button {
+    white-space: nowrap;
     padding: 0.45rem 0.75rem;
     font-size: 0.75rem;
   }
 
   .home-hero__slides {
-    height: clamp(460px, 70svh, 620px);
+    height: clamp(430px, calc(100svh - 60px), 580px);
   }
 
   .home-hero__image {
     height: 100%;
+    object-position: center;
   }
 
   .home-hero__content {
-    padding: var(--sp-5);
+    padding: 28px var(--sp-4);
+  }
+
+  .home-hero__content::before {
+    width: 100%;
+    height: 82%;
+  }
+
+  .home-hero__content h1 {
+    max-width: 560px;
+    font-size: clamp(1.65rem, 7.2vw, 2.25rem);
+    line-height: 1.3;
   }
 
   .home-hero__content p {
     margin-top: var(--sp-2);
+    font-size: clamp(0.95rem, 4vw, 1.15rem);
+    line-height: 1.7;
   }
 
   .home-hero__cta {
@@ -1528,7 +1564,11 @@ body.home-page {
   }
 
   .what-to-print {
-    padding: var(--sp-10) var(--sp-4);
+    padding: 3.25rem var(--sp-4);
+  }
+
+  .what-to-print__header h2 {
+    font-size: clamp(1.45rem, 6vw, 1.8rem);
   }
 
   .what-to-print__header > p:last-child {
@@ -1537,7 +1577,43 @@ body.home-page {
   }
 
   .products-carousel {
-    margin-top: var(--sp-7);
+    margin-top: var(--sp-6);
+  }
+
+  .featured-designs__header {
+    width: 100%;
+  }
+
+  .featured-designs__header h2,
+  .partner-cta__video-title {
+    font-size: clamp(1.4rem, 5.8vw, 1.7rem);
+  }
+
+  .featured-designs__header p:last-child {
+    font-size: 0.875rem;
+    line-height: 1.75;
+  }
+
+  .occasion-card__body {
+    padding: 18px;
+  }
+
+  .partner-cta__inner {
+    gap: 20px;
+  }
+
+  .partner-cta__video {
+    margin-bottom: 4px;
+    border-radius: var(--pp-radius);
+  }
+
+  .partner-card h2 {
+    font-size: clamp(1.35rem, 5.8vw, 1.65rem);
+  }
+
+  .partner-card p {
+    font-size: 0.9rem;
+    line-height: 1.75;
   }
 
   .home-footer__inner {
@@ -1569,15 +1645,46 @@ body.home-page {
 
 @media (max-width: 480px) {
   .home-admin-header {
-    padding-inline: 10px;
+    gap: 6px;
+    padding-inline: max(10px, env(safe-area-inset-left));
   }
 
   .home-admin-header__logo img {
-    width: 92px;
+    width: 86px;
+  }
+
+  .home-admin-header__actions {
+    gap: 4px;
   }
 
   .home-admin-header__button {
-    padding-inline: 8px;
+    min-height: 34px;
+    padding: 0.4rem 7px;
+    border-radius: 9px;
+    font-size: 0.65rem;
+  }
+
+  .home-hero__slides {
+    height: clamp(410px, calc(100svh - 60px), 520px);
+  }
+
+  .home-hero__content h1 {
+    font-size: clamp(1.5rem, 7.4vw, 1.9rem);
+  }
+
+  .home-hero__cta {
+    width: min(100%, 250px);
+  }
+
+  .occasion-card__media {
+    aspect-ratio: 4 / 3;
+  }
+
+  .partner-card__stats dt {
+    font-size: 1rem;
+  }
+
+  .partner-card__stats dd {
     font-size: 0.6875rem;
   }
 
@@ -1593,6 +1700,22 @@ body.home-page {
 
   .home-footer__wordmark img {
     width: 142px;
+  }
+}
+
+@media (max-width: 360px) {
+  .home-admin-header__logo img {
+    width: 76px;
+  }
+
+  .home-admin-header__button {
+    padding-inline: 6px;
+    font-size: 0.625rem;
+  }
+
+  .home-footer__nav {
+    grid-template-columns: 1fr;
+    row-gap: 26px;
   }
 }
 
