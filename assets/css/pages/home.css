@@ -930,22 +930,6 @@ body.home-page {
   transform: scale(1.07) rotate(-1deg);
 }
 
-.occasion-card__badge {
-  position: absolute;
-  z-index: 2;
-  top: var(--sp-3);
-  inset-inline-start: var(--sp-3);
-  padding: 6px 10px;
-  color: var(--pp-text-strong);
-  background: rgb(255 255 255 / 88%);
-  border: 1px solid rgb(255 255 255 / 78%);
-  border-radius: var(--pp-radius-pill);
-  box-shadow: var(--pp-shadow-sm);
-  font-size: 0.6875rem;
-  font-weight: 800;
-  backdrop-filter: blur(8px);
-}
-
 .occasion-card__body {
   padding: var(--sp-4);
 }
