@@ -29,7 +29,7 @@
     },
     {
       element: document.querySelector(".partner-cta"),
-      items: ".partner-card",
+      items: ".partner-cta__video-title, .partner-cta__video, .partner-card",
     },
     {
       element: document.querySelector(".home-footer"),
