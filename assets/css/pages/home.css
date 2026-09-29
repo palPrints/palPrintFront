@@ -971,67 +971,6 @@ body.home-page {
   transform: translateX(-4px);
 }
 
-.occasion-card__gift-box {
-  position: relative;
-  width: 52%;
-  aspect-ratio: 1.18;
-  margin-top: 12%;
-  background: linear-gradient(145deg, #fff, #ffe7dc);
-  border: 2px solid rgb(209 114 80 / 25%);
-  border-radius: 10px 10px 18px 18px;
-  box-shadow: 0 18px 28px rgb(137 74 53 / 18%);
-  transform: rotate(-2deg);
-  transition: transform 260ms ease;
-}
-
-.occasion-card__gift-box::before {
-  position: absolute;
-  top: -17%;
-  right: -6%;
-  left: -6%;
-  height: 24%;
-  background: #fff8f4;
-  border: 2px solid rgb(209 114 80 / 25%);
-  border-radius: 10px;
-  content: "";
-}
-
-.occasion-card__gift-box::after {
-  position: absolute;
-  top: -17%;
-  bottom: 0;
-  left: 43%;
-  width: 14%;
-  background: linear-gradient(90deg, #e99583, #f6b5a5);
-  content: "";
-}
-
-.occasion-card__gift-box span::before,
-.occasion-card__gift-box span::after {
-  position: absolute;
-  z-index: 1;
-  top: -42%;
-  left: 50%;
-  width: 30%;
-  height: 28%;
-  border: 10px solid #e99583;
-  border-radius: 50% 50% 12% 50%;
-  content: "";
-}
-
-.occasion-card__gift-box span::before {
-  transform: translateX(-94%) rotate(12deg);
-}
-
-.occasion-card__gift-box span::after {
-  border-radius: 50% 50% 50% 12%;
-  transform: translateX(-6%) rotate(-12deg);
-}
-
-.occasion-card:hover .occasion-card__gift-box {
-  transform: rotate(1deg) scale(1.06);
-}
-
 .occasion-card a:focus-visible {
   outline: 2px solid var(--pp-focus-ring);
   outline-offset: 2px;
@@ -1705,7 +1644,6 @@ body.home-page {
   .design-card__media img,
   .occasion-card,
   .occasion-card__media img,
-  .occasion-card__gift-box,
   .occasion-card__action span {
     transition: none;
   }
@@ -1715,7 +1653,6 @@ body.home-page {
   .design-card:hover .design-card__media img,
   .occasion-card:hover,
   .occasion-card:hover .occasion-card__media img,
-  .occasion-card:hover .occasion-card__gift-box,
   .occasion-card__action:hover span {
     transform: none;
   }
