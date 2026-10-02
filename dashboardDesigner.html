@@ -35,14 +35,14 @@
     <link rel="stylesheet" href="assets/css/theme-dark.css?v=26" />
   <script src="assets/js/theme-dark.js?v=2"></script>
 </head>
-  <body class="dashboard-page designer-dashboard-shell">
+  <body class="dashboard-page designer-dashboard-shell" data-role-context="designer">
     <div class="dashboard-container profile-app" id="app">
       <aside class="profile-sidebar" id="profileSidebar" aria-label="القائمة الجانبية للمصمم" data-i18n-aria="sidebarLabel">
         <nav class="profile-sidebar-nav" aria-label="روابط حساب المصمم" data-i18n-aria="designerNavLabel">
           <a href="dashboardDesigner.html" class="profile-sidebar-link active" aria-current="page">
             <i class="bi bi-grid" aria-hidden="true"></i><span data-i18n="dashboard">لوحة التحكم</span>
           </a>
-          <a href="design-studio.html" class="profile-sidebar-link">
+          <a href="choose-product.html" class="profile-sidebar-link" data-create-design>
             <i class="bi bi-cloud-arrow-up" aria-hidden="true"></i><span data-i18n="uploadDesign">رفع تصميم جديد</span>
           </a>
           <a href="designerDesigns.html" class="profile-sidebar-link">
@@ -74,7 +74,7 @@
         <header class="top-utility-bar designer-printshop-topbar" aria-label="أدوات الصفحة" data-i18n-aria="pageTools">
           <a class="designer-header-logo designer-printshop-brand" href="index.html" aria-label="الصفحة الرئيسية" data-i18n-aria="goHome">
             <span class="designer-logo-full">
-              <img src="./assets/images/palprints-wordmark-transparent.png" alt="PalPrints" />
+              <img src="./assets/images/logo/PalPrints-logo.svg" alt="PalPrints" />
             </span>
             <span class="designer-logo-compact" aria-hidden="true">
               <img src="./assets/images/logoWithoutBackGround.png" alt="" />
@@ -134,7 +134,7 @@
                   <p>تابع تصاميمك وطلباتك ومبيعاتك من مكان واحد.</p>
                 </div>
               </div>
-              <a class="dashboard-primary-action" href="design-studio.html">
+              <a class="dashboard-primary-action" href="choose-product.html" data-create-design>
                 <i class="bi bi-cloud-arrow-up" aria-hidden="true"></i>
                 <span>رفع تصميم جديد</span>
               </a>
@@ -245,7 +245,7 @@
                   <div class="trending-product-body">
                     <div class="trending-product-title"><h3>تيشيرت أوفر سايز</h3><span>الأكثر رواجًا</span></div>
                     <p>التصاميم الوطنية والخط العربي تتصدر الطلب هذا الأسبوع.</p>
-                    <a href="design-studio.html"><i class="bi bi-palette" aria-hidden="true"></i> صمّم لهذا المنتج</a>
+                    <a href="choose-product.html" data-create-design><i class="bi bi-palette" aria-hidden="true"></i> صمّم لهذا المنتج</a>
                   </div>
                 </article>
 
@@ -258,7 +258,7 @@
                   <div class="trending-product-body">
                     <div class="trending-product-title"><h3>هودي شتوي</h3><span>صاعد بسرعة</span></div>
                     <p>رسومات غزة البسيطة والألوان الدافئة تحقق أفضل تفاعل.</p>
-                    <a href="design-studio.html"><i class="bi bi-palette" aria-hidden="true"></i> صمّم لهذا المنتج</a>
+                    <a href="choose-product.html" data-create-design><i class="bi bi-palette" aria-hidden="true"></i> صمّم لهذا المنتج</a>
                   </div>
                 </article>
 
@@ -271,7 +271,7 @@
                   <div class="trending-product-body">
                     <div class="trending-product-title"><h3>حقيبة قماش</h3><span>اختيار الجمهور</span></div>
                     <p>الزخارف التراثية والعبارات القصيرة هي الأكثر حفظًا ومشاركة.</p>
-                    <a href="design-studio.html"><i class="bi bi-palette" aria-hidden="true"></i> صمّم لهذا المنتج</a>
+                    <a href="choose-product.html" data-create-design><i class="bi bi-palette" aria-hidden="true"></i> صمّم لهذا المنتج</a>
                   </div>
                 </article>
 
@@ -284,7 +284,7 @@
                   <div class="trending-product-body">
                     <div class="trending-product-title"><h3>كوب مطبوع</h3><span>هدية رائجة</span></div>
                     <p>عبارات الأمل ورسومات المعالم الفلسطينية تتقدم في الهدايا.</p>
-                    <a href="design-studio.html"><i class="bi bi-palette" aria-hidden="true"></i> صمّم لهذا المنتج</a>
+                    <a href="choose-product.html" data-create-design><i class="bi bi-palette" aria-hidden="true"></i> صمّم لهذا المنتج</a>
                   </div>
                 </article>
               </div>
@@ -301,7 +301,7 @@
               </h1>
               <p class="designer-intro-subtitle" data-i18n="heroSubtitle">أنشئ تصميمك القادم وشاركه مع عملاء يبحثون عن أفكار مميزة.</p>
             </div>
-            <a href="design-studio.html" class="designer-intro-action">
+            <a href="choose-product.html" class="designer-intro-action" data-create-design>
               <i class="bi bi-palette" aria-hidden="true"></i>
               <span data-i18n="ctaAction">ابدأ التصميم</span>
             </a>
@@ -428,6 +428,8 @@
       </div>
     </div>
 
+    <script src="assets/js/pages/role-auth-resolver.js"></script>
+    <script src="assets/js/pages/create-design-entry.js"></script>
     <script src="assets/js/pages/masterDisgner.js"></script>
   </body>
 </html>
