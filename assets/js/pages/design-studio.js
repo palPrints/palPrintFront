@@ -125,11 +125,127 @@
   }
 
   function uid(prefix) { return `${prefix}-${window.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(16).slice(2)}`}`; }
+  function createShellLink(item, menuItem = false) {
+    const link = document.createElement("a");
+    link.href = item.href;
+    if (item.active) {
+      link.className = "profile-sidebar-link active";
+      link.setAttribute("aria-current", "page");
+    } else if (!menuItem) {
+      link.className = "profile-sidebar-link";
+    }
+    if (menuItem) link.setAttribute("role", "menuitem");
+    const icon = document.createElement("i");
+    icon.className = `bi ${item.icon}`;
+    icon.setAttribute("aria-hidden", "true");
+    const label = document.createElement("span");
+    label.textContent = item.label;
+    link.append(icon, label);
+    return link;
+  }
+
+  function renderRoleShell() {
+    const designerMode = app.studioRole === "designer";
+    const navigation = $("studioRoleNavigation");
+    const sidebar = $("profileSidebar");
+    const profileMenu = $("designerProfileMenu");
+    const notificationMenu = $("designerNotificationMenu");
+    const search = $("designerDashboardSearch");
+    const breadcrumbRoot = document.querySelector(".studio-breadcrumb li:first-child a");
+    const shell = designerMode ? {
+      navigationLabel: "روابط حساب المصمم",
+      searchPlaceholder: "ابحث في تصاميمك...",
+      root: { href: "dashboardDesigner.html", label: "لوحة التحكم" },
+      links: [
+        { href: "dashboardDesigner.html", icon: "bi-grid", label: "لوحة التحكم" },
+        { href: "design-studio.html", icon: "bi-cloud-arrow-up", label: "رفع تصميم جديد", active: true },
+        { href: "designerDesigns.html", icon: "bi-images", label: "تصاميمي" },
+        { href: "designerProfile.html", icon: "bi-person", label: "الملف الشخصي" },
+        { href: "designerEarnings.html", icon: "bi-coin", label: "الأرباح" }
+      ],
+      utilityLinks: [
+        { href: "settings.html?role=designer", icon: "bi-gear", label: "الإعدادات" },
+        { href: "support.html?role=designer", icon: "bi-headset", label: "التواصل مع الدعم الفني" }
+      ],
+      profileLinks: [
+        { href: "designerProfile.html", icon: "bi-person", label: "الملف الشخصي" },
+        { href: "settings.html?role=designer", icon: "bi-gear", label: "الإعدادات" }
+      ],
+      notificationHref: "dashboardDesigner.html",
+      notificationText: "اعرض آخر تحديثات تصاميمك"
+    } : {
+      navigationLabel: "روابط حساب العميل",
+      searchPlaceholder: "ابحث في المنتجات والتصاميم...",
+      root: { href: "storefront.html", label: "المتجر" },
+      links: [
+        { href: "storefront.html", icon: "bi-shop", label: "المتجر" },
+        { href: "design-studio.html", icon: "bi-palette", label: "تصميم منتج", active: true },
+        { href: "orders.html", icon: "bi-box-seam", label: "طلباتي" },
+        { href: "favorites.html", icon: "bi-heart", label: "المفضلة" },
+        { href: "custProfile.html", icon: "bi-person", label: "الملف الشخصي" }
+      ],
+      utilityLinks: [
+        { href: "settings.html?role=customer", icon: "bi-gear", label: "الإعدادات" },
+        { href: "support.html?role=customer", icon: "bi-headset", label: "التواصل مع الدعم الفني" }
+      ],
+      profileLinks: [
+        { href: "custProfile.html", icon: "bi-person", label: "الملف الشخصي" },
+        { href: "orders.html", icon: "bi-box-seam", label: "طلباتي" },
+        { href: "settings.html?role=customer", icon: "bi-gear", label: "الإعدادات" }
+      ],
+      notificationHref: "orders.html",
+      notificationText: "اعرض آخر تحديثات طلباتك"
+    };
+    const sidebarDivider = document.createElement("div");
+    sidebarDivider.className = "profile-sidebar-divider";
+    sidebarDivider.setAttribute("aria-hidden", "true");
+
+    document.body.classList.toggle("customer-studio-shell", !designerMode);
+    document.body.classList.remove("studio-role-pending");
+    if (sidebar) {
+      sidebar.removeAttribute("data-i18n-aria");
+      sidebar.setAttribute("aria-label", designerMode ? "القائمة الجانبية للمصمم" : "القائمة الجانبية للعميل");
+    }
+    if (navigation) {
+      navigation.removeAttribute("data-i18n-aria");
+      navigation.setAttribute("aria-label", shell.navigationLabel);
+      navigation.replaceChildren(
+        ...shell.links.map(item => createShellLink(item)),
+        sidebarDivider,
+        ...shell.utilityLinks.map(item => createShellLink(item))
+      );
+    }
+    if (profileMenu) {
+      const menuDivider = document.createElement("span");
+      menuDivider.className = "designer-dropdown-divider";
+      menuDivider.setAttribute("aria-hidden", "true");
+      const logout = createShellLink({ href: "login.html", icon: "bi-box-arrow-left", label: "تسجيل الخروج" }, true);
+      logout.className = "designer-dropdown-danger";
+      profileMenu.replaceChildren(...shell.profileLinks.map(item => createShellLink(item, true)), menuDivider, logout);
+    }
+    if (notificationMenu) {
+      const title = document.createElement("strong");
+      title.className = "designer-dropdown-title";
+      title.textContent = "الإشعارات";
+      const notification = createShellLink({ href: shell.notificationHref, icon: "bi-bell", label: shell.notificationText }, true);
+      notificationMenu.replaceChildren(title, notification);
+    }
+    if (search) {
+      search.placeholder = shell.searchPlaceholder;
+      search.setAttribute("aria-label", shell.searchPlaceholder);
+    }
+    if (breadcrumbRoot) {
+      breadcrumbRoot.href = shell.root.href;
+      breadcrumbRoot.textContent = shell.root.label;
+    }
+  }
+
   function applyRoleAwareUi() {
     const designerMode = app.studioRole === "designer";
     const colorLabel = designerMode ? "لون المعاينة" : "اللون";
     const sizeLabel = designerMode ? "مقاس المعاينة" : "المقاس";
     document.body.dataset.userRole = app.studioRole;
+    renderRoleShell();
     elements.summaryColorLabel.textContent = colorLabel;
     elements.summarySizeLabel.textContent = sizeLabel;
     elements.colorTitle.textContent = colorLabel;
@@ -1326,11 +1442,12 @@
     window.location.href = "productPreview.html";
   }
   async function init() {
-    const access = await roleAuth.resolve();
+    app.selection = readSelection();
+    const access = await roleAuth.resolve({ contextRole: app.selection?.workflowRole });
     if (!access.role) return roleAuth.redirectToLogin();
     app.studioRole = access.role; applyRoleAwareUi(); setupSiteShell(); setupToolTabs();
     if (!elements.designCanvas || !elements.printZone || !window.fabric?.Canvas) return showError("تعذر تجهيز مساحة التصميم. أعد تحميل الصفحة وحاول مرة أخرى.");
-    app.selection = readSelection(); if (!app.selection) return showError("اختر منتجًا مهيأ من صفحة اختيار المنتجات أولًا.");
+    if (!app.selection) return showError("اختر منتجًا مهيأ من صفحة اختيار المنتجات أولًا.");
     const validation = validateProduct(app.selection.editorProduct); if (!validation.valid) return showError(validation.message);
     ensureDesignId(app.selection);
     const catalog = resolveEligibleProducts(app.selection);

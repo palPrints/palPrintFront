@@ -1952,3 +1952,15 @@ html[data-bs-theme="dark"] .designer-dashboard-shell .top-utility-bar {
 @media (prefers-reduced-motion: reduce) {
   .chart-line.is-drawing,.chart-area.is-drawing,.chart-sales-marker.is-resting,.design-donut::after,.trends-live-badge i { animation: none !important; }
 }
+
+/* Keep the shared editor hidden behind its resolved account shell to avoid a
+   brief designer-navigation flash for authenticated customers. */
+.design-studio-page.studio-role-pending .profile-sidebar,
+.design-studio-page.studio-role-pending .top-utility-bar {
+  visibility: hidden;
+}
+
+.design-studio-page.customer-studio-shell .profile-sidebar-link.active {
+  color: var(--pp-blue-700);
+  background: var(--pp-blue-50);
+}

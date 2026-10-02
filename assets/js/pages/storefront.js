@@ -434,11 +434,6 @@
       : null;
     image.src = originalSrc;
 
-    if (hoverSrc) {
-      const hoverImage = new Image();
-      hoverImage.src = hoverSrc;
-    }
-
     const setHovered = (isHovered) => {
       card.classList.toggle("is-image-hovered", isHovered);
       if (!hoverSrc) return;

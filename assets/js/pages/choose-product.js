@@ -9,6 +9,9 @@
    DOM ELEMENTS
 ============================================================= */
 
+const FLOW_ROLE_KEY = "palprintsCreateDesignRoleContext";
+const roleAuth = window.PALPRINTS_ROLE_AUTH;
+
 const elements = {
 
     categories:
@@ -74,7 +77,9 @@ const state = {
 
     selectedSize: null,
 
-    selectedPrintAreas: []
+    selectedPrintAreas: [],
+
+    userRole: null
 
 };
 
@@ -1867,6 +1872,9 @@ function createDesignerPayload() {
         printAreaIds:
             [...state.selectedPrintAreas],
 
+        workflowRole:
+            state.userRole,
+
         editorProduct: createEditorProductSnapshot(state.selectedProduct),
 
         editorProducts: state.products
@@ -2012,4 +2020,47 @@ elements.backButton
    START APPLICATION
 ============================================================= */
 
-initializePage();
+function readAndConsumeRoleContext() {
+
+    try {
+
+        const context = JSON.parse(
+            window.sessionStorage.getItem(FLOW_ROLE_KEY) || "null"
+        );
+
+        window.sessionStorage.removeItem(FLOW_ROLE_KEY);
+
+        return context && ["designer", "customer"].includes(context.role)
+            ? context.role
+            : null;
+
+    } catch (error) {
+
+        return null;
+
+    }
+
+}
+
+
+async function initializeApplication() {
+
+    if (!roleAuth) return;
+
+    const access = await roleAuth.resolve({
+        contextRole: readAndConsumeRoleContext()
+    });
+
+    if (!access.role) {
+        roleAuth.redirectToLogin();
+        return;
+    }
+
+    state.userRole = access.role;
+    document.body.dataset.userRole = access.role;
+    initializePage();
+
+}
+
+
+void initializeApplication();
