@@ -2058,6 +2058,11 @@ async function initializeApplication() {
 
     state.userRole = access.role;
     document.body.dataset.userRole = access.role;
+    roleAuth.debug?.("choose product initialized", {
+        bodyUserRole: document.body.dataset.userRole,
+        workflowRole: state.userRole,
+        source: access.source
+    });
     initializePage();
 
 }

@@ -138,3 +138,27 @@
 
   counters.forEach((el) => observer.observe(el));
 })();
+
+(() => {
+  const cta = document.querySelector("[data-role-aware-design-cta]");
+  const roleAuth = window.PALPRINTS_ROLE_AUTH;
+  if (!cta || !roleAuth) return;
+
+  const accessPromise = roleAuth.resolve();
+  const destinationFor = role => {
+    if (role === "designer") return "choose-product.html";
+    if (role === "customer") return "storefront.html";
+    return "register.html";
+  };
+
+  void accessPromise.then(access => {
+    cta.href = destinationFor(access.role);
+  });
+
+  cta.addEventListener("click", async event => {
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    const access = await accessPromise;
+    window.location.href = destinationFor(access.role);
+  });
+})();
