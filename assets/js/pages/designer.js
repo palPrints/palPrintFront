@@ -697,7 +697,7 @@ $("redoButton").addEventListener("click", async () => {
 $("saveButton").addEventListener("click", () => { if (persistDesignerState()) showToast("تم حفظ التصميم"); });
 $("previewButton").addEventListener("click", () => {
     if (!persistDesignerState()) return;
-    window.location.href = "review.html";
+      window.location.href = "productPreview.html";
 });
 
 function clamp(value, minimum, maximum) { return Math.min(maximum, Math.max(minimum, value)); }

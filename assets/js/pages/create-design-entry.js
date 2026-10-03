@@ -32,6 +32,11 @@
     });
 
     const access = await accessPromise;
+    roleAuth.debug?.("designer dashboard entry", {
+      pageRole,
+      resolvedRole: access.role,
+      source: access.source
+    });
     if (!access.role) {
       roleAuth.redirectToLogin();
       return;

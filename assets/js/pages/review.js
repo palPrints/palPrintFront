@@ -331,7 +331,7 @@ window.addEventListener("resize", () => renderTexts(areaDesign().texts || []));
 $("zoomIn").addEventListener("click", () => setZoom(state.zoom + .1));
 $("zoomOut").addEventListener("click", () => setZoom(state.zoom - .1));
 $("fitButton").addEventListener("click", () => setZoom(1));
-$("backToEditor").addEventListener("click", () => { saveReviewLocally(); window.location.href = "designer.html"; });
+$("backToEditor").addEventListener("click", () => { saveReviewLocally(); window.location.href = "design-studio.html"; });
 $("designName").addEventListener("input", event => { state.designName = event.target.value; $("nameCount").textContent = state.designName.length; updateValidation(); });
 $("sellingPrice").addEventListener("input", updateProfit);
 $("rightsCheck").addEventListener("change", event => { state.rightsConfirmed = event.target.checked; updateValidation(); });
