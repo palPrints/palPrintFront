@@ -272,7 +272,8 @@
     });
 
     storeSidebar.addEventListener("click", (event) => {
-      if (event.target.closest("a") && isMobile()) closeSidebar();
+      const link = event.target.closest("a");
+      if (link && !link.matches(".store-brand") && isMobile()) closeSidebar();
     });
 
     if (sidebarLogout) {

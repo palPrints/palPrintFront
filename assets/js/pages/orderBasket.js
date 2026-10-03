@@ -28,7 +28,7 @@
   toggle.addEventListener("click",()=>setSidebar(!sidebar.classList.contains("is-open")));
   closeButton.addEventListener("click",()=>setSidebar(false));
   backdrop.addEventListener("click",()=>setSidebar(false));
-  sidebar.addEventListener("click",event=>{if(event.target.closest("a")&&mobileScreen.matches)setSidebar(false)});
+  sidebar.addEventListener("click",event=>{const link=event.target.closest("a");if(link&&!link.matches(".store-brand")&&mobileScreen.matches)setSidebar(false)});
   mobileScreen.addEventListener("change",()=>setSidebar(false));
   document.addEventListener("keydown",event=>{if(event.key==="Escape"&&sidebar.classList.contains("is-open")){setSidebar(false);toggle.focus()}});
 
