@@ -69,7 +69,7 @@
     }
   ];
 
-  const previewPageUrl = "productPreview.html";
+  const previewPageUrl = "product-preview.html";
   const fallbackImage = "assets/images/cup.webp";
   const favoritesStorageKey = "palprints-mug-favorites";
   const grid = document.getElementById("productGrid");

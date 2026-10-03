@@ -389,7 +389,7 @@
   function editorUrl(item) {
     return (
       item.editorUrl ||
-      "design-studio.html?designId=" + encodeURIComponent(item.id)
+      "designer.html?designId=" + encodeURIComponent(item.id)
     );
   }
 

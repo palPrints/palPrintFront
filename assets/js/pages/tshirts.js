@@ -9,7 +9,7 @@
     { id: "good-things", category: "adults", title: "تيشيرت رجال / نساء", description: "الأمور الجيدة تستغرق وقتاً", designer: "Haneen S.", price: 20, image: "assets/images/tshirts/adults-good-things.png" }
   ];
 
-  const previewPageUrl = "productPreview.html";
+  const previewPageUrl = "product-preview.html";
   const fallbackImage = "assets/images/tshirt.webp";
   const favoritesStorageKey = "palprints-tshirt-favorites";
   const grid = document.getElementById("productGrid");

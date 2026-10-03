@@ -146,10 +146,6 @@
 
   function renderRoleShell() {
     const designerMode = app.studioRole === "designer";
-    roleAuth.debug?.("shell renderer", {
-      finalRole: app.studioRole,
-      renderer: designerMode ? "designer" : "customer"
-    });
     const navigation = $("studioRoleNavigation");
     const sidebar = $("profileSidebar");
     const profileMenu = $("designerProfileMenu");
@@ -1447,17 +1443,8 @@
   }
   async function init() {
     app.selection = readSelection();
-    roleAuth.debug?.("design studio input", {
-      bodyUserRole: document.body.dataset.userRole || null,
-      workflowRole: app.selection?.workflowRole || null
-    });
     const access = await roleAuth.resolve({ contextRole: app.selection?.workflowRole });
     if (!access.role) return roleAuth.redirectToLogin();
-    roleAuth.debug?.("design studio resolved", {
-      finalRole: access.role,
-      source: access.source,
-      diagnostics: roleAuth.getDiagnostics?.()
-    });
     app.studioRole = access.role; applyRoleAwareUi(); setupSiteShell(); setupToolTabs();
     if (!elements.designCanvas || !elements.printZone || !window.fabric?.Canvas) return showError("تعذر تجهيز مساحة التصميم. أعد تحميل الصفحة وحاول مرة أخرى.");
     if (!app.selection) return showError("اختر منتجًا مهيأ من صفحة اختيار المنتجات أولًا.");
